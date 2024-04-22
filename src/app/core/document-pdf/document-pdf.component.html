@@ -1,0 +1,57 @@
+<div class="container p-3">
+    <div class="col bg-light">
+      <app-close-modal></app-close-modal>
+      <label for="">Sélectionnez une image</label>
+      <input
+        type="file"
+        accept=".pdf"
+        class="form-control"
+        (change)="fileChangeEvent($event)"
+      />
+  
+      <div class="row">
+        <p class="p-2 p-info">
+          <span class="text-danger fs-6">Information : </span>
+          <span>
+            Scroller en bas pour valider l'image
+            <i class="fa-solid fa-arrow-down-long"></i
+          ></span>
+        </p>
+        <div class="col-md-6">
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="maintainAspetRation"
+            [aspectRatio]="3.5 / 4"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded($event)"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+          ></image-cropper>
+          <h3 class="text-dark text-center">Recadrez l'image</h3>
+        </div>
+  
+        <div class="col-md-6 mt-3 bg-dark">
+          <div
+            class="w-100 d-flex justify-content-center align-items-center h-100"
+          >
+            <div>
+              <img [src]="croppedImage" width="100" alt="" class="d-bloc mt-3" />
+              <h3 class="text-light text-center">Rendu final</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <button
+          type="button"
+          (click)="onValid()"
+          [disabled]="dataLoad"
+          class="btn btn-success mb-3 w-100"
+        >
+          Valider
+        </button>
+      </div>
+    </div>
+  </div>
+  

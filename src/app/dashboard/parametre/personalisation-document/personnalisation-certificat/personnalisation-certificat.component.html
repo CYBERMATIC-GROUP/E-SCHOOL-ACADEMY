@@ -1,0 +1,83 @@
+<app-gabarit [pageTitle]="Titre">
+  <div class="col-lg-8 m-lg-auto bg-light" *ngIf="!isloadingpage; else loader">
+    <div class="row">
+      <div>
+        <div class="row">
+          <div class="col-lg-6">
+            <p
+              class="text-primary border boreder-1 fw-bold fs-5 mt-2 bg-white p-2"
+            >
+              Text par Defaut
+            </p>
+          </div>
+          <div class="col-lg-6 p-2">
+            <button
+              style="background-color: #7c57ce"
+              class="form-control text-white"
+              (click)="UpdateData()"
+              *ngIf="!isLoading; else loader"
+            >
+              Modifier <i class="fa-solid fa-spinner"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row p-0 m-0">
+        <div class="col-lg-6"></div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-md-2 col-sm-2 col-xs-12 p-0">
+              <p class="p-2 text-left fs-4">Titre :</p>
+            </div>
+            <div class="col-md-10 col-sm-10 col-xs-12 pl-0">
+              <input
+                class="form-control text-danger text-uppercase fs-5 text-center fw-bold"
+                [(ngModel)]="TitrePage"
+                [value]="TitrePage"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-5">
+        <div class="form-floating">
+          <quill-editor
+            #quillEditor
+            [(ngModel)]="content"
+            [styles]="{ height: '300px' }"
+            (ngModelChange)="onContentChange($event)"
+            (onEditorCreated)="onEditorCreated($event)"
+            (input)="onEditorInput()"
+            (click)="onEditorInput()"
+          ></quill-editor>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div style="max-height: 400px; overflow-y: auto">
+        <table class="table table-hover p-0 table-primary border table-striped-columns">
+          <tbody>
+            <ng-container *ngFor="let balise of balises; let i = index">
+              <ng-container *ngIf="i % 4 === 0; else noNewRow">
+              </ng-container>
+              <td>
+                <button class="form-control" (click)="selectBalise(balise)">
+                  {{ balise }}
+                </button>
+              </td>
+              <ng-template #noNewRow></ng-template>
+              <ng-container *ngIf="(i + 1) % 4 === 0 || i === balises.length - 1">
+                <tr>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    </div>
+</app-gabarit>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

@@ -1,0 +1,216 @@
+<app-gabarit pageTitle="Imprimer les cartes des agents">
+    <div class="container-fuild bg-light p-3">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class=" bg-light">
+            <label for="" class="text-center fw-bold">Recherche un agent ici</label>
+            <label for="" class="fw-bold" style="float: right;padding-right: 10px;">Liste des Agents</label>
+            <div class="d-flex align-items-center">
+              <input
+                type="text"
+                (keyup)="applyFilterAgent($event)"
+                placeholder="Recherchez par ici..."
+                class="form-control text-start text-uppercase"
+              />
+            </div>
+          </div>
+          <div class="">
+            <div class="mat-elevation-z8">
+              <div style="max-height: 300px; overflow-y: auto;">
+                <table
+                mat-table
+                [dataSource]="dataSourceAgent"
+                *ngIf="!isLoadingeleveByclass; else loader"
+              >
+                <!-- Position Column -->
+  
+                <ng-container matColumnDef="Fr_Nom">
+                  <th mat-header-cell *matHeaderCellDef>Nom</th>
+                  <td class="pointer" mat-cell *matCellDef="let element">
+                    {{ element.Fr_Nom }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="Fr_Prenom">
+                  <th mat-header-cell *matHeaderCellDef>Prenom</th>
+                  <td class="pointer" mat-cell *matCellDef="let element">
+                    {{ element.Fr_Prenom }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="Civilite">
+                  <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                    Sexe
+                  </th>
+                  <td class="pointer" mat-cell *matCellDef="let element">
+                    {{ element.Civilite === 1 ? "M" : "F" }}
+                  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="cocher">
+                  <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                    Cocher
+                  </th>
+                  <td class="pointer" mat-cell *matCellDef="let element">
+                    <div class="form-check" style="margin-left: 8px;">
+                      <input
+                        class="form-check-input p-2"
+                        (click)="checkLineAgent(element)"
+                        type="checkbox"
+                        [checked]="element.selected"
+                        value=""
+                        id="flexCheckDefault"
+                      >
+                    </div>
+                  </td>
+                </ng-container>
+  
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr
+                style="cursor: pointer;"
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns2"
+                  class="tr1"
+             
+                ></tr>
+              </table>
+              </div>
+            </div>
+  
+            <ng-template #loader>
+             <app-loader></app-loader>
+            </ng-template>
+          </div>
+          <div class="row mt-2 mb-2">
+            
+            <div class="col-lg-6">
+              <button
+                class="form-control text-white bg-table-color"
+                (click)="ajouterAgent()"
+              >
+                Ajouter tous agents <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+  
+            <div class="col-lg-6">
+              <button
+                class="form-control text-white bg-table-color"
+                (click)="AfficherAgent()"
+              >
+                Ajouter les agents sélectionnés
+                <i class="fa-solid fa-user-tie"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container-fuild mb-5">
+      <div class="mat-elevation-z8">
+  
+        <div style="max-height: 300px; overflow-y: auto;">
+          <table
+          mat-table
+          [dataSource]="dataSource"
+          *ngIf="!isLoadingeleves; else loader"
+        >
+          <!-- Position Column -->
+  
+          <ng-container matColumnDef="Fr_Nom">
+            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Fr_Nom }}
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Fr_Prenom">
+            <th mat-header-cell *matHeaderCellDef>Prenom</th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Fr_Prenom }}
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Civilite">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Sexe
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Civilite === 1 ? "M" : "F" }}
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Action">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Action
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+            <p><i class="fa-sharp text-danger fa-solid fa-trash" (click)="deleteRow(element)" style="margin-left: 10px;"></i></p>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+          <tr
+  
+          style="cursor: pointer;"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns3"
+            class="tr1"
+       
+            [ngClass]="{ selected: selectedRowsTable2.indexOf(row) >= 0 }"
+            style="cursor: pointer"
+          ></tr>
+        </table>
+        </div>
+      </div>
+      <div class="container-fuild bg-light p-3 mt-2">
+        <div class="row">
+          <div class="col-lg-3">
+            <button
+            style="background-color: rgb(124, 87, 206)"
+            (click)="imprimer(); clickedOnce = true;"
+            class="form-control text-white"
+            [disabled]="clickedOnce"
+          >
+            Impression des cartes des agents <i class="fa-solid fa-print"></i>
+          </button>
+          
+          </div>
+    
+          <div class="col-lg-3">
+            <button
+              style="background-color: rgb(124, 87, 206)"
+              (click)="imprimer()"
+              class="form-control text-white"
+              disabled
+            >
+              Impression fiche des agents <i class="fa-solid fa-print"></i>
+            </button>
+          </div>
+    
+          <div class="col-lg-3">
+            <button
+              style="background-color: rgb(124, 87, 206)"
+              (click)="imprimer()"
+              class="form-control text-white"
+              disabled
+            >
+              Imprime carte Agent <i class="fa-solid fa-print"></i>
+            </button>
+          </div>
+    
+          <div class="col-lg-3">
+            <button
+              style="background-color: rgb(124, 87, 206)"
+              (click)="imprimer()"
+              class="form-control text-white"
+              disabled
+            >
+              Imprime carte Agent <i class="fa-solid fa-print"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-gabarit>
+  

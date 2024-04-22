@@ -1,0 +1,118 @@
+<div class="container-fuild p-3">
+  <div class="bg-light">
+    <p class="p-2"><span class="text-danger">Information :  </span> <span>Cliquer sur une ligne pour selectionner un agent puis cliquer sur ajouter une absence</span> </p>
+  </div>
+  <div class="row bg-light mt-2">
+    <div class="col-lg-6">
+      <button
+         type="button"
+        (click)="createAbsenceAgentSelected()"
+        style="background-color: #533789"
+        class="form-control text-white"
+      >
+        Ajouter une absence <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+    <div class="col-lg-6">
+      <app-close-modal></app-close-modal>
+    </div>
+  </div>
+  <div
+    class="mat-elevation-z8 mt-3"
+    style="max-height: 400px; overflow-y: auto"
+  >
+    <table mat-table [dataSource]="dataSource" *ngIf="!isloading; else loader">
+      <ng-container matColumnDef="Fr_Nom">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>Nom</th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': agentSelected == element,
+            cursor: agentSelected
+          }"
+        >
+          {{ element.Fr_Nom }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Fr_Prenom">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          prénom
+        </th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': agentSelected == element,
+            cursor: agentSelected
+          }"
+        >
+          {{ element.Fr_Prenom }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Civilite">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>Sexe</th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': agentSelected == element,
+            cursor: agentSelected
+          }"
+        >
+          {{ element.Civilite === 1 ? "M" : "F" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="DateNaissance">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Date de naissance
+        </th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': agentSelected == element,
+            cursor: agentSelected
+          }"
+        >
+          {{this.convertToValideDateDMY(element.DateNaissance)}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Fr_LieuNaissance">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Lieu de naissance
+        </th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': agentSelected == element,
+            cursor: agentSelected
+          }"
+        >
+          {{ element.Fr_LieuNaissance }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

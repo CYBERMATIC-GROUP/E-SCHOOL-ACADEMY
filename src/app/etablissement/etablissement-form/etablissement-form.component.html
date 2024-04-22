@@ -1,0 +1,236 @@
+<app-gabarit>
+<div class=" mb-4 ">
+  <div class="row" *ngIf="!isLoading; else loader">
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body ">
+            <h3 class="text-left" style="background-color:#7c57ce;padding-left: 10px;" >
+              <h2 class="text-white">
+                {{ action === "view" ? "Fiche de l'établissement" : "" }}
+                {{ action === "edit" ? "Modification de l'établissement" : "" }}
+                {{ action === "view" || action === "edit" ? Fr_NomEtab : "" }}
+                {{ !action ? "Ajouter un nouveau établissement" : "" }}
+              </h2>
+            </h3>
+
+            <p></p>
+            <form
+              #societeForm="ngForm"
+              (ngSubmit)="onSubmitSociete(societeForm)"
+              class="m-auto mt-5"
+            >
+              <div class="">
+                <span>Logo</span>
+                <div class="row gap-0">
+                  <div class="col-lg-6">
+
+                    <div class="logo  border bg-light rounded">
+
+                      <div class="w-50 bg-light m-auto">
+                        <img
+                          [src]="imageSrc"
+                          class="w-100"
+                          alt=""
+                        />
+                      </div>
+                      <input
+                        [readonly]="action == 'view'"
+                        type="file"
+                        class="form-control mt-2"
+                        name="Logo"
+                        [(ngModel)]="Logo"
+                        required=""
+                        (change)="onFileSelected($event)"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="mb-3">
+                      <label for="validationCustom02" class="form-label label">
+                        Code établissement</label
+                      >
+                      <input
+                        [readonly]="true"
+                        type="text"
+                        class="form-control"
+                        name="CodeEtab"
+                        [(ngModel)]="CodeEtab"
+                        required=""
+                      />
+                    </div>
+
+                    <div class="mt-3">
+                      <label for="validationCustom02" class="form-label label">
+                        Nom</label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control"
+                        name="Fr_NomEtab"
+                        [(ngModel)]="Fr_NomEtab"
+                        required=""
+                      />
+                    </div>
+
+                    <div class="mt-3">
+                      <label for="validationCustom02" class="form-label label mt-3">
+                        Téléphone</label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control"
+                        name="Telephone"
+                        [(ngModel)]="Telephone"
+                        required=""
+                      />
+
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row gap-0 mt-4">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                          <label for="validationCustom02" class="form-label label">
+                            Email</label
+                          >
+                          <input
+                            [readonly]="action == 'view'"
+                            type="text"
+                            class="form-control"
+                            name="Courriel"
+                            [(ngModel)]="Courriel"
+                            required=""
+                          />
+                        </div>
+
+                        <div class="">
+                          <label for="validationCustom02" class="form-label label">
+                            Licence</label
+                          >
+                          <input
+                            [readonly]="action == 'view'"
+                            type="text"
+                            class="form-control"
+                            name="Licence"
+                            [(ngModel)]="Licence"
+                            required=""
+                          />
+                        </div>
+
+                        <div class="">
+                          <label for="validationCustom02" class="form-label label">
+                           Adresse</label
+                          >
+                          <input
+                            [readonly]="action == 'view'"
+                            type="text"
+                            class="form-control"
+                            name="Fr_Adresse1"
+                            [(ngModel)]="Fr_Adresse1"
+                            required=""
+                          />
+
+
+                        </div>
+                      </div>
+                    <div class="col-lg-6">
+                      <div class="mb-3">
+                        <label for="validationCustom02" class="form-label label">
+                            Departement</label
+                        >
+                        <input
+                          [readonly]="action == 'view'"
+                          type="text"
+                          class="form-control"
+                          name="Fr_Departement"
+                          [(ngModel)]="Fr_Departement"
+                          required=""
+                        />
+                      </div>
+
+                      <div class="">
+                        <label for="validationCustom02" class="form-label label">
+                            Pays</label
+                        >
+                        <input
+                          [readonly]="action == 'view'"
+                          type="text"
+                          class="form-control"
+                          name="Pays"
+                          [(ngModel)]="Pays"
+                          required=""
+                        />
+                      </div>
+
+                      <div class="">
+                        <label for="validationCustom02" class="form-label label">
+                            Ville</label
+                        >
+                        <input
+                          [readonly]="action == 'view'"
+                          type="text"
+                          class="form-control"
+                          name="Fr_Ville"
+                          [(ngModel)]="Fr_Ville"
+                          required=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                          <div class="col-12 p-0 m-0">
+                        <label for="validationCustom02" class="form-label label mt-3">
+                            Site internet</label
+                        >
+                        <input
+                          [readonly]="action == 'view'"
+                          type="text"
+                          class="form-control"
+                          name="SiteInternet"
+                          [(ngModel)]="SiteInternet"
+                          required=""
+                        />
+                      </div>
+
+                <div class="mt-3">
+                  <div class="col-lg-12 p-0 m-0">
+                    <div class="">
+                      <button
+                        type="submit"
+                        *ngIf="!isLoading2; else loading"
+                        [disabled]="!isFormValid()"
+                        class="btn text-white form-control"
+                        style="background-color:#7c57ce;"
+                      >
+                        {{
+                          action === "edit"
+                            ? "Modifier"
+                            : "creer"
+                        }}
+
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <ng-template #loading>
+              <app-loader></app-loader>
+              </ng-template>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #loader>
+     <app-loader></app-loader>
+    </ng-template>
+</div>
+</app-gabarit>

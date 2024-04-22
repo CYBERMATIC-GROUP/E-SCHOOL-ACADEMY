@@ -1,0 +1,240 @@
+<app-gabarit pageTitle="Gestion des frais scolaires">
+
+  <div class="container-fuild bg-light rounded p-3" *ngIf="!isLoading; else loader">
+    <div class="row">
+
+      <div class="col-lg-6">
+        <div class="col-lg-12 bg-white p-2" style="padding-left: 0px;"><p>Liste des Niveaux <i class="fa-solid fa-user-shield"></i></p></div>
+        <div style="max-height: 300px; overflow-y: auto">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource1">
+              <!-- Position Column -->
+              <ng-container matColumnDef="CodeNiveau">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Code Niveau
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.CodeNiveau }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="NomNiveau">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Niveau
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.NomNiveau }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Action">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Cocher
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <div class="form-check" style="margin-left: 5px">
+                    <input
+                    class="form-check-input p-2"
+                    type="radio"
+                    name="flexRadioDefault"
+                    [checked]="element.isChecked"
+                    (click)="CheckNiveau(element)"
+                    id="{{ 'flexRadioDefault' + element.CodeNiveau }}"
+                  />
+
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+              <tr
+                mat-row
+                *matRowDef="let element; columns: displayedColumns1"
+              ></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="col-lg-12 bg-white p-2" style="padding-left: 0px;"><p>Liste des Branches <i class="fa-solid fa-user-graduate"></i></p></div>
+
+        <div style="max-height: 300px; overflow-y: auto">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource2">
+              <!-- Position Column -->
+
+              <ng-container matColumnDef="CodeBranche">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Code Branche
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.CodeBranche }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="NomBranche">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Branche
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.NomBranche }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Action">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Cocher
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <div class="form-check" style="margin-left: 5px">
+                    <input
+                      class="form-check-input p-2"
+                      (click)="CheckBranche(element)"
+                      type="radio"
+                      [checked]="element.isChecked"
+                      name="flexRadioDefaul1"
+                      id="{{ 'flexRadioDefaul' + element.CodeBranche}}"
+                    />
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+              <tr
+                mat-row
+                *matRowDef="let element; columns: displayedColumns2"
+              ></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="" class="text-center mx-1">Recherche</label>
+            <div class="d-flex align-items-center">
+
+              <i  style="position: absolute" class="fa-solid p-3 fs-4 fa-magnifying-glass"></i>
+
+              <input
+                type="text"
+                placeholder="Recherchez par ici..."
+                class="form-control shadow text-start px-5 text-uppercase"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <button
+              class="form-control text-white button"
+              style="
+                cursor: pointer;
+                margin-top: 28px;
+                float: right;
+                background-color: #7c57ce;
+              "
+              (click)="create()"
+            >
+              Ajouter un produit
+              <i class="fa-brands fs-4 fa-shopify" style="padding-left: 10px;"></i>
+            </button>
+          </div>
+          <div class="col-md-4">
+            <button
+              class="form-control text-white button bg-primary"
+              style="
+                cursor: pointer;
+                margin-top: 28px;
+                float: right;
+              "
+              *ngIf="!fraisFormisLoadingResolver; else loader"
+              (click)="fraisFormisLoadingResolver = true"
+              routerLink="/formulaire/produit/modification/0"
+            >
+              Ajouter les frais généraux
+              <i class="fa-brands fs-4 fa-shopify" style="padding-left: 10px;"></i>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div class="mat-elevation-z8"  style="max-height: 500px; overflow-y: auto">
+            <table
+              mat-table
+              [dataSource]="dataSource3"
+              *ngIf="!isLoadingliste; else loader"
+            >
+              <!-- Position Column -->
+
+              <ng-container matColumnDef="CodeProduit">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Code
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.CodeProduit }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="LibelleProduit_Fr">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Libelle
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.LibelleProduit_Fr }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Montant">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Montant
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ formatPrix(element.Montant) }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Action">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Actions
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <button
+                    type="button"
+                    (click)="view(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i class="fa fa-eye text-black" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="edit(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i
+                      class="fa fa-pencil"
+                      style="color: rgb(124, 87, 206)"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns3"></tr>
+            </table>
+          </div>
+          <mat-paginator
+          [pageSizeOptions]="[20, 40, 60]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+
+</app-gabarit>

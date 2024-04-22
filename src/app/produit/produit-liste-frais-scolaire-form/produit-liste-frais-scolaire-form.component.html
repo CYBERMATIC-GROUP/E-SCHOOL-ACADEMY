@@ -1,0 +1,71 @@
+<div class="container m-1" style="width: 40em">
+  <div class="row">
+
+    <div class="">
+      <h1 class="text-end bg-light" [mat-dialog-close]="false"   (click)="dialog.closeAll()" style="padding-right: 10px;cursor: pointer;">
+        Fermer <i class="fa-sharp fa-solid fa-arrow-right"></i>
+    </h1>
+
+    <div class="mb-2">
+      <button
+        type="button"
+        style="background-color: rgb(124, 87, 206)"
+        class="form-control text-white"
+        (click)="valider()"
+      >
+        Valider <i class="fa-solid fa-floppy-disk"></i>
+      </button>
+    </div>
+    <div style="max-height: 340px; overflow-y: auto">
+      <div class="mat-elevation-z8">
+        <table
+          class="border"
+          mat-table
+          [dataSource]="dataSource"
+          *ngIf="!isLoading; else loader"
+        >
+          <!-- Position Column -->
+          <ng-container matColumnDef="CodeProduit">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Code
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.CodeProduit }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Montant">
+            <th class="bg-color-primary text-center" mat-header-cell *matHeaderCellDef>
+              Montant
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              <input
+                #montantInput
+                [(ngModel)]="element.Montant"
+                type="text"
+                style="height: 30px;"
+                placeholder="Saisir le montant"
+                class="form-control"
+                (blur)="onMontantBlur(element)"
+              />
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Libelle">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Libelle
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Libelle }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns" [class.hidden]="element.Libelle.trim() === ''"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

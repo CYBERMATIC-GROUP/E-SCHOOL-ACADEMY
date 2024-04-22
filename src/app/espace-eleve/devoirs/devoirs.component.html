@@ -1,0 +1,93 @@
+<app-gabarie-eleve>
+    <div class="container-fuild p-3 bg-light">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex align-items-center mb-2">
+                  <i
+                    style="position: absolute"
+                    class="fa-solid fa-map-marked-alt p-3 text-success"
+                  ></i>
+                  <input
+                    type="text"
+                    (keyup)="applyFilter($event)"
+                    placeholder="Recherchez par ici..."
+                    class="form-control text-start px-5 text-uppercase"
+                  />
+                </div>
+          </div>
+        </div>
+
+        <div class="mat-elevation-z8" style="max-height: 400px; overflow-y: auto">
+          <table mat-table [dataSource]="dataSource" *ngIf="(devoirs$ | async); else loader">
+            <ng-container matColumnDef="Titre">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Titre
+              </th>
+              <td class="pointer" (click)="onClickLine(element)" mat-cell *matCellDef="let element">
+                {{ element.Titre }}
+              </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="Sujet">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Sujet
+              </th>
+              <td class="pointer" (click)="onClickLine(element)" mat-cell *matCellDef="let element">
+                <div [innerHTML]="element.Sujet"></div>
+              </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="DateCorrection">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Date de Correction
+              </th>
+              <td class="pointer" (click)="onClickLine(element)" mat-cell *matCellDef="let element">
+                {{convertToValideDate(element.DateCorrection )}}
+              </td>
+            </ng-container>
+      
+            <!-- <ng-container matColumnDef="Consigne">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Consigne
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.Consigne }}
+              </td>
+            </ng-container> -->
+      
+            <ng-container matColumnDef="CLASSE">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                CLASSE
+              </th>
+              <td class="pointer" (click)="onClickLine(element)" mat-cell *matCellDef="let element">
+                {{ element.CLASSE }}
+              </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="MATIERE">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Matière
+              </th>
+              <td class="pointer" (click)="onClickLine(element)" mat-cell *matCellDef="let element">
+                {{ element.MATIERE }}
+              </td>
+            </ng-container>
+      
+            <ng-container matColumnDef="ENSEIGNANT">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                ENSEIGNANT
+              </th>
+              <td class="pointer" (click)="onClickLine(element)" mat-cell *matCellDef="let element">
+                {{ element.ENSEIGNANT }}
+              </td>
+            </ng-container>
+      
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </div>
+      <ng-template #loader>
+        <app-loader></app-loader>
+      </ng-template>
+</app-gabarie-eleve>

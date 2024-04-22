@@ -1,0 +1,63 @@
+<div class="row">
+ <div>
+  <app-close-modal></app-close-modal>
+ </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-left" style="width: 26em">
+            <h2 class="">
+              {{ action === "view" ? "Fiche notification " : "" }}
+              {{ action === "edit" ? "notification " : "" }}
+              {{ action === "view" || action === "edit" ? Titre : "" }}
+              {{ !action ? "Ajouter une notification " : "" }}
+            </h2>
+          </h3>
+          <form
+            #natonaliteForm="ngForm"
+            (ngSubmit)="onSubmitForm(natonaliteForm)"
+            class="g-3 needs-validation"
+          >
+  
+            <div class="mt-3">
+              <label for="validationCustom01" class="form-label">Titre</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="Titre"
+                [(ngModel)]="Titre"
+                required=""
+              />
+            </div>
+
+            <div class="mt-3">
+                <label for="validationCustom01" class="form-label">Contenu</label>
+                <input
+                  [readonly]="action == 'view'"
+                  type="text"
+                  class="form-control hauteur hauteur"
+                  name="Contenu"
+                  [(ngModel)]="Contenu"
+                  required=""
+                />
+              </div>
+  
+            <div class="mt-3 m-auto" *ngIf="action != 'view'">
+              <button
+                type="submit"
+                class="btn form-control btn-primary"
+                *ngIf="!isLoading;else loading"
+              >
+                {{ action === "edit" ? "Modifier " : "Valider" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+   <app-loader></app-loader>
+  </ng-template>
+  

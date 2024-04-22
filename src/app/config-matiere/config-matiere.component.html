@@ -1,0 +1,315 @@
+<app-gabarit pageTitle="Configuration des matières">
+  <div
+    class="container-fuild bg-light rounded p-3"
+    *ngIf="!isLoading; else loader"
+  >
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="col-lg-12 bg-white p-2" style="padding-left: 0px">
+          <p>Liste des Niveaux <i class="fa-solid fa-user-shield"></i></p>
+        </div>
+        <div style="max-height: 250px; overflow-y: auto">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource1">
+              <!-- Position Column -->
+              <ng-container matColumnDef="CodeNiveau">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Code Niveau
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.CodeNiveau }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="NomNiveau">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Niveau
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.NomNiveau }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Action">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Cocher
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <div class="form-check" style="margin-left: 5px">
+                    <input
+                      class="form-check-input p-2"
+                      type="radio"
+                      name="flexRadioDefault"
+                      [checked]="element.isChecked"
+                      (click)="CheckNiveau(element)"
+                      id="{{ 'flexRadioDefault' + element.CodeNiveau }}"
+                    />
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns1;sticky:true"></tr>
+              <tr
+                mat-row
+                *matRowDef="let element; columns: displayedColumns1"
+              ></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="col-lg-12 bg-white p-2" style="padding-left: 0px">
+          <p>Liste des Branches <i class="fa-solid fa-user-graduate"></i></p>
+        </div>
+
+        <div style="max-height: 250px; overflow-y: auto">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource2">
+              <!-- Position Column -->
+
+              <ng-container matColumnDef="CodeBranche">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Code Branche
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.CodeBranche }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="NomBranche">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Branche
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.NomBranche }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Action">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Cocher
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <div class="form-check" style="margin-left: 5px">
+                    <input
+                      class="form-check-input p-2"
+                      (click)="CheckBranche(element)"
+                      type="radio"
+                      [checked]="element.isChecked"
+                      name="flexRadioDefaul1"
+                      id="{{ 'flexRadioDefaul' + element.CodeBranche }}"
+                    />
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns2;sticky:true"></tr>
+              <tr
+                mat-row
+                *matRowDef="let element; columns: displayedColumns2"
+              ></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-6">
+            <label for="" class="text-center mx-1">Recherche</label>
+            <div class="d-flex align-items-center">
+              <i
+                style="position: absolute"
+                class="fa-solid p-3 fs-4 fa-magnifying-glass"
+              ></i>
+
+              <input
+                type="text"
+                placeholder="Recherchez par ici..."
+                class="form-control shadow text-start px-5 text-uppercase"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <button
+              class="btn btn-success text-white w-100"
+              style="
+                cursor: pointer;
+                margin-top: 28px;
+                float: right;
+              "
+              (click)="create()"
+            >
+              Ajouter une Matière
+              <i class="fa-solid fs-5 fa-book" style="padding-left: 10px"></i>
+            </button>
+          </div>
+        </div>
+        <div class="mt-4" style="max-height: 350px; overflow-y: auto">
+          <div class="mat-elevation-z8">
+            <table
+              mat-table
+              [dataSource]="dataSource3"
+              *ngIf="!isLoadingliste; else loader"
+            >
+              <!-- Position Column -->
+
+              <ng-container matColumnDef="NomMatiere">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Matière
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  {{ element.NomMatiere }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="EnseigneePeriode1" class="text-center">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  TRI1
+                </th>
+                <td class="pointer mx-1" mat-cell *matCellDef="let element">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input p-2"
+                      type="checkbox"
+                      disabled
+                      style="margin-left: -15px !important"
+                      [checked]="element.EnseigneePeriode1"
+                      id="flexCheckDefault"
+                    />
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="EnseigneePeriode2" class="text-center">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  TRI2
+                </th>
+                <td class="pointer mx-1" mat-cell *matCellDef="let element">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input p-2"
+                      type="checkbox"
+                      disabled
+                      style="margin-left: -15px !important"
+                      [checked]="element.EnseigneePeriode2"
+                      id="flexCheckDefault"
+                    />
+                  </div>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="EnseigneePeriode3" class="text-center">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  TRI3
+                </th>
+                <td class="pointer mx-1" mat-cell *matCellDef="let element">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input p-2"
+                      type="checkbox"
+                      disabled
+                      style="margin-left: -15px !important"
+                      [checked]="element.EnseigneePeriode3"
+                      id="flexCheckDefault"
+                    />
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="EnseigneeEnGroupe">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Enseignée <br> En Groupe
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <input
+                    class="form-check-input p-2"
+                    type="checkbox"
+                    disabled
+                    style="margin-left: 30px !important"
+                    [checked]="element.EnseigneeEnGroupe"
+                    id="flexCheckDefault"
+                  />
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="nbreHeureSemaine">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Nombre heures <br> par sémaine
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <p style="padding-left: 30px">
+                    {{ element.nbreHeureSemaine }}
+                  </p>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="nbreHeureMaxiJour">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Nombre heure <br> maximum par jour
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <p style="padding-left: 30px">
+                    {{ element.nbreHeureMaxiJour }}
+                  </p>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Coefficient">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Coéfficient
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <p style="padding-left: 20px">{{ element.Coefficient }}</p>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="CoefBorneMax">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Coéfficient <br> Borne Max
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <p style="padding-left: 20px">{{ element.CoefBorneMax }}</p>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Actions">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Actions
+                </th>
+                <td class="pointer" mat-cell *matCellDef="let element">
+                  <button
+                    type="button"
+                    (click)="view(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i class="fa fa-eye text-black" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="edit(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i
+                      class="fa fa-pencil"
+                      style="color: rgb(124, 87, 206)"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns3;sticky:true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns3"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+</app-gabarit>

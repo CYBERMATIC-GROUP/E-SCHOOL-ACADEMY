@@ -1,0 +1,489 @@
+<div class="container-fuild" style="height: 35em;" *ngIf="!isLoadingpage;else loader">
+  <div class="row p-3 ">
+    <div class="col-lg-6" >
+      <h3 class="card-title text-left">
+        <h2 class="">
+          {{ action === "view" ? "Fiche de la Matière " : "" }}
+          {{ action === "edit" ? "Modifier la Matière" : "" }}
+          {{ action === "create" ? "Configuration de la matière : " : "" }}
+          {{ action === "view" || action === "edit" || action === "create" ? NomMatiere : "" }}
+
+        </h2>
+      </h3>
+    </div>
+    <div class="col-lg-6 d-none d-lg-block">
+      <p class="text-right" style="float: right">
+        <li
+          class="nav-item bg-light fs-5 rounded text-right"
+          *ngIf="action != 'view'"
+          style="list-style: none; width: 150px"
+        >
+          <a
+            class="nav-link text-dark"
+            (click)="dialog.closeAll()"
+            style="cursor: pointer; padding-left: 10px"
+          >
+            ANNULER
+            <i class="fa-solid fa-x text-danger" style="padding-left: 10px"></i>
+          </a>
+        </li>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <form
+            #configmatiere="ngForm"
+            (ngSubmit)="onSubmitForm(configmatiere)"
+            class="g-3 needs-validation"
+          >
+
+          <div class="row mt-4">
+            <div class="col-lg-3">
+              <div class="form-check">
+                <input
+                  [disabled]="action === 'create'"
+                  class="form-check-input"
+                  type="checkbox"
+                  name="EnseigneeOui"
+                  [(ngModel)]="EnseigneeOui"
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Enseignée
+                </label>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="form-check">
+                <input
+                  [readonly]="action == 'view'"
+                  class="form-check-input"
+                  type="checkbox"
+                  name="EnseigneePeriode1"
+                  [(ngModel)]="EnseigneePeriode1"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Enseignée Période 1
+                </label>
+              </div>
+            </div>
+
+
+            <div class="col-lg-3">
+              <div class="form-check">
+                <input
+                  [readonly]="action == 'view'"
+                  class="form-check-input"
+                  type="checkbox"
+                  name="EnseigneePeriode2"
+                  [(ngModel)]="EnseigneePeriode2"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Enseignée Période 2
+                </label>
+              </div>
+            </div>
+
+
+            <div class="col-lg-3">
+              <div class="form-check">
+                <input
+                  [readonly]="action == 'view'"
+                  class="form-check-input"
+                  type="checkbox"
+                  name="EnseigneePeriode3"
+                  [(ngModel)]="EnseigneePeriode3"
+                  value=""
+                  id="flexCheckDefault"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                  Enseignée Période 3
+                </label>
+              </div>
+            </div>
+
+
+          </div>
+
+            <div class="row mt-3">
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Code Matière</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="text"
+                  class="form-control"
+                  name="CodeMatiere"
+                  [(ngModel)]="CodeMatiere"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Nom Matière</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="text"
+                  class="form-control"
+                  name="NomMatiere"
+                  [(ngModel)]="NomMatiere"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Nombre Heure Semaine</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="nbreHeureSemaine"
+                  [(ngModel)]="nbreHeureSemaine"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Nombre Heure Maxi Jour</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="text"
+                  class="form-control"
+                  name="nbreHeureMaxiJour"
+                  [(ngModel)]="nbreHeureMaxiJour"
+                  required=""
+                />
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Nombre Minimum Successif</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="nbreMinimumSuccessif"
+                  [(ngModel)]="nbreMinimumSuccessif"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Coefficient</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="Coefficient"
+                  [(ngModel)]="Coefficient"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >GROUPES Matière</label
+                >
+
+                <select class="form-select"  name="IDGROUPESMATIERES"
+                [(ngModel)]="IDGROUPESMATIERES" aria-label="Default select example">
+                <option disabled>Filtrer par Arrondissement</option>
+                <option
+                  *ngFor="let matiere of Groupematiere"
+                  [value]="matiere.IDGROUPESMATIERES"
+                >
+                  {{ matiere.Libelle }}
+                </option>
+
+                  </select>
+
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Nomrbre Credits</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="NbreCredits"
+                  [(ngModel)]="NbreCredits"
+                  required=""
+                />
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Moyenne Minimum de Validation</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="MoyenneMinValidation"
+                  [(ngModel)]="MoyenneMinValidation"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Volume Horaire Cours Theoriques</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="VolumeHoraireCoursTheoriques"
+                  [(ngModel)]="VolumeHoraireCoursTheoriques"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Volume Horaire Travaux Pratiques</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="VolumeHoraireTravauxPratiques"
+                  [(ngModel)]="VolumeHoraireTravauxPratiques"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Volume Horaire Travaux Diriges</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="VolumeHoraireTravauxDiriges"
+                  [(ngModel)]="VolumeHoraireTravauxDiriges"
+                  required=""
+                />
+              </div>
+            </div>
+
+              <div class="row mt-3">
+
+                     <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Volume Horaire Evaluations</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="VolumeHoraireEvaluations"
+                  [(ngModel)]="VolumeHoraireEvaluations"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Volume Horaire Etudiant</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="VolumeHoraireEtudiant"
+                  [(ngModel)]="VolumeHoraireEtudiant"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Volume Horaire Stage</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="VolumeHoraireStage"
+                  [(ngModel)]="VolumeHoraireStage"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Volume Horaire Total</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="VolumeHoraireTotal"
+                  [(ngModel)]="VolumeHoraireTotal"
+                  required=""
+                />
+              </div>
+
+
+            </div>
+
+
+              <div class="row mt-3">
+
+                     <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Objectif Matière</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="ObjectifMatiere"
+                  [(ngModel)]="ObjectifMatiere"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Matieres Du Groupement</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="IDMatieresDuGroupement"
+                  [(ngModel)]="IDMatieresDuGroupement"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >CoefBorneMax</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="CoefBorneMax"
+                  [(ngModel)]="CoefBorneMax"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-3">
+                <label for="validationCustom01" class="form-label label"
+                  >Volume Horaire Total</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="number"
+                  class="form-control hauteur hauteur"
+                  name="VolumeHoraireTotal"
+                  [(ngModel)]="VolumeHoraireTotal"
+                  required=""
+                />
+              </div>
+
+
+            </div>
+
+            <div class="row mt-4">
+
+              <div class="col-lg-3">
+                <div class="form-check">
+                  <input
+                    [readonly]="action == 'view'"
+                    class="form-check-input"
+                    type="checkbox"
+                    name="EnseigneeEnGroupe"
+                    [(ngModel)]="EnseigneeEnGroupe"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Enseignée en Groupe
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-check">
+                  <input
+                    [readonly]="action == 'view'"
+                    class="form-check-input"
+                    type="checkbox"
+                    name="Essentielle"
+                    [(ngModel)]="Essentielle"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Essentielle
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="form-check">
+                  <input
+                    [readonly]="action == 'view'"
+                    class="form-check-input"
+                    type="checkbox"
+                    name="IDMatieresDuGroupement_Defaut"
+                    [(ngModel)]="IDMatieresDuGroupement_Defaut"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Matières Du Groupement Defaut
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3 m-auto" *ngIf="action != 'view'">
+              <button
+                type="submit"
+                *ngIf="!isLoading;else loader"
+                class="btn text-white form-control"
+                style="background-color: #7c57ce;"
+              >
+                {{ action === "edit" ? "Modifier " : "Valider" }} <i class="fa-solid fa-arrows-rotate"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loader>
+  <app-loader></app-loader>
+  </ng-template>

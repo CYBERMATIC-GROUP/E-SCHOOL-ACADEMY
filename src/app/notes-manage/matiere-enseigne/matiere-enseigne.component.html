@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div *ngIf="!forceCombo" class="mat-elevation-z8 content-table d-none d-md-block"  [ngStyle]="{'max-height': maxHeight}">
+    <table
+      mat-table
+      *ngIf="(matiereList$ | async) as matieres; else loader"
+      [dataSource]="matieres"
+    >
+      <!-- Position Column -->
+
+      <ng-container matColumnDef="Fr_CodeMatiere">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Code
+        </th>
+        <td class="pointer" (click)="emitMatiere(element)" [ngClass]="{selected: matiereSelected == element}" mat-cell *matCellDef="let element">
+          {{ element.Fr_CodeMatiere }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Fr_NomMatiere">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Matière
+        </th>
+        <td class="pointer" (click)="emitMatiere(element)" [ngClass]="{selected: matiereSelected == element}" mat-cell *matCellDef="let element">
+          {{ element.Fr_NomMatiere }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="enseignant">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Enseignant
+        </th>
+        <td class="pointer" (click)="emitMatiere(element)" [ngClass]="{selected: matiereSelected == element}" mat-cell *matCellDef="let element">
+          {{ element.Fr_Nom ?? '-' + ' ' + element.Fr_Prenom ?? '-'  }}
+        </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+
+  <div class="col" [ngClass]="{'d-md-none': !forceCombo}">
+    <select class="form-select" aria-label="Default select example" *ngIf="(matiereList$ | async) as matieres; else loader" (change)="emitMatiereFromSelect($event, matieres)">
+      <option selected disabled>Sélectionnez la matière</option>
+      <option [value]="matiere.IDMATIERE" *ngFor="let matiere of matieres">
+        {{ matiere.Fr_CodeMatiere }} / {{ matiere.Fr_NomMatiere }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

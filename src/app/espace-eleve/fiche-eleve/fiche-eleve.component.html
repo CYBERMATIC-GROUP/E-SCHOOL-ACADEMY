@@ -1,0 +1,269 @@
+<app-gabarie-eleve>
+  <div class="container m-auto bg-light p-1">
+    <div class="col-lg-12 rounded bg-white pt-2">
+      <div class="row">
+        <div class="col-6 p-0 m-0">
+          <h3 class="" style="padding-left: 10px">Elève connecté</h3>
+        </div>
+        <div class="col-6 p-0 m-0 text-end">
+          <p
+            class="text-end bg-success"
+            style="
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              float: right;
+              margin-right: 10px !important;
+            "
+          ></p>
+        </div>
+      </div>
+    </div>
+    <div class="form">
+      <form action="">
+        <div class="content mt-3">
+          <span class="text-on-border">Identités de l'élève</span>
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="row">
+                <div class="w-100 pt-3 m-md-auto">
+                  <img
+                    *ngIf="!photoIsLoading; else loader"
+                    [src]="photo"
+                    style="width: 17em"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-9">
+              <label for="" class="mt-2">Code élève</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa-solid fa-user"></i
+                ></span>
+                <input
+                  type="text"
+                  readonly
+                  [value]="eleve.CodeEleve"
+                  class="form-control"
+                />
+              </div>
+
+              <label for="" class="mt-2">Nom</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa-solid fa-user"></i
+                ></span>
+                <input
+                  type="text"
+                  readonly
+                  [value]="eleve.Fr_Nom"
+                  class="form-control"
+                />
+              </div>
+
+              <label for="" class="">Prénom</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"
+                  ><i class="fa-solid fa-user"></i
+                ></span>
+                <input
+                  type="text"
+                  readonly
+                  [value]="eleve.Fr_Prenom"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+
+          <label for="" class="mt-3">Date de naissance</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"
+              ><i class="fa-solid fa-calendar"></i
+            ></span>
+            <input
+              type="text"
+              readonly
+              [value]="DateNaissance"
+              class="form-control"
+            />
+          </div>
+
+          <label for="" class="">Lieu de naissance</label>
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"
+              ><i class="fa-solid fa-layer-group"></i
+            ></span>
+            <input
+              type="text"
+              readonly
+              [value]="eleve.Fr_LieuNaissance"
+              class="form-control"
+            />
+          </div>
+
+          <label for="" class="mt-3">Sexe</label>
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"
+              ><i class="fa-sharp fa-solid fa-child"></i
+            ></span>
+            <input
+              type="text"
+              readonly
+              [value]="eleve.Civilite === 1 ? 'M' : 'F'"
+              class="form-control"
+            />
+          </div>
+
+          <label for="" class="mt-3">Nationalité</label>
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"
+              ><i class="fa-sharp fa-solid fa-flag"></i
+            ></span>
+            <input type="text" readonly class="form-control" />
+          </div>
+
+          <label for="" class="mt-3">Téléphone</label>
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"
+              ><i class="fa-solid fa-phone"></i>
+            </span>
+            <input
+              type="text"
+              [value]="eleve.TelMobile"
+              readonly
+              class="form-control"
+            />
+          </div>
+
+          <label for="" class="mt-2">Email</label>
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"
+              ><i class="fa-solid fa-envelope"></i
+            ></span>
+            <input
+              type="text"
+              readonly
+              [value]="eleve.Courriel"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <!-- <div class="row">
+              <div class="col-lg-6">
+                <div class="content mt-3">
+                  <span class="text-on-border">Localisation</span>
+                  <label for="" class="mt-2">Departement</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-layer-group"></i
+                    ></span>
+                    <input type="text" readonly [value]="eleve.Fr_Departement" class="form-control" />
+                  </div>
+
+                  <label for="" class="">Arrondissement</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-location-dot"></i
+                    ></span>
+                    <input type="text" readonly [value]="eleve.Fr_Arrondissement" class="form-control" />
+                  </div>
+
+                  <label for="" class="">Quartier</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-compass"></i
+                    ></span>
+                    <input type="text" readonly [value]="" class="form-control" />
+                  </div>
+
+                  <label for="" class="">Zone</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-location-dot"></i
+                    ></span>
+                    <input type="text" readonly class="form-control" />
+                  </div>
+
+                  <label for="" class="">Adresse</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-house-chimney"></i
+                    ></span>
+                    <input type="text" readonly class="form-control" />
+                  </div>
+
+                  <label for="" class="">Ville</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-address-card"></i
+                    ></span>
+                    <input type="text" readonly class="form-control" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="content mt-3">
+                  <span class="text-on-border">Autres informations</span>
+                  <label for="" class="mt-2">Fonction</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-user-tie"></i
+                    ></span>
+                    <input type="text" readonly class="form-control" />
+                  </div>
+
+                  <label for="" class="">Site</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-location-dot"></i
+                    ></span>
+                    <input type="text" readonly class="form-control" />
+                  </div>
+
+                  <label for="" class="">Status</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-compass"></i
+                    ></span>
+                    <input type="text" readonly class="form-control" />
+                  </div>
+
+                  <label for="" class="">Profession</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-user-tie"></i
+                    ></span>
+                    <input type="text" readonly class="form-control" />
+                  </div>
+
+                  <label for="" class="">Numero CNI</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-house-chimney"></i
+                    ></span>
+                    <input type="text" readonly class="form-control" />
+                  </div>
+
+                  <label for="" class="">Situation Familiale</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"
+                      ><i class="fa-solid fa-children"></i
+                    ></span>
+                    <input type="text" readonly class="form-control" />
+                  </div>
+                </div>
+              </div>
+            </div> -->
+      </form>
+    </div>
+  </div>
+  <div class="mb-5"></div>
+</app-gabarie-eleve>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

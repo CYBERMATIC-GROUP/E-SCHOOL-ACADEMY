@@ -1,0 +1,543 @@
+<app-gabarit pageTitle="Paramètres">
+  <div class="col bg-light mb-5">
+    <div class="row ">
+      <div class="col-lg-12"  style="background-color: #7c57ce;">
+        <h5 class="text-white fs-5 pt-1">Paramètres école</h5>
+      </div>
+    </div>
+    <div class="row text-white" style="padding-left: 0px !important; padding-right: 0px;">
+      <div class="col-lg-3 col-md-6 bg-light p-2 border" style="padding-left: 0px !important; padding-right: 0px;">
+        <a
+          [routerLink]="routes.parametres.parcours.cycle"
+          class="text-black text-decoration-none text-center"
+
+        >
+          <p>Cycles</p>
+          <p><img src="assets/logo/48X48/A1 (2).png" alt="" /></p>
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a
+          [routerLink]="routes.parametres.Divers.diplome"
+          class="text-black text-decoration-none text-center"
+        >
+        <div class="disable-action" *ngIf="agent.bDroit_GestionDiplomes" [ngStyle]="{'cursor': 'not-allowed'}"></div>
+          <p>Diplômes</p>
+          <p>
+            <i
+              class="fa-solid text- fs-1 fa-graduation-cap"
+              style="color: hotpink"
+            ></i>
+          </p>
+        </a>
+      </div>
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a
+          [routerLink]="routes.parametres.ecole.etablissement"
+          class="text-black text-decoration-none text-center"
+        >
+          <div class="disable-action" *ngIf="!agent.bDroit_ModifEcolesInspection" [ngStyle]="{'cursor': 'not-allowed'}"></div>
+          <p>Etablissement</p>
+          <p><i class="fa-sharp fs-1 text-primary fa-solid fa-school"></i></p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a
+          [routerLink]="routes.parametres.ecole.groupeMatiere"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Groupe Matière</p>
+          <p><i class="fa-solid fs-1 text-danger fa-layer-group"></i></p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a
+          [routerLink]="routes.parametres.ecole.salle"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Salles</p>
+          <p><i class="fa-solid fs-1 text-primary fa-level-down-alt"></i></p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a
+          [routerLink]="routes.parametres.ecole.typeSalle"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Types Salles</p>
+          <p><i class="fa-solid fs-1 fa-school" style="color: green"></i></p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a
+          [routerLink]="routes.parametres.parcours.site"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Sites</p>
+          <p><i class="fa-solid fs-1 text-danger fa-campground"></i></p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a
+          [routerLink]="routes.parametres.parcours.classe"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Classe/liste</p>
+          <p>
+            <img src="assets/logo/Inscriptions.png" style="width: 15%" alt="" />
+          </p>
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12" style="background-color: rgb(72,199,142);">
+        <h5 class="text-white fs-6 pt-1">Localisation</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 bg-light p-3 border">
+        <a
+          [routerLink]="routes.parametres.localisation.departement"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Départements</p>
+          <p>
+            <i
+              class="fa-solid fs-1 fa-globe"
+              style="color: rgb(81, 158, 81)"
+            ></i>
+          </p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-3 border">
+        <a
+          [routerLink]="routes.parametres.localisation.arrondissement"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Arrondissement</p>
+          <p>
+            <i
+              class="fa-solid fs-1 fa-globe"
+              style="color: rgb(173, 117, 31)"
+            ></i>
+          </p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-3 border">
+        <a
+          [routerLink]="routes.parametres.localisation.nationnalite"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Nationnalités</p>
+          <p>
+            <i class="fa-solid fs-1 text-danger fa-flag"></i>
+          </p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-3 border">
+        <a
+          [routerLink]="routes.parametres.localisation.quartier"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Quartier</p>
+          <p>
+            <i class="fa-solid text-primary fs-1 fa-archway"></i>
+          </p>
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12" style="background-color: #bd4e59;">
+        <h5 class="text-white fs-6 pt-1">Paramètres comptables</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a routerLink="/compte/list" class="text-black text-decoration-none text-center">
+          <p>Plan comptable</p>
+          <p>
+            <img src="assets/logo/Consultations_des_comptes.png" alt="" />
+          </p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a
+          routerLink="/caisse"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Caisse</p>
+          <p>
+            <img src="assets/logo/Consultations_de_caisse.png" alt="" />
+          </p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a routerLink="/liasse" class="text-black text-decoration-none text-center">
+          <p>Liasse</p>
+          <p>
+            <img src="assets/logo/Dossiers.png" alt="" />
+          </p>
+        </a>
+      </div>
+
+      <div class="col-lg-3 col-md-6 bg-light p-2 border">
+        <a
+          routerLink="/liste-frais-scolaire/list"
+          class="text-black text-decoration-none text-center"
+        >
+          <p>Frais Scolaire</p>
+          <p>
+            <img src="assets/logo/enseignant3.png" alt="" />
+          </p>
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        class="col-lg-6 bg-light border"
+        style="padding-left: 0px; padding-right: 0px"
+      >
+        <p
+          class="fs-6 p-1 text-white form-control col-lg-12"
+          style="padding-left:0px !important; border-radius: 0px;background-color: rgb(72,199,142);"
+        >
+          Configuration des notes
+        </p>
+        <div>
+          <div class="row">
+            <div class="col-lg-4 col-md-4" style="padding-left: 0px;padding-right: 0px;">
+              <div class="not-ready"></div>
+              <a
+                class="text-black text-decoration-none text-center"
+              >
+                <p class=" m-0">Configuration du bulletin</p>
+                <p><img src="assets/logo/releves_notes.png" alt="" /></p>
+              </a>
+            </div>
+            <div class="col-lg-4 col-md-4 p-2" style="padding-left: 0px;padding-right: 0px;">
+              <div class="not-ready"></div>
+              <a
+                class="text-black text-decoration-none text-center"
+              >
+                <p>Moyenne de progression</p>
+                <p></p>
+                <p><img src="assets/logo/Configurations_Moyennes.png" alt="" /></p>
+              </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 p-2" style="padding-left: 0px;padding-right: 0px;">
+              <a class="text-black text-decoration-none text-center">
+                <div class="not-ready"></div>
+                <p>Observations</p>
+                <p><img src="assets/logo/Operations_diverses.png" alt="" /></p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-lg-6 bg-light border"
+        style="padding-right: 0px; padding-left: 0px"
+      >
+        <p
+          class="text-white form-control fs-6 p-1"
+          style="
+            padding: 0px;
+            border-radius: 0px;
+            background-color: orange;
+            font-weight: 500;
+          "
+        >
+          Niveau Branche et Classe
+        </p>
+        <div>
+          <div class="row">
+            <div class="col-lg-4 col-md-4 p-2" style="padding-left: 0px;padding-right: 0px;">
+              <a
+                routerLink="/niveau"
+                class="text-black text-decoration-none text-center"
+              >
+                <p>Niveaux</p>
+                <p><img src="assets/logo/student3.png" alt="" /></p>
+              </a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 p-2" style="padding-left: 0px;padding-right: 0px;">
+              <a
+                routerLink="/branche"
+                class="text-black text-decoration-none text-center"
+              >
+                <p>Branches</p>
+                <p><img src="assets/logo/Classement.png" alt="" /></p>
+              </a>
+            </div>
+            <div class="col-lg-4 col-md-4 p-2" style="padding-left: 0px;padding-right: 0px;">
+              <a
+                routerLink="/classe/ajout"
+                class="text-black text-decoration-none text-center"
+              >
+                <p>Classe/ajout</p>
+                <p>
+                  <img src="assets/logo/Inscriptions.png" alt="" />
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-lg-12" style="background-color: #7c57ce;">
+          <summary class="text-white fs-5 p-1">Paramètres Divers</summary>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              routerLink="/qualiteens"
+              class="text-black text-decoration-none text-center"
+            >
+              <div></div>
+              <p>Qualités</p>
+              <p>
+                <img src="assets/logo/48X48/A1 (16).png" alt="" />
+              </p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              routerLink="/annee"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Année</p>
+              <p>
+                <img src="assets/logo/48X48/A1 (9).png" alt="" />
+              </p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              routerLink="/statuseleve"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Status élève</p>
+              <p>
+                <img src="assets/logo/48X48/A1 (24).png" alt="" />
+              </p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              routerLink="/maintenance"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Maintenance</p>
+              <p>
+                <i class="fa-solid fs-1 text-danger fa-hand"></i>
+              </p>
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              routerLink="/etatsanitaire"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Etat Sanitaire</p>
+              <p>
+                <img src="assets/logo/Consultations_des_comptes.png" alt="" />
+              </p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              routerLink="/langue"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Langue</p>
+              <p>
+                <i class="fa-solid fa-globe" style="font-size: 55px"></i>
+              </p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              routerLink="/centreexamen"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Centre Exament</p>
+              <p><i class="fa-solid fa-book-open fs-1 text-primary"></i></p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              routerLink="/matiere"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Matières</p>
+              <p>
+                <img src="assets/logo/Consultations_de_caisse.png" alt="" />
+              </p>
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              [routerLink]="routes.parametres.carriere.echelon"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Echelon</p>
+              <p>
+                <i class="fa-solid text-primary fs-1 fa-location-dot"></i>
+              </p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              [routerLink]="routes.parametres.carriere.grade"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Grade</p>
+              <p>
+                <i class="fa-solid fs-1 fa-layer-group"></i>
+              </p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              [routerLink]="routes.parametres.carriere.categorie"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Categorie</p>
+              <p><i class="fa-solid text-danger fs-1 fa-shop"></i></p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              [routerLink]="routes.parametres.carriere.specialite"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Spécialité</p>
+              <p>
+                <i class="fa-solid text-success fs-1 fa-handshake"></i>
+              </p>
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              [routerLink]="routes.parametres.profession.professionAgents"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Profession</p>
+              <p>
+                <i class="fa-sharp fs-1 text-warning fa-solid fa-user-tie"></i>
+              </p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a
+              [routerLink]="routes.parametres.Divers.etablissements"
+              class="text-black text-decoration-none text-center"
+            >
+              <p>Gestion des écoles</p>
+              <p><i class="fa-solid text-success fa-house-flag fs-1"></i></p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a [routerLink]="routes.parametres.localisation.zone" class="text-black text-decoration-none text-center">
+              <p>Zone</p>
+              <p>
+                <i class="fa-sharp fa-solid fs-1 fa-map-location-dot"></i>
+              </p>
+            </a>
+          </div>
+
+          <div class="col-lg-3 col-md-6 bg-light p-2 border">
+            <a [routerLink]="routes.parametres.ecole.ecole" class="text-black text-decoration-none text-center">
+              <p>
+                école
+              <p>
+                <i class="fa-solid fs-1 text-primary fa-school"></i>
+              </p>
+            </a>
+          </div>
+        </div>
+        <div class="row mb-5 bg-light">
+          <div class="col-lg-3 col-md-6 p-2 border">
+            <a routerLink="/config-matiere/list" class="text-black text-decoration-none text-center">
+              <p>
+                Configuration des matières
+              <p>
+                <i class="fa-solid text-primary fs-1 fa-temperature-full"></i>
+              </p>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-6 p-2 border">
+            <a routerLink="/personalisation-document" class="text-black text-decoration-none text-center">
+              <p>
+                Personnalisation documents
+              <p>
+              <img src="assets/logo/Classement.png" alt=""></p>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-6 p-2 border">
+            <a routerLink="/observation" class="text-black text-decoration-none text-center">
+              <p>
+                Observations
+              <p>
+                <img src="assets/logo/logo de lancement e school.png" alt="">
+              </p>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-6 p-2 border">
+            <a routerLink="/mentions" class="text-black text-decoration-none text-center">
+               <p>
+                 Mentions
+               <p>
+              <img src="assets/logo/student3.png"></p>
+            </a>
+          </div>
+          <div  class="col-lg-3 col-md-6 p-2 border">
+            <a routerLink="/objectifs" class="text-black text-decoration-none text-center">
+               <p>
+                 Objectifs
+               <p>
+              <img src="assets/logo/student3.png"></p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</app-gabarit>

@@ -1,0 +1,49 @@
+<div class="container bg-light p-3 responsivepage">
+  <form  #annuleoperationn="ngForm"
+  (ngSubmit)="onSubmitForm(annuleoperationn)"
+  class="g-3 needs-validation">
+    <div class="">
+      <h1
+        class="text-white bg-table-color"
+        style="padding-left: 10px; "
+      >
+        Motif d'annulation
+      </h1>
+      <div class="form-floating m-2">
+        <textarea
+          class="form-control  "
+          name="RaisonAnnulation"
+          [(ngModel)]="RaisonAnnulation"
+          style="height: 170px !important"
+          placeholder="Leave a comment here"
+          id="floatingTextarea2"
+        ></textarea>
+        <label for="floatingTextarea2" style="padding-left: 10px !important"
+          >Votre commentaire ici ...</label
+        >
+      </div>
+
+      <div class="col-12">
+        <div class="row p-0">
+          <div class="col-lg-6 mt-3 p-0">
+            <button
+              type="submit"
+              class="form-control bg-table-color text-white"
+              [mat-dialog-close]="false"
+              (click)="dialog.closeAll()"
+              >
+              Valider <i class="fa-solid fa-check"></i>
+            </button>
+          </div>
+          <div class="col-lg-6 mt-3 p-0">
+            <button type="reset" class="form-control" 
+            [mat-dialog-close]="true"
+            >
+              Annuler <i class="fa-solid text-danger fa-x"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

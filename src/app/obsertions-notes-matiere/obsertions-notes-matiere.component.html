@@ -1,0 +1,118 @@
+
+<app-gabarit pageTitle="Gestion des observations">
+    <div class="p-3 container">
+          <div class="row bg-light m-0 py-2">
+            <div class="col-lg-4">
+              <p class="p-2 fs-6 bg-white">Selectionner une matière</p>
+            </div>
+            <div class="col-lg-8">
+                  <select class="form-select" name="" id="" (change)="selectMatiere($event)" >
+                    <option *ngFor="let m of matiereListe" [value]="m.IDMATIERE">
+                      {{m.Fr_NomMatiere}}
+                    </option>
+                  </select>
+            </div>
+            <!-- <div class="col-lg-4">
+              <button
+              class="form-control bg-table-color text-white button"
+              style="cursor: pointer; float: right;"
+              (click)="create()"
+            >
+              Ajouter une observation <i class="fa-sharp fa-solid fa-graduation-cap"></i>
+            </button>
+            </div> -->
+          </div>
+          <div class="mat-elevation-z8" style="max-height: 400px; overflow-y: auto">
+            <table mat-table [dataSource]="dataSource" *ngIf="!isLoading; else loader">
+
+             <ng-container matColumnDef="noteMinimale">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                    Note Minimale
+                </th>
+                <td
+                  class="pointer"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                  {{ element.noteMinimale }}
+                </td>
+              </ng-container>
+
+
+             <ng-container matColumnDef="Observation">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                    Observation
+                </th>
+                <td
+                  class="pointer"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                  {{ element.Observation }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Couleur">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                    Couleur
+                </th>
+                <td
+                  class="pointer"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                  <p style="height: 25px;" [style.background-color]="element.Couleur" class="form-control mt-2"></p>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Actions">
+                <th
+                  mat-header-cell
+                  class="text-end"
+                  style="padding-right: 65px"
+                  *matHeaderCellDef
+                >
+                  Actions
+                </th>
+
+                <td
+                  mat-cell
+                  class="text-end"
+                  style="padding-right: 50px"
+                  *matCellDef="let element"
+                >
+                  <button
+                    type="button"
+                    (click)="view(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i class="fa fa-eye text-black" aria-hidden="true"></i>
+                  </button>
+                  <!-- <button
+                    type="button"
+                    (click)="edit(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+                  </button> -->
+                  <button
+                    type="button"
+                    (click)="delete(element)"
+                    class="btn text-lowercase px-1 py-0"
+                  >
+                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+
+          <ng-template #loader>
+           <app-loader></app-loader>
+          </ng-template>
+        </div>
+    </app-gabarit>

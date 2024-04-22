@@ -1,0 +1,280 @@
+<app-gabarit pageTitle="Transferts inter-caisse">
+  
+  <div class="container-fluid bg-light" >
+    <app-info-compta-agent  (dateComptableEmitted)="handleValue($event)"></app-info-compta-agent>
+    <div class="row">
+      <div class="col-12 row">
+        <div class="col-md-6 container-fuild m-auto">
+          <div class="col-lg-12 p-3 border">
+            <div
+              class="col-lg-12 text-white py-2 d-flex justify-content-start align-items-center"
+              style="background-color: #7c57ce"
+            >
+              <div class="m-auto w-100 fs-6">
+                Effectuer un nouveau transfert depuis ma caisse vers une autre caisse
+              </div>
+            </div>
+            
+            <form [formGroup]="formTransfert">
+              <div class="row">
+                <div class="col-12 mt-4">
+                  <div class="row">
+                    <div class="col-lg-4"><p class="d-flex align-items-center h-100">Caisse destination</p></div>
+                    <div class="col-lg-8">
+                      <div
+                        *ngIf="
+                          caisseList$ | async as caisses
+                        "
+                      >
+                        <input
+                          type="text"
+                          class="form-control form-select"
+                          (click)="
+                          formTransfert.get('LibelleCaisse')?.setValue('')
+                          "
+                          #caisseInput
+                          [matAutocomplete]="caisseAuto"
+                          formControlName="LibelleCaisse"
+                        />
+                        <mat-autocomplete #caisseAuto>
+                          <mat-option
+                            *ngFor="
+                              let caisse of globalService.filterElement(
+                                caisses,
+                                caisseInput.value,
+                                'LibelleCaisse'
+                              )
+                            "
+                            [disabled]="caisse.IDCAISSE == agent.CaisseAssociee"
+                            (click)="
+                            formTransfert
+                                .get('LibelleCaisse')
+                                ?.setValue(caisse.LibelleCaisse);
+                            formTransfert
+                                .get('IDCaisseDestination')
+                                ?.setValue(caisse.IDCAISSE)
+                            "
+                            >{{ caisse.LibelleCaisse }}</mat-option
+                          >
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                  </div>
+        
+                  <div class="row mt-2">
+                    <div class="col-lg-4"><p class="d-flex align-items-center h-100">Montant à  transferer</p></div>
+                    <div class="col-lg-8">
+                      <label for="" class="text-danger" *ngIf="formTransfert.get('Montant')?.errors?.['pattern']">Veuillez entrer un montant</label>
+                      <input type="number" formControlName="Montant" class="form-control" />
+                    </div>
+                  </div>
+        
+                  <div class="row mt-2">
+                    <div class="col-lg-4"><p class="d-flex align-items-center h-100">Libellé</p></div>
+                    <div class="col-lg-8">
+                      <input type="text" formControlName="Libelle" class="form-control" />
+                    </div>
+                  </div>
+  
+                  <div class="row">
+                    <div class="border-top border-bottom col-12 d-flex justify-content-center align-items-center" style="height: 5em">
+                      <button
+                        style="background-color: rgb(124, 87, 206)"
+                        class="form-control text-white"
+                        [disabled]="formTransfert.invalid"
+                        *ngIf="!sendArgentIsloading; else loader"
+                        (click)="onSetTransfert()"
+                      >
+                        Transferer <i class="fa-solid fa-arrow-right"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      
+        <div class="col-md-6 container-fuild border m-auto " style="padding-left: 10px">
+          <h1 class="text-success">Mode d'emploi</h1>
+      
+          <div style="padding-left: 20px">
+            <p>
+              <span class="fs-6" style="font-weight: bold; padding-right: 10px"
+                >1 -</span
+              ><span class="fs-6">Selectionnez la caisse de destination</span>
+            </p>
+            <p>
+              <span class="fs-6" style="font-weight: bold; padding-right: 10px"
+                >2 -</span
+              ><span class="fs-6"
+                >Saisissez le montant à  transferer et un libellé descriptif</span
+              >
+            </p>
+            <p>
+              <span class="fs-6" style="font-weight: bold; padding-right: 10px"
+                >3 -</span
+              ><span class="fs-6"
+                >Cliquez sur le bouton <span class="text-danger">[Transferer]</span> pour enregistrer le transfert</span
+              >
+            </p>
+            <p>
+              <span class="fs-6" style="font-weight: bold; padding-right: 10px"
+                >4 -</span
+              ><span class="fs-6"
+                >Transferer physiquement la somme vers la caisse de destinnation</span
+              >
+            </p>
+            <p>
+              <span class="fs-6" style="font-weight: bold; padding-right: 10px"
+                >5 -</span
+              ><span class="fs-6"
+                >Demandez un bordereau de transfert inter-caisses aupres du caissié
+                associé à la caisse de destination</span
+              >
+            </p>
+          </div>
+      
+          <p>
+            Important : le transfert ne sera effectif qu'àpres sa validation par le
+            caissié associé à la caisse de destination
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-12 h-100">
+        <div class="container-fuild p-3 m-auto h-100">
+          <mat-chip-listbox aria-label="Fish selection">
+            <mat-chip-option selected (click)="getTransfertEntrant()">Transferts reçus</mat-chip-option>
+            <mat-chip-option class="bg-success text-light" (click)="getTransfertSortant()">Transferts sortants</mat-chip-option>
+            <mat-chip-option (click)="openAllTransfert()">Tous les transferts</mat-chip-option>
+          </mat-chip-listbox>
+          <p class="text-light">Vos différents transferts sont affichés ici</p>
+          <div *ngIf="!tableTransfertIsLoading; else loader">
+            <section class="example-container mat-elevation-z8" tabindex="0" *ngIf="!bTableTransfertEntrant; else transfertEntrants">
+              <label for="" class="text-light">Liste des transferts sortant</label>
+              <table mat-table [dataSource]="transactions" *ngIf="transactions; else loader">
+                <!-- Item Column -->
+                <ng-container matColumnDef="DateCreation">
+                  <th mat-header-cell *matHeaderCellDef> Date création </th>
+                  <td mat-cell *matCellDef="let transaction"> {{transaction.DateCreation | date}} </td>
+                  <td mat-footer-cell class="text-bold bg-secondary text-light" *matFooterCellDef> Total </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Libelle">
+                  <th mat-header-cell *matHeaderCellDef> Libellé </th>
+                  <td mat-cell *matCellDef="let transaction"> {{ transaction.Libelle }} </td>
+                  <td mat-footer-cell class="text-bold bg-secondary text-light" *matFooterCellDef>  </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="CodeCaisseDestination">
+                  <th mat-header-cell *matHeaderCellDef> Caisse </th>
+                  <td mat-cell *matCellDef="let transaction"> {{transaction.CodeCaisseDestination}} </td>
+                  <td mat-footer-cell *matFooterCellDef class="bg-secondary">  </td>
+                </ng-container>
+            
+                <!-- Cost Column -->
+                <ng-container matColumnDef="Montant">
+                  <th mat-header-cell *matHeaderCellDef> Montant </th>
+                  <td mat-cell *matCellDef="let transaction"> {{ globalService.formatPrix(transaction.Montant, " ") }} </td>
+                  <td mat-footer-cell *matFooterCellDef  class="text-bold text-light bg-secondary"> 
+                    {{ globalService.formatPrix(totalAmount, " ") }} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="Actions">
+                  <th mat-header-cell *matHeaderCellDef class="text-end"> Actions </th>
+                  <td mat-cell *matCellDef="let transaction" class="text-end"> 
+                    <button mat-raised-button color="warn" *ngIf="!cancelIsLoading && !transaction.Valide; else loader" (click)="askDeleteTransfert(transaction.IDTRANSFERTCAISSE)">
+                      <i class="fa-solid fa-trash"></i>
+                      Annuler
+                    </button>
+                  </td>
+                  <td mat-footer-cell *matFooterCellDef class="bg-secondary">  </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+              </table>
+            </section>
+  
+            <ng-template #transfertEntrants>
+              <section class="example-container mat-elevation-z8" tabindex="0">
+                <label for="" class="text-light">Liste des transferts entrant</label>
+                <table mat-table [dataSource]="transactions" *ngIf="transactions; else loader">
+                  <!-- Item Column -->
+                  <ng-container matColumnDef="DateCreation">
+                    <th mat-header-cell *matHeaderCellDef> Date création </th>
+                    <td mat-cell *matCellDef="let transaction" [title]="transaction.Libelle"> {{transaction.DateCreation | date}} </td>
+                    <td mat-footer-cell class="text-bold text-light bg-secondary" *matFooterCellDef> Total </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="CodeCaisseDestination">
+                    <th mat-header-cell *matHeaderCellDef> Caisse </th>
+                    <td mat-cell *matCellDef="let transaction" [title]="transaction.Libelle"> {{transaction.CodeCaisseDestination}} </td>
+                    <td mat-footer-cell *matFooterCellDef class="bg-secondary">  </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="Libelle">
+                    <th mat-header-cell *matHeaderCellDef> Libellé </th>
+                    <td mat-cell *matCellDef="let transaction"> {{ transaction.Libelle }} </td>
+                    <td mat-footer-cell class="text-bold bg-secondary text-light" *matFooterCellDef>  </td>
+                  </ng-container>
+              
+                  <!-- Cost Column -->
+                  <ng-container matColumnDef="Montant">
+                    <th mat-header-cell *matHeaderCellDef> Montant </th>
+                    <td mat-cell *matCellDef="let transaction" [title]="transaction.Libelle"> {{transaction.Montant }} </td>
+                    <td mat-footer-cell *matFooterCellDef  class="text-bold text-light bg-secondary"> {{ globalService.formatPrix(totalAmount, " ") }} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef class="text-end"> Actions </th>
+                    <td mat-cell *matCellDef="let transaction" [title]="transaction.Libelle" class="text-end"> 
+
+                      <div *ngIf="!transaction.Valide; else transactionValidated">
+                        <button *ngIf="!cancelIsLoading; else loader" mat-raised-button class="bg-success text-light" (click)="askValidTransfert(transaction.IDTRANSFERTCAISSE)">
+                          Valider
+                        </button>  
+                        <button mat-raised-button color="warn" (click)="askDeleteTransfert(transaction.IDTRANSFERTCAISSE)">
+                          Annuler
+                        </button>
+                      </div>
+
+                      <ng-template #transactionValidated>
+                        <p>
+                          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADV0lEQVR4nO2V204UMRiANzE+Ecm2O3/XExFQg4koiXjC6LQz7WrUeIwHfIFt91buCCTGGB7AaecRfBajgicU1+AiaTvdBVFnMZkv6Q35gO/f/adTq1VUVFRUVFT8OUkuzlDDn7PXbP8gr67IGSTh+cj8yECvVKhJT1PNvzIjukzz5X5DINk8jRR8xYp0sYLlPTEEteM3D9XixeD4rVPwSoVpPsW0WLPjmRHfaN46a3uoA1NYkjU7Hkn4hiRxvFJJtDhODf+8bbyMjiMJn/dUPM3TY6H4RIsZJ74Dx0LxjQ6Z2XPxzKTndhKPJTheqTAjJpgWn/z42IjztoclmUAKPhXiVXR+z8WzjF/YSTySxPFKJdat8VA81eKi7TU6zfFQfF0RxysVlvExP54avp4Yfsn26ioa8+OxIutYguOVSpK3jobimUlnbQ+14WgwXsHsUOOp5h+dtdHiO81FUownH514Sb5jCY5XKiwTB5jhq3480zy1vUaneQArWC3Eq8jxtmX65fQ+psWCfxeHPCTJwqC7OM7TJtV8pRBvBLe9uoqaSMKKH4/ahP9+vOGL/V7ltoclLA56lTMjSCieGi5sD7WBBOMlcbwd0fvknevtC9XpSd/7+cm7D9kX1I62PKr5wdDa+DuPJTkYXBu5y53fuBF6N4M7BMv4pPOPFcz2bgZ3CKxgMsmuAdPifWFtsrTl/g0CSJH3fnxdgeP9NnEmLgeHMPyE7aF287I/xOj8+BrNAreNFtd2Eo8lON6uoUZc8Yf4eQ1qMWp7jQ5c+TXEkfmxbvwq7RYfWH7d+Z12MwrGK+J4f0yS86uBb+IDy/lh28MSrh55Nr5eiN8YOuf3bDfqRI1CfO843l+D6Va8ee05QySmdWjLMa1GrFN3bYzonlw6tYY6cMiOx5K88+ORJPdr/5JYC1ocgq9uvKDijI9QI94U46c2A2F14wWF2mQEKfKmEK/gQa0MqOY3/EhmxNvN4/x8cumUtx7wtne8tZHNu7UyYbp1MzCE/9A+xBJuBnbcPw9rw4AacatfPNX80S8PK3KrXzxqky1vKDAtbgcGeOx7SMLt4gMLBW8oUM3vWPFP+nl1BXesB7avNxSo5nNMi6fbeViSOazItl5FRUVFRUVF7T/nB2z75KI1667+AAAAAElFTkSuQmCC">
+                        </p>
+                      </ng-template>
+                      
+
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef class="bg-secondary">  </td>
+                  </ng-container>
+              
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+                </table>
+              </section>
+            </ng-template>
+          </div>
+          
+        </div>
+        
+        <!--mat-chip-listbox aria-label="Fish selection" class="mt-0">
+          <mat-chip-option selected (click)="getTransfertSortant(0)">Transferer sortants en attente - [Nombre: 0 - Total : 0 FRCFA]</mat-chip-option>
+
+          <mat-chip-option (click)="getTransfertEntrant(0)">Transferer entrants en attente - [Nombre: 0 - Total : 0 FRCFA]</mat-chip-option> 
+          <mat-chip-option class="text-truncate">Transferer validés en attente - [Enntrants: 0 - Total : 0 FRCFA - Sortants 0: Total : 0 FRCFA]</mat-chip-option> 
+        </mat-chip-listbox-->
+      </div>
+    </div>
+  </div>
+</app-gabarit>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+

@@ -1,0 +1,150 @@
+
+
+<app-gabarit-enseignant>
+    <div class="container-fuild p-3 bg-light">
+      <div class="row">
+        <div class="col-md-6">
+          <select class="form-select" (change)="selectedClasse($event)" *ngIf="(classelist$ | async) as classelist;else loader">
+            <option disabled>selectionner une classe</option>
+            <option *ngFor="let c of classelist" [selected]="c.IDCLASSES == IDCLASSE.toString()" [value]="c.IDCLASSES">
+              {{ c.CodeClasse }} / {{ c.NomClasse }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <select class="form-select" (change)="selectedmatiere($event)" *ngIf="(matierelist$ | async) as matierelist; else loader">
+            <option disabled>selectionner une matière</option>
+            <option [selected]="matiere.IDMATIERE == IDMATIERE" *ngFor="let matiere of matierelist" [value]="matiere.IDMATIERE">
+              {{ matiere.Fr_CodeMatiere }} / {{ matiere.Fr_NomMatiere }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center mb-2">
+            <i
+              style="position: absolute"
+              class="fa-solid fa-map-marked-alt p-3 text-success"
+            ></i>
+            <input
+              type="text"
+              (keyup)="applyFilter($event)"
+              placeholder="Recherchez par ici..."
+              class="form-control text-start px-5 text-uppercase"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <button
+            (click)="createCours()"
+            class="form-control text-white bg-table-color"
+          >
+            Proposer un cours
+          </button>
+        </div>
+      </div>
+      <div class="mat-elevation-z8" style="max-height: 400px; overflow-y: auto">
+        <table mat-table [dataSource]="dataSource" *ngIf="(cours$ | async); else loader">
+          <ng-container matColumnDef="Titre">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Titre
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Titre }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="Sujet">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Sujet
+            </th>
+            <td class="pointer"  mat-cell *matCellDef="let element">
+              <div [innerHTML]="element.Sujet"></div>
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="DateCorrection">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Date de Correction
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{convertToValideDate(element.DateCorrection )}}
+            </td>
+          </ng-container>
+    
+          <!-- <ng-container matColumnDef="Consigne">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Consigne
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Consigne }}
+            </td>
+          </ng-container> -->
+    
+          <ng-container matColumnDef="CLASSE">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              CLASSE
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.CLASSE }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="MATIERE">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Matière
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.MATIERE }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="ENSEIGNANT">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              ENSEIGNANT
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.ENSEIGNANT }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell class="text-end" *matHeaderCellDef>Actions</th>
+    
+            <td mat-cell class="text-end" *matCellDef="let element">
+              <button
+                type="button"
+                (click)="view(element)"
+                class="btn text-lowercase py-0 px-1"
+              >
+                <i class="fa fa-eye text-black" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                (click)="edit(element)"
+                class="btn text-lowercase py-0 px-1"
+              >
+                <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                (click)="delete(element)"
+                class="btn text-lowercase px-1 py-0"
+              >
+                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+              </button>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </app-gabarit-enseignant>
+  
+  

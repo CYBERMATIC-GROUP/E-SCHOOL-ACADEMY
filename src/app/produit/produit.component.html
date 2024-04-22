@@ -1,0 +1,174 @@
+<app-gabarit>
+  <div class="container-fluid mb-5 bg-light">
+      <h1 class="card-title  text-center">Gestion des frais généraux</h1>
+
+      <div class="row  m-0">
+        <div class="col-lg-3">
+          <label for="" class="text-center mx-1">Recherche</label>
+          <div class="d-flex align-items-center">
+            <i
+              style="position: absolute"
+              class="fa-solid fa-map-marked-alt p-3 text-success"
+            ></i>
+            <input
+              type="text"
+              (keyup)="applyFilter($event)"
+              placeholder="Recherchez par ici..."
+              class="form-control shadow text-start px-5 text-uppercase"
+            />
+          </div>
+        </div>
+
+        <div class="col-lg-3 mt-4">
+          <select
+          class="form-select"
+          aria-label="Default select example"
+          (change)="onChangeTypeFrais($event)"
+        >
+          <option disabled selected>Filtrer par type de frais</option>
+          <option [value]="1">Frais occasionel</option>
+          <option [value]="0">Frais officiel</option>
+          <option [value]="2">Tous les type de frais</option>
+        </select>
+        </div>
+
+
+        <div class="col-lg-3">
+          <button
+            class="form-control mt-4  text-white"
+            style="cursor: pointer; float: right;background-color: #7c57ce;"
+            (click)="openForm('creation')"
+          >
+            Ajouter un produit <i style="padding-left: 10px;" class="fa-solid fa-layer-group"></i>
+          </button>
+        </div>
+      </div>
+      <div class="mat-elevation-z8" style="max-height: 400px; overflow-y: auto" *ngIf="(produits$ | async) as produits; else loader">
+        <table mat-table [dataSource]="produits">
+          <!-- Position Column -->
+
+
+          <ng-container matColumnDef="CodeProduit">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Code produit
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.CodeProduit }}
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="LibelleProduit_Fr">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Libellé
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.LibelleProduit_Fr }}
+            </td>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="Occasionnel">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Type frais
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Occasionnel ? 'Occasionel' : 'Officiel'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Montant">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Coût
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ globalService.formatPrix(element.Montant, " ", "") }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="DateEcheance">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Date écheance
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.DateEcheance | date }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="CompteAssocie">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Compte associé
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.CompteAssocie }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="AccepteReduction">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Réduction
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.AccepteReduction ? 'OUI' : "NON"}}
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="AccepteMajoration">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Majoration
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.AccepteMajoration ? 'OUI' : "NON"}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Actions">
+            <th
+              mat-header-cell
+              class="text-end"
+              *matHeaderCellDef
+            >
+              Actions
+            </th>
+
+            <td
+              mat-cell
+              class="text-end"
+              *matCellDef="let element"
+            >
+              <button
+                type="button"
+                (click)="openForm('voir', element)"
+                class="btn text-lowercase py-0 px-1"
+              >
+                <i class="fa fa-eye text-black" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                (click)="openForm('modification', element)"
+                class="btn text-lowercase py-0 px-1"
+              >
+                <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                (click)="ondelete(element)"
+                class="btn text-lowercase px-1 py-0"
+              >
+                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayColumns; sticky:true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+        </table>
+      </div>
+
+      <ng-template #loader>
+       <app-loader></app-loader>
+      </ng-template>
+    </div>
+  </app-gabarit>

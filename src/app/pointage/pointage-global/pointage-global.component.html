@@ -1,0 +1,35 @@
+<app-gabarit pageTitle="Présences globales">
+
+  <div class="container-fluid bg-light p-2 py-4">
+    <div class="row ">
+      <div class="col-md-9">
+        <app-select-date
+          [intervalDays]="30"
+          (dateBeginEmit)="onEmitDate($event, 'begin')"
+          (dateEndEmit)="onEmitDate($event, 'end')"
+        >
+        </app-select-date>
+      </div>
+
+    </div>
+
+    <app-table-pointage-result [presences$]="presences$"></app-table-pointage-result>
+
+    <div class="row">
+      <div class="col">
+        <button
+          (click)="onPrint()"
+          class="btn text-white form-control bg-table-color"
+          *ngIf="!isPrinting; else loader"
+        >
+          Imprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</app-gabarit>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+

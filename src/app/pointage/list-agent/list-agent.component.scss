@@ -1,0 +1,46 @@
+* {
+	box-sizing: border-box;
+}
+
+a {
+	color: inherit;
+}
+
+ol {
+	//padding: 1.5rem 1.5rem 1.5rem 4em;
+
+}
+
+ol > * + * {
+	margin-top: 1rem;
+}
+
+li {
+	break-inside: avoid;
+}
+
+::marker {
+	content: counters(list-item, '') '. ';
+	font-weight: 700;
+	font-size: 1.5em;
+	color: turquoise;
+}
+
+li span {
+	display: block;
+}
+
+li span:first-child {
+	font-size: 1em;
+}
+
+li span:last-child {
+	font-style: italic;
+  font-size: 0.8em;
+}
+
+.divider {
+	min-height: 2rem;
+	background: lavender;
+}
+

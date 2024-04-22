@@ -1,0 +1,133 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "school-new": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/school-new",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/assets/css/bootstrap.css",
+              "src/assets/css/font-awesome.min.css",
+              "src/assets/vendors/animate-css/animate.css",
+              "src/assets/vendors/lightbox/simpleLightbox.css",
+              "src/assets/vendors/linericon/style.css",
+              "src/assets/vendors/nice-select/css/nice-select.css",
+              "src/assets/vendors/owl-carousel/owl.carousel.min.css",
+              "src/styles.scss",
+              "src/assets/css/style.css",
+              "node_modules/ngx-toastr/toastr.css"
+            ],
+            "scripts": [
+              "src/assets/vendors/counter-up/jquery.counterup.js",
+              "src/assets/vendors/nice-select/js/jquery.nice-select.min.js",
+              "src/assets/js/jquery-3.2.1.min.js",
+              "src/assets/js/popper.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/stellar.js",
+              "src/assets/js/countdown.js",
+              "src/assets/vendors/owl-carousel/owl.carousel.min.js",
+              "src/assets/js/owl-carousel-thumb.min.js",
+              "src/assets/js/jquery.ajaxchimp.min.js",
+              "src/assets/vendors/counter-up/jquery.counterup.js",
+              "src/assets/js/mail-script.js"
+            ],
+            "allowedCommonJsDependencies": ["quill"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "7mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "5mb",
+                  "maximumError": "7mb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "school-new:build:production"
+            },
+            "development": {
+              "browserTarget": "school-new:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "school-new:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "d14cceab-922c-4d89-bfeb-c805cbce71f9"
+  }
+}

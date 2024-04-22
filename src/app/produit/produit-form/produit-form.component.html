@@ -1,0 +1,392 @@
+<app-gabarit [pageTitle]="pageTitle">
+  <div class="container-fluid bg-light py-5">
+    <form [formGroup]="produitForm" class="bg-light p-3 rounded container border">
+      <div class="row">
+        <div class="col-md-4">
+          <label
+            for="validationCustom01"
+            class="form-label label mt-3"
+            >Code produit(<span class="text-danger">*</span>)</label
+          >
+          <input
+            [readonly]="action == 'voir'"
+            [ngClass]="{
+              'is-valid': produitForm.controls['CodeProduit'].valid,
+              'is-invalid': !produitForm.controls['CodeProduit'].valid
+            }"
+            type="text"
+            class="form-control hauteur hauteur text-uppercase"
+            name="CodeProduit"
+            formControlName="CodeProduit"
+
+          />
+          <div
+            [ngClass]="{
+              'valid-feedback': produitForm.controls['CodeProduit'].valid,
+              'invalid-feedback': !produitForm.controls['CodeProduit'].valid
+            }"
+          >
+            {{
+              !produitForm.controls["CodeProduit"].valid
+                ? "Renseignez le Code du produit."
+                : "ok."
+            }}
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label
+            for="validationCustom01"
+            class="form-label label mt-3"
+            >Libellé (<span class="text-danger">*</span>)</label
+          >
+          <input
+            [readonly]="action == 'voir'"
+            [ngClass]="{
+              'is-valid': produitForm.controls['LibelleProduit_Fr'].valid,
+              'is-invalid': !produitForm.controls['LibelleProduit_Fr'].valid
+            }"
+            type="text"
+            class="form-control hauteur hauteur text-uppercase"
+            formControlName="LibelleProduit_Fr"
+
+          />
+          <div
+            [ngClass]="{
+              'valid-feedback': produitForm.controls['LibelleProduit_Fr'].valid,
+              'invalid-feedback': !produitForm.controls['LibelleProduit_Fr'].valid
+            }"
+          >
+            {{
+              !produitForm.controls["LibelleProduit_Fr"].valid
+                ? "Renseignez le libellé du produit."
+                : "ok."
+            }}
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label
+            for="validationCustom01"
+            class="form-label label mt-3"
+            >Montant TTC (<span class="text-danger">*</span>)</label
+          >
+          <input
+            [readonly]="action == 'voir'"
+            [ngClass]="{
+              'is-valid': produitForm.controls['Montant'].valid,
+              'is-invalid': !produitForm.controls['Montant'].valid
+            }"
+            type="number"
+            class="form-control hauteur hauteur text-uppercase"
+            formControlName="Montant"
+
+          />
+          <div
+            [ngClass]="{
+              'valid-feedback': produitForm.controls['Montant'].valid,
+              'invalid-feedback': !produitForm.controls['Montant'].valid
+            }"
+          >
+            {{
+              !produitForm.controls["Montant"].valid
+                ? "Renseignez le Montant du produit."
+                : "ok."
+            }}
+          </div>
+        </div>
+
+        <div class="col-md-4 mt-3">
+          <label for="validationCustom01" class="form-label"
+            >Compte associé
+          </label>
+
+          <div class="d-flex align-items-center" *ngIf="(compteAssocies$ | async) as comptes; else loader">
+
+            <div class="input-group mb-3">
+              <input
+              type="text"
+              class="form-control form-select"
+              #compte_associe
+              [value]="
+                produitForm.get('CompteAssocie')?.value
+              "
+              (click)="compte_associe.value = ''"
+              [matAutocomplete]="comptes_auto"
+              [ngClass]="{
+                'is-valid': produitForm.controls['CompteAssocie'].valid,
+                'is-invalid': !produitForm.controls['CompteAssocie'].valid
+              }"
+            />
+            <div
+              [ngClass]="{
+                'valid-feedback': produitForm.controls['CompteAssocie'].valid,
+                'invalid-feedback': !produitForm.controls['CompteAssocie'].valid
+              }"
+            >
+              {{
+                !produitForm.controls["CompteAssocie"].valid
+                  ? "Sélectionnez un compte associé."
+                  : "ok."
+              }}
+            </div>
+            <mat-autocomplete #comptes_auto>
+              <mat-option
+                *ngFor="
+                  let compte of globalService.filterElement(
+                    comptes,
+                    compte_associe.value,
+                    'LibelleCompte'
+                  )
+                "
+                (click)="
+                  produitForm
+                    .get('CompteAssocie')
+                    ?.setValue(compte.CodeCompte);
+                "
+                >{{ compte.LibelleCompte }}</mat-option
+              >
+              <mat-option>
+                <span class="input-group-text  bg-success text-white " (click)="openDialofForAdd()" id="basic-addon1">Ajouter un compte<i class="fa-solid fa-plus"></i></span>
+              </mat-option>
+
+            </mat-autocomplete>
+
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label
+            for="validationCustom01"
+            class="form-label label mt-3"
+            >Date d'échéance (<span class="text-danger">*</span>)</label
+          >
+          <input
+            [readonly]="action == 'voir'"
+            [ngClass]="{
+              'is-valid': produitForm.controls['DateEcheance'].valid,
+              'is-invalid': !produitForm.controls['DateEcheance'].valid
+            }"
+            type="date"
+            class="form-control hauteur hauteur text-uppercase"
+            formControlName="DateEcheance"
+
+          />
+          <div
+            [ngClass]="{
+              'valid-feedback': produitForm.controls['DateEcheance'].valid,
+              'invalid-feedback': !produitForm.controls['DateEcheance'].valid
+            }"
+          >
+            {{
+              !produitForm.controls["DateEcheance"].valid
+                ? "Séletionnez la date d'échéance."
+                : "ok."
+            }}
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label
+            for="validationCustom01"
+            class="form-label label mt-3"
+            >Ordre d'affichage (<span class="text-danger">*</span>)</label
+          >
+          <input
+            [readonly]="action == 'voir'"
+            [ngClass]="{
+              'is-valid': produitForm.controls['NumOrdre'].valid,
+              'is-invalid': !produitForm.controls['NumOrdre'].valid
+            }"
+            type="number"
+            class="form-control hauteur hauteur text-uppercase"
+            formControlName="NumOrdre"
+          />
+          <div
+            [ngClass]="{
+              'valid-feedback': produitForm.controls['NumOrdre'].valid,
+              'invalid-feedback': !produitForm.controls['NumOrdre'].valid
+            }"
+          >
+            {{
+              !produitForm.controls["NumOrdre"].valid
+                ? "Renseignez le numéro ordre."
+                : "ok."
+            }}
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-4 col-lg-3 mt-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="ObligatoireInscription"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Obligatoire pour l'inscription</label
+              >
+            </div>
+          </div>
+
+          <div class="col-md-4 col-lg-3 mt-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="AccepteReduction"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Accepete les réductions</label
+              >
+            </div>
+          </div>
+
+          <div class="col-md-4 col-lg-3 mt-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="ElevesInternes"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Elèves internes uniquement</label
+              >
+            </div>
+          </div>
+
+          <div class="col-md-4 col-lg-3 mt-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="NouveauxEleves"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Nouveaux élèves uniquement</label
+              >
+            </div>
+          </div>
+
+          <div class="col-md-4 col-lg-3 mt-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="ObligatoirePourDocuments"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Obligatoire pour impression des documents (bulletins, cetificats, ...)</label
+              >
+            </div>
+          </div>
+
+          <div class="col-md-4 col-lg-3 mt-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="AccepteMajoration"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Accepte les majorations</label
+              >
+            </div>
+          </div>
+
+          <div class="col-md-4 col-lg-3 mt-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="ElevesDemiPensionnaires"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Elèves demi-pensionnaires uniquement</label
+              >
+            </div>
+          </div>
+
+          <div class="col-md-4 col-lg-3 mt-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="AnciensElèves"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Anciens élèves uniquement</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 col-lg-3 mt-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                formControlName="Occasionnel"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                class="form-check-label"
+                for="flexSwitchCheckDefault"
+                >Est un frais occasionnel</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="py-2 pb-5  col" *ngIf="action != 'voir'">
+            <button
+              *ngIf="!isLaoding; else loader"
+              (click)="onSubmit()"
+              [disabled]="produitForm.invalid || isLaoding"
+              type="submit"
+              class="btn text-white form-control bg-table-color"
+            >
+              Enregistrer
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</app-gabarit>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

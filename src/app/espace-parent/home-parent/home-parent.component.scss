@@ -1,0 +1,82 @@
+@import '../../dashboard/dashboard.component.scss';
+
+#actualites{
+    min-height: 7em;
+    max-height: 20em;
+    overflow-y: auto;
+}
+
+.actuality-color{
+    background: #e6f7fd;
+}
+
+
+aside{
+    background: url(../../../assets/images/parent.jpg) no-repeat center;
+    background-size: cover;
+    margin: 0px !important;
+    padding: 0px !important
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+body {
+  font-family: "Space Mono", monospace;
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+  padding: 32px;
+  margin: 60px auto;
+  border: 1px solid #eee;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.06);
+}
+
+tr:hover{
+cursor: pointer;
+background-color:#484848;
+color: white;
+}
+
+.block-image {
+  display: block;
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  border: 2px solid #00c0ef;
+}
+
+.bg-bloc{
+    background: rgba($color: #e6f7fd, $alpha: 0.7);
+}
+
+.numCount{
+  font-size: 1.3em;
+  font-weight: 900;
+}
+
+.detailsCount{
+  font-size: 0.9em
+}
+.card-sup{
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  div{
+    margin-right: 2em;
+  }
+}
+
+.info-box-content{
+  @media screen and (max-width: 500px) {
+    h2{
+      font-size: 0.9em;
+    }
+    span{
+      font-size: 0.7em;
+    }
+  }
+}
+blockquote{
+  font-size: 1em;
+}

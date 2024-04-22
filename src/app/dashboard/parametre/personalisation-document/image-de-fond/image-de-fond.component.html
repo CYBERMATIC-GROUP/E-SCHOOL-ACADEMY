@@ -1,0 +1,139 @@
+<app-gabarit pageTitle="Personnalisation des Cartes et Badges">
+  <div class="container bg-light p-3">
+    <div class="col-lg-6 m-lg-auto">
+      <div class="">
+        <label for="">Selectionner le model du document</label>
+        <select
+          *ngIf="!isloadingbalises;else loader"
+          class="form-select"
+          (change)="certificatSelected($event)"
+          aria-label="Default select example"
+        >
+          <option
+            *ngFor="let balise of tableauBalises"
+            [value]="balise.Parametre"
+          >
+            {{ balise.NomBalise }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+
+    <!-- <div class="col-lg-6 m-lg-auto p-4">
+      <div
+        class="col-lg-12 border p-4 bg-light text-center"
+        *ngIf="!isloadinImageSelected; else loader"
+      >
+        <span class="text-uppercase fw-bold">{{ titrepardefaut }}</span>
+        <div style="position: static; height: 220px;overflow-y: auto;" class="w-75 p-2 shadow custom-scrollbar m-auto mt-2">
+          <img class="w-100" [src]="image" />
+        </div>
+
+        <div class="col-lg-8 mt-3 bg-light m-auto">
+          <button
+            type="button"
+            (click)="openCropImage()"
+            class="btn btn-primary"
+          >
+            Modifier l'image <i class="fa-solid fa-image"></i>
+          </button>
+        </div>
+      </div>
+    </div>  -->
+
+     <!-- <div class="col-lg-6 m-lg-auto p-4">
+      <div
+        class="col-lg-12 border p-4 bg-light text-center"
+        *ngIf="!isloadinImageSelected; else loader"
+      >
+        <span class="text-uppercase fw-bold">{{ titrepardefaut }}</span>
+        <div class="w-75 p-2 shadow m-auto mt-2">
+          <img class="w-100" [src]="image" />
+        </div>
+
+        <div class="col-lg-8 mt-3 bg-light m-auto">
+          <button
+            type="button"
+            (click)="openCropImage()"
+            class="btn btn-primary"
+          >
+            Modifier l'image <i class="fa-solid fa-image"></i>
+          </button>
+        </div>
+      </div>
+    </div>  -->
+     <div class="col-lg-6 p-0 m-lg-auto p-4">
+      <div
+        class="col-lg-12 bg-white  p-4  bg-light text-center"
+        *ngIf="!isloadinImageSelected; else loader"
+      >
+      <div class="mb-2 bg-white p-2">
+        <span class="text-uppercase mb-3 fw-bold">{{ titrepardefaut }}</span>
+      </div>
+      <div class="w-100 shadow p-3" style="height: 200px">
+          <img class="img-fluid" [src]="image"  style="
+          object-fit: contain;
+          width: 100%;
+          height: 100%;
+        " />
+        </div>
+
+        <div class="col-lg-12 p-0 mt-3 bg-light">
+          <button
+            type="button"
+            (click)="openCropImage()"
+            class="btn form-control bg-primary text-white btn-primary"
+          >
+            Modifier l'image <i class="fa-solid fa-image"></i>
+          </button>
+        </div>
+      </div>
+    </div> 
+    <!-- <div class="tab-content mt-2">
+      <div class="tab-pane fade show active" id="home">
+        <span class="text-uppercase fw-bold">{{ titrepardefaut }}</span>
+        <div class="w-75 p-2 shadow m-auto mt-2">
+          <img class="w-100" [src]="image" />
+        </div>
+      </div>
+      <div class="tab-pane fade" id="profile">
+        <span class="text-uppercase fw-bold">{{ titrepardefaut }}</span>
+        <div class="w-75 p-2 shadow m-auto mt-2">
+          <img class="w-100" [src]="image" />
+        </div>
+      </div>
+    </div>
+
+      <div class="col-lg-12 p-0  mt-3 bg-light m-auto">
+        <ul class="nav mt-3  nav-tabs" id="myTabs">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">
+              <button class="form-control">Modifier l'image en portrait</button>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile">
+              <button class="form-control">Modifier l'image en paysage</button>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>  -->
+    <div class="col-lg-6  mb-5 m-lg-auto">
+      <button
+        (click)="valider()"
+        *ngIf="!isloadingupdatebadge;else loader"
+        style="background-color: rgb(13, 110, 253)"
+        class="form-control text-white"
+      >
+        Enregistrer l'image <i class="fa-solid fa-arrows-rotate"></i>
+      </button>
+    </div>
+  </div>
+
+</app-gabarit>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

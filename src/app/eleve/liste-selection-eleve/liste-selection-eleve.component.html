@@ -1,0 +1,246 @@
+<div class="container-fuild m-3">
+  <!-- <li class="nav-item ">
+            <a class="nav-link text-primary " style="cursor: pointer;" (click)="_location.back()"><i class="fa-solid fa-arrow-left"></i> Retour </a>
+        </li>  -->
+  
+  <div class="d-flex justify-content-end align-items-center">
+    <app-close-modal></app-close-modal>
+  </div>
+
+  <h1 class="card-title border text-center">
+    {{
+      reinscription
+        ? 'sélectionner un élève en cliquant sur une ligne puis sur le bouton "inscription BAC/BEPC/CEPE"'
+        : "Liste des élèves"
+    }}
+  </h1>
+
+  <div class="row mt-2">
+    <div class="col-lg-4 mt-2">
+      <input
+        class="form-control"
+        type="text"
+        name="CodeEleve"
+        [(ngModel)]="CodeEleve"
+        placeholder="Chercher par matricule"
+        (input)="applyFilter($event, 'CodeEleve')"
+      />
+    </div>
+    <div class="col-lg-4 mt-2">
+      <input
+        class="form-control"
+        type="text"
+        name="Fr_Nom"
+        [(ngModel)]="Fr_Nom"
+        placeholder="Chercher par nom"
+        (input)="applyFilterNom($event)"
+      />
+    </div>
+    <div class="col-lg-4 mt-2">
+      <input
+        class="form-control"
+        type="text"
+        name="Fr_Prenom"
+        [(ngModel)]="Fr_Prenom"
+        placeholder="Chercher par prenom"
+        (input)="applyFilterpreNom($event)"
+      />
+    </div>
+    <!--div class="col-lg-3">
+      <button
+        style="background-color: #7b4bce"
+        class="text-white form-control"
+        (click)="onAfficherClick()"
+      >
+        AFFICHER <i class="fa-solid fa-list"></i>
+      </button>
+    </div-->
+  </div>
+  <div class="row">
+    <div class="col-lg-6 mt-2" >
+      <input
+        class="form-control form-select"
+        [matAutocomplete]="classe"
+        #classeFilterElt
+        *ngIf="!isloadClasse;else loader"
+        (input)="onInputClasse($event)"
+        (click)="listeclasse($event); classeFilterElt.value = ''"
+        placeholder="Rechercher par classe ici ..."
+      />
+
+      <mat-autocomplete #classe (optionSelected)="onSelectionClasse($event)">
+        <mat-option *ngFor="let c of filteredClasse" [value]="c.NomClasse">
+          {{ c.CodeClasse }}
+          <span class="text-dark"> / </span>
+          {{ c.NomClasse }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <div class="col-lg-6 mt-2">
+      <button
+        class="form-control bg-table-color text-white"
+        (click)="view1()"
+       [mat-dialog-close]="true"
+      >
+        Selectionner un élève
+      </button>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8" id="content-table">
+    <table mat-table [dataSource]="dataSource" *ngIf="dataSource; else loader">
+      <!-- Position Column -->
+
+      <ng-container matColumnDef="CodeEleve">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Matricule
+        </th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': eleveSelected == element,
+            cursor: eleveSelected
+          }"
+        >
+          {{ element.CodeEleve }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light"> Total </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Fr_Nom">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>Nom</th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': eleveSelected == element,
+            cursor: eleveSelected
+          }"
+        >
+          {{ element.Fr_Nom }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light"> Elèves: </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Fr_Prenom">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Prenom
+        </th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': eleveSelected == element,
+            cursor: eleveSelected
+          }"
+        >
+          {{ element.Fr_Prenom }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light"> {{ dataSource.data.length }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Civilite">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>Sexe</th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': eleveSelected == element,
+            cursor: eleveSelected
+          }"
+        >
+          {{ element.Civilite === 1 ? "M" : "F" }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light">  </td>
+      </ng-container>
+
+      <ng-container matColumnDef="IDNationalite">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Nationalité
+        </th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': eleveSelected == element,
+            cursor: eleveSelected
+          }"
+        >
+          {{ nationaliteList ? getNationaliteLibelle(element.IDNationalite) : "" }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light">  </td>
+      </ng-container>
+
+      <ng-container matColumnDef="CodeClasse">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Classe
+        </th>
+        <td
+          class="pointer"
+          mat-cell
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': eleveSelected == element,
+            cursor: eleveSelected
+          }"
+        >
+          {{ element.CodeClasse }}
+        </td>
+        <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light">  </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Actions">
+        <th
+          mat-header-cell
+          class="text-end"
+          style="padding-right: 65px"
+          *matHeaderCellDef
+        >
+          Actions
+        </th>
+
+        <td
+          mat-cell
+          class="text-end"
+          style="padding-right: 75px"
+          *matCellDef="let element"
+          (click)="onClickLine(element)"
+          [ngClass]="{
+            'bg-color': eleveSelected == element,
+            cursor: eleveSelected
+          }"
+        >
+          <button
+            type="button"
+            (click)="view(element)"
+            class="btn text-lowercase py-0 px-1"
+          >
+            <i class="fa fa-eye text-black" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light">  </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+    </table>
+  </div>
+
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+</div>

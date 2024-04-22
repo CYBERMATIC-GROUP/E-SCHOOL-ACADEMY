@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html
+  data-n-head-ssr
+  lang="fr"
+  data-n-head="%7B%22lang%22:%7B%22ssr%22:%22fr%22%7D%7D"
+>
+  <head>
+    <title>E-SCHOOL PORTAIL</title>
+    <meta data-n-head="ssr" charset="utf-8" />
+    <meta
+      data-n-head="ssr"
+      name="viewport"
+      content="width=device-width,initial-scale=1"
+    />
+    <meta
+      data-n-head="ssr"
+      data-hid="description"
+      name="description"
+      content="La solution 9 en 1 qui facilite la gestion administrative, académique et financière de votre établissement."
+    />
+    <meta
+      data-n-head="ssr"
+      name="author"
+      content="Alexis Mavy NGOYI MOUSSOUNDA"
+    />
+    <meta data-n-head="ssr" data-hid="charset" charset="utf-8" />
+    <meta
+      data-n-head="ssr"
+      data-hid="mobile-web-app-capable"
+      name="mobile-web-app-capable"
+      content="yes"
+    />
+    <meta
+      data-n-head="ssr"
+      data-hid="apple-mobile-web-app-title"
+      name="apple-mobile-web-app-title"
+      content="e-eschool"
+    />
+    <meta
+      data-n-head="ssr"
+      data-hid="og:type"
+      name="og:type"
+      property="og:type"
+      content="website"
+    />
+    <meta
+      data-n-head="ssr"
+      data-hid="og:title"
+      name="og:title"
+      property="og:title"
+      content="e-eschool"
+    />
+    <meta
+      data-n-head="ssr"
+      data-hid="og:site_name"
+      name="og:site_name"
+      property="og:site_name"
+      content="e-eschool"
+    />
+    <meta
+      data-n-head="ssr"
+      name="description"
+      content="La solution 6 en 1 qui facilite la gestion administrative, académique et financière de votre établissement."
+    />
+    <meta data-n-head="ssr" name="author" content="" />
+    <meta
+      data-n-head="ssr"
+      name="keywords"
+      content="E-SCHOOL, School, Gestion, Etablissement, Administration"
+    />
+    <meta data-n-head="ssr" name="robots" content="index, follow" />
+    <meta data-n-head="ssr" name="googlebot" content="index, follow" />
+    <link data-n-head="ssr" rel="icon" href="favicon.ico" />
+    <link
+      data-n-head="ssr"
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+    />
+    <link
+      data-n-head="ssr"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.css"
+    />
+    <link
+      data-n-head="ssr"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css"
+      rel="preload"
+      as="style"
+      onload='this.rel="stylesheet"'
+    />
+    <link
+      data-n-head="ssr"
+      data-hid="shortcut-icon"
+      rel="shortcut icon"
+      href="icons/icon_64x64.71319b.png"
+    />
+    <link
+      data-n-head="ssr"
+      data-hid="apple-touch-icon"
+      rel="apple-touch-icon"
+      href="icons/icon_512x512.71319b.png"
+      sizes="512x512"
+    />
+    <link
+      data-n-head="ssr"
+      rel="manifest"
+      href="manifest.01533a75.json"
+      data-hid="manifest"
+    />
+  </head>
+  <body>
+    <div>
+      <div>
+        <div>
+          <div>
+            <header>
+              <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                  <a class="navbar-brand text-white text-truncate" href="#">
+                    <img src="assets/img/logo.f9cc7d6.png" width="50" alt="" />
+                  </a>
+
+                  <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                  >
+                    <i class="fa-solid fa-list fs-2 text-white"></i>
+                  </button>
+
+                  <div
+                    class="collapse justify-content-end navbar-collapse"
+                    id="navbarSupportedContent"
+                  >
+                    <ul
+                      class="navbar-nav text-white mb-2 mb-lg-0"
+                      style="float: left"
+                    >
+                      <li class="nav-item pl-1">
+                        <a class="nav-link" routerLink="/">Nos écoles</a>
+                      </li>
+                      <li class="nav-item pl-1">
+                        <a class="nav-link" routerLink="/">Nos partenaires</a>
+                      </li>
+                      <li class="nav-item pl-1">
+                        <a class="nav-link" routerLink="/ecole/ajout">
+                          Créer mon établissement</a
+                        >
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a
+                          class="nav-link text-white dropdown-toggle"
+                          href="#"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Connexion
+                        </a>
+                        <ul
+                          class="dropdown-menu"
+                          style="margin-left: -23px !important"
+                        >
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              routerLink="/connexion-form"
+                              href="#"
+                              >Espace Eleve</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              routerLink="/connexion-form"
+                              href="#"
+                              >Espace Parent</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </header>
+          </div>
+          <div class="af-main">
+            <div class="columns is-centered">
+              <div class="column is-three-fifths">
+                <div class="-af-home -min-height-grow">
+                  <p
+                    class="p-3 is-size-2"
+                    style="font-size: 20px; font-weight: bolder; color: #45c487"
+                  >
+                    E-school
+                  </p>
+                  <p class="is-size-5 p-3 has-text-light">
+                    La solution 9 en 1 qui facilite la gestion administrative,
+                    académique et financière de votre établissement.
+                  </p>
+                  <div class="d-lg-flex">
+                    <div>
+                      <div class="">
+                        <a
+                          routerLink="/connexion"
+                          class="button mt-1 m-2 is-success is-rounded"
+                          ><span
+                            ><i class="fas fa-university"></i> Se connecter
+                          </span></a
+                        >
+                      </div>
+                    </div>
+                    <div>
+                      <div class="">
+                        <a
+                          routerLink="/ecole/ajout"
+                          class="button m-2 is-success is-rounded"
+                          ><span
+                            ><i class="fa-solid fa-school"></i> Créer mon
+                            établissement
+                          </span></a
+                        >
+                      </div>
+                    </div>
+                    <div>
+                      <div class="">
+                        <a
+                          (click)="openContact()"
+                          class="button m-2 is-success is-rounded pointer"
+                          ><span
+                            ><i class="fa-solid fa-phone-volume"></i> Contact
+                          </span></a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="af-main-content-">
+            <div class="has-background-white py-6">
+              <div class="columns is-centered py-4">
+                <div class="column is-4 has-text-centered">
+                  <br />
+                  <p>
+                    Invitation à une session de renforcement des capacités en
+                    gestion informatisée du traitement des notes et la
+                    comptabilite avec le logiciel de gestion scolaire e-school.
+                  </p>
+                  <br />
+                  <a
+                    href="participants/je-participe/index.html"
+                    class="button m-2 is-warning is-rounded"
+                    ><span
+                      ><i class="mdi mdi-bank"></i> Je participe au seminaire
+                    </span></a
+                  >
+                </div>
+                <div
+                  class="column is-4 has-text-centered box has-background-success has-text-light"
+                >
+                  <br />
+                  <i class="mdi mdi-android"></i>
+                  <p style="color: #fff">
+                    Decouvrez l’application E-school alerte parents qui offre
+                    aux utilisateurs un panel de fonctionnalités defiant la
+                    concurrence
+                  </p>
+                  <a
+                    href="ecoles/eSchool%20Alerte%20Parents_1.0.0.0_com.cybermatic.eschool_alerte_parents.apk"
+                    download="eschool alerte parents"
+                    ><button
+                      type="button"
+                      class="button m-2 is-light is-rounded is-outlined"
+                    >
+                      <span
+                        ><i class="mdi mdi-android"></i> Je telecharge
+                      </span>
+                    </button></a
+                  >
+                </div>
+              </div>
+              <div
+                class="box-af-service"
+                style="background-color: rgba(220, 220, 220, 0.2)"
+              >
+                <div class="columns is-centered">
+                  <div
+                    class="column is-four-fifths is-flex is-justify-content-center is-flex-wrap-wrap"
+                  >
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/mtn.2754566.jpg"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Seminaire & formation E-school
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                      >
+                        <img
+                          src="../../assets/img/Consultations%20de%20caisse.81ff815.png"
+                          alt
+                          width="50px"
+                          class="p-0"
+                        />
+                        <p style="color: #000; width: 80%; margin-left: 10px">
+                          Souscrire a Eureka credit scolaire
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                      >
+                        <img
+                          src="../../assets/img/billet.4793e0b.png"
+                          alt
+                          width="50px"
+                          class="p-0"
+                        />
+                        <p style="color: #000; width: 70%; margin-left: 10px">
+                          Achat de billet de voyage depuis E-school
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                      >
+                        <img
+                          src="../../assets/img/tablet.16a95c4.jpg"
+                          alt
+                          width="50px"
+                          class="p-0"
+                        />
+                        <p style="color: #000; width: 70%; margin-left: 10px">
+                          J'achete ma tablette E-school
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                      >
+                        <img
+                          src="../../assets/img/tablet.16a95c4.jpg"
+                          alt
+                          width="50px"
+                          class="p-0"
+                        />
+                        <p style="color: #000; width: 70%; margin-left: 10px">
+                          Declaration des diplômes et des attestations
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                      >
+                        <img
+                          src="../../assets/img/Etats%20de%20paiement%20droits%20scoalires.1383287.png"
+                          alt
+                          width="50px"
+                          class="p-0"
+                        />
+                        <p style="color: #000; width: 70%; margin-left: 10px">
+                          Paiement des frais scolaires
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br /><br />
+              <div
+                class="px-3 columns is-centered has-bg-light"
+                style="display: flex; align-items: center; flex-wrap: wrap"
+              >
+                <div class="container">
+                  <div class="is-size-3">
+                    <p>
+                      E-school est un logiciel complet pour la gestion d'une
+                      université, d'un lycée, d'un collège ou d'une école
+                      primaire. il est multi-utilisateur, multilingue (anglais
+                      et français), fonctionnant en mono-poste ou en réseau.
+                      Cette plateforme est dotée de toutes les fonctionnalités
+                      dont vous aurez besoin pour vous faciliter la gestion de
+                      vos établissements année par année.
+                      <br /><br />
+                      C'est un outil destiné aux directeurs d'école, aux
+                      secrétaires, aux enseignants, aux parents et aux étudiants
+                      du niveau lycée et université. En effet, ce secteur fait
+                      partie de ceux qui ont le plus besoin d’adopter les TIC
+                      tant au niveau des enseignements qu’au niveau de la
+                      gestion de ces enseignements et des acteurs impliqués.
+                      <br /><br />Notons qu’il est intéressant aujourd’hui pour
+                      un établissement ambitieux et soucieux de sa notoriété et
+                      des résultats des membres de sa communauté de se doter des
+                      outils numériques qui respectent les exigences
+                      technologiques de l’heure.<br /><br />Le logiciel E-school
+                      a été développé en respectant deux contraintes majeures :
+                      efficacité et simplicité, dont le but est de répondre
+                      correctement à ces exigences La gestion informatisée est
+                      de plus en plus courante dans notre société, le secteur
+                      éducatif 4ème secteur prioritaire des objectifs de
+                      développement selon l’Organisation des Nations Unies et
+                      l’un des deux secteurs importants en république du Congo
+                      n’échappe pas à cette tendance.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="box-af-service"
+                style="background-color: rgba(220, 220, 220, 0.2)"
+              >
+                <div class="py-5" style="font-weight: 900">
+                  <p class="text-center">Fonctionnalités</p>
+                </div>
+                <div class="columns is-centered">
+                  <div
+                    class="column is-four-fifths is-flex is-justify-content-center is-flex-wrap-wrap"
+                  >
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/effectif.c7452c8.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">Gestion des effectifs</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/Consultations%20de%20caisse.81ff815.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">Gestion de la comptabilite</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/paper.a668930.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Calcul automatique des moyennes
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/paper.a668930.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Impression des releves des notes
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/effectif.c7452c8.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Gestion du Personnel et de la paie
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/comptability.4dc1eef.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">Envoie des notes par SMS</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="py-5" style="font-weight: 900">
+                  <p class="text-center">Quelques fonctionnalités</p>
+                </div>
+                <div class="columns is-centered">
+                  <div
+                    class="column is-four-fifths is-flex is-justify-content-center is-flex-wrap-wrap"
+                  >
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="assets/images/téléchargement.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">Portail Internet sécurisé</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/paper.a668930.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Plateforme disponible sur tous les supports :
+                          Ordinateur, tablette, smartphone.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/Consultations%20de%20caisse.81ff815.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Module caisse : frais de scolarité, versements,
+                          retraits, journal, grand livre, balance, ...etc
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img src="assets/img/1.9a2a5f4.png" alt width="50px" />
+                        <p style="color: #000">
+                          Encaissement des frais scolaire par Airtel Money et
+                          MTN Money
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="/assets/logo/Envoi_des_mails.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Envoi de mails et de SMS aux personnels, apprenants et
+                          leurs parents.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img src="assets/logo/student3.png" alt width="50px" />
+                        <p style="color: #000">
+                          Préinscription en ligne avec possibilité de payer par
+                          Airtel Money et MTN Mobile Money.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/comptability.4dc1eef.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Création d'emplois du temps (mode manuel assisté ou
+                          automatique)
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 mt-0 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img src="assets/logo/Notes.png" alt width="50px" />
+                        <p style="color: #000">
+                          Saisie des notes et personnalisation du mode de calcul
+                          des moyennes.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 mt-0 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="assets/logo/logo de lancement e school.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Impression des relevées des notes et bulletins de
+                          notes.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="m-2 mt-0 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="assets/logo/resultat_scolaire.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Impressions des differents rapports des statistiques
+                          des resultats scolaires
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img src="assets/logo/Planning.png" alt width="50px" />
+                        <p style="color: #000">
+                          Gestion des absences des apprenants, des agents et des
+                          enseignants.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="assets/logo/enseignant3.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Pointage des présences des enseignants (possibilité
+                          d&#39;utiliser une pointeuse à badges).
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="assets/logo/Inscriptions.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Inscriptions, radiations, rapports au premier octobre
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/effectif.c7452c8.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Gestion de la WebCam pour la prise des photos.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img src="assets/logo/Dossiers.png" alt width="50px" />
+                        <p style="color: #000">
+                          Gestion des diplômes sécurisés.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div
+                    class="column is-four-fifths is-flex is-justify-content-center is-flex-wrap-wrap"
+                  >
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="assets/logo/Répartition Enseigants.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Fonctionnement en trimestres ou en semestres.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/Consultations%20de%20caisse.81ff815.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Gestion des séquences trimestrielles et semestrielles
+                          (une période peut être divisée en 2 ou 3 séquences).
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/paper.a668930.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Gestion des projets pédagogiques par enseignants et
+                          suivi de la couverture des programmes scolaires.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img src="assets/logo/Notes.png" alt width="50px" />
+                        <p style="color: #000">
+                          Historique des modifications des notes (qui a
+                          saisi/modifié une note ?).
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 mt-0 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="assets/logo/Heures_enseignées.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Rapports d'assiduité des enseignants.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/comptability.4dc1eef.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">Gestion des jours fériés.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns is-centered">
+                  <div
+                    class="column is-four-fifths is-flex is-justify-content-center is-flex-wrap-wrap"
+                  >
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/Consultations%20de%20caisse.81ff815.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">Mise à jour automatique.</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="assets/logo/Configurations_Moyennes.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">Gestion des sauvegardes.</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/paper.a668930.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Verrouillage automatique de l'application après une
+                          absence prolongée de l'utilisateur.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="columns is-centered">
+                  <div
+                    class="column is-four-fifths is-flex is-justify-content-center is-flex-wrap-wrap"
+                  >
+                    <div class="m-2 mt-0 box box-sizes">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/effectif.c7452c8.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">
+                          Impression de différents rapports (bulletins, relevées
+                          de notes, les statistiques des résultats scolaires,
+                          emploi du temps, certificats de scolarité,
+                          convocations des parents des apprenants, cartes
+                          professionnelles du personnel, cartes scolaire des
+                          élèves ...etc).
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="box-af-service">
+                <div class="py-5" style="font-weight: 900">
+                  <p class="text-center">Nos partenaires</p>
+                </div>
+                <div class="columns is-centered">
+                  <div
+                    class="column is-four-fifths is-flex is-justify-content-center is-flex-wrap-wrap"
+                  >
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/mtn.efa89a0.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">MTN Congo</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/1.9a2a5f4.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">Airtel Congo</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img
+                          src="../../assets/img/2.90ffecf.png"
+                          alt
+                          width="50px"
+                        />
+                        <p style="color: #000">Banque Postale Congo</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img src="img/3.d2749ea.png" alt width="50px" />
+                        <p style="color: #000">LCB Bank Congo</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img src="img/unicef.c2d24c4.png" alt width="50px" />
+                        <p style="color: #000">UNICEF</p>
+                      </div>
+                    </div>
+                    <div class="m-2 box box-size">
+                      <div
+                        class="is-four-fifths is-flex is-justify-content-start is-flex-wrap-nowrap"
+                        style="align-items: center; gap: 10px"
+                      >
+                        <img src="img/unesco.6fa6e5e.jpg" alt width="50px" />
+                        <p style="color: #000">UNESCO</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="box-af-service"
+                style="background-color: rgba(220, 220, 220, 0.2)"
+              >
+                <div class="container">
+                  <app-envoiemessage-accueil></app-envoiemessage-accueil>
+                </div>
+              </div>
+
+              <div class="px-3">
+                <small class="px-3" style="line-height: 28px"
+                  >CYBERMATIC Group</small
+                >
+                <small
+                  class="px-3"
+                  style="line-height: 28px; border-left: 1px solid #fff"
+                  >© Copyright @2023</small
+                >
+                <small
+                  class="px-3"
+                  style="line-height: 28px; border-left: 1px solid #fff"
+                  >Système de géstion scolaire complet</small
+                >
+                <small
+                  class="px-3"
+                  style="line-height: 28px; border-left: 1px solid #fff"
+                  >Brazzaville, Congo</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!--app-gabarit>
+    <section class="home_banner_area">
+        <div class="banner_inner">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="banner_content">
+                  <h2 >
+                   BINVENUE SUR NOTRE SITE DE GESTION SCOLAIRE
+                  </h2>
+                  <p style="font-size: 20px;line-height: 1;margin-top: -2px;">
+                    Nous sommes ravis de vous accueillir dans notre communauté éducative en ligne. Que vous soyez un étudiant, un parent, un enseignant ou un administrateur, notre plateforme a été spécialement conçue pour simplifier et optimiser la gestion scolaire.
+                  </p>
+                  <div class="search_course_wrap">
+                    <form
+                      action="#"
+                      class="form_box d-flex justify-content-between w-100"
+                    >
+                      <input
+                        type="text"
+                        placeholder="Search Courses"
+                        class="form-control"
+                        name="username"
+                        onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Search Courses'"
+                      />
+                      <button type="submit" class="btn search_course_btn">
+                        Search
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature_area">
+        <div class="container">
+          <div class="row justify-content-end">
+            <div class="col-lg-4">
+              <div class="single_feature d-flex flex-row pb-30">
+                <div class="icon">
+                  <span class="lnr lnr-book"></span>
+                </div>
+                <div class="desc">
+                  <h4>Nouveaux cours</h4>
+                  <p>
+                    In the history of modern astronomy, there is probably no one
+                    greater leap forward building and launch.
+                  </p>
+                </div>
+              </div>
+              <div class="single_feature d-flex flex-row pb-30">
+                <div class="icon">
+                  <span class="fa fa-trophy"></span>
+                </div>
+                <div class="desc">
+                  <h4>Meilleurs cours</h4>
+                  <p>
+                    In the history of modern astronomy, there is probably no one
+                    greater leap forward building and launch.
+                  </p>
+                </div>
+              </div>
+              <div class="single_feature d-flex flex-row">
+                <div class="icon">
+                  <span class="lnr lnr-screen"></span>
+                </div>
+                <div class="desc">
+                  <h4>Livres électroniques complets</h4>
+                  <p>
+                    In the history of modern astronomy, there is probably no one
+                    greater leap forward building and launch.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="department_area section_gap">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <div class="dpmt_courses">
+                <div class="row">
+                  <div
+                    class="col-lg-4 col-md-4 col-sm-6 col-12 text-center mt-100"
+                  >
+                    <div class="single_department">
+                      <div class="dpmt_icon">
+                        <img src="img/dpmt/icon1.png" alt="" />
+                      </div>
+                      <h4>Languages</h4>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-12 text-center">
+                    <div class="single_department">
+                      <div class="dpmt_icon">
+                        <img src="img/dpmt/icon2.png" alt="" />
+                      </div>
+                      <h4>Business</h4>
+                    </div>
+                  </div>
+
+                  <div
+                    class="col-lg-4 col-md-4 col-sm-6 col-12 text-center mt-100"
+                  >
+                    <div class="single_department">
+                      <div class="dpmt_icon">
+                        <img src="img/dpmt/icon3.png" alt="" />
+                      </div>
+                      <h4>Literature</h4>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-12 text-center">
+                    <div class="single_department">
+                      <div class="dpmt_icon">
+                        <img src="img/dpmt/icon4.png" alt="" />
+                      </div>
+                      <h4>Software</h4>
+                    </div>
+                  </div>
+
+                  <div
+                    class="col-lg-4 col-md-4 col-sm-6 col-12 text-center mt--100"
+                  >
+                    <div class="single_department">
+                      <div class="dpmt_icon">
+                        <img src="img/dpmt/icon5.png" alt="" />
+                      </div>
+                      <h4>Design</h4>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-6 col-12 text-center">
+                    <div class="single_department">
+                      <div class="dpmt_icon">
+                        <img src="img/dpmt/icon6.png" alt="" />
+                      </div>
+                      <h4>Coaching</h4>
+                    </div>
+                  </div>
+
+                  <div
+                    class="offset-lg-4 col-lg-4 col-md-4 col-sm-6 col-12 text-center mt--100"
+                  >
+                    <div class="single_department">
+                      <div class="dpmt_icon">
+                        <img src="img/dpmt/icon7.png" alt="" />
+                      </div>
+                      <h4>Development</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="offset-lg-1 col-lg-5">
+              <div class="dpmt_right">
+                <h1>Plus de 2500 cours de 5 plateformes</h1>
+                <p>
+                  There is a moment in the life of any aspiring astronomer that it
+                  is time to buy that first telescope. It’s exciting to think
+                  about setting up your own viewing station. In the life of any
+                  aspiring astronomer that it is time to buy that first telescope.
+                  It’s exciting to think about setting up your own viewing
+                  station.
+                </p>
+                <p>
+                  It’s exciting to think about setting up your own viewing
+                  station. In the life of any aspiring astronomer that it is time
+                  to buy that first telescope exciting is time to buy that first.
+                </p>
+                <a href="#" class="primary-btn text-uppercase">Explore Courses</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="popular_courses lite_bg">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="main_title">
+                <h2>Cours populaires</h2>
+                <p>
+                  There is a moment in the life of any aspiring astronomer that it
+                  is time to buy that first telescope. It’s exciting to think
+                  about setting up your own viewing station.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-6">
+              <div class="single_course">
+                <div class="course_head overlay">
+                  <img
+                    class="img-fluid w-100"
+                    src="img/courses/trainer1.jpg"
+                    alt=""
+                  />
+                  <div class="authr_meta">
+                    <img src="img/author1.png" alt="" />
+                    <span>Mart Taylor</span>
+                  </div>
+                </div>
+                <div class="course_content">
+                  <h4>
+                    <a href="course-details.html">Learn React js beginners</a>
+                  </h4>
+                  <p>
+                    When television was young, there was a huge popular show based
+                    on the still popular fictional character of Superman.
+                  </p>
+                  <div class="course_meta d-flex justify-content-between">
+                    <div>
+                      <span class="meta_info">
+                        <a href="#"><i class="lnr lnr-user"></i>355</a>
+                      </span>
+                      <span class="meta_info">
+                        <a href="#"> <i class="lnr lnr-bubble"></i>35 </a>
+                      </span>
+                    </div>
+                    <div>
+                      <span class="price">$150</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <div class="single_course">
+                <div class="course_head overlay">
+                  <img
+                    class="img-fluid w-100"
+                    src="img/courses/trainer1.jpg"
+                    alt=""
+                  />
+                  <div class="authr_meta">
+                    <img src="img/author1.png" alt="" />
+                    <span>Mart Taylor</span>
+                  </div>
+                </div>
+                <div class="course_content">
+                  <h4>
+                    <a href="course-details.html">Learn React js beginners</a>
+                  </h4>
+                  <p>
+                    When television was young, there was a huge popular show based
+                    on the still popular fictional character of Superman.
+                  </p>
+                  <div class="course_meta d-flex justify-content-between">
+                    <div>
+                      <span class="meta_info">
+                        <a href="#"> <i class="lnr lnr-user"></i>355 </a>
+                      </span>
+                      <span class="meta_info"
+                        ><a href="#"> <i class="lnr lnr-bubble"></i>35 </a></span
+                      >
+                    </div>
+                    <div>
+                      <span class="price df_color1">$150</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <div class="single_course">
+                <div class="course_head overlay">
+                  <img
+                    class="img-fluid w-100"
+                    src="img/courses/trainer1.jpg"
+                    alt=""
+                  />
+                  <div class="authr_meta">
+                    <img src="img/author1.png" alt="" />
+                    <span>Mart Taylor</span>
+                  </div>
+                </div>
+                <div class="course_content">
+                  <h4>
+                    <a href="course-details.html">Learn React js beginners</a>
+                  </h4>
+                  <p>
+                    When television was young, there was a huge popular show based
+                    on the still popular fictional character of Superman.
+                  </p>
+                  <div class="course_meta d-flex justify-content-between">
+                    <div>
+                      <span class="meta_info">
+                        <a href="#"> <i class="lnr lnr-user"></i>355 </a>
+                      </span>
+                      <span class="meta_info"
+                        ><a href="#"> <i class="lnr lnr-bubble"></i>35 </a></span
+                      >
+                    </div>
+                    <div>
+                      <span class="price">$150</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <div class="single_course">
+                <div class="course_head overlay">
+                  <img
+                    class="img-fluid w-100"
+                    src="img/courses/trainer1.jpg"
+                    alt=""
+                  />
+                  <div class="authr_meta">
+                    <img src="img/author1.png" alt="" />
+                    <span>Mart Taylor</span>
+                  </div>
+                </div>
+                <div class="course_content">
+                  <h4>
+                    <a href="course-details.html">Learn React js beginners</a>
+                  </h4>
+                  <p>
+                    When television was young, there was a huge popular show based
+                    on the still popular fictional character of Superman.
+                  </p>
+                  <div class="course_meta d-flex justify-content-between">
+                    <div>
+                      <span class="meta_info">
+                        <a href="#"> <i class="lnr lnr-user"></i>355 </a>
+                      </span>
+                      <span class="meta_info"
+                        ><a href="#"> <i class="lnr lnr-bubble"></i>35 </a></span
+                      >
+                    </div>
+                    <div>
+                      <span class="price df_color2">$150</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fact_area overlay">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="main_title">
+                <h2>Des faits qui nous rendent uniques</h2>
+                <p>
+                  There is a moment in the life of any aspiring astronomer that it
+                  is time to buy that first telescope. It’s exciting to think
+                  about setting up your own viewing station.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="single_fact">
+                <div class="f_icon">
+                  <img src="img/f-icons/icon1.png" alt="" />
+                </div>
+                <h4>Expert Mentors</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consec tetur adipisicing elit, sed do
+                  eiusmod tempor incididunt labore dolor sit amet consec tetur
+                  adipisicing elit, sed do eiusmod tempor sed do eiusmod tempor
+                  incididunt labore dolor sit amet consec tetur adipisicing elit,
+                  seddo eiusmod tempor.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="single_fact">
+                <div class="f_icon">
+                  <img src="img/f-icons/icon2.png" alt="" />
+                </div>
+                <h4>25000+ Courses</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consec tetur adipis icing elit, sed
+                  do eiusmod tempor incididunt labore dolor sit amet consec.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="single_fact">
+                <div class="f_icon">
+                  <img src="img/f-icons/icon3.png" alt="" />
+                </div>
+                <h4>Student Membership</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consec tetur adipisicing elit, sed do
+                  eiusmod tempor incididunt labore dolor sit amet consec tetur
+                  adipisicing elit, sed do eiusmod tempor sed do eiusmod tempor
+                  incididunt labore dolor sit amet consec tetur adipisicing elit,
+                  seddo eiusmod tempor.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="single_fact">
+                <div class="f_icon">
+                  <img src="img/f-icons/icon4.png" alt="" />
+                </div>
+                <h4>Lifetime Access</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consec tetur adipisicing elit, sed do
+                  eiusmod tempor incididunt labore dolor sit amet consec tetur
+                  adipisicing elit sed do eiusmod.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="single_fact">
+                <div class="f_icon">
+                  <img src="img/f-icons/icon5.png" alt="" />
+                </div>
+                <h4>Source File Included</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consec tetur adipisicing elit, sed do
+                  eiusmod tempor incididunt labore dolor sit amet consec tetur
+                  adipisicing elit sed do eiusmod.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <div class="single_fact">
+                <div class="f_icon">
+                  <img src="img/f-icons/icon6.png" alt="" />
+                </div>
+                <h4>Live Support</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consec tetur adipis icing elit, sed
+                  do eiusmod tempor incididunt labore dolor sit amet consec.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section_gap testimonial_area">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+              <div class="active_testimonial owl-carousel" data-slider-id="1">
+                <div class="single_testimonial">
+                  <div class="testimonial_head">
+                    <img src="img/quote.png" alt="" />
+                    <h4>Fanny Spencer</h4>
+                    <div class="review">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="testimonial_content">
+                    <p>
+                      As conscious traveling Paup ers we must always be oncerned
+                      about our dear Mother Earth. If you think about it, you
+                      travel across her faceand She is the host to your journey.
+                    </p>
+                  </div>
+                </div>
+                <div class="single_testimonial">
+                  <div class="testimonial_head">
+                    <img src="img/quote.png" alt="" />
+                    <h4>Fanny Spencer</h4>
+                    <div class="review">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="testimonial_content">
+                    <p>
+                      As conscious traveling Paup ers we must always be oncerned
+                      about our dear Mother Earth. If you think about it, you
+                      travel across her faceand She is the host to your journey.
+                    </p>
+                  </div>
+                </div>
+                <div class="single_testimonial">
+                  <div class="testimonial_head">
+                    <img src="img/quote.png" alt="" />
+                    <h4>Fanny Spencer</h4>
+                    <div class="review">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="testimonial_content">
+                    <p>
+                      As conscious traveling Paup ers we must always be oncerned
+                      about our dear Mother Earth. If you think about it, you
+                      travel across her faceand She is the host to your journey.
+                    </p>
+                  </div>
+                </div>
+                <div class="single_testimonial">
+                  <div class="testimonial_head">
+                    <img src="img/quote.png" alt="" />
+                    <h4>Fanny Spencer</h4>
+                    <div class="review">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="testimonial_content">
+                    <p>
+                      As conscious traveling Paup ers we must always be oncerned
+                      about our dear Mother Earth. If you think about it, you
+                      travel across her faceand She is the host to your journey.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="owl-thumbs d-flex justify-content-center"
+                data-slider-id="1"
+              >
+                <div class="owl-thumb-item" style="width: 100px;">
+                  <div class="position-relative">
+                    <img class="img-fluid" src="img/flash2.jpg" alt="" />
+                  </div>
+                  <div class="overlay-grad"></div>
+                </div>
+                <div class="owl-thumb-item" style="width: 100px;">
+                  <div class="position-relative">
+                    <img class="img-fluid" src="img/flash2.jpg" alt="" />
+                  </div>
+                  <div class="overlay-grad"></div>
+                </div>
+                <div class="owl-thumb-item" style="width: 100px;">
+                  <div class="position-relative">
+                    <img class="img-fluid" src="img/flash2.jpg" alt="" />
+                  </div>
+                  <div class="overlay-grad"></div>
+                </div>
+                <div class="owl-thumb-item" style="width: 100px;">
+                  <div class="position-relative">
+                    <img class="img-fluid" src="img/flash2.jpg" alt="" />
+                  </div>
+                  <div class="overlay-grad"></div>
+                </div>
+                <div class="owl-thumb-item" style="width: 100px;">
+                  <div class="position-relative">
+                    <img class="img-fluid" src="img/flash2.jpg" alt="" />
+                  </div>
+                  <div class="overlay-grad"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section_gap registration_area">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-7">
+              <div class="row clock_sec clockdiv" id="clockdiv">
+                <div class="col-lg-12">
+                  <h1>S'inscrire maintenant</h1>
+                  <p>
+                    There is a moment in the life of any aspiring astronomer that
+                    it is time to buy that first telescope. It’s exciting to think
+                    about setting up your own viewing station.
+                  </p>
+                </div>
+                <div class="col clockinner1 clockinner">
+                  <h1 class="days">150</h1>
+                  <span class="smalltext">Days</span>
+                </div>
+                <div class="col clockinner clockinner1">
+                  <h1 class="hours">23</h1>
+                  <span class="smalltext">Hours</span>
+                </div>
+                <div class="col clockinner clockinner1">
+                  <h1 class="minutes">47</h1>
+                  <span class="smalltext">Mins</span>
+                </div>
+                <div class="col clockinner clockinner1">
+                  <h1 class="seconds">59</h1>
+                  <span class="smalltext">Secs</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 offset-lg-1">
+              <div class="register_form">
+                <h3>Cours gratuits</h3>
+                <p>It is high time for learning</p>
+                <form
+                  class="form_area"
+                  id="myForm"
+                  action="https://preview.colorlib.com/theme/edusmart/mail.html"
+                  method="post"
+                >
+                  <div class="row">
+                    <div class="col-lg-12 form_group">
+                      <input
+                        name="name"
+                        placeholder="Your Name"
+                        required=""
+                        type="text"
+                      />
+                      <input
+                        name="name"
+                        placeholder="Your Phone Number"
+                        required=""
+                        type="tel"
+                      />
+                      <input
+                        name="email"
+                        placeholder="Your Email Address"
+                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                        required=""
+                        type="email"
+                      />
+                    </div>
+                    <div class="col-lg-12 text-center">
+                      <button class="primary-btn">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="events_area">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="main_title">
+                <h2>évènements à venir</h2>
+                <p>
+                  There is a moment in the life of any aspiring astronomer that it
+                  is time to buy that first telescope. It’s exciting to think
+                  about setting up your own viewing station.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                  <div class="single_event">
+                    <div class="row align-items-center">
+                      <div class="col-lg-6 col-md-5">
+                        <div class="event_thumb">
+                          <img src="img/ecol.avif" style="height: 230px; width: 330px;" alt="" />
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-7">
+                        <div class="event_details">
+                          <p>25th February, 2017</p>
+                          <h4>
+                            <a href="#">The Universe Through A Child S Eyes</a>
+                          </h4>
+                          <p>
+                            Lorem ipsum dolor sit amet consec tetur adipisicing
+                            elit, sed do eiusmod tempor incididunt labore dolor
+                            sit amet consec tetur adipisicing elit sed.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-lg-12 col-sm-12">
+                  <div class="single_event">
+                    <div class="row align-items-center">
+                      <div class="col-lg-6 col-md-5">
+                        <div class="event_thumb">
+                          <img src="img/event2.jpg" alt="" />
+                        </div>
+                      </div>
+                      <div class="col-lg-5 col-md-7">
+                        <div class="event_details">
+                          <p>25th February, 2017</p>
+                          <h4>
+                            <a href="#">The Universe Through A Child S Eyes</a>
+                          </h4>
+                          <p>
+                            Lorem ipsum dolor sit amet consec tetur adipisicing
+                            elit, sed do eiusmod tempor incididunt labore dolor
+                            sit amet consec tetur adipisicing elit sed.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</app-gabarit-->

@@ -1,0 +1,136 @@
+<div class="container">
+    <div class=" h-100 d-flex justify-content-center align-items-center">
+     <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+       <div class="row">
+         <div class="col-12">
+           <div class="card1 pb-4">
+             <img class="img-fluid" src="./assets/epay.png" alt="logo" />
+           </div>
+         </div>
+ 
+         <div class="col-12">
+           <div class="card p-3">
+             <p class="mb-0 fw-bold h4 text-center">Moyen de paiement</p>
+           </div>
+         </div>
+         <div class="col-12">
+           <div class="card p-3">
+             <div class="form">
+               <div class="row">
+                 <div class="col-12">
+                   <div class="form__div">
+                     <label for="">Référence école</label>
+                     <input
+                       readonly
+                       type="text"
+                       class="form-control text-uppercase"
+                       placeholder=""
+                       [value]="CodeEcole"
+                     />
+                   </div>
+                 </div>
+ 
+                 <div class="col-12">
+                   <div class="">
+                     <label for="">Montant à payer</label>
+                     <div class="input-group mb-3" *ngIf="Montant; else loader">
+                       <input
+                         readonly
+                         type="text"
+                         [value]="globalService.formatPrix(Montant, ' ', '')"
+                         class="form-control w-75"
+                         aria-label="Recipient's username"
+                         aria-describedby="basic-addon2"
+                       />
+                       <span class="input-group-text" id="basic-addon2">XAF</span>
+                     </div>
+                   </div>
+                 </div>
+
+                 <div class="col-12">
+                    <div class="">
+                      <label *ngIf="!showError; else error" for="">Numéro à débiter MTN ou Airtel</label>
+                    <ng-template #error>
+                        <label for="" class="text-danger">Numéro invalide</label>
+                    </ng-template>
+
+                      <div class="input-group mb-3">
+                        <input
+                          type="text"
+                          class="form-control w-75"
+                          placeholder=""
+                          aria-label="Recipient's username"
+                          aria-describedby="basic-addon2"
+                          (input)="onInputNumToDebit($event)"
+                        />
+                        <span class="input-group-text" id="basic-addon2"><i class="fa fa-mobile" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="w-100 d-flex justify-content-center  mb-2 mt-2 ">
+                    <button
+                        [disabled]="!canSubmit || !Montant"
+                        *ngIf="!isLoading; else loader"
+                        class="btn btn-primary w-100"
+                        (click)="onValid()"
+                    >
+                        Validez le paiement
+                    </button>
+                    </div>
+                  
+                  <div class="text-center">
+                    <a routerLink="/">Accueil</a>
+                  </div>
+                 <div class="col-12">
+                   <h4 class="text-center">
+                     Moyens de paiement disponibles
+                   </h4>
+                   <div class="row">
+                     <div class="col-lg-6 mb-lg-0 mb-3">
+                        <div class="text-center">Frais +4% <i class="fa fa-chevron-right"></i> +{{ globalService.formatPrix(mtnFraisCalculate, " ") }}</div>
+                       <a >
+                         <div
+                           style="
+                             background: #ffca06 url(./assets/images.jpg) no-repeat
+                               center;
+                             background-size: contain;
+                             height: 4em;
+                           "
+                           class="card p-3"
+                         ></div>
+                       </a>
+                     </div>
+ 
+                     <div class="col-lg-6 mb-lg-0 mb-3">
+                       <div class="text-center">Frais +2% <i class="fa fa-chevron-right"></i> +{{ globalService.formatPrix(airtelFraisCalculate, " ") }}</div>
+                       <a >
+                         <div
+                           style="
+                             background: #ff0008 url(./assets/Airtel-Embleme.jpg)
+                               no-repeat center;
+                             background-size: contain;
+                             height: 4em;
+                           "
+                           class="card p-3"
+                         ></div>
+                       </a>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+            </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <ng-template #loader>
+    <div style="font-size: 0.6em;">
+      <app-loader></app-loader>
+    </div>
+ </ng-template>
+ 

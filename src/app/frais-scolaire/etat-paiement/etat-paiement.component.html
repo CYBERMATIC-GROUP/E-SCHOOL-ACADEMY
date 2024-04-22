@@ -1,0 +1,664 @@
+<app-gabarit>
+  <div class="container-fluid bg-light h-100">
+    <div class="row border rounded m-2 section1">
+      <div class="col-lg-4 p-0">
+        <input
+          type="text"
+          class="w-100 search form-control"
+          placeholder="Recherchez par ici"
+        />
+
+        <div>
+          <section class="example-container mat-elevation-z8" tabindex="0">
+            <table mat-table [dataSource]="dataSource">
+              <!-- Position Column -->
+              <ng-container matColumnDef="CodeClasse">
+                <th mat-header-cell *matHeaderCellDef>Code classe</th>
+
+                <td mat-cell *matCellDef="let element">
+                  <input
+                    class="form-check-input"
+                    name="clas"
+                    (change)="onChangeClasse(element, $event)"
+                    type="checkbox"
+                  />
+                  {{ element.CodeClasse }}
+                </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="NomClasse">
+                <th mat-header-cell *matHeaderCellDef>Classe</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.NomClasse }}
+                </td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"
+              ></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </section>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <input
+          type="text"
+          class="w-100 form-control search"
+          placeholder="Recherchez par ici"
+        />
+
+        <div>
+          <section class="example-container mat-elevation-z8" tabindex="0">
+            <table
+              mat-table
+              [dataSource]="dataSourceEcheance"
+              *ngIf="!isEcheanceLoading; else loader"
+            >
+              <!-- Position Column -->
+
+              <ng-container matColumnDef="Code">
+                <div class="form-check form-switch"></div>
+                <th mat-header-cell *matHeaderCellDef>Code</th>
+                <td mat-cell *matCellDef="let element">
+                  <input
+                    class="form-check-input"
+                    name="month"
+                    (click)="onCheckMonth(element, $event)"
+                    type="checkbox"
+                    id="flexSwitchCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexSwitchCheckDefault">
+                    {{ element.CodeProduit }}</label
+                  >
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Mois">
+                <div class="form-check form-switch"></div>
+                <th mat-header-cell *matHeaderCellDef>Mois</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.Libelle }}
+                </td>
+              </ng-container>
+
+              <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumnsEcheance; sticky: true"
+              ></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumnsEcheance"
+              ></tr>
+            </table>
+          </section>
+        </div>
+      </div>
+
+      <form
+        class="col-lg-4 bloc-table container px-2"
+        [formGroup]="filterOptionForm"
+      >
+        <div class="row">
+          <div class="col-12">
+            <select
+              formControlName="SitesEts"
+              class="form-control form-select"
+              id=""
+              *ngIf="sites$ | async as sites; else loader"
+            >
+              <option value="0" selected>Tous les sites</option>
+              <option [value]="site.IDSITE" *ngFor="let site of sites">
+                {{ site.Libelle }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="content mt-3">
+            <div class="row mt-3 d-flex justify-content-senter flex-wrap">
+              <div class="col-md-6">
+                <span class="text-on-border w-100">Etat des élèves </span>
+
+                <div class="">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      formControlName="inscrit"
+                    />
+                    <label class="form-check-label"> Inscrits </label>
+                  </div>
+                </div>
+
+                <div class="">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      formControlName="radier"
+                    />
+                    <label class="form-check-label"> Radiés </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <span class="text-on-border w-100">Afficher </span>
+
+                <div class="">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      formControlName="retard"
+                    />
+                    <label class="form-check-label"> Elèves en retard </label>
+                  </div>
+                </div>
+
+                <div class="">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      formControlName="regle"
+                    />
+                    <label class="form-check-label"> Elèves en règle </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    formControlName="studentExoneration"
+                  />
+                  <label class="form-check-label"> Elèves exonérés </label>
+                </div>
+              </div>
+
+              <div class="col-8">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    formControlName="loadDataOnSelect"
+                  />
+                  <label class="form-check-label"
+                    >Chargement automatique des données sur sélections</label
+                  >
+                </div>
+              </div>
+              <hr />
+              <div class="col-12">
+                <button
+                  type="submit"
+                  class="form-control text-white btn btn-primary w-100"
+                  style="background-color: #7b4bce"
+                  (click)="onFilter()"
+                  [disabled]="isLoadingResultFilter"
+                >
+                  Afficher les sélections
+                  <i
+                    class="fa-solid fa-rotate-right"
+                    style="padding-left: 10px"
+                  ></i>
+                </button>
+              </div>
+
+
+              <div class="col-12 mt-2">
+                <button
+                class="form-control text-white"
+                [disabled]="!filterParam"
+                style="background-color: rgb(124, 87, 206)"
+                *ngIf="!isLoad; else loader"
+                (click)="Imprimer()"
+              >
+                Imprimer l'etat de paiement
+              </button>
+              </div>
+              
+
+              <div class="col-12 mt-2"> 
+                <button
+                  class="form-control text-white"
+                  *ngIf="!isloadingimprimepaiement; else loader"
+                  style="background-color: rgb(124, 87, 206)"
+                  (click)="ImprimerAvispaiement()"
+                  [disabled]="filterOptionForm.controls['retard'].value == false"
+                >
+                  Impression des avis de paiements
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="row section2 p-3">
+      <h2 class="fs-6" *ngIf="resultFilter">Etat par élève</h2>
+      <div style="max-height: 390px; overflow-y: scroll">
+        <div
+          class="mat-elevation-z8 h-95 rounded"
+          *ngIf="!isLoadingResultFilter; else loader"
+        >
+          <table mat-table [dataSource]="resultFilter" *ngIf="resultFilter">
+            <ng-container matColumnDef="CodeEleve">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Matricule
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.CodeEleve }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              >
+                Total
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Fr_Nom">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Nom(s) et Prénom(s)
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.Fr_Nom }} {{ element.Fr_Prenom }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              ></td>
+            </ng-container>
+
+            <ng-container matColumnDef="Fr_CodeClasse">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Classe
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.Fr_CodeClasse }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              ></td>
+            </ng-container>
+
+            <ng-container matColumnDef="MontantTotal">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Reste à payer
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ globalService.formatPrix(element.MontantTotal, " ", "") }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              >
+                {{ globalService.formatPrix(totalMontantInitial) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Deja_Paye">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Déjà payé
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ globalService.formatPrix(element.Deja_Paye, " ", "") }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              >
+                {{ globalService.formatPrix(totalMontantPaye) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Reste_A_Payer">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Montant dû
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ globalService.formatPrix(element.Reste_A_Payer, " ", "") }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              >
+                {{ globalService.formatPrix(totalMontantDu) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="MontantImpaye">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Impayé
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ globalService.formatPrix(element.MontantImpaye, " ", "") }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              >
+                {{
+                  globalService.formatPrix(
+                    globalService.totalColV2(allResumData, "MontantImpaye"),
+                    " ",
+                    ""
+                  )
+                }}
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumnsFilter; sticky: true"
+            ></tr>
+            <tr
+              mat-footer-row
+              *matFooterRowDef="displayedColumnsFilter; sticky: true"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumnsFilter"
+            ></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid pb-4">
+      <div class="row px-2">
+        <div class="col-md-6" *ngIf="!isLoadingResultFilter; else loader">
+          <div>
+            <section
+              class="example-container mat-elevation-z8"
+              *ngIf="resumData"
+              tabindex="0"
+            >
+              <h2 class="fs-6">Etat par classe</h2>
+              <table mat-table [dataSource]="resumData">
+                <!-- Position Column -->
+                <ng-container matColumnDef="sClasse">
+                  <th mat-header-cell *matHeaderCellDef>Classe</th>
+
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.sClasse }}
+                  </td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    Total
+                  </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="Montant">
+                  <th mat-header-cell *matHeaderCellDef>Total à payer</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ globalService.formatPrix(element.Montant, " ", "") }}
+                  </td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    {{
+                      globalService.formatPrix(
+                        globalService.totalColV2(resumData, "Montant"),
+                        " ",
+                        ""
+                      )
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Deja_Paye">
+                  <th mat-header-cell *matHeaderCellDef>Déjà payé</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ globalService.formatPrix(element.Deja_Paye, " ", "") }}
+                  </td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    {{
+                      globalService.formatPrix(
+                        globalService.totalColV2(resumData, "Deja_Paye"),
+                        " ",
+                        ""
+                      )
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Reste_A_Payer">
+                  <th mat-header-cell *matHeaderCellDef>Reste à payer</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                      globalService.formatPrix(element.Reste_A_Payer, " ", "")
+                    }}
+                  </td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    {{
+                      globalService.formatPrix(
+                        globalService.totalColV2(resumData, "Reste_A_Payer"),
+                        " ",
+                        ""
+                      )
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="MontantImpaye">
+                  <th mat-header-cell *matHeaderCellDef>Impayé</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                      globalService.formatPrix(element.MontantImpaye, " ", "")
+                    }}
+                  </td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    {{
+                      globalService.formatPrix(
+                        globalService.totalColV2(allResumData, "MontantImpaye"),
+                        " ",
+                        ""
+                      )
+                    }}
+                  </td>
+                </ng-container>
+
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="displayedResum; sticky: true"
+                ></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedResum"></tr>
+                <tr
+                  mat-footer-row
+                  *matFooterRowDef="displayedResum; sticky: true"
+                ></tr>
+              </table>
+            </section>
+          </div>
+        </div>
+
+        <div class="col-md-6" *ngIf="!isLoadingResultFilter; else loader">
+          <div>
+            <section
+              class="example-container mat-elevation-z8"
+              tabindex="0"
+              *ngIf="allResumData"
+            >
+              <h2 class="fs-6">Toutes les salles</h2>
+              <table mat-table [dataSource]="allResumData">
+                <!-- Position Column -->
+                <ng-container matColumnDef="#">
+                  <th mat-header-cell *matHeaderCellDef>#</th>
+
+                  <td mat-cell *matCellDef="let element">#</td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    Total
+                  </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="Montant">
+                  <th mat-header-cell *matHeaderCellDef>Total à payer</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ globalService.formatPrix(element.Montant, " ", "") }}
+                  </td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    {{
+                      globalService.formatPrix(
+                        globalService.totalColV2(allResumData, "Montant"),
+                        " ",
+                        ""
+                      )
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Deja_Paye">
+                  <th mat-header-cell *matHeaderCellDef>Déjà payé</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ globalService.formatPrix(element.Deja_Paye, " ", "") }}
+                  </td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    {{
+                      globalService.formatPrix(
+                        globalService.totalColV2(allResumData, "Deja_Paye"),
+                        " ",
+                        ""
+                      )
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Reste_A_Payer">
+                  <th mat-header-cell *matHeaderCellDef>Reste à payer</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                      globalService.formatPrix(element.Reste_A_Payer, " ", "")
+                    }}
+                  </td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    {{
+                      globalService.formatPrix(
+                        globalService.totalColV2(allResumData, "Reste_A_Payer"),
+                        " ",
+                        ""
+                      )
+                    }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="MontantImpaye">
+                  <th mat-header-cell *matHeaderCellDef>Impayé</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{
+                      globalService.formatPrix(element.MontantImpaye, " ", "")
+                    }}
+                  </td>
+                  <td
+                    class="bg-table-color text-light"
+                    mat-footer-cell
+                    *matFooterCellDef
+                  >
+                    {{
+                      globalService.formatPrix(
+                        globalService.totalColV2(allResumData, "MontantImpaye"),
+                        " ",
+                        ""
+                      )
+                    }}
+                  </td>
+                </ng-container>
+
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="displayedAllResum; sticky: true"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedAllResum"
+                ></tr>
+                <tr
+                  mat-footer-row
+                  *matFooterRowDef="displayedAllResum; sticky: true"
+                ></tr>
+              </table>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pb-5 px-2 row">
+      <div class="col-md-6">
+        <button
+        class="form-control text-white"
+        [disabled]="!filterParam"
+        style="background-color: rgb(124, 87, 206)"
+        *ngIf="!isLoad; else loader"
+        (click)="Imprimer()"
+      >
+        Imprimer l'etat de paiement
+      </button>
+      </div>
+
+      <div class="col-md-6">
+        <button
+          class="form-control text-white"
+          *ngIf="!isloadingimprimepaiement; else loader"
+          style="background-color: rgb(124, 87, 206)"
+          (click)="ImprimerAvispaiement()"
+          [disabled]="filterOptionForm.controls['retard'].value == false"
+        >
+          Impression des avis de paiements
+        </button>
+      </div>
+    </div>
+
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+</app-gabarit>

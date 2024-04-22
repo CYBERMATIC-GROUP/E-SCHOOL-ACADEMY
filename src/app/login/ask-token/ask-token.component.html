@@ -1,0 +1,60 @@
+<!--div class="container">
+  <div class="row contact_form mt-5">
+    <div class="col-12 mt-2">
+      <div class="text-danger" *ngIf="errorMsg">
+        {{ errorMsg }}
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control text-uppercase"
+          id="name"
+          #token
+          placeholder="Entrer votre token"
+        />
+      </div>
+
+      <div>
+        <button class="btn primary-btn" mat-dialog-close>Annuler</button>
+        <button
+          class="btn primary-btn"
+          (click)="onSubmit(token)"
+          [mat-dialog-close]="true"
+        >
+          Soumettre
+        </button>
+      </div>
+    </div>
+  </div>
+</div-->
+
+<div class="p-4 pt-0">
+  <form>
+    <div class="text-end">
+      <button type="button" mat-dialog-close class="btn-close mt-3" aria-label="Close"></button>
+    </div>
+    <h3 class="text-danger text-uppercase" *ngIf="errorMsg">
+      {{ errorMsg }}
+    </h3>
+  
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="askToken"
+        #token
+        placeholder="Entrer votre token"
+        aria-label="Example text with button addon"
+        aria-describedby="button-addon1"
+      />
+    </div>
+    <div>
+      <button 
+        mat-raised-button color="primary" class="w-100"
+        (click)="onSubmit(token)"
+        [mat-dialog-close]="true"
+        type="submit"
+      >Connexion</button>
+    </div>
+  </form>
+</div>

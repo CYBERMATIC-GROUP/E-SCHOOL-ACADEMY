@@ -1,0 +1,16 @@
+@import '../../../variables';
+
+
+thead td {
+    background-color: $secondary;
+    color: white;
+}
+thead tr {
+    td{
+        height: 0.5em;
+    }
+}
+
+table{
+    margin-right: 2em;
+}

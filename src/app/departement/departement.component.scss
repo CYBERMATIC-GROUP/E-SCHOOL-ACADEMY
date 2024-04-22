@@ -1,0 +1,96 @@
+
+$primary-color:#7b4bce;
+$secondary-color: #8cbec6;
+
+table {
+  width: 100%;
+}
+.mat-elevation-z8 tr, .mat-elevation-z8 mat-header-cell {
+  height: 2em;
+}
+.mat-elevation-z8 th, .mat-elevation-z8 mat-header-cell {
+  background-color: $primary-color;
+  color: white;
+} 
+
+h1 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+}
+  //lignes
+  tr:nth-child(even) {
+    background-color: rgb(219, 209, 209);
+}
+
+mat-paginator{
+  background-color: $primary-color;
+}
+
+.md-dialog {
+  opacity: 0;
+}
+
+.tr > :hover{
+  background-color:rgb(146, 133, 123);
+  cursor: pointer;
+  color: white;
+}
+
+/* Styles spécifiques aux versions mobiles */
+@media screen and (max-width: 600px) {
+  .mat-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .mat-header-cell,
+  .mat-cell {
+    display: block;
+    text-align: center;
+  }
+
+  .mat-header-cell {
+    padding: 10px;
+  }
+
+  .mat-cell {
+    padding: 5px 10px;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .mat-row {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  .mat-row:last-child {
+    border-bottom: none;
+  }
+  
+  .mat-row .mat-cell {
+    width: 100%;
+  }
+  
+  .mat-row .mat-cell:first-child {
+    order: 1;
+    margin-bottom: 5px;
+  }
+
+  .mat-row .mat-cell:last-child {
+    order: 2;
+    text-align: center;
+  }
+  
+  .mat-row .mat-cell .btn {
+    margin: 2px;
+    padding: 2px 6px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="col-12">
+      <div class="card border-0">
+        <app-close-modal></app-close-modal>
+        <div class="card-body">
+          <h3 class="card-title text-left" style="width: 26em">
+            <h2 class="">
+              {{ action === "view" ? "Fiche du site " : "" }}
+              {{ action === "edit" ? "Modification du site" : "" }}
+              {{ action === "view" || action === "edit" ? Libelle : "" }}
+              {{ !action ? "Ajouter un site" : "" }}
+            </h2>
+          </h3>
+          <form
+            #natonaliteForm="ngForm"
+            (ngSubmit)="onSubmitForm(natonaliteForm)"
+            *ngIf="!isLoadingpage; else loading"
+            class="g-3 needs-validation"
+          >
+            <div class="mt-3">
+              <label for="validationCustom01" class="form-label">Libelle</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="Libelle"
+                [(ngModel)]="Libelle"
+                required=""
+              />
+            </div>
+
+            <div class="mt-3">
+              <label for="validationCustom01" class="form-label">Ordre</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="NumOrdre"
+                [(ngModel)]="NumOrdre"
+                required=""
+              />
+            </div>
+
+            <div class="mt-3 m-auto" *ngIf="action != 'view'">
+              <button
+                type="submit"
+                class="btn form-control btn-primary bg-primary text-light"
+                [disabled]="!isFormValid()"
+              >
+                {{ action === "edit" ? "Modifier un site " : "Valider" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+   <app-loader></app-loader>
+  </ng-template>

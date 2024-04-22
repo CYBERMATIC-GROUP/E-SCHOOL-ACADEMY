@@ -1,0 +1,145 @@
+<div class="container">
+    <div class="col">
+      <div class="col p-3">
+        <div class="row">
+            <app-close-modal></app-close-modal>
+        </div>
+        <h2 class="text-primary-cust">{{ title }}</h2>
+        <form
+          class="row g-3 border my-2 pb-2 bg-secondary-cust"
+          [formGroup]="visiteurForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data"
+        >
+            <div class="col-md-6 col-lg-6">
+              <label for="validationServer01" class="form-label">Nom et prénom</label>
+              <input
+                type="text"
+                class="form-control text-capitalize"
+                [ngClass]="{
+                  'is-valid': visiteurForm.controls['NomPrenom'].valid,
+                  'is-invalid': !visiteurForm.controls['NomPrenom'].valid
+                }"
+                id="validationServer01"
+                formControlName="NomPrenom"
+              />
+              <div
+                [ngClass]="{
+                  'valid-feedback': visiteurForm.controls['NomPrenom'].valid,
+                  'invalid-feedback': !visiteurForm.controls['NomPrenom'].valid
+                }"
+              >
+                {{
+                  !visiteurForm.controls["NomPrenom"].valid
+                    ? "Renseignez le Nom et prénom du visiteur."
+                    : "ok."
+                }}
+              </div>
+            </div>
+      
+            <!--last name-->
+            <div class="col-md-6 col-lg-6">
+              <label for="validationServer01" class="form-label">Mobile</label>
+              <input
+                type="text"
+                class="form-control text-uppercase"
+                [ngClass]="{
+                  'is-valid': visiteurForm.controls['Mobile'].valid,
+                  'is-invalid': !visiteurForm.controls['Mobile'].valid
+                }"
+                id="validationServer01"
+                formControlName="Mobile"
+                [maxlength]="50"
+              />
+              <div
+                [ngClass]="{
+                  'valid-feedback': visiteurForm.controls['Mobile'].valid,
+                  'invalid-feedback': !visiteurForm.controls['Mobile'].valid
+                }"
+              >
+                {{
+                  !visiteurForm.controls["Mobile"].valid
+                    ? "Renseignez le numéro de tél.."
+                    : "ok."
+                }}
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6">
+                <label for="validationServer01" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-valid': visiteurForm.controls['email'].valid,
+                    'is-invalid': !visiteurForm.controls['email'].valid
+                  }"
+                  id="validationServer01"
+                  formControlName="email"
+                  [maxlength]="50"
+                />
+                <div
+                  [ngClass]="{
+                    'valid-feedback': visiteurForm.controls['email'].valid,
+                    'invalid-feedback': !visiteurForm.controls['email'].valid
+                  }"
+                >
+                  {{
+                    !visiteurForm.controls["email"].valid
+                      ? "Email du visiteur."
+                      : "ok."
+                  }}
+                </div>
+              </div>
+
+
+              <div class="col-md-6 col-lg-6">
+                <label for="validationServer01" class="form-label">Notes</label>
+                <input
+                  type="text"
+                  class="form-control text-uppercase"
+                  [ngClass]="{
+                    'is-valid': visiteurForm.controls['Notes'].valid,
+                    'is-invalid': !visiteurForm.controls['Notes'].valid
+                  }"
+                  id="validationServer01"
+                  formControlName="Notes"
+                  [maxlength]="50"
+                />
+                <div
+                  [ngClass]="{
+                    'valid-feedback': visiteurForm.controls['Notes'].valid,
+                    'invalid-feedback': !visiteurForm.controls['Notes'].valid
+                  }"
+                >
+                  {{
+                    !visiteurForm.controls["Notes"].valid
+                      ? "Notes."
+                      : "ok."
+                  }}
+                </div>
+              </div>
+
+
+          <div class="col-12">
+            <div class="row p-3">
+              <button
+                class="form-control bg-table-color text-white"
+                [disabled]="visiteurForm.invalid"
+                type="submit"
+                *ngIf="!isLoading; else loader"
+              >
+                Ajouter
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #loader>
+      <div class="d-flex justify-content-center">
+          <app-loader></app-loader>
+      </div>
+  </ng-template>
+  
+  

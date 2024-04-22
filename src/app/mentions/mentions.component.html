@@ -1,0 +1,120 @@
+
+<app-gabarit pageTitle="Gestion des mentions">
+    <div class="container bg-light pb-3 pt-3 ">
+        <div class="col-lg-10 m-lg-auto mb-3">
+          <div class="row bg-light m-0 py-2">
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6">
+              <button
+                class="form-control text-white button"
+                style="cursor: pointer; float: right;background-color:#7c57ce;"
+                (click)="create()"
+              >
+                Ajouter une mention <i class="fa-solid fa-graduation-cap"></i>
+              </button>
+            </div>
+          </div>
+          <div class="mat-elevation-z8" style="max-height: 400px; overflow-y: auto">
+            <table mat-table [dataSource]="dataSource" *ngIf="!isLoading; else loader">
+      
+              <ng-container matColumnDef="Mention">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                  Mention
+                </th>
+                <td
+                  class="pointer"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                  {{ element.Mention }}
+                </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="MoyenneMinimale">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                    Moyenne Minimale
+                </th>
+                <td
+                  class="pointer"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                  {{ element.MoyenneMinimale }}
+                </td>
+              </ng-container>
+
+            <ng-container matColumnDef="TypeMention">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                    Type Mention
+                </th>
+                <td
+                  class="pointer"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                  {{ element.TypeMention === 1 ? 'Récompense':'Sanction' }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Couleur">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                    Couleur
+                </th>
+                <td
+                  class="pointer"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                <p style="height: 25px;" [style.background-color]="element.Couleur" class="form-control mt-2"></p>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Actions">
+                <th
+                  mat-header-cell
+                  class="text-end"
+                  *matHeaderCellDef
+                >
+                  Actions
+                </th>
+
+                <td
+                  mat-cell
+                  class="text-end"
+                  *matCellDef="let element"
+                >
+                  <button
+                    type="button"
+                    (click)="view(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i class="fa fa-eye text-black" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="edit(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="delete(element)"
+                    class="btn text-lowercase px-1 py-0"
+                  >
+                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+        </div>
+        </div>
+    </app-gabarit>
+    <ng-template #loader>
+      <app-loader></app-loader>
+     </ng-template>

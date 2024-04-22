@@ -1,0 +1,323 @@
+<app-gabarit-parent pageTitle="ESPACE PARENT">
+  <div class="row pb-3">
+    <div class="col-lg-3 d-none d-lg-block pb-3">
+      <aside class="p-3 h-100 w-100 mb-2 shadow">
+        <div class="bg-bloc p-2 rounded" style="height: 100%">
+          <div>
+            <h4
+              class="p-2 text-center border rounded-5 text-white"
+              style="background-color: #7b4bce"
+            >
+              Elèves abonnés <i class="fa-solid fa-graduation-cap"></i>
+            </h4>
+            <div style="max-height: 320px; overflow-y: auto">
+              <table class="w-100" *ngIf="!isLoading; else loader">
+                <tbody>
+                  <tr *ngFor="let element of ElevesAbonnes" (click)="setEleveSelected(element)">
+                    <td>
+                      <div class="block-image">
+                        <img [src]="element.Photo" alt="" />
+                      </div>
+                    </td>
+                    <td style="padding-left: 10px !important">
+                      <span>{{ element.NomPrenom }}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-lg-7 m-lg-auto mt-5">
+              <button
+                routerLink="/search-eleve-parent"
+                style="background-color: #7b4bce"
+                class="form-control text-white"
+              >
+                Ajouter un élève <i class="fa-solid fa-user"></i>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="mt-4 pt-3"
+            style="border-top: 1px solid rgb(179, 175, 175)"
+          >
+            <h4
+              class="p-2 text-center border rounded-5 text-white"
+              style="background-color: #7b4bce"
+            >
+              Tous les élèves <i class="fa-solid fa-graduation-cap"></i>
+            </h4>
+            <div style="max-height: 320px; overflow-y: auto">
+              <table class="w-100" *ngIf="!isLoading; else loader">
+                <tbody>
+                  <tr *ngFor="let element of Famille">
+                    <td>
+                      <div class="block-image">
+                        <img [src]="element.Photo" alt="" />
+                      </div>
+                    </td>
+                    <td style="padding-left: 10px !important">
+                      <span>{{ element.NomPrenom }}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="col-12 col-lg-9">
+      <div class="row">
+        <app-stats-notes></app-stats-notes>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div
+            class="info-box pointer"
+            routerLink="empoloi-du-temps"
+            [ngClass]="{ 'loader-bloc': emploiDuTempsIsLoad }"
+            (click)="emploiDuTempsIsLoad = true"
+          >
+            <span class="info-box-icon bg-warning">
+              <img src="../../assets/logo/Planning.png" alt="" />
+            </span>
+            <div class="info-box-content">
+              <div class="row">
+                <div class="col">
+                  <h2 class="mb-0 pt-3 text-truncate">Emploi du temps</h2>
+                  <span class="text-secondary text-truncate"
+                    >Jours/horaires..</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="info-box pointer" routerLink="consultation-notes-eleve">
+            <span class="info-box-icon bg-aqua">
+              <img src="../../assets/logo/resultat_scolaire.png" alt="" />
+            </span>
+            <div
+              class="info-box-content d-flex justify-content-start align-items-center"
+            >
+              <div>
+                <h2 class="mb-0 pt-3 text-truncate">Notes</h2>
+                <span class="text-primary text-truncate"
+                  >Devoirs/Examens...</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="info-box pointer" routerLink="devoirs">
+            <span class="info-box-icon bg-aqua">
+              <img src="../../assets/logo/resultat_scolaire.png" alt="" />
+            </span>
+            <div
+              class="info-box-content d-flex justify-content-start align-items-center"
+            >
+              <div>
+                <h2 class="mb-0 pt-3 text-truncate">Devoirs</h2>
+                <span class="text-primary text-truncate"
+                  >Dévoirs publiés...</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="info-box pointer" routerLink="mes-notes">
+            <span class="info-box-icon bg-aqua">
+              <img src="../../assets/logo/resultat_scolaire.png" alt="" />
+            </span>
+            <div
+              class="info-box-content d-flex justify-content-start align-items-center"
+            >
+              <div>
+                <h2 class="mb-0 pt-3 text-truncate">Cours</h2>
+                <span class="text-primary text-truncate">Cours publiés...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div
+            class="info-box pointer"
+            (click)="absenceIsLoad = true"
+            routerLink="absenece-eleve"
+            >
+      
+            <span class="info-box-icon bg-primary">
+              <img src="../../assets/logo/Planning.png" alt="" />
+            </span>
+            <div
+              class="info-box-content d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <h2 class="mb-0 pt-3 text-truncate">Les absences</h2>
+                <span class="text-primary text-truncate"
+                  >jours/horaires...</span
+                >
+              </div>
+              <div
+                class="card-sup pt-2 d-none d-sm-block w-100"
+                *ngIf="statAbsence$ | async as data"
+              >
+                <div class="d-flex justify-content-end w-100">
+                  <div class="text-end">
+                    <p class="text-center">
+                      <span class="numCount text-primary">{{
+                        data.NbreAbsece
+                      }}</span>
+                      <br />
+                      <span class="detailsCount text-danger">Absences</span>
+                    </p>
+                  </div>
+                  <div class="text-end">
+                    <p class="text-center">
+                      <span class="numCount text-primary">{{
+                        data.NbreRetard
+                      }}</span>
+                      <br />
+                      <span class="detailsCount text-danger">Retards</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div
+            class="info-box"
+            (click)="fraisIsLoad = true"
+            [ngClass]="{ 'loader-bloc': fraisIsLoad }"
+            [routerLink]="routes.fraisScolaire"
+          >
+            <!-- <div *ngIf="fraisIsLoad" class="loader-style">
+              <app-loader></app-loader>
+            </div> -->
+
+            <span class="info-box-icon bg-secondary-cust">
+              <img src="../../assets/logo/Planning.png" alt="" />
+            </span>
+            <div
+              class="info-box-content d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <h2 class="mb-0 pt-3 text-truncate">Les frais scolaires</h2>
+                <span style="color: #7b4bce" class="text-truncate"
+                  >Historique de paiement</span
+                >
+              </div>
+              <div class="card-sup pt-2 d-none d-sm-block">
+                <div class="text-center">
+                  <p>
+                    <span class="numCount text-primary">0 XAF</span> <br />
+                    <span class="detailsCount text-danger">Impayé</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-12 col-md-6">
+          <div class="info-box pointer" routerLink="search-eleve-parent">
+            <span class="info-box-icon bg-aqua">
+              <img src="../../assets/logo/resultat_scolaire.png" alt="" />
+            </span>
+            <div
+              class="info-box-content d-flex justify-content-start align-items-center"
+            >
+              <div>
+                <h2 class="mb-0 pt-3 text-truncate">Ajouté les élèves</h2>
+                <span class="text-primary text-truncate"
+                  >Ajouté un ou plusieurs élèves...</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="info-box pointer" routerLink="eleve-add-list">
+            <span class="info-box-icon bg-aqua">
+              <img src="../../assets/logo/resultat_scolaire.png" alt="" />
+            </span>
+            <div
+              class="info-box-content d-flex justify-content-start align-items-center"
+            >
+              <div>
+                <h2 class="mb-0 pt-3 text-truncate">Elèves Ajoutés</h2>
+                <span class="text-primary text-truncate"
+                  >Consulté la liste des élèves ajoutés...</span
+                >
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card shadow-lg p-3 actuality-color rounded info-box">
+            <div class="card-header">Actualités</div>
+            <div class="card-body px-0">
+              <div
+                id="actualites"
+                class=""
+                *ngIf="actualites$ | async as actualites"
+              >
+                <mat-card
+                  class="example-card mb-3 border"
+                  *ngFor="let item of actualites"
+                >
+                  <mat-card-header class="d-none d-md-block">
+                    <img
+                      mat-card-sm-image
+                      src="../../../assets/logo/logo_actuality.jpg"
+                    />
+                    <mat-card-title-group>
+                      <mat-card-title>{{ item.Contenu }}</mat-card-title>
+                      <mat-card-subtitle>{{
+                        item.DateHeure | date
+                      }}</mat-card-subtitle>
+                    </mat-card-title-group>
+                  </mat-card-header>
+                  <mat-card-content>
+                    {{ item.Contenu }}
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <blockquote class="blockquote mb-0 mt-4">
+                <p class="text-end">
+                  Retrouvez toutes les actualités scolaires ici.
+                </p>
+                <footer class="blockquote-footer mt-1 text-end">
+                  Equipe technique<cite title="Source Title"
+                    >Cybermatic-group</cite
+                  >
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-gabarit-parent>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

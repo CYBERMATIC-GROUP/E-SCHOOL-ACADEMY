@@ -1,0 +1,190 @@
+<div class="container">
+  <div class="col-12">
+    <div class="card border-0">
+    <app-close-modal></app-close-modal>
+      <div class="card-body">
+        <h3 class="card-title text-center">
+          <h2 class="">
+            {{ action === "view" ? "Fiche de la caisse " : "" }}
+            {{ action === "edit" ? "Modifier la caisse" : "" }}
+            {{ action === "view" || action === "edit" ? LibelleCaisse : "" }}
+            {{ !action ? "Ajouter une caisse" : "" }}
+          </h2>
+        </h3>
+       <div >
+        <form
+        #cycleForm="ngForm"
+        (ngSubmit)="onSubmitForm(cycleForm)"
+        class="g-3 needs-validation"
+        *ngIf="!isLoading; else loader"
+      >
+        <div class="row mt-3">
+          <div class="col-lg-4">
+            <label for="validationCustom01" class="form-label label"
+              >Code Caisse</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control"
+              name="CodeCaisse"
+              [(ngModel)]="CodeCaisse"/>
+          </div>
+
+          <div class="col-lg-4">
+            <label for="validationCustom01" class="form-label label">Caisse</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control"
+              name="LibelleCaisse"
+              [(ngModel)]="LibelleCaisse"            />
+          </div>
+
+
+           <div class="col-lg-4">
+            <label for="validationCustom01" class="form-label label"
+              >Compte Associé</label
+            >
+
+            <select
+            class="form-select"
+            name="CompteAssocie"
+            [(ngModel)]="CompteAssocie"
+            *ngIf="compteAssocieList; else loader"
+            aria-label="Default select example"
+          >
+            <option disabled>selectionner un compte</option>
+            <option
+              *ngFor="let compte of compteAssocieList"
+              [value]="compte.CodeCompte"
+            >
+            {{ compte.CodeCompte }}  <span> : </span> {{ compte.LibelleCompte }}
+            </option>
+          </select>
+          </div>
+
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-lg-4">
+            <label for="validationCustom01" class="form-label label"
+              >Retrait Max Operation</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control"
+              name="RetraitMaxOperation"
+              [(ngModel)]="RetraitMaxOperation"            />
+          </div>
+
+          <div class="col-lg-4">
+            <label for="validationCustom01" class="form-label label"
+              >Retrait Max Par Période</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur hauteur"
+              name="RetraitMaxParPériode"            />
+          </div>
+
+          <div class="col-lg-4">
+            <label for="validationCustom01" class="form-label label"
+              >Periode Retrait Max</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur hauteur"
+              name="PeriodeRetraitMax"
+              [(ngModel)]="PeriodeRetraitMax"            />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-lg-3">
+            <div class="form-check">
+              <input
+                [readonly]="action == 'view'"
+                class="form-check-input"
+                type="checkbox"
+                name="VersementsAutorises"
+                [(ngModel)]="VersementsAutorises"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Versements Autorises
+              </label>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-check">
+              <input
+                [readonly]="action == 'view'"
+                class="form-check-input"
+                type="checkbox"
+                name="RetraitsAutorises"
+                [(ngModel)]="RetraitsAutorises"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Retraits Autorises
+              </label>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-check">
+              <input
+                [readonly]="action == 'view'"
+                class="form-check-input"
+                type="checkbox"
+                name="TransfertsIntercaissesAutorises"
+                [(ngModel)]="TransfertsIntercaissesAutorises"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Transferts Intercaisses
+              </label>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-check">
+              <input
+                [readonly]="action == 'view'"
+                class="form-check-input"
+                type="checkbox"
+                name="TransfertsRetraitsBanquesAutorises"
+                [(ngModel)]="TransfertsRetraitsBanquesAutorises"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                Transferts Retraits Banques Autorises
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 m-auto" *ngIf="action != 'view'">
+          <button
+            type="submit"
+            class="btn form-control btn-primary bg-primary text-light"
+            [disabled]="!isFormValid()"
+          >
+            {{ action === "edit" ? "Modifier la caisse " : "Valider" }}
+          </button>
+        </div>
+      </form>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

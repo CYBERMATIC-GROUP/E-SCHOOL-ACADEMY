@@ -1,0 +1,32 @@
+<app-gabarit pageTitle="Données statistiques">
+    <div class="row" id="menu">
+        <div class="col-12 col-md-6">
+            <div class="info-box" routerLink="effectifs-eleve">
+              <span class="info-box-icon bg-green">
+                <img src="../../../assets/logo/48X48/A1 (12).png" alt="">
+              </span>
+              <div class="info-box-content d-flex justify-content-start align-items-center">
+                  <div>
+                    <h2 class="mb-0 pt-3">Effectif des élèves</h2>
+                    <span class="text-secondary">Par classe/branche/...</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="info-box" routerLink="pyramide-des-ages">
+                <div *ngIf="true" class="new-feature d-none d-md-block">Nouveauté <img src="../../assets/icons8-star.gif" alt="ico"></div>
+              <span class="info-box-icon bg-aqua">
+                <img src="../../../assets/logo/48X48/A1 (12).png" alt="">
+              </span>
+              <div class="info-box-content d-flex justify-content-start align-items-center">
+                  <div>
+                    <h2 class="mb-0 pt-3">Pyramide des âges</h2>
+                    <span class="text-primary">Par classe/...</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</app-gabarit>

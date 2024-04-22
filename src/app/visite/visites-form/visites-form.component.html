@@ -1,0 +1,179 @@
+<div class="container">
+    <div class="col">
+      <div class="col p-3">
+        <div class="row">
+            <app-close-modal></app-close-modal>
+        </div>
+        <h2 class="text-primary-cust">{{ title }}</h2>
+        <form
+          class="row g-3 border my-2 pb-2 bg-secondary-cust"
+          [formGroup]="visiteForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data"
+        >
+  
+            <!--IDVisiteurs-->
+            <div class="col-md-6" *ngIf="(visiteurs$ | async) as visiteurs; else loader">
+              <label for="validationServer01" class="form-label">Visiteur</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                  'is-valid': visiteForm.controls['IDVisiteurs'].valid,
+                  'is-invalid': !visiteForm.controls['IDVisiteurs'].valid
+                }"
+                (click)="formDom.value = ''"
+                #formDom
+                id="validationServer01"
+                formControlName="NomVisiteur"
+                maxlength="100"
+                [matAutocomplete]="suggestSearch"
+              />
+              <mat-autocomplete #suggestSearch>
+                  <mat-option
+                    *ngFor="
+                      let item of globalService.filterElement(
+                        visiteurs,
+                        formDom.value,
+                        'NomPrenom'
+                      )
+                    "
+                    (click)="visiteForm.get('IDVisiteurs')?.setValue(item.IDVisiteurs); visiteForm.get('NomVisiteur')?.setValue(item.NomPrenom)"
+                    >{{ item.NomPrenom }}</mat-option
+                  >
+                  <mat-option>
+                    <span
+                      class="input-group-text bg-success text-white"
+                      (click)="addNewVisiteur()"
+                      id="basic-addon1"
+                      >Ajouter un visiteur<i
+                        class="fa-solid fa-plus"
+                      ></i
+                    ></span>
+                  </mat-option>
+              </mat-autocomplete>
+              <div
+                [ngClass]="{
+                  'valid-feedback': visiteForm.controls['IDVisiteurs'].valid,
+                  'invalid-feedback': !visiteForm.controls['IDVisiteurs'].valid
+                }"
+              >
+                {{
+                  !visiteForm.controls["IDVisiteurs"].valid
+                    ? "Sélectionnez un visiteur."
+                    : "ok."
+                }}
+              </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="validationServer02" class="form-label"
+                  >Type de visiteur </label
+                >
+                <select
+                  *ngIf="(typeVisiteurs$ | async) as typeVisiteurs"
+                  type="text"
+                  class="form-control form-select"
+                  id="validationServer02"
+                  formControlName="IDTypeVisiteur"
+                  [ngClass]="{
+                    'is-valid': visiteForm.controls['IDTypeVisiteur'].valid,
+                    'is-invalid': !visiteForm.controls['IDTypeVisiteur'].valid
+                  }"
+                  id="validationServer01"
+                  formControlName="IDTypeVisiteur"
+                >
+                  <option [value]="item.IDTypeVisiteur" *ngFor="let item of typeVisiteurs">{{ item.Libelle }}</option>
+                </select>
+    
+                <div
+                    [ngClass]="{
+                    'valid-feedback': visiteForm.controls['IDTypeVisiteur'].valid,
+                    'invalid-feedback': !visiteForm.controls['IDTypeVisiteur'].valid
+                    }"
+                >
+                    {{
+                    !visiteForm.controls["IDTypeVisiteur"].valid
+                        ? "Renseignez l'IDTypeVisiteur de l'auteur."
+                        : "ok."
+                    }}
+                </div>
+              </div>
+   
+            <div class="col-md-6">
+              <label for="validationServer01" class="form-label">Motif</label>
+              <input
+                type="text"
+                class="form-control text-capitalize"
+                [ngClass]="{
+                  'is-valid': visiteForm.controls['Motif'].valid,
+                  'is-invalid': !visiteForm.controls['Motif'].valid
+                }"
+                id="validationServer01"
+                formControlName="Motif"
+              />
+              <div
+                [ngClass]="{
+                  'valid-feedback': visiteForm.controls['Motif'].valid,
+                  'invalid-feedback': !visiteForm.controls['Motif'].valid
+                }"
+              >
+                {{
+                  !visiteForm.controls["Motif"].valid
+                    ? "Renseignez le motif."
+                    : "ok."
+                }}
+              </div>
+            </div>
+      
+            <!--last name-->
+            <div class="col-lg-6">
+              <label for="validationServer01" class="form-label">Détails</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                  'is-valid': visiteForm.controls['Details'].valid,
+                  'is-invalid': !visiteForm.controls['Details'].valid
+                }"
+                id="validationServer01"
+                formControlName="Details"
+                [maxlength]="50"
+              />
+              <div
+                [ngClass]="{
+                  'valid-feedback': visiteForm.controls['Details'].valid,
+                  'invalid-feedback': !visiteForm.controls['Details'].valid
+                }"
+              >
+                {{
+                  !visiteForm.controls["Details"].valid
+                    ? "Détails du visite."
+                    : "ok."
+                }}
+              </div>
+            </div>
+
+
+          <div class="col-12">
+            <div class="row p-3">
+              <button
+                class="form-control bg-table-color text-white"
+                [disabled]="visiteForm.invalid"
+                *ngIf="!isLoading; else loader"
+                type="submit"
+              >
+                Ajouter
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #loader>
+      <div class="d-flex justify-content-center">
+          <app-loader></app-loader>
+      </div>
+  </ng-template>
+  
+  

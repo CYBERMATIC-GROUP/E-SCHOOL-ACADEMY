@@ -1,0 +1,189 @@
+<app-gabarit pageTitle="Règlement des charges">
+  <div class="container-fluid bg-light px-2 pb-5 pt-4">
+    <div class="row m-0">
+      <div class="col">
+        <app-info-compta-agent></app-info-compta-agent>
+      </div>
+    </div>
+
+    <div class="row py-1 px-3">
+      <div class="col-md-8">
+        <form
+          class="row g-3 needs-validation"
+          [formGroup]="retraitForm"
+          novalidate
+        >
+          <div class="col-md-6">
+            <label for="validationCustom01" class="form-label"
+              >Compte charge
+            </label>
+            <div
+              class="d-flex align-items-center"
+              *ngIf="comptes$ | async as comptes; else loader"
+            >
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control form-select"
+                  [value]="retraitForm.get('compteChargeLibelle')?.value"
+                  (click)="retraitForm.get('compteChargeLibelle')?.setValue('')"
+                  #compteInput
+                  [matAutocomplete]="comptesID"
+                />
+                <mat-autocomplete #comptesID>
+                  <mat-option
+                    *ngFor="
+                      let charge of globalService.filterElement(
+                        comptes,
+                        compteInput.value,
+                        'CodeCompte'
+                      )
+                    "
+                    (click)="
+                      retraitForm
+                        .get('CompteCharge')
+                        ?.setValue(charge.CodeCompte);
+                      retraitForm
+                        .get('compteChargeLibelle')
+                        ?.setValue(charge.CodeCompte + ' : ' + charge.LibelleCompte)
+                    "
+                    > {{charge.CodeCompte}} <span style="padding-left: 5px;padding-right: 5px;">:</span> {{ charge.LibelleCompte }}</mat-option
+                  >
+                </mat-autocomplete>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div>
+              <label for="validationCustom01" class="form-label"
+              >Compte fournisseur
+            </label>
+            <div>
+              <div
+              class=""
+              *ngIf="comptesFsseur$ | async as comptesFsseur; else loader"
+            >
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control form-select"
+                  [value]="retraitForm.get('compteChargeLibelleFsseur')?.value"
+                  (click)="
+                    retraitForm.get('compteChargeLibelleFsseur')?.setValue('')
+                  "
+                  #compteChargeInput
+                  [matAutocomplete]="comptesFsseurID"
+                />
+                <mat-autocomplete #comptesFsseurID>
+                  <mat-option
+                    *ngFor="
+                      let charge of globalService.filterElement(
+                        comptesFsseur,
+                        compteChargeInput.value,
+                        'CodeCompte'
+                      )
+                    "
+                    (click)="
+                      retraitForm
+                        .get('CompteFounisseur')
+                        ?.setValue(charge.CodeCompte);
+                      retraitForm
+                        .get('compteChargeLibelleFsseur')
+                        ?.setValue(charge.CodeCompte + ' : ' + charge.LibelleCompte)
+                    "
+                    >{{charge.CodeCompte}} <span style="padding-left: 5px;padding-right: 5px;">:</span> {{ charge.LibelleCompte }}</mat-option
+                  >
+                </mat-autocomplete>
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="validationCustom01" class="form-label"
+              >Détails de l'opération</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              formControlName="DatailOperation"
+              [maxLength]="1000"
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Montant</label>
+            <input
+              type="number"
+              class="form-control"
+              id="validationCustom02"
+              formControlName="Montant"
+            />
+            <div
+              class="text-danger"
+              *ngIf="retraitForm.get('Montant')?.errors?.['pattern']"
+            >
+              Veuillez entrer un montant valide avec 3 chiffres minimum
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label"
+              >Date opération</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom02"
+              [value]="currentDateFormat | date"
+              disabled
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="col-md-4">
+            <label for="">Valider ici</label> <br />
+            <button
+              *ngIf="!isLoading; else loader"
+              class="btn btn-primary bg-table-color w-100"
+              (click)="askConfirm()"
+              [disabled]="retraitForm.invalid"
+              type="submit"
+            >
+              Valider <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <h4 class="text-success">
+          Mode d'Emploi : Retrait en Espèces avec Sélection de Compte de Charge
+        </h4>
+        <p>Étape 1 : Sélection du Compte de Charge</p>
+        <p>Étape 2 : Sélection du Compte de Fournisseur</p>
+        <p>Étape 3 : Renseignement des Détails de l'Opération</p>
+        <p>Étape 3 : Validation de l'Opération</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <canvas #chartCanvas1></canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas #chartCanvas2></canvas>
+      </div>
+      <div class="col-md-6"></div>
+      <div class="col-md-6"></div>
+    </div>
+  </div>
+</app-gabarit>
+
+<ng-template #loader>
+  <div class="" style="font-size: 0.4em">
+    <app-loader></app-loader>
+  </div>
+</ng-template>

@@ -1,0 +1,235 @@
+
+  <div class="container bg-light">
+    <div class="col">
+      <div class="row">
+        <app-close-modal></app-close-modal>
+      </div>
+      <div class="row">
+        <div class="">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title text-left" style="width: 26em">
+                <h2 class="">
+                  {{ action === "view" ? "Fiche de la classe " : "" }}
+                  {{ action === "edit" ? "Modifier la classe" : "" }}
+                  {{ action === "view" || action === "edit" ? NomClasse : "" }}
+                  {{ !action ? "Ajouter une classe" : "" }}
+                </h2>
+              </h3>
+              <form
+                [formGroup]="classeForm"
+                class="g-3 needs-validation"
+              >
+                <div class="row mb-3">
+                  <div class="col-lg-6">
+                    <label class="form-label"
+                      >NIVEAU (<span class="text-danger">*</span>)</label
+                    >
+
+                    <select
+                    class="form-control"
+                    name="IDNIVEAU"
+                    formControlName="IDNIVEAU"
+                    aria-label="Default select example"
+                  >
+                    <option
+                      *ngFor="let n of niveauList"
+                      [value]="n.IDNIVEAU"
+                      disabled
+                    >
+                      {{ n.NomNiveau }}
+                    </option>
+                  </select>
+
+                  </div>
+                  <div class="col-lg-6">
+                    <label class="form-label"
+                      >BRANCHE (<span class="text-danger">*</span>)</label
+                    >
+
+                    <select
+                    class="form-control"
+                    name="IDBRANCHE"
+                    formControlName="IDBRANCHE"
+                    aria-label="Default select example"
+                  >
+                    <option
+                      *ngFor="let b of brancheList"
+                      [value]="b.IDBRANCHE"
+                      disabled
+                    >
+                      {{ b.NomBranche }}
+                    </option>
+                  </select>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-4">
+                    <label  class="form-label"
+                      >Numéro de la Classe</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="number"
+                      class="form-control"
+                      name="NumClasse"
+                      formControlName="NumClasse"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="col-lg-4">
+                    <label  class="form-label"
+                      >Code Classe (<span class="text-danger">*</span>)</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="CodeClasse"
+                      formControlName="CodeClasse"
+                      required=""
+                    />
+                  </div>
+
+
+                  <div class="col-lg-4" *ngIf="!isLoading;else loading">
+                    <label
+                      for="validationCustom01"
+                      class="form-label label"
+                      >Nom Classe (<span class="text-danger">*</span>)</label
+                    >
+
+                    <input
+                      type="text"
+                      name="NomClasse"
+                      class="form-control"
+                      formControlName="NomClasse"
+                      list="datalistOptions"
+                      id="exampleDataList"
+
+                    />
+                  </div>
+
+
+                </div>
+
+                <!--div class="row mt-3">
+                  <div class="col-lg-4">
+                    <label class="form-label"
+                      >SALLE</label
+                    >
+
+                    <select
+                      class="form-select"
+                      name="IDSALLES"
+                      formControlName="IDSALLES"
+                      aria-label="Default select example"
+                    >
+                      <option disabled>selectionner la salle</option>
+                      <option
+                        *ngFor="let salle of salleList"
+                        [value]="salle.IDSALLES"
+                      >
+                        {{ salle.NomSalle }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <label class="form-label"
+                      >Enseignant Principal</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="IDENSEIGNANT_Principal"
+                      formControlName="IDENSEIGNANT_Principal"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="col-lg-4">
+                    <label class="form-label"
+                      >Classes Inspection</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="IDClassesInspection"
+                      formControlName="IDClassesInspection"
+                      required=""
+                    />
+                  </div>
+                </div-->
+
+                <!--div class="row mt-3">
+                  <div class="col-lg-4">
+                    <label class="form-label"
+                      >Code Niveau</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="CodeNiveau"
+                      formControlName="CodeNiveau"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="col-lg-4">
+                    <label class="form-label"
+                      >Code Branche</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="CodeBranche"
+                      formControlName="CodeBranche"
+                      required=""
+                    />
+                  </div>
+
+                  <div class="col-lg-4">
+                    <label class="form-label"
+                      >Code Salle (<span class="text-danger">*</span>)</label
+                    >
+                    <input
+                      [readonly]="action == 'view'"
+                      type="text"
+                      class="form-control"
+                      name="CodeSalle"
+                      formControlName="CodeSalle"
+                      required=""
+                    />
+                  </div>
+                </div-->
+
+                <div class="col-lg-12 mt-4" *ngIf="action != 'view'">
+                  <button
+                    type="submit"
+                    *ngIf="!isLoadingsubmit; else loading"
+                    style="background-color: rgb(124,87,206);"
+                    class="btn text-white w-100 submit-btn"
+                    [disabled]="classeForm.invalid"
+                    (click)="onSubmit()"
+                  >
+                    {{ action === "edit" ? "Modifier la classe " : "Valider" }} <i class="fa-sharp fa-solid fa-landmark"></i>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #loading>
+        <app-loader></app-loader>
+      </ng-template>
+    </div>
+  </div>

@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-12">
+      <div class="card border-0">
+        <app-close-modal></app-close-modal>
+        <div class="card-body">
+          <h3 class="card-title text-center" style="width: 26em">
+            <h2 class="">
+              {{ action === "view" ? "Fiche de la branche " : "" }}
+              {{ action === "edit" ? "Modifier la branche" : "" }}
+              {{ action === "view" || action === "edit" ? NomBranche : "" }}
+              {{ !action ? "Ajouter une branche" : "" }}
+            </h2>
+          </h3>
+          <form
+            #cycleForm="ngForm"
+            (ngSubmit)="onSubmitForm(cycleForm)"
+            class="g-3 needs-validation"
+          >
+
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label label">Code Branche</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur hauteur"
+              name="CodeBranche"
+              [(ngModel)]="CodeBranche"
+              required=""
+            />
+          </div>
+          
+            <div class="mt-3">
+              <label for="validationCustom01" class="form-label label">Branche</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="NomBranche"
+                [(ngModel)]="NomBranche"
+                required=""
+              />
+            </div>
+  
+         
+  
+            <div class="mt-3 m-auto" *ngIf="action != 'view'">
+              <button
+                type="submit"
+                class="btn form-control btn-primary"
+                [mat-dialog-close]="true"
+                [disabled]="!isFormValid()"
+              >
+                {{ action === "edit" ? "Modifier la branche " : "Valider" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="fa-3x text-start mb-2 mt-2">
+      <span class="fs-5 mb-2 mt-2"></span> <br /><br />
+      <i class="fas text-primary spinner-grow"></i><br />
+    </div>
+  </ng-template>
+  

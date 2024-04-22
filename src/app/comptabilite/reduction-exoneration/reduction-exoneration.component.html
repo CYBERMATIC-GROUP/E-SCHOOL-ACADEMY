@@ -1,0 +1,167 @@
+<div class="container-fluid">
+  <form class="g-3 px-3">
+    <div class="row">
+      <div class="col-md-9 mt-4">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-4">
+            <label for="inputPassword6" class="col-form-label text-secondary"
+              >Montant majoration sur tous les frais</label
+            >
+          </div>
+          <div class="col-md-4">
+            <input
+              type="number"
+              readonly
+              id="inputPassword6"
+              class="form-control"
+              aria-describedby="passwordHelpInline"
+              (input)="onInputGlobalMajoration($event)"
+            />
+          </div>
+          <div class="col-md-4">
+            <span id="passwordHelpInline" class="form-text text-danger">
+              Veuillez entrer un montant avec plus de 3 chiffres.
+            </span>
+          </div>
+        </div>
+
+        <div class="row g-3 align-items-center">
+          <div class="col-md-4">
+            <label for="inputPassword6" class="col-form-label text-secondary"
+              >Montant réduction sur tous les frais</label
+            >
+          </div>
+          <div class="col-md-4">
+            <input
+              type="number"
+              readonly
+              id="inputPassword6"
+              class="form-control"
+              aria-describedby="passwordHelpInline"
+              (input)="onInputGlobalReduction($event)"
+            />
+          </div>
+          <div class="col-md-4">
+            <span id="passwordHelpInline" class="form-text text-danger">
+              Veuillez entrer un montant avec plus de 3 chiffres.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mt-4">
+        <div class="d-flex justify-content-end align-items-baseline">
+          <button
+            [disabled]="isSubmitLoad"
+            type="submit"
+            class="text-white btn btn-danger w-100"
+            [routerLink]="'/frais/' + IDELEVE"
+          >
+            Paiement des frais scolaire
+          </button>
+        </div>
+
+        <div class="mt-2 d-flex justify-content-end align-items-baseline">
+          <button
+            *ngIf="!isSubmitLoad; else loader"
+            type="submit"
+            class="text-white btn btn-primary w-100"
+            style="background-color: #7b4bce"
+            (click)="onSubmit()"
+          >
+            Enregistrer les frais
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div *ngIf="dataSource; else loader" class="mt-4 bg-danger">
+    <div style="max-height: 400px; overflow-y: auto">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="CodeProduit">
+          <th mat-header-cell *matHeaderCellDef>Code</th>
+          <td mat-cell *matCellDef="let element">{{ element.CodeProduit }}</td>
+        </ng-container>
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="bExonere">
+          <th mat-header-cell *matHeaderCellDef>Exonéré</th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox
+              (change)="onCheckout($event, element)"
+              [checked]="element.bExonere ? true : false"
+            >
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="Libelle">
+          <th mat-header-cell *matHeaderCellDef>Libellé</th>
+          <td mat-cell *matCellDef="let element">{{ element.Libelle }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="MontantReduction">
+          <th mat-header-cell *matHeaderCellDef>Montant réduction</th>
+          <td mat-cell *matCellDef="let element" class="px-0">
+            <input
+              type="float"
+              [max]="element.Montant"
+              (input)="
+                globalService.forceInputNumber($event);
+                onInput(element, $event, 'MontantReduction')
+              "
+              [value]="element.MontantReduction"
+              class="form-control"
+            />
+          </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="MontantMajoration">
+          <th mat-header-cell *matHeaderCellDef>Montant majoration</th>
+          <td mat-cell *matCellDef="let element" class="px-0">
+            <input
+              type="text"
+              (input)="
+                globalService.forceInputNumber($event);
+                onInputMajoration(element, $event, 'MontantMajoration')
+              "
+              [value]="element.MontantMajoration"
+              class="form-control"
+            />
+          </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Montant_A_Payer">
+          <th mat-header-cell *matHeaderCellDef>Montant à payer</th>
+          <td mat-cell *matCellDef="let element">
+            {{ globalService.formatPrix(element.Montant_A_Payer, " ", "") }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Montant">
+          <th mat-header-cell *matHeaderCellDef>Montant initial</th>
+          <td mat-cell *matCellDef="let element">
+            {{ globalService.formatPrix(element.Montant, " ", "") }}
+          </td>
+        </ng-container>
+
+        <!--tr mat-header-row *matHeaderRowDef="displayedColumns"></tr-->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="selection.toggle(row)"
+        ></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="col-12">
+      <div class="card  border-0">
+        <app-close-modal></app-close-modal>
+        <div class="card-body">
+          <h3 class="card-title text-left" style="width: 26em">
+            <h2 class="">
+              {{ action === "view" ? "Fiche de la mention " : "" }}
+              {{ action === "edit" ? "Modifier la mention : " : "" }}
+              <span class="text-danger">{{ action === "view" || action === "edit" ? Mention : "" }}</span>
+              {{action === 'create' ? "Ajouter une mention" : "" }}
+            </h2>
+          </h3>
+          <form
+            #mentionForm="ngForm"
+            (ngSubmit)="onSubmitForm(mentionForm)"
+            class="g-3 needs-validation"
+            *ngIf="!isLoading; else loader"
+          >
+
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label">Mention</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur hauteur"
+              name="Mention"
+              [(ngModel)]="Mention"              
+              />
+          </div>
+
+            <div class="mt-3">
+              <label for="validationCustom01" class="form-label">Moyenne Minimale</label>
+              <input
+                [readonly]="action == 'view'"
+                type="number"
+                class="form-control hauteur hauteur"
+                name="MoyenneMinimale"
+                [(ngModel)]="MoyenneMinimale"              
+                />
+            </div>
+
+            <div class="mt-3">
+                <label for="validationCustom01" class="form-label">Type Mention</label>
+               <select class="TypeMention form-control form-select" name="TypeMention" [(ngModel)]="TypeMention">
+                <option [value]="1">Récompense</option>
+                <option [value]="2">Sanction</option>
+               </select>
+              </div>
+
+              <div class="row pt-2 mt-3 bg-light">
+                <div class="col-lg-8" style="padding-right: 0px;">
+                  <button
+                  type="button"
+                    (click)="openColorPickerDialogGroupeMatiere()"
+                    class="form-control text-white"
+                    style="background-color: #7c57ce"
+                  >
+                    Selectionner une couleur
+                    <i class="fa-solid fa-check-double"></i>
+                  </button>
+                </div>
+                <div class="col-lg-4" style="padding-left: 0px;">
+                  <p
+                    style="border: 1px solid rgb(73, 66, 66); "
+                    class="form-control"
+                    [style.background-color]="ColordefinitiveFondgroupMatiere"
+                  ></p>
+                </div>
+              </div>
+
+            <div class="mt-3 m-auto" *ngIf="action != 'view'">
+              <button
+                type="submit"
+                class="btn form-control btn-primary bg-primary text-light">
+                {{ action === "edit" ? "Modifier " : "Valider" }} <i class="fa-solid fa-arrows-rotate"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>

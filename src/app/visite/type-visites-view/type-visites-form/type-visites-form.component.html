@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="col">
+      <div class="col p-3">
+        <div class="row">
+            <app-close-modal></app-close-modal>
+        </div>
+        <h2 class="text-primary-cust">{{ title }}</h2>
+        <form
+          class="row g-3 border my-2 pb-2 bg-secondary-cust"
+          [formGroup]="typeForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data"
+        >
+
+            <div class="col-12">
+              <label for="validationServer01" class="form-label">Nom (Libellé)</label>
+              <input
+                type="text"
+                class="form-control text-capitalize"
+                [ngClass]="{
+                  'is-valid': typeForm.controls['Libelle'].valid,
+                  'is-invalid': !typeForm.controls['Libelle'].valid
+                }"
+                id="validationServer01"
+                formControlName="Libelle"
+              />
+              <div
+                [ngClass]="{
+                  'valid-feedback': typeForm.controls['Libelle'].valid,
+                  'invalid-feedback': !typeForm.controls['Libelle'].valid
+                }"
+              >
+                {{
+                  !typeForm.controls["Libelle"].valid
+                    ? "Renseignez le motif."
+                    : "ok."
+                }}
+              </div>
+            </div>
+
+          <div class="col-12">
+            <div class="row p-3">
+              <button
+                class="form-control bg-table-color text-white"
+                [disabled]="typeForm.invalid"
+                *ngIf="!isLoading; else loader"
+                type="submit"
+              >
+                Ajouter
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>
+  
+  

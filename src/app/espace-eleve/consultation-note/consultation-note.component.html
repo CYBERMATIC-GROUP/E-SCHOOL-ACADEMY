@@ -1,0 +1,72 @@
+<app-gabarie-eleve>
+    <div class="coontainer bg-light">
+        <mat-card>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <mat-card-content>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Trimestre</label>
+                        <select
+                            name=""
+                            (change)="onChangeTrimestre($event)"
+                            id=""
+                            class="form-select text-danger"
+                        >
+                            <option value="0" disabled selected>
+                            Sélectionnez un trimestre
+                            </option>
+                            <option selected value="1">Premier trimestre</option>
+                            <option value="2">Deuxième trimestre</option>
+                            <option value="3">Troisième trimestre</option>
+                        </select>
+                        </div>
+                        <div class="col-12 p-md-3">
+                            <div class="px-3 d-md-none">
+                                <label class="pt-2">Matière</label>
+                            </div>
+                            <app-matiere-enseigne
+                                [matiereList$]="matiereList$"
+                                (matiereEmitted)="onChoseMatiere($event)"
+                                [forceCombo]="false"
+                            ></app-matiere-enseigne>
+                        </div>
+                    </div>
+                    </mat-card-content>
+                </div>
+
+                <div class="col-md-6 mb-2 pt-2">
+                    <h3>{{ matiereSelected ? matiereSelected.Fr_NomMatiere : '' }}</h3>
+                    <div class=" shadow rounded">
+                        <table class="table" *ngIf="(noteEleve$ | async) as note; else loader">
+                            <thead class="thead-dark">
+                            <tr>
+                                <td scope="col">Designation</td>
+                                <td scope="col">Note</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let config of note.tabConfigNote">
+                                <td scope="row">{{ config.Libelle }}</td>
+                                <td>
+                                    <div class="w-100 h-100"  *ngIf="findNote(note.tbLesNotes, config) as nteEleve">
+                                        {{ nteEleve.Note }}
+                                        <div class="w-100 h-100" [ngClass]="{'bg-danger': nteEleve.EtatNote == etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE, 'bg-success': nteEleve.EtatNote == etatNote.CST_ETAT_NOTE_ABSENCE_JUSTIFIEE}" *ngIf="nteEleve.EtatNote > 1">
+                                            {{ nteEleve.EtatNote == etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE ? 'ABS.J' : 'ABS.N.J' }}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</app-gabarie-eleve>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

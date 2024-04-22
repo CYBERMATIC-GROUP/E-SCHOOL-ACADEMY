@@ -1,0 +1,50 @@
+@import '../../../../variables';
+
+$primary-color: $secondary;
+$secondary-color: #8cbec6;
+
+table {
+  width: 100%;
+}
+.mat-elevation-z8 tr, .mat-elevation-z8 mat-header-cell {
+  height: 2em;
+}
+.mat-elevation-z8 th, .mat-elevation-z8 mat-header-cell {
+  background-color: $primary-color;
+  color: white;
+} 
+
+h1 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+}
+  //lignes
+  tr:nth-child(even) {
+    background-color: rgb(219, 209, 209);
+}
+
+
+mat-paginator{
+  background-color: $primary-color;
+}
+
+
+.tr > :hover{
+  background-color: #4fc7ea;
+  color: white;
+}
+
+.bg-color{
+  background-color: $primary;
+  color: white;
+  cursor: pointer;
+}
+
+.mat-elevation-z8{
+  max-height: 25em;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}

@@ -1,0 +1,21 @@
+<app-gabarit>
+    <div class="container-fluid">
+
+          <h2 class="my-3">{{ title }}</h2>
+          <div class="row mb-5">
+            <div class="col-12 col-md-4" *ngFor="let menu of menus">
+              <div class="info-box" [routerLink]="'/' + menu.link">
+                <span class="info-box-icon" [style]="{ 'background-color': menu.backColor }">
+                  <img [src]="menu.logo" alt="">
+                </span>
+                <div class="info-box-content d-flex justify-content-start align-items-center">
+                    <div>
+                      <h2 class="mb-0 pt-3">{{ menu.desination }}</h2>
+                      <span>{{ menu.description }}</span>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</app-gabarit>

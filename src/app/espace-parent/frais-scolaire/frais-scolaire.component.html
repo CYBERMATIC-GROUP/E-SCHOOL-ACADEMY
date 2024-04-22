@@ -1,0 +1,129 @@
+<app-gabarit-parent>
+    <!--
+    <table
+      mat-table
+      *ngIf="dataSource; else loader"
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      class="mat-elevation-z8"
+    >
+      <ng-container
+        matColumnDef="{{ column }}"
+        *ngFor="let column of columnsToDisplay"
+      >
+        <th mat-header-cell *matHeaderCellDef style="background: #7b4bce; color: white;">Mois</th>
+        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+      </ng-container>
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell style="background: #7b4bce; color: white" *matHeaderCellDef aria-label="row actions" class="bg-table-color">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            aria-label="expand row"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          >
+            <mat-icon *ngIf="expandedElement !== element"
+              >keyboard_arrow_down</mat-icon
+            >
+            <mat-icon *ngIf="expandedElement === element"
+              >keyboard_arrow_up</mat-icon
+            >
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="columnsToDisplayWithExpand.length"
+        >
+          <div
+            class="example-element-detail px-0 mx-0"
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-description w-100 px-0 py-2">
+              {{ element.description }}
+              <app-info-echeance [frais]="element"></app-info-echeance>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplayWithExpand"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+  -->
+  
+    <div class="example-action-buttons">
+      <h2 class="text-light">Etat de paiement des frais scolaires</h2>
+    </div>
+    <mat-accordion *ngIf="dataSource; else loader">
+      <mat-expansion-panel *ngFor="let item of dataSource" (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header class="py-2">
+          <mat-panel-title>
+            {{ item.sLibelleProduit }}
+          </mat-panel-title>
+          <mat-panel-description class="d-none d-md-block">
+            {{ item.DateEcheance | date : 'short' }}
+            <mat-icon>date_range</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!--p>
+          <app-info-echeance [frais]="item"></app-info-echeance>
+        </p-->
+        <div>
+  
+          <table class="table table-primary table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Date échéance</th>
+                <th scope="col">{{ item.DateEcheance | date}}</th>
+              </tr>
+            </thead>
+            <tbody>
+  
+              <tr>
+                <th scope="row" class="py-1">Montant</th>
+                <td class="py-1">{{ globalService.formatPrix(item.MontantTotal, " ") }}</td>
+              </tr>
+  
+              <tr>
+                <th scope="row" class="py-1">Payé </th>
+                <td class="py-1">{{ globalService.formatPrix(item.Deja_Paye, " ") }}</td>
+              </tr>
+  
+              <tr>
+                <th scope="row" class="py-1">Reste à payer</th>
+                <td class="py-1">{{ globalService.formatPrix(item.Reste_A_Payer, " ") }}</td>
+              </tr>
+            </tbody>
+          </table>
+  
+        </div>
+      </mat-expansion-panel>
+  
+    </mat-accordion>
+  
+</app-gabarit-parent>
+  
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+  

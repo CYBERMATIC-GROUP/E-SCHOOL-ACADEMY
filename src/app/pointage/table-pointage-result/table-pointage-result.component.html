@@ -1,0 +1,138 @@
+<div class="container-fluid mb-5 ">
+
+<div class="row">
+  <h3 class="text-light">{{ title }}</h3>
+</div>
+
+<div
+  class="mat-elevation-z8"
+  [ngStyle]="{'max-height': maxHeight, 'overflow-y': 'auto'}"
+>
+  <table
+    mat-table
+    *ngIf="(presences$ | async) as presences; else loader"
+    [dataSource]="presences"
+  >
+
+    <ng-container matColumnDef="Utilisateur">
+      <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+       Nom(s) & prénom(s)
+      </th>
+      <td
+        class="pointer"
+        mat-cell
+        *matCellDef="let element"
+        [ngStyle]="{'background-color': element.Couleur}"
+      >
+        {{ element.Utilisateur }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Date">
+      <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+        Date
+      </th>
+      <td
+        class="pointer"
+        mat-cell
+        *matCellDef="let element"
+        [ngStyle]="{'background-color': element.Couleur}"
+      >
+        {{ element.Date }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="HeureArrivee">
+      <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+       Heure arrivée
+      </th>
+      <td
+        class="pointer"
+        mat-cell
+        *matCellDef="let element"
+        [ngStyle]="{'background-color': element.Couleur}"
+      >
+        {{ element.HeureArrivee }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="HeureDepart">
+      <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+        Heure départ
+      </th>
+      <td
+        class="pointer"
+        mat-cell
+        *matCellDef="let element"
+        [ngStyle]="{'background-color': element.Couleur}"
+      >
+        {{ element.HeureDepart }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="DureeRetardMin">
+      <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+        Retard présence
+      </th>
+      <td
+        class="pointer"
+        mat-cell
+        *matCellDef="let element"
+        [ngStyle]="{'background-color': element.Couleur}"
+      >
+        {{ element.DureeRetardMin }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CLASSES">
+      <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+        Classe
+      </th>
+      <td
+        class="pointer"
+        mat-cell
+        *matCellDef="let element"
+        [ngStyle]="{'background-color': element.Couleur}"
+      >
+        {{ element.CLASSES }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Matiere">
+      <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+        Matière
+      </th>
+      <td
+        class="pointer"
+        mat-cell
+        *matCellDef="let element"
+        [ngStyle]="{'background-color': element.Couleur}"
+      >
+        {{ element.Matiere }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="DureePresenceMin">
+      <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Durée présence
+      </th>
+      <td
+        class="pointer"
+        mat-cell
+        *matCellDef="let element"
+        [ngStyle]="{'background-color': element.Couleur}"
+      >
+        {{ element.DureePresenceMin }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  </table>
+</div>
+
+  <ng-template #loader>
+      <app-loader></app-loader>
+  </ng-template>
+</div>

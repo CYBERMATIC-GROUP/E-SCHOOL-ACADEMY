@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container [matColumnDef]="head" *ngFor="let head of headerNames">
+          <th mat-header-cell *matHeaderCellDef> {{ head }} </th>
+          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+    
+    
+        <table mat-table [dataSource]="dataSource" class="table-striped">
+            <!-- Position Column -->
+            <ng-container *ngFor="let col of headerNames; index as indexOfelement" [matColumnDef]="col">
+                <th class="bg-primary text-normal" mat-header-cell *matHeaderCellDef >{{ headerNames[indexOfelement] }}</th>
+                <td class="text-normal pointer truncate-text" mat-cell *matCellDef="let element">{{ element[col] }}</td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+    
+    
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+</div>
+  

@@ -1,0 +1,258 @@
+<app-gabarit>
+  <div class="container-fluid bg-light py-2">
+    <div class="col mt-4">
+      <div class="row mt-2">
+        <div class="col-lg-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="row">
+                <div class="col-12">
+                  <button
+                    class="form-control bg-table-color text-white"
+                    (click)="openComptes()"
+                  >
+                    Selectionner un compte <i class="fa-solid fa-bars"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-9">
+              <div class="row">
+                <div class="col-lg-2">
+                  <p class="pt-2">compte :</p>
+                </div>
+                <div class="col-lg-10">
+                  <p dis class="form-control bg-light">{{ compteAssocie }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 text-center">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="">Mode paiement</label>
+            </div>
+
+            <div class="col-md-8">
+              <select
+                *ngIf="modePaiementList$ | async as modes; else loader"
+                [(ngModel)]="modePaiementSelected"
+                name="modePaiement"
+                class="form-control form-select"
+                aria-label="Default select example"
+                (change)="loadConsultationComptes()"
+              >
+                <option disabled selected>Sélectionnez un mode</option>
+                <option [value]="item.ModePaiement" *ngFor="let item of modes">
+                  {{ item.Libelle }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-lg-6">
+          <div class="row" *ngIf="compteSelected">
+            <div class="col-lg-6">
+              <label for="">Solde Crédit</label>
+              <input
+                type="text"
+                readonly
+                [value]="formatPrix(compteSelected.SoldeCredit)"
+                class="form-control"
+              />
+            </div>
+            <div class="col-lg-6">
+              <label for="">Solde Débit</label>
+              <input
+                type="text"
+                readonly
+                [value]="formatPrix(compteSelected.SoldeDebit)"
+                class="form-control"
+                placeholder="Debiteur"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 bg-light">
+          <app-select-date
+            (dateBeginEmit)="onEmitDate($event, true)"
+            (dateEndEmit)="onEmitDate($event)"
+          ></app-select-date>
+        </div>
+      </div>
+      <div class="mt-3 mb-3">
+        <div class="row">
+          <div class="col-lg-8"></div>
+          <div class="col-lg-4">
+            <button
+              class="form-control bg-table-color text-white"
+              (click)="viewlist()"
+            >
+              AFFICHER <i class="fa-solid fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div
+          class="mat-elevation-z8"
+          *ngIf="consultations$ | async; else loader"
+        >
+          <table mat-table [dataSource]="dataSource">
+            <!-- Position Column -->
+
+            <ng-container matColumnDef="LibelleEcriture">
+              <th class="bg-table-color" mat-header-cell *matHeaderCellDef>
+                Libellé
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.LibelleEcriture }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              ></td>
+            </ng-container>
+
+            <ng-container matColumnDef="CodeCompte">
+              <th class="bg-table-color" mat-header-cell *matHeaderCellDef>
+                Compte
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.CodeCompte }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              ></td>
+            </ng-container>
+
+            <ng-container matColumnDef="NumeroMouvement">
+              <th class="bg-table-color" mat-header-cell *matHeaderCellDef>
+                Mouvement
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.NumeroMouvement }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              >
+                Total
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Compte">
+              <th class="bg-table-color" mat-header-cell *matHeaderCellDef>
+                Compte
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.Compte }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              ></td>
+            </ng-container>
+
+            <ng-container matColumnDef="CompteCredit">
+              <th class="bg-table-color" mat-header-cell *matHeaderCellDef>
+                Compte crédit
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.CompteCredit }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              ></td>
+            </ng-container>
+
+            <ng-container matColumnDef="MontantDebit">
+              <th class="bg-table-color" mat-header-cell *matHeaderCellDef>
+                Débit
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.MontantDebit }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              >
+                {{ formatPrix(totalsoldedebit) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="MontantCredit">
+              <th class="bg-table-color" mat-header-cell *matHeaderCellDef>
+                Crébit
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.MontantCredit }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              >
+                {{ formatPrix(totalsolcredit) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Credit">
+              <th class="bg-table-color" mat-header-cell *matHeaderCellDef>
+                Credit
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.Credit }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              ></td>
+            </ng-container>
+
+            <ng-container matColumnDef="DateHeure">
+              <th class="bg-table-color" mat-header-cell *matHeaderCellDef>
+                Date
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.DateHeure | date : "short" }}
+              </td>
+              <td
+                class="bg-table-color text-light"
+                mat-footer-cell
+                *matFooterCellDef
+              ></td>
+            </ng-container>
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"
+            ></tr>
+            <tr
+              mat-footer-row
+              *matFooterRowDef="displayedColumns; sticky: true"
+              class="example-first-footer-row"
+            ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-gabarit>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

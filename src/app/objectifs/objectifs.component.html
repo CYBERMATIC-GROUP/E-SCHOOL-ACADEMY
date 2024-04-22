@@ -1,0 +1,221 @@
+<app-gabarit pageTitle="Objectifs Pédagogique">
+  <div class="p-3 container-fuild bg-light">
+    <div class="row">
+      <div class="col-lg-4">
+        <label for="">Selectionner un niveau</label>
+        <select (change)="selectNiveauID($event)" class="form-select" *ngIf="!isloadniveau;else loader">
+          <option *ngFor="let n of niveauList" [value]="n.IDNIVEAU">
+            {{ n.CodeNiveau }} / {{ n.NomNiveau }}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <label for="">Selectionner une branche</label>
+        <select (change)="selectBrancheID($event)" class="form-select" *ngIf="!isloadbranche;else loader">
+          <option *ngFor="let b of brancheList" [value]="b.IDBRANCHE">
+            {{ b.CodeBranche }} / {{ b.NomBranche }}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <label for="">Selectionner une matière</label>
+        <select (change)="selectMatiereID($event)" class="form-select">
+          <option
+            *ngFor="let matiere of matiereList"
+            [value]="matiere.IDMATIERE"
+          >
+            {{ matiere.CodeMatiere }} / {{ matiere.NomMatiere }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row bg-light m-0 py-2">
+      <div class="col-lg-6" style="padding-left: 0px">
+        <div class="d-flex align-items-center">
+          <i
+            style="position: absolute"
+            class="fa-solid fa-map-marked-alt p-3 text-success"
+          ></i>
+          <input
+            type="text"
+            (keyup)="applyFilter($event)"
+            placeholder="Recherchez par ici..."
+            class="form-control shadow text-start px-5 text-uppercase"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6" style="padding-right: 0px">
+        <button
+          class="form-control bg-table-color text-white button"
+          style="cursor: pointer; float: right"
+          (click)="create()"
+        >
+          Ajouter un objectif
+          <i class="fa-sharp fa-solid fa-graduation-cap"></i>
+        </button>
+      </div>
+    </div>
+   <div *ngIf="!isLoading; else loader">
+    <div
+    class="mat-elevation-z8"
+    style="max-height: 400px; overflow-y: auto">
+    <table mat-table [dataSource]="dataSource" *ngIf="isvisibletable">
+      <ng-container matColumnDef="Libelle">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Objectif
+        </th>
+        <td class="pointer" mat-cell *matCellDef="let element">
+          {{ element.Libelle }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Annee">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Année
+        </th>
+        <td class="pointer" mat-cell *matCellDef="let element">
+          {{ element.Annee }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="EnseigneeP1">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Période 1
+        </th>
+        <td class="pointer" mat-cell *matCellDef="let element">
+          <div class="form-check" style="margin-left: 17px">
+            <input
+              class="form-check-input"
+              [disabled]="true"
+              [checked]="element.EnseigneeP1"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="EnseigneeP2">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Période 2
+        </th>
+        <td class="pointer" mat-cell *matCellDef="let element">
+          <div class="form-check" style="margin-left: 17px">
+            <input
+              class="form-check-input"
+              [disabled]="true"
+              [checked]="element.EnseigneeP2"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="EnseigneeP3">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Période 3
+        </th>
+        <td class="pointer" mat-cell *matCellDef="let element">
+          <div class="form-check" style="margin-left: 17px">
+            <input
+              class="form-check-input"
+              [disabled]="true"
+              [checked]="element.EnseigneeP3"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="NIVEAU">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Niveau
+        </th>
+        <td class="pointer" mat-cell *matCellDef="let element">
+          {{ element.NIVEAU }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="BRANCHE">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Branche
+        </th>
+        <td class="pointer" mat-cell *matCellDef="let element">
+          {{ element.BRANCHE }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="MATIERE">
+        <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+          Matière
+        </th>
+        <td class="pointer" mat-cell *matCellDef="let element">
+          {{ element.MATIERE }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell class="text-end" *matHeaderCellDef>Actions</th>
+
+        <td mat-cell class="text-end" *matCellDef="let element">
+          <button
+            type="button"
+            (click)="view(element)"
+            class="btn text-lowercase py-0 px-1"
+          >
+            <i class="fa fa-eye text-black" aria-hidden="true"></i>
+          </button>
+          <button
+            type="button"
+            (click)="edit(element)"
+            class="btn text-lowercase py-0 px-1"
+          >
+            <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+          </button>
+          <button
+            type="button"
+            (click)="delete(element)"
+            class="btn text-lowercase px-1 py-0"
+          >
+            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+      ></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+<div>
+  <ng-container *ngIf="tableauContientDesElements">
+    <app-empty-list
+      [lineNumber]="5"
+      [headerNames]="[
+        'Niveau',
+        'Branche',
+        'Matière',
+        'Période 1',
+        'Période 2',
+        'Période 3',
+        'Annee',
+        'Objectif',
+        'Actions'
+      ]"
+    ></app-empty-list>
+  </ng-container>
+</div>
+   </div>
+
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+</app-gabarit>

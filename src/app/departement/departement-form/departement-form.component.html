@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="col-12">
+      <div class="card border-0">
+        <app-close-modal></app-close-modal>
+        <div class="card-body">
+          <h3 class="card-title text-left">
+            <h2 class="">
+              {{ action === "view" ? "Fiche du departement de " : "" }}
+              {{ action === "edit" ? "Modifier le departement de " : "" }}
+              {{ action === "view" || action === "edit" ? NomDepartement : "" }}
+              {{ !action ? "Ajouter un departement" : "" }}
+            </h2>
+          </h3>
+          <form
+            #departementeForm="ngForm"
+            (ngSubmit)="onSubmitForm(departementeForm)"
+            class="g-3 needs-validation"
+            *ngIf="!isLoadingpage;else loading"
+          >
+            <div class="mt-3">
+              <label for="validationCustom01" class="form-label label">Code</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="CodeDepartement"
+                [(ngModel)]="CodeDepartement"
+                required=""
+              />
+            </div>
+
+            <div class="mt-3">
+              <label for="validationCustom01" class="form-label label">Nom Departement</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="NomDepartement"
+                [(ngModel)]="NomDepartement"
+                required=""
+              />
+            </div>
+
+            <div class="mt-3">
+                <label for="validationCustom01" class="form-label label">Ordre</label>
+                <input
+                  [readonly]="action == 'view'"
+                  type="text"
+                  class="form-control hauteur hauteur"
+                  name="Ordre"
+                  [(ngModel)]="Ordre"
+                  required=""
+                />
+              </div>
+
+            <div class="mt-3 m-auto" *ngIf="action != 'view'">
+              <button
+                type="submit"
+                *ngIf="!isLoadingpage; else loading"
+                class="btn form-control text-white btn-primary bg-primary"
+                [disabled]="!isFormValid()"
+              >
+                {{ action === "edit" ? "Modifier" : "Valider" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

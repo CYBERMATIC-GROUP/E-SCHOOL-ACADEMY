@@ -1,0 +1,15 @@
+<p class="text-right" style="float: right">
+  <li
+    class="nav-item bg-light fs-5 rounded text-right"
+    style="list-style: none; width: 150px"
+  >
+    <a
+      class="nav-link text-dark"
+      (click)="dialog.closeAll()"
+      style="cursor: pointer; padding-left: 10px"
+    >
+      <span *ngIf="textBtn">ANNULER</span>
+      <i class="fa-solid fa-x text-danger" style="padding-left: 10px"></i>
+    </a>
+  </li>
+</p>

@@ -1,0 +1,12 @@
+<div class="wrapper">
+	<ol start="1" reverse class="bg-light" *ngIf="(presences$ | async) as presences; else loader">
+		<li class="p-1" *ngFor="let presence of presences" [ngStyle]="{'background': presence.Couleur}">
+			<span class="username">{{ presence.Utilisateur }}</span>
+			<span>{{ presence.Detail }} </span>
+		</li>
+	</ol>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

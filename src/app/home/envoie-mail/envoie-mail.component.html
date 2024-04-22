@@ -1,0 +1,91 @@
+<div class="container bg-light mt-5 p-3">
+  <form action="" #envoiemail="ngForm"
+  (ngSubmit)="onSubmitForm(envoiemail)" >
+    <div class="row">
+
+      <label for="" style="font-size: 13px;">Service (Indiquez le service qui correspond le mieux)</label>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-brands fa-usps"></i></span>
+        <select
+          class="form-select"
+          name="Email_Sujet"
+          [(ngModel)]="Email_Sujet"
+          aria-label="Default select example"
+          style="cursor: pointer;"
+        >
+          <option disabled>Selectionner un service ...</option>
+          <option>Service Technique</option>
+          <option>Facturation et Devis</option>
+          <option>Service Commercial</option>
+          <option>Service Plainte</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text"
+          ><i class="fa-sharp fa-solid fa-user-tie"></i
+        ></span>
+        <input
+          type="text"
+          class="form-control text-capitalize"
+          name="NOMPrenom"
+          [(ngModel)]="NOMPrenom"
+          placeholder="Entrer votre Nom et prenom"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text"
+          ><i class="fa-solid fa-phone"></i></span>
+        <input
+          type="text"
+          class="form-control"
+          name="Mobile"
+          [(ngModel)]="Mobile"
+          placeholder="Entrer votre numéro de téléphone"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text"
+          ><i class="fa-solid fa-envelope"></i
+        ></span>
+        <input
+          type="email"
+          class="form-control"
+          name="Email_Exepediteur"
+          [(ngModel)]="Email_Exepediteur"
+          placeholder="Entrer votre adresse mail"
+        />
+      </div>
+      <div class="col-lg-12">
+        <textarea
+          class="form-control"
+          name="Email_Message"
+          [(ngModel)]="Email_Message"
+          style="padding-left: 10px; height: 200px"
+          placeholder="Entrer votre message"
+          id="floatingTextarea"
+        ></textarea>
+      </div>
+      <div class="col-lg-12 mt-3">
+        <button
+          type="submit"
+          style="background-color: #3f57ce"
+          class="btn text-white form-control"
+          *ngIf="!isloading; else loading"
+          [mat-dialog-close]="true"
+          [disabled]="!isFormValid()"
+
+        >
+          Envoyer votre message <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<ng-template #loading>
+   <div class="col-lg-3 m-auto">
+    <button class="btn btn-primary" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+        <span style="padding-left: 12px;" class="" role="status">{{message}}</span>
+      </button>
+   </div>
+</ng-template>

@@ -1,0 +1,11 @@
+.info-devoir{
+    @media screen and (max-width: 576px) {
+        font-size: 0.7em;
+    }
+}
+
+h3{
+    @media screen and (max-width: 576px) {
+        font-size: 1em;
+    } 
+}

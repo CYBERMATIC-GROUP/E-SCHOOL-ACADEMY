@@ -1,0 +1,28 @@
+.content {
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: relative;
+    margin: 0px;
+  }
+  .text-on-border {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background-color: #fff;
+    padding: 0 5px;
+  }
+
+//   .row {
+//     display: flex;
+//     flex-wrap: wrap;
+//     margin-right: 0px;
+//     margin-left: 0px;
+// }
+
+.col{
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+   padding-right: 0px; 
+   padding-left: 0px;
+}

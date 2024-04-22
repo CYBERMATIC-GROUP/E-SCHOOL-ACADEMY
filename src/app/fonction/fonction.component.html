@@ -1,0 +1,116 @@
+
+<app-gabarit pageTitle="Gestion des fonctions">
+    <div class="container-fuild bg-light mb-5">        
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="d-flex align-items-center mt-4">
+                <i
+                  style="position: absolute"
+                  class="fa-solid fa-map-marked-alt p-3 text-success"
+                ></i>
+                <input
+                  type="text"
+                  (keyup)="applyFilter($event)"
+                  placeholder="Recherchez par ici..."
+                  class="form-control shadow text-start px-5 text-uppercase"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 ">
+              <button
+                class="form-control bg-table-color text-white button"
+                style="cursor: pointer; margin-top: 28px; float: right;"
+                (click)="create()"
+              >
+                Ajouter une fonction
+              </button>
+            </div>
+          </div>
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" *ngIf="!isLoading; else loader">
+              <!-- Position Column -->
+      
+              <ng-container matColumnDef="Libelle">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                 Libelle
+                </th>
+                <td
+                  class="pointer"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                  {{ element.Libelle }}
+                </td>
+              </ng-container>
+      
+      
+              <!-- <ng-container matColumnDef="NumOrdre">
+                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Numero ordre
+                </th>
+                <td
+                  class="pointer"
+                  mat-cell
+                  *matCellDef="let element"
+                >
+                  {{ element.NumOrdre }}
+                </td>
+              </ng-container> -->
+      
+        
+              <ng-container matColumnDef="Actions">
+                <th
+                  mat-header-cell
+                  class="text-end"
+                  style="padding-right: 65px"
+                  *matHeaderCellDef
+                >
+                  Actions
+                </th>
+        
+                <td
+                  mat-cell
+                  class="text-end"
+                  style="padding-right: 50px"
+                  *matCellDef="let element"
+                >
+                  <button
+                    type="button"
+                    (click)="view(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i class="fa fa-eye text-black" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="edit(element)"
+                    class="btn text-lowercase py-0 px-1"
+                  >
+                    <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="delete(element)"
+                    class="btn text-lowercase px-1 py-0"
+                  >
+                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </ng-container>
+        
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator
+            [pageSizeOptions]="[20, 40, 60]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator>
+          </div>
+        
+          <ng-template #loader>
+          <app-loader></app-loader>
+          </ng-template>
+        </div>
+    </app-gabarit>

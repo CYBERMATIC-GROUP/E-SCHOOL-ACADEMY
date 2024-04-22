@@ -1,0 +1,71 @@
+<div class="row">
+    <li
+      class="nav-item text-left"
+      *ngIf="action != 'view'"
+      style="list-style: none;background-color: #7c57ce;"    >
+      <a
+        class="nav-link text-white"
+        (click)="dialog.closeAll()"
+        style="cursor: pointer; padding-left: 10px"
+        ><i class="fa-solid fa-arrow-left"></i> Annuler
+      </a>
+    </li>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center" style="width: 26em">
+            <h2 class="">
+              {{ action === "view" ? "Fiche de le ville " : "" }}
+              {{ action === "edit" ? "Modifier la ville" : "" }}
+              {{ action === "view" || action === "edit" ? Fr_Libelle : "" }}
+              {{ !action ? "Ajouter une ville" : "" }}
+            </h2>
+          </h3>
+          <form
+            #natonaliteForm="ngForm"
+            (ngSubmit)="onSubmitForm(natonaliteForm)"
+            *ngIf="!isLoadingpage;else loading"
+            class="g-3 needs-validation"
+          >
+            <div class="mt-3">
+              <label for="validationCustom01" class="form-label">Libelle</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="Fr_Libelle"
+                [(ngModel)]="Fr_Libelle"
+                required=""
+              />
+            </div>
+  
+            <div class="mt-3">
+              <label for="validationCustom01" class="form-label">Ordre</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="NumOrdre"
+                [(ngModel)]="NumOrdre"
+                required=""
+              />
+            </div>
+  
+            <div class="mt-3 m-auto" *ngIf="action != 'view'">
+              <button
+                type="submit"
+                class="btn form-control btn-primary"
+                [disabled]="!isFormValid()"
+              >
+                {{ action === "edit" ? "Modifier " : "Valider" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+  <app-loader></app-loader>
+  </ng-template>
+  

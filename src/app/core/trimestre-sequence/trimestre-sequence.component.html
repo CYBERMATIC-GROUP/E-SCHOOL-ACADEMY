@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6">
+        <label for="" class="text-danger">Trimestre</label>
+        <select name="" (change)="onChangeTrimestre($event)" class="form-select form-control border-danger text-danger">
+          <option selected disabled>Sélectionner un trimestre</option>
+          <option value="1">Premier trimestre</option>
+          <option value="2">Deuxièmetrimestre</option>
+          <option value="3">Troisième trimestre</option>
+        </select>
+    </div>
+
+    <div class="col-sm-6">
+        <label for="" class="text-danger">Séquence</label>
+        <select name="" *ngIf="(sequences$ | async) as sequences; else loader" (change)="onChangeSequence($event)" class="form-select form-control border-danger text-danger">
+          <option selected disabled>Sélectionner une séquence</option>
+          <option *ngFor="let sequence of sequences" [value]="sequence.NumPeriode">{{ sequence.NomPeriode }}</option>
+        </select>
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+

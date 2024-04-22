@@ -1,0 +1,183 @@
+<div class="" id="page">
+  <div class="container-fluid">
+    <header *ngIf="school">
+      <nav
+        class="navbar navbar-expand-xl"
+        style="background-color: #484848"
+      >
+        <div class="container-fluid p-0">
+          <a class="navbar-brand text-white text-truncate" href="#">
+            <img
+              [src]="logoEcole "
+              *ngIf="logoEcole; else defaultLogo"
+              width="35"
+              alt="logo"
+            />
+            <ng-template #defaultLogo>
+              <i class="fa fa-graduation-cap fa-lg mr-2"></i>
+            </ng-template>
+
+            {{ school.NomEtab }}
+          </a>
+          <button
+            class="navbar-toggler  mt-1 m-0"
+            type="button;"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <div class="d-flex justify-content-between px-0">
+              <div class="text-start" [ngClass]="{ 'w-25': eleve }">
+                <i class="fa-solid fa-list fs-2 text-white"></i>
+              </div>
+
+              <div
+                class="text-light info-user w-75 d-flex justify-content-end align-items-center"
+                *ngIf="eleve"
+              >
+                <i class="fa-solid fa-user mx-1 text-success"></i>
+                {{ this.eleve.Fr_Prenom + " " + this.eleve.Fr_Nom[0] }}.
+              </div>
+            </div>
+          </button>
+
+          <div
+            class="collapse justify-content-end navbar-collapse"
+            id="navbarSupportedContent"
+          >
+            <ul class="navbar-nav mb-2 mb-lg-0" style="float: left">
+              <li class="nav-item pl-1">
+                <a
+                  class="nav-link"
+                  [routerLink]="agent ? '/dashboard' : '/' + routesEleve.base"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  ><i class="fa fa-th-list fa-fw mr-1"></i>Tableau-de-bord</a
+                >
+              </li>
+              <li class="nav-item pl-1">
+                <a
+                  class="nav-link"
+                  *ngIf="!eleve && agent?.bDroit_SuperviseurCaisses; else disabledBtn"
+                  routerLink="/tableau-de-bord/parametres"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  ><i class="fa fa-info-circle fa-fw mr-1"></i>Parametrage</a
+                >
+                <ng-template #disabledBtn>
+                  <span class="text-secondary">Parametrage</span>
+                </ng-template>
+              </li>
+              <li class="nav-item pl-1">
+                <a class="nav-link"
+                  ><i class="fa fa-phone fa-fw fa-rotate-180 mr-1"></i
+                  >Assistance-Cybermatic</a
+                >
+              </li>
+              <li class="nav-item pl-1">
+                <a
+                  class="nav-link"
+                  [routerLink]="eleve ? '/fiche-eleve' : '/profile'"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  ><i class="fa fa-user-plus fa-fw mr-1"></i>Profile</a
+                >
+              </li>
+              <li class="nav-item pl-1" [title]="dataText" *ngIf="!eleve">
+                <a
+                  class="nav-link pointer"
+                  *ngIf="!globalDataIsLoadin; else loader"
+                  (click)="refreshData()"
+                >
+                  <i class="fa-solid fs-6 fa-refresh"></i>
+                </a>
+              </li>
+              <li class="nav-item pl-1">
+                <a class="nav-link pointer" (click)="logout()"
+                  ><i class="fa fa-sign-in fa-fw mr-1"></i>Déconnexion</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container-fluid principal-page h-100">
+      <div class="col  pt-xl-0">
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-2 head-button" *ngIf="headButtonIsShowing">
+          <div class="">
+            <div class="col-12 px-0 d-flex justify-content-start flex-wrap">
+              <div class="">
+                <a
+                  class="nav-link text-light bg-primary-cust rounded"
+                  style="cursor: pointer"
+                  (click)="_location.back()"
+                >
+                  <i class="fa-solid fs-6 fa-arrow-left"></i>
+                  <span class="fs-6" style="padding-left: 10px">Retour</span>
+                </a>
+              </div>
+
+              <div class="mx-2 d-none d-md-block">
+                <button
+                  class="nav-link text-light bg-primary-cust rounded py-2 px-2"
+                  (click)="showCaisse()"
+                  *ngIf="agent.CaisseAssociee || agent.CaisseAssociee > 0"
+                >
+                  <span class="fs-6" style="padding-left: 10px"
+                    >Etat de la caisse</span
+                  >
+              </button>
+              </div>
+
+              <div *ngIf="pageTitle" class="px-2">
+                <h1 class="px-md-2 text-light">{{ pageTitle }}</h1>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="d-flex text-user-connected  text-white rounded  justify-content-end" >
+                <div class="">
+                  <p class="">Année: <span>{{ecoleInfo.ANNEE}}</span></p>
+                </div>
+                <div class="" style="margin-left: 10px;">
+                  <span>Connecté:</span>
+                </div>
+                <div class="" style="margin-left: 10px;">
+                  <span>{{ agent.Fr_Nom }} </span><span>{{agent.Fr_Prenom}}</span>
+                </div>
+                <div class="">
+                  <p
+                    class="text-end bg-success"
+                    style="
+                      width: 15px;
+                      height: 15px;
+                      border-radius: 50%;
+                      margin-top: 3px;
+                      margin-left: 10px;
+                    "
+                  ></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="col"
+          [ngClass]="{ 'head-button': !headButtonIsShowing }"
+        >
+          <ng-content></ng-content>
+        </div>
+      </div>
+    </div>
+</div>
+
+<ng-template #loader>
+  <div class="fa-3x">
+    <i class="fas fa-sync fa-spin fs-6"></i>
+  </div>
+</ng-template>

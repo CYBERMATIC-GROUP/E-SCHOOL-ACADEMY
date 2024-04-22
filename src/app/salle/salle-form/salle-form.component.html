@@ -1,0 +1,139 @@
+<div class="row">
+    <app-close-modal></app-close-modal>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-left" style="width: 26em">
+            <h2 class="">
+              {{ action === "view" ? "Fiche de la salle  " : "" }}
+              {{ action === "edit" ? "Modifier la salle" : "" }}
+              {{ action === "view" || action === "edit" ? NomSalle : "" }}
+              {{ !action ? "Ajouter une salle" : "" }}
+            </h2>
+          </h3>
+          <form
+            #natonaliteForm="ngForm"
+            (ngSubmit)="onSubmitForm(natonaliteForm)"
+            class="g-3 needs-validation mobile-form"
+            *ngIf="!dataIsloading; else loading"
+          >
+
+
+          <div class="row">
+
+            <div class="mt-3 col-lg-4">
+              <label for="validationCustom01" class="form-label">Code salle</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="CodeSalle"
+                [(ngModel)]="CodeSalle"
+                required=""
+              />
+            </div>
+
+            <div class="mt-3 col-lg-4">
+              <label for="validationCustom01" class="form-label">Nom Salle</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="NomSalle"
+                [(ngModel)]="NomSalle"
+                required=""
+              />
+            </div>
+
+            <div class="mt-3 col-lg-4">
+                <label for="validationCustom01" class="form-label">Capacité</label>
+                <input
+                  [readonly]="action == 'view'"
+                  type="text"
+                  class="form-control hauteur hauteur"
+                  name="Capacite"
+                  [(ngModel)]="Capacite"
+                  required=""
+                />
+              </div>
+
+          </div>
+
+          <div class="row mt-3">
+
+            <div class="mt-3 col-lg-4">
+              <label for="validationCustom01" class="form-label">Nombre de Bancs</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="NbBancs"
+                [(ngModel)]="NbBancs"
+                required=""
+              />
+            </div>
+
+            <div class="mt-3 col-lg-4">
+              <label for="validationCustom01" class="form-label">Nombre de rangées</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="NbRangees"
+                [(ngModel)]="NbRangees"
+                required=""
+              />
+            </div>
+
+            <div class="mt-3 col-lg-4">
+              <label for="validationCustom01" class="form-label">Superficie</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="Superficie"
+                [(ngModel)]="Superficie"
+                required=""
+              />
+            </div>
+
+          </div>
+
+              <div class="mt-3 col-12">
+                <label for="validationCustom01" class="form-label">TYPE SALLE</label>
+
+                <select
+                class="form-select"
+                name="IDTYPESALLE"
+                [(ngModel)]="IDTYPESALLE"
+                aria-label="Default select example"
+              >
+                <option disabled>selectionner un type salle</option>
+                <option
+                  *ngFor="let typesalle of typesalleList"
+                  [value]="typesalle.IDTYPESALLE"
+                >
+                  {{ typesalle.Libelle }}
+                </option>
+              </select>
+
+              </div>
+
+            <div class="mt-3 m-auto" *ngIf="action != 'view'">
+              <button
+                type="submit"
+                class="btn form-control btn-primary bg-primary text-light"
+                [disabled]="!isFormValid()"
+                *ngIf="!isLoading; else loading"
+              >
+                {{ action === "edit" ? "Modifier la salle " : "Valider" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>

@@ -1,0 +1,45 @@
+<div class="container-fuild m-auto">
+  <div class="col-12 mb-5" *ngIf="isDialog">
+    <app-close-modal></app-close-modal>
+  </div>
+    <div class="col-lg-12 p-3 border" *ngIf="!isLoading; else loader">
+      
+      <div class="row">
+        <div class="" [ngClass]="{'col-12': isDialog, 'col-md-6': !isDialog}">
+          <div class="row">
+            <div class="col-lg-2"><p>Date comptable</p></div>
+            <div class="col-lg-7"><input type="text" disabled [value]="dateComptableForHuman" (change)="onChangeDateDebut($event)" class="form-control" /></div>
+          </div>
+    
+          <div class="row mt-2">
+            <div class="col-lg-2"><p>Caisse</p></div>
+            <div class="col-lg-7"><input type="text" disabled class="form-control" [value]="CaisseLibelle" /></div>
+          </div>
+        </div>
+
+        <div class="col-md-6" [ngClass]="{'col-12': isDialog, 'col-md-6': !isDialog}">
+          <div class="row mt-2">
+            <div class="col-6">
+              <div><p class="text-end">Solde ouverture</p></div>
+              <div><p class="text-end">Versements</p></div>
+              <div><p class="text-end">Retraits</p></div>
+              <div><p class="text-end">Solde compte</p></div>
+            </div>
+            <div class="col-5">
+              <div class="w-100 border bg-white px-2" style="height: auto">
+                <div><p class="">{{ SoldeOuverture }}</p></div>
+                <div><p class="">{{ TotalVersements }}</p></div>
+                <div><p class="">{{ TotalRetraits }}</p></div>
+                <div><p class="">{{ SoldeFermeture }}</p></div>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div>
+
+    </div>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

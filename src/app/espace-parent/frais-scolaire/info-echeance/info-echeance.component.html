@@ -1,0 +1,34 @@
+<div class="w-100">
+    <div class="w-100 p-0 m-0">
+        <ul class="list-group w-100" *ngIf="frais; else loader">
+
+            <li class="list-group-item border d-flex justify-content-start align-items-center">
+                Date échéance:
+                <span class="badge rounded-pill mx-1" style="background: #7b4bce; color: white;">
+                  {{ frais.DateEcheance | date }}
+                  </span>
+              </li>
+
+            <li class="list-group-item border d-flex justify-content-start align-items-center border">
+              Montant:
+              <span class="badge rounded-pill mx-1" style="background: #7b4bce; color: white;">
+                {{ globlService.formatPrix(frais.MontantTotal, " ") }}
+                </span>
+            </li>
+            <li class="list-group-item border d-flex justify-content-start align-items-center">
+              Payé    :
+              <span class="badge rounded-pill mx-1" style="background: #7b4bce; color: white;">
+                {{ globlService.formatPrix(frais.Deja_Paye, " ") }}
+                </span>
+            </li>
+            <li class="border list-group-item d-flex justify-content-start align-items-center">
+                Reste à payer:
+                <span class="badge mx-1 rounded-pill" style="background: #7b4bce; color: white;">{{ globlService.formatPrix(frais.Reste_A_Payer, " ") }}</span>
+              </li>
+          </ul>
+    </div>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

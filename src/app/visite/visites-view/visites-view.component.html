@@ -1,0 +1,128 @@
+<app-gabarit pageTitle="Liste des visites">
+    <div class="col mt-5">
+        <div class="row bg-light rounded mt-2 py-4">
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-lg-3 text-center">
+                  <p class="pt-2">Période du</p>
+                </div>
+                <div class="col-lg-4">
+                  <input
+                    type="date"
+                    (change)="onDateSelectedDebut()"
+                    name="Date"
+                    [(ngModel)]="Date"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-lg-1  text-center">
+                  <p class="pt-2">au</p>
+                </div>
+                <div class="col-lg-4">
+                  <input
+                    style="padding-left: 0px; padding-right: 0px"
+                    type="date"
+                    (change)="onDateSelectedFin()"
+                    name="DateFin"
+                    [(ngModel)]="DateFin"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+                class="col-6 col-lg-3"
+            >
+                <button
+                class="form-control bg-table-color text-white"
+                (click)="addVisite()"
+                >
+                Ajouter une visite
+                <i class="fa-solid fa-person-booth"></i>
+                </button>
+            </div>
+            <div
+                class="col-6 col-lg-3"
+            >
+                <button
+                class="form-control bg-table-color text-white"
+                (click)="addVisiteur()"
+                >
+                Ajouter un visiteur
+                <i class="fa-solid fa-walking"></i>
+                <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mat-elevation-z8" id="content-table">
+        <table mat-table [dataSource]="visites" *ngIf="(visites$ | async) as visites; else loader">
+          <!-- Position Column -->
+    
+          <ng-container matColumnDef="Motif">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Motif
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+              (click)="onClickLine(element)"
+            >
+              {{ element.Motif }}
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light"> Total des visites </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Details">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Details
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+              (click)="onClickLine(element)"
+            >
+              {{ element.Details }}
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light"> {{ visites.length }} </td>
+          </ng-container>
+
+    
+          <ng-container matColumnDef="Actions">
+            <th
+             bg-table-color  mat-header-cell
+              class="text-end bg-table-color px-5"
+              *matHeaderCellDef
+            >
+              Actions
+            </th>
+  
+            <td
+              mat-cell
+              class="text-center"
+              *matCellDef="let element"
+            >
+              <i class="fa fa-eye text-black pointer" (click)="view(element)" aria-hidden="true"></i>
+              <span class="mx-1"></span>
+              <i class="fa fa-pencil text-black pointer" aria-hidden="true" (click)="edit(element)"></i>
+              <span class="mx-1"></span>
+              <i class="fa fa-trash text-danger pointer" (click)="delete(element)" aria-hidden="true"></i>
+  
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="bg-table-color"></td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+        </table>
+      </div>
+</app-gabarit>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

@@ -1,0 +1,15 @@
+<!-- your-component.component.html -->
+<div style="width: 30%" class="border p-3 bg-white position-absolute top-50 start-50 translate-middle">
+  <h1 class="text-center">Modification des urls de base</h1>
+  <div class="w-100">
+    <div class="col-lg-12 p-0">
+      <label for="">Saisir l'Url</label>
+      <input [(ngModel)]="newUrl" type="text" class="form-control" />
+    </div>
+    <div>
+      <button (click)="UpdateUrl()" style="background-color: #7b4bce" class="form-control text-white mt-3">
+        Valider <i class="fa-solid fa-arrows-rotate"></i>
+      </button>
+    </div>
+  </div>
+</div>

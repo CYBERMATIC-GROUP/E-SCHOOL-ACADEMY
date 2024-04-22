@@ -1,0 +1,44 @@
+
+    <div class="mat-elevation-z8 content-table mb-4 d-none d-md-block" [ngStyle]="{'max-height': maxHeight}">
+      <table
+        mat-table
+        *ngIf="(classeList$ | async) as classes; else loader"
+        [dataSource]="classes"
+      >
+        <!-- Position Column -->
+
+        <ng-container matColumnDef="CodeClasse">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Code
+          </th>
+          <td class="pointer" (click)="emitClass(element)" [ngClass]="{selected: classeSelected == element}" mat-cell *matCellDef="let element">
+            {{ element.CodeClasse }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NomClasse">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Nom
+          </th>
+          <td class="pointer" (click)="emitClass(element)" [ngClass]="{selected: classeSelected == element}" mat-cell *matCellDef="let element">
+            {{ element.NomClasse }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <div class="col d-md-none">
+      <select class="form-select" aria-label="Default select example" *ngIf="(classeList$ | async) as classes; else loader" (change)="emitClassFromSelect($event, classes)">
+        <option selected disabled>Sélectionnez la classe</option>
+        <option [value]="classe.IDCLASSES" *ngFor="let classe of classes" mouseenter="">
+          {{ classe.CodeClasse }} / {{ classe.NomClasse }}
+        </option>
+      </select>
+    </div>
+
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>

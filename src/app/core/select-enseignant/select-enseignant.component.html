@@ -1,0 +1,84 @@
+  <div class="container-fuild">
+    <div class="col-lg-12 p-0">
+      <div class="d-flex align-items-center">
+        <input
+          type="text"
+          (keyup)="applyFilterEnseignant($event)"
+          placeholder="Recherchez un enseignant ici..."
+          class="form-control text-start text-uppercase"
+        />
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <div [ngStyle]="{'max-height': maxHeightPx, 'overflow-y': 'auto'}">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          *ngIf="!isLoading; else loader"
+        >
+          <ng-container matColumnDef="CodeEnseignant">
+            <th mat-header-cell *matHeaderCellDef>Code</th>
+            <td class="pointer" mat-cell *matCellDef="let element"
+            (click)="onClickLine(element)"
+            [ngClass]="{
+              'bg-color': EnseignantSelected == element,
+              cursor: EnseignantSelected
+            }"
+            >
+              {{ element.CodeEnseignant }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Fr_Nom">
+            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <td class="pointer" mat-cell *matCellDef="let element"
+            (click)="onClickLine(element)"
+            [ngClass]="{
+              'bg-color': EnseignantSelected == element,
+              cursor: EnseignantSelected
+            }"
+            >
+              {{ element.Fr_Nom }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Fr_Prenom">
+            <th mat-header-cell *matHeaderCellDef>prénom</th>
+            <td class="pointer" mat-cell *matCellDef="let element"
+            (click)="onClickLine(element)"
+            [ngClass]="{
+              'bg-color': EnseignantSelected == element,
+              cursor: EnseignantSelected
+            }"
+            >
+              {{ element.Fr_Prenom }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Civilite">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Sexe
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element"
+            (click)="onClickLine(element)"
+            [ngClass]="{
+              'bg-color': EnseignantSelected == element,
+              cursor: EnseignantSelected
+            }"
+            >
+              {{ element.Civilite === 1 ? "M" : "F" }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr
+            style="cursor: pointer"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

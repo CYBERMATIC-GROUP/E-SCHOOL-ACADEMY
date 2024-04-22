@@ -1,0 +1,485 @@
+<div class="col-lg-10 mt-2 border m-auto bg-light pb-3">
+  <div class="row">
+    <h3
+      class="card-title pt-1 text-left"
+      style="background-color: rgb(64, 87, 206)"
+    >
+      <h2 class="text-white">
+        {{ action === "view" ? "Fiche Ecole" : "" }}
+        {{ action === "edit" ? "Modification de l'école" : "" }}
+        {{ action === "view" || action === "edit" ? Fr_NomEcole : "" }}
+        {{ !action ? "  Ajouter une école" : "" }}
+        <i class="fa-solid fa-school"></i>
+      </h2>
+    </h3>
+  </div>
+  <div class="row m-1">
+    <div>
+      <div class="card-body">
+        <form #ecoleForm="ngForm" (ngSubmit)="onSubmitForm(ecoleForm)" class="">
+          <div class="row">
+            <div class="content bg-light">
+              <span class="text-on-border"></span>
+              <p class="p-2 fs-6 text-left">
+                E-school est un logiciel complet pour la gestion d'une
+                université, d'un lycée, d'un collège ou d'une école primaire. il
+                est multi-utilisateur, multilingue (anglais et français),
+                fonctionnant en mono-poste ou en réseau. Cette plateforme est
+                dotée de toutes les fonctionnalités dont vous aurez besoin pour
+                vous faciliter la gestion de vos établissements année par année.
+              </p>
+              <br />
+              <p class="p-2 fs-6 text-left">
+                C'est un outil destiné aux directeurs d'école, aux secrétaires,
+                aux enseignants, aux parents et aux étudiants du niveau lycée et
+                université. En effet, ce secteur fait partie de ceux qui ont le
+                plus besoin d’adopter les TIC tant au niveau des enseignements
+                qu’au niveau de la gestion de ces enseignements et des acteurs
+                impliqués.
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="content mt-3">
+                  <span class="text-on-border"
+                    >Informations Générales de l'école
+                    <i class="fa-solid fa-school"></i
+                  ></span>
+                  <div class="row">
+                    <div class="col-lg-5 mt-3">
+                      <label for="validationCustom01" class="form-label"
+                        >Code ou sigle de l'établissement
+                        <span class="text-danger">(*)</span>
+                      </label>
+                      <input
+                        [readonly]="action == 'view'"
+                        maxlength="6"
+                        type="text"
+                        class="form-control hauteur hauteur"
+                        name="CodeEtab"
+                        [(ngModel)]="CodeEtab"
+                        required=""
+                      />
+                    </div>
+                    <div class="col-lg-7 mt-3">
+                      <label for="validationCustom02" class="form-label"
+                        >Nom de l'établissement
+                        <span class="text-danger">(*)</span>
+                      </label>
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control hauteur"
+                        name="Fr_NomEcole"
+                        [(ngModel)]="Fr_NomEcole"
+                        required=""
+                      />
+                    </div>
+
+                    <div class="col-lg-5 mb-3 mt-3">
+                      <label for="validationCustom05" class="form-label"
+                        >Nature de l'établissement
+                        <span class="text-danger">(*)</span></label
+                      >
+
+                      <select
+                        type="text"
+                        class="form-control form-select"
+                        name="Nature"
+                        [(ngModel)]="Nature"
+                      >
+                        <option>Ecole Public</option>
+                        <option>Ecole Conventionnée</option>
+                        <option>Ecole Privée</option>
+                      </select>
+
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="col-lg-7 mt-3">
+                      <label for="validationCustom05" class="form-label"
+                        >Email de l'établissement
+                        <span class="text-danger">(*)</span></label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control hauteur"
+                        name="Courriel"
+                        [(ngModel)]="Courriel"
+                        required=""
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="col-lg-5 mt-3">
+                      <label for="validationCustom03" class="form-label"
+                        >Téléphone de l'établissement
+                        <span class="text-danger">(*)</span></label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control hauteur"
+                        name="TelEphone"
+                        [(ngModel)]="Telephone"
+                        required=""
+                      />
+                    </div>
+                    <div class="col-lg-7 mt-3">
+                      <label for="validationCustom04" class="form-label"
+                        >Nom et Prénom du Responsable
+                        <span class="text-danger">(*)</span></label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control hauteur"
+                        name="NomPrenomResponsable"
+                        [(ngModel)]="NomPrenomResponsable"
+                        required=""
+                      />
+                    </div>
+                    <div class="col-lg-5 mt-3">
+                      <label for="validationCustom05" class="form-label"
+                        >Qualité du Responsable</label
+                      >
+
+                      <select
+                        type="text"
+                        class="form-control form-select"
+                        name="QualiteResponsable"
+                        [(ngModel)]="QualiteResponsable"
+                        required=""
+                      >
+                        <option>Promoteur</option>
+                        <option>Gerant</option>
+                        <option>Directeur</option>
+                      </select>
+
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="col-lg-7 mt-3" style="margin-bottom: 26px">
+                      <label for="validationCustom05" class="form-label"
+                        >Téléphone du Responsable
+                        <span class="text-danger">(*)</span></label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control hauteur"
+                        name="TelephoneResponsable"
+                        [(ngModel)]="TelephoneResponsable"
+                        required=""
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="content mt-3">
+                  <span class="text-on-border">Localisation</span>
+
+                  <div class="row">
+                    <div class="col-lg-6 mt-3">
+                      <label for="exampleDataList" class="form-label"
+                        >Departement <span class="text-danger">(*)</span></label
+                      >
+                      <select
+                        class="text-capitalize select-box form-select form-control hauteur"
+                        name="IDDEPARTEMENT"
+                        [(ngModel)]="IDDEPARTEMENT"
+                        (change)="onSelectionChange($event)"
+                        required=""
+                      >
+                        <option value="" disabled>
+                          -- selectionner ici --
+                        </option>
+                        <option
+                          *ngFor="let option of DepartementList"
+                          [value]="option.IDDEPARTEMENT"
+                        >
+                          {{ option.NomDepartement }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-6 mt-3">
+                      <label for="exampleDataList" class="form-label"
+                        >Arrondissement
+                        <span class="text-danger">(*)</span></label
+                      >
+
+                      <select
+                        class="text-capitalize form-select select-box form-control hauteur"
+                        name="IDARRONDISSEMENT"
+                        [(ngModel)]="IDARRONDISSEMENT"
+                        (change)="quartierByArrondissement($event)"
+                        required=""
+                      >
+                        <option value="" disabled>
+                          --- selectionner ici --
+                        </option>
+                        <option
+                          *ngFor="let option of ArrondissementList"
+                          [value]="option.IDARRONDISSEMENT"
+                        >
+                          {{ option.NomArron }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-6 mt-3">
+                      <label for="exampleDataList" class="form-label"
+                        >Quartier <span class="text-danger">(*)</span></label
+                      >
+                      <input
+                        class=" form-select select-box form-control hauteur"
+                        name="IDQUARTIER"
+                        [(ngModel)]="IDQUARTIER"
+                        required=""
+                        list="datalistOptions"
+                        id="exampleDataList"
+                        placeholder="Renseignez le quartier..."
+                      />
+                      <datalist id="datalistOptions">
+                        <option value="" disabled>
+                          -- selectionner ici --
+                        </option>
+                        <option
+                          *ngFor="let quatier of QuartierList"
+                          [value]="quatier.NomQuartier"
+                        >
+                          {{ quatier.NomQuartier }}
+                        </option>
+                      </datalist>
+                    </div>
+
+                    <div class="col-lg-6 mt-3">
+                      <label for="validationCustom05" class="form-label"
+                        >Zone</label
+                      >
+
+                      <input
+                      class=" form-select select-box form-control hauteur"
+                      name="IDZone"
+                      [(ngModel)]="IDZone"
+                      required=""
+                      list="datalistOptions1"
+                      id="exampleDataList"
+                      placeholder="Renseignez le zone ..."
+                    />
+                    <datalist id="datalistOptions1">
+                      <option value="" disabled>
+                        -- selectionner une zone--
+                      </option>
+                      <option
+                        *ngFor="let zone of zoneList"
+                        [value]="zone.NomZone"
+                      >
+                        {{ zone.NomZone }}
+                      </option>
+                    </datalist>
+                  </div>
+
+                    <div class="col-lg-6 mt-3">
+                      <label for="validationCustom05" class="form-label"
+                        >Ville</label
+                      >
+
+                      <select
+                        class="text-capitalize select-box form-select form-control hauteur"
+                        name="Ville"
+                        [(ngModel)]="Fr_Ville"
+                        required=""
+                      >
+                        <option value="" disabled>
+                          -- selectionner une ville --
+                        </option>
+                        <option
+                          *ngFor="let ville of villeList"
+                          [value]="ville.IDVILLE"
+                        >
+                          {{ ville.Fr_Libelle }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-lg-6 mb-3 mt-3">
+                      <label for="validationCustom05" class="form-label"
+                        >Commune ou localité</label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control hauteur"
+                        name="Commune"
+                        [(ngModel)]="Commune"
+                        required=""
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="col-12 mb-4 mt-2">
+                      <label for="validationCustom02" class="form-label"
+                        >Adresse <span class="text-danger">(*)</span></label
+                      >
+                      <input
+                        [readonly]="action == 'view'"
+                        type="text"
+                        class="form-control hauteur"
+                        name="Fr_Adresse"
+                        [(ngModel)]="Fr_Adresse"
+                        required=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content mt-2 bg-light">
+            <span class="text-on-border">Cycles de l'établissement</span>
+
+            <div class="row">
+              <div class="col-4 mt-2">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    name="Cycle_PrEscolaire"
+                    [(ngModel)]="Cycle_Prescolaire"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Prescolaire
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-4 mt-2">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    name="Cycle_Primaire"
+                    [(ngModel)]="Cycle_Primaire"
+                    name="Cycle_PrEscolaire"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Primaire
+                  </label>
+                </div>
+              </div>
+              <div class="col-4 mt-2">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    name="Cycle_Primaire"
+                    name="Cycle_College"
+                    [(ngModel)]="Cycle_College"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    collège
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-4 mt-2">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    name="Cycle_Primaire"
+                    name="Cycle_College"
+                    [(ngModel)]="Cycle_Lycee"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Lycée
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-4 mt-2">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    name="Cycle_Primaire"
+                    name="Cycle_College"
+                    [(ngModel)]="Cycle_Superieur"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Superieur
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-right mt-3 text-dark">
+            <p>
+              NB : Attention les champs en
+              <span class="text-danger">(*)</span> sont obligatoires
+            </p>
+          </div>
+          <div
+            class="mt-2"
+            style="padding: 0px; margin: 0px"
+            *ngIf="action !== 'view'"
+          >
+            <button
+              type="submit"
+              *ngIf="!isLoading; else loader"
+              class="btn form-control text-white"
+              style="
+                background-color: rgb(64, 87, 206);
+                padding: 0px;
+                margin: 0px;
+              "
+            >
+              {{ action === "edit" ? "Modifier" : "Enregistrer votre école" }}
+              <i class="fa-solid fa-floppy-disk"></i>
+            </button>
+          </div>
+          <div
+          class="mt-2"
+          style="padding: 0px; margin: 0px"
+          *ngIf="action !== 'view'"
+        >
+          <button
+            type="button"
+            class="btn form-control text-white"
+            style="
+              background-color: rgb(64, 87, 206);
+              padding: 0px;
+              margin: 0px;
+            "
+            (click)="envoieMail()"
+          >
+            Nous écrire <i class="fa-solid fa-pen"></i>
+          </button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

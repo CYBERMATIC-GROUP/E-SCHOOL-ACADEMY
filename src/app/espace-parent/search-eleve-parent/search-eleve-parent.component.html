@@ -1,0 +1,113 @@
+<app-gabarit-parent>
+  <div class="container-fluid p-5 bg-light">
+    <p class="text-success fs-5 bg-light p-2 col-lg-7">
+      Veuillez rechercher l'élève en saisissant son nom et prénom puis
+      cliquer sur <span class="text-danger">valider</span> !
+    </p>
+    <div class="row my-2">
+      <div class="col-lg-4">
+        <label for="">Nom</label>
+        <input type="text" class="form-control" (input)="SearchNom($event)" />
+      </div>
+      <div class="col-lg-4">
+        <label for="">Prénom</label>
+        <input
+          type="text"
+          class="form-control"
+          (input)="SearchPrenom($event)"
+        />
+      </div>
+      <div class="col-lg-4">
+        <button
+          class="form-control mt-4 text-white"
+          style="cursor: pointer; background-color: #7c57ce"
+          (click)="valider()"
+        >
+          Valider
+        </button>
+      </div>
+    </div>
+    <div class="mat-elevation-z8" *ngIf="!isLoading;else loader" style="max-height: 400px; overflow-y: auto">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        *ngIf="dataSource && dataSource.data.length > 0"
+      >
+        <!-- Position Column -->
+
+        <ng-container matColumnDef="Metricule">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Matricule
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.Metricule }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NomPrenom">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Nom et Prénom
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.NomPrenom }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="LieuNaissance">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Lieu de naissance
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.LieuNaissance }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Classe">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Classe
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.Classe }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell class="text-end" *matHeaderCellDef>Actions</th>
+
+          <td mat-cell class="text-end" *matCellDef="let element">
+            <button
+              type="button"
+              (click)="WaintingpayementByMOMO(element)"
+              style="padding-right: 15px"
+              class="btn text-lowercase"
+            >
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      
+    </div>
+    <div>
+      <div *ngIf="!dataSource || dataSource.data.length < 1">
+        <app-empty-list
+          [lineNumber]="7"
+          [headerNames]="[
+            'Matricule ',
+            'Nom et Prénom',
+            'Lieu de naissance',
+            'Classe',
+            'Actions'
+          ]"
+        ></app-empty-list>
+      </div>
+    </div>
+
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+</app-gabarit-parent>

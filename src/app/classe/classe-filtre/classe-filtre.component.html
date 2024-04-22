@@ -1,0 +1,201 @@
+<app-gabarit pageTitle="Selectionner le niveau et la branche pour ajouter une classe">
+
+    <div class="container-fluid h-100 p-3 bg-light ">
+      <div class="row section1">
+        <div class="col-lg-6 bloc-table h-90">
+          <div>
+            <label class="" for="" style="font-weight: bold;">Niveaux</label>
+            <input type="text" class="w-100 search form-control  " placeholder="Recherchez par ici">
+          </div>
+
+          <div style="max-height: 310px; overflow-y: auto">
+          
+            <section class="example-container mat-elevation-z8 h-90" *ngIf="!niveauIsLoad; else loader" tabindex="0">
+              <table mat-table [dataSource]="niveauListSource">
+            
+                <!-- Position Column -->
+                <ng-container matColumnDef="CodeNiveau">
+                  <th mat-header-cell *matHeaderCellDef>Code</th>
+    
+                  <td mat-cell *matCellDef="let element">               
+                    <input
+                    class="form-check-input"
+                    name="classe"
+                    (change)="onNiveauChange(element.IDNIVEAU, $event, element.CodeNiveau)"
+                    type="radio"
+                 /> {{element.CodeNiveau}} </td>
+                </ng-container>
+            
+                <!-- Name Column -->
+                <ng-container matColumnDef="NomNiveau">
+                  <th mat-header-cell *matHeaderCellDef> Nom  </th>
+                  <td mat-cell *matCellDef="let element"> {{element.NomNiveau}} </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="niveauListDisplayColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: niveauListDisplayColumns;"></tr>
+              </table>
+            </section>
+
+          </div>
+     
+
+        </div>
+  
+        <div class="col-lg-6 bloc-table h-90">
+          <div>
+            <label for="" style="font-weight: bold;">Branches</label>
+            <input type="text" class="w-100 search form-control" placeholder="Recherchez par ici">
+          </div>
+
+          <div style="max-height: 310px; overflow-y: auto">
+            <section class="example-container h-90 mat-elevation-z8" tabindex="0">
+              <table
+                mat-table
+                [dataSource]="brancheSource"
+                *ngIf="!brancheIsLoad; else loader"
+              >
+                <!-- Position Column -->
+      
+                <ng-container matColumnDef="CodeBranche">
+                  <div class="form-check form-switch"></div>
+                  <th mat-header-cell *matHeaderCellDef>Code</th>
+                  <td mat-cell *matCellDef="let element">
+                    <input
+                      class="form-check-input"
+                      name="month"
+                      (click)="onBrancheChange(element.IDBRANCHE, $event, element.CodeBranche)"
+                      type="radio"
+                      id="flexSwitchCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexSwitchCheckDefault">
+                      {{ element.CodeBranche }}</label
+                    >
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="NomBranche">
+                  <div class="form-check form-switch"></div>
+                  <th mat-header-cell *matHeaderCellDef>Mois</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.NomBranche }}
+                  </td>
+                </ng-container>
+      
+                <tr mat-header-row *matHeaderRowDef="brancheListDisplayedCols; sticky: true"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: brancheListDisplayedCols"
+                ></tr>
+              </table>
+            </section>
+          </div>
+         
+
+        </div>
+      </div>
+
+      <div *ngIf="!classeIsSaving; else loader">
+        <button
+        class="form-control text-white mt-4 mb-3 bg-primary-cust fs-6"
+        style="
+          cursor: pointer;
+          margin-top: 28px;
+          float: right;
+        "
+        (click)="onAdClass()"
+        *ngIf="CodeBranche && CodeNiveau"
+      >
+        Ajouter la classe "{{ CodeNiveau ? CodeNiveau : '' }} - {{ CodeBranche ? CodeBranche : '' }}" ?
+      </button>
+      </div>
+
+      <div class="mt-5 section2">
+
+        <div style="max-height: 310px; overflow-y: auto">
+        
+        </div>
+
+        <div class="mat-elevation-z8" *ngIf="!isLoading; else loader">
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            *ngIf="dataSource && dataSource.data.length > 0"
+          >
+            <!-- Position Column -->
+    
+            <ng-container matColumnDef="CodeClasse">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Code classe
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.CodeClasse }}
+              </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="NomClasse">
+              <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Classe
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.NomClasse }}
+              </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="Actions">
+              <th
+                mat-header-cell
+                class="text-end"
+                style="padding-right: 65px"
+                *matHeaderCellDef
+              >
+                Actions
+              </th>
+    
+              <td
+                mat-cell
+                class="text-end"
+                style="padding-right: 50px"
+                *matCellDef="let element"
+              >
+                <button
+                  type="button"
+                  (click)="onOpenClasseForm('view', element)"
+                  class="btn text-lowercase py-0 px-1"
+                >
+                  <i class="fa fa-eye text-black" aria-hidden="true"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onOpenClasseForm('edit', element)"
+                  class="btn text-lowercase py-0 px-1"
+                >
+                  <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="delete(element)"
+                  class="btn text-lowercase px-1 py-0"
+                >
+                  <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                </button>
+              </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+
+          <div *ngIf="!dataSource || dataSource.data.length < 1">
+            <app-empty-list [lineNumber]="7" [headerNames]="[' Code classe ', 'Classe', 'Actions']"></app-empty-list>
+          </div>
+        </div>
+
+      </div>
+
+      <ng-template #loader>
+        <app-loader></app-loader>
+      </ng-template>
+    </div>
+
+</app-gabarit>
+  

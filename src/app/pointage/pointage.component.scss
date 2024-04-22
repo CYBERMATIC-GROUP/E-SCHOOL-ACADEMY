@@ -1,0 +1,50 @@
+.bloc{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: top;
+
+  form{
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 3em;
+    .form-group{
+      width: 100%;
+      position: relative;
+    }
+    p, input{
+      font-size: 2.3em;
+      margin-top: 0.5em;
+    }
+    @media all and (max-width: 994px) {
+      width: 100%;
+    }
+    input{
+      height: 3em;
+      font-size: 2.5em;
+    }
+  }
+}
+
+nav{
+  height: 5%;
+}
+
+.bloc{
+  height: 85%;
+}
+
+.list-pointage{
+  overflow-y: auto;
+  border: 0.3rem solid turquoise;
+	column-gap: 7rem;
+	column-rule: 4px dotted turquoise;
+	border-radius: 0.5rem;
+  height: 85%;
+}
+
+
+.fsz{
+  font-size: 0.7em;
+}

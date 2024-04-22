@@ -1,0 +1,209 @@
+
+  <div class="container-fluid bg-light pt-2">
+    <div class="row">
+      <div class="col-12 col-md-6 mb-2">
+        <app-classe-list
+          (classeEmitted)="onChoseClasse($event)"
+        ></app-classe-list>
+      </div>
+      <div class="col-12 col-md-6 mb-2">
+        <app-matiere-enseigne
+          [matiereList$]="matiereList$"
+          (matiereEmitted)="onChoseMatiere($event)"
+        ></app-matiere-enseigne>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 mb-2">
+        <mat-card>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-12 col-md-4 mb-3 mb-md-0">
+                <select
+                  name=""
+                  (change)="onChangeTrimestre($event)"
+                  id=""
+                  class="form-select"
+                >
+                  <option value="0" disabled selected>
+                    Sélectionnez un trimestre
+                  </option>
+                  <option value="1">Premier trimestre</option>
+                  <option value="2">Deuxième trimestre</option>
+                  <option value="3">Troisième trimestre</option>
+                </select>
+              </div>
+              <div class="col-6 col-md-4 text-center">
+                Classe sélectionnée:
+                <span class="text-danger">{{
+                  classeChosed ? classeChosed.CodeClasse : "❓"
+                }}</span>
+              </div>
+              <div class="col-6 col-md-4 text-center">
+                Matière sélectionnée:
+                <span class="text-danger">{{
+                  matiereChosed ? matiereChosed.Fr_NomMatiere : "❓"
+                }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row">
+        <div class="col-md-6">
+          <input
+            type="text"
+            class="w-100 col border p-2"
+            (input)="onSearch()"
+            [(ngModel)]="searchText"
+            (blur)="searchName = false; searchText = ''"
+            placeholder="Recherchez par nom ou prénom ici"
+          />
+        </div>
+        <div class="col-md-6">
+          <section>
+            <div class="example-button-row" *ngIf="showAbsencesBtn">
+              <button mat-stroked-button color="success" (click)="delte()" class="">Supprimer</button>
+              <button mat-stroked-button class="text-success" (click)="onAbsenceJustifiee()">Absence justifiée</button>
+              <button mat-stroked-button color="warn" (click)="onAbsenceNonJustifiee()">Absence non justifiée</button>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="table100 ver2 m-b-110 table-container mb-5">
+        <table data-vertable="ver2" *ngIf="!notesIsloading; else loader">
+          <thead class="mt-2">
+            <tr class="row100 head">
+              <th
+                class="column100 column1 sticky"
+                (click)="searchName = true; notes.Eleves = statiqueElevesList"
+                data-column="column1"
+              >
+                Nom et prénom
+              </th>
+              <th
+                class="column100 column2 sticky text-center d-none d-md-table-cell"
+                data-column="column2"
+                *ngFor="let item of notes.tabConfigNote"
+              >
+                {{ item ? item.Libelle : "" }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="row100"
+              *ngFor="let eleve of notes.Eleves; let i = index"
+              (mouseenter)="onMouseEnter($event, eleve)"
+            >
+              <td class="bg-custom sticky" data-column="column1">
+                <input
+                  type="text"
+                  readonly
+                  (click)="onClickLine(notes.tabConfigNote, eleve, notes.tbLesNotes)"
+                  [value]="eleve.Fr_Nom + ' ' + eleve.Fr_Prenom"
+                  class="py-1 w-100 column100 column1 text-start pointer"
+                />
+              </td>
+              <td
+                class="bg-custom d-none d-md-table-cell"
+                *ngFor="let noteConfig of notes.tabConfigNote"
+              >
+                <div
+                  *ngIf="
+                    filterNote(
+                      notes.tbLesNotes,
+                      eleve.IDELEVE,
+                      noteConfig.IDNOTES
+                    ) as note;
+                    else empty
+                  "
+                >
+                  <input
+                    type="number"
+                    (input)="onInputNote($event, noteConfig.BorneMaxi); note.EtatNote = etatNote.CST_ETAT_NOTE_SAISIE"
+                    (focus)="onFocusInput($event); showAbsencesBtn=true"
+                    (blur)="onInputExistNote(eleve, noteConfig, note, $event)"
+                    [value]="note.EtatNote == etatNote.CST_ETAT_NOTE_ABSENCE_JUSTIFIEE || note.EtatNote == etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE ? null : note.Note"
+                    [min]="0"
+                    [max]="noteConfig.BorneMaxi"
+                    [ngClass]="{
+                      'bg-danger':
+                        note.EtatNote ==
+                        etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE,
+                      'bg-success':
+                        note.EtatNote ==
+                        etatNote.CST_ETAT_NOTE_ABSENCE_JUSTIFIEE
+                    }"
+                    class="py-1 w-100 text-center pointeur input-events"
+                  />
+                </div>
+                <ng-template #empty>
+                  <input
+                    type="number"
+                    (input)="onInputNote($event, noteConfig.BorneMaxi)"
+                    (focus)="onFocusInput($event); showAbsencesBtn=true"
+                    (blur)="onInputEmptyNote(eleve, noteConfig, $event)"
+                    [value]=""
+                    class="py-1 w-100 text-center pointeur input-events border-danger"
+                  />
+                </ng-template>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="row100 head">
+              <th class="column100 column1 sticky">Total élèves :</th>
+              <th
+                class="column100 column1 sticky d-none d-md-table-cell"
+                *ngFor="let item of notes.tabConfigNote"
+              ></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 pb-5 text-center px-2">
+        <button
+          style="background-color: #7b4bce"
+          routerLink="/impression-releve-note"
+          class="form-control text-white h-100 py-2"
+        >
+          Imprimer le relevé de notes vide<i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+
+      <div class="col-md-6 pb-5 text-center px-2">
+        <button
+          [disabled]="!numeroTrimestre || !matiereChosed || !classeChosed"
+          style="background-color: #7b4bce"
+          (click)="printReleve()"
+          *ngIf="!printIsLoad; else loader"
+          class="form-control text-white h-100 py-2"
+        >
+          Imprimer le relevé global de notes avec les notes<i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+
+      <!--div-- class="col-md-4 pb-5 text-center px-2">
+        <button
+          style="background-color: #7b4bce"
+          routerLink="/releve-global-des-notes"
+          *ngIf="!printIsLoad; else loader"
+          class="form-control text-white h-100 py-2"
+        >
+          Relevé de notes<i class="fa-solid fa-print"></i>
+        </button>
+      </!--div-->
+    </div>
+  </div>
+
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>

@@ -1,0 +1,36 @@
+<app-gabarie-eleve [pageTitle]="'Accueil'">
+    <div class="row pb-3">
+        <div class="col-12 col-md-6">
+            <div class="info-box"  routerLink="devoirs">
+                <span class="info-box-icon bg-aqua">
+                    <img src="../../assets/logo/resultat_scolaire.png" alt="">
+                </span>
+                <div class="info-box-content d-flex justify-content-start align-items-center">
+                    <div>
+                        <h2 class="mb-0 pt-3 text-truncate">Mes devoirs</h2>
+                        <span class="text-primary text-truncate">Devoirs en ligne...</span>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <div class="info-box loader-bloc" routerLink="releve-notes">
+            <div class="not-ready"> </div>
+            <span class="info-box-icon bg-aqua">
+                <img src="../../assets/logo/resultat_scolaire.png" alt="">
+            </span>
+            <div class="info-box-content d-flex justify-content-start align-items-center">
+                <div>
+                    <h2 class="mb-0 pt-3 text-truncate">Cours</h2>
+                    <span class="text-primary text-truncate">Cours publiés</span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <app-stats-notes height="25em"></app-stats-notes>
+    </div>
+  </app-gabarie-eleve>
+

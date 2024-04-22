@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="col p-2">
+    <div class="col-12">
+      <h2>{{ eleve.Fr_Nom }} {{ eleve.Fr_Prenom }}</h2>
+    </div>
+    <div class="col-12">
+      <section>
+        <div class="d-flex justify-content-between mb-2" *ngIf="showAbsencesBtn">
+          <button mat-stroked-button color="success" (click)="delte()" class="">Sup.</button>
+          <button mat-stroked-button class="text-success" (click)="onAbsenceJustifiee()">AJ</button>
+          <button mat-stroked-button color="warn" (click)="onAbsenceNonJustifiee()">ANJ</button>
+        </div>
+      </section>
+    </div>
+  </div>
+  <form *ngIf="!noteIsLoading; else loader">
+    <div class="input-group input-group-sm mb-3" *ngFor="let item of tabConfig">
+      <span class="input-group-text" id="inputGroup-sizing-sm">{{
+        item.Libelle
+      }}</span>
+      <input
+        *ngIf="filterNote(item.IDNOTES, eleve.IDELEVE) as note; else empty"
+        [value]="
+          note.EtatNote == etatNote.CST_ETAT_NOTE_ABSENCE_JUSTIFIEE ||
+          note.EtatNote == etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE
+            ? null
+            : note.Note
+        "
+        (input)="globalService.forceInputNumber($event); onInputNote($event, item.BorneMaxi)"
+        (focus)="onFocusInput($event); showAbsencesBtn=true"
+        (blur)="onInputExistNote(note, $event)"
+        type="number"
+        class="form-control"
+        aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-sm"
+        [ngClass]="{
+            'bg-danger':
+              note.EtatNote ==
+              etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE,
+            'bg-success':
+              note.EtatNote ==
+              etatNote.CST_ETAT_NOTE_ABSENCE_JUSTIFIEE
+          }"
+      />
+
+      <ng-template #empty>
+        <input
+          [value]="null"
+          (input)="globalService.forceInputNumber($event); onInputNote($event, item.BorneMaxi)"
+          type="number"
+          (focus)="onFocusInput($event); showAbsencesBtn=true"
+          (blur)="onInputEmptyNote(item, $event)"
+          class="form-control"
+          aria-label="Sizing example input"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+      </ng-template>
+    </div>
+
+    <div class="text-center">
+      <button class="btn btn-ouline-primary btn-primary" (click)="dialog.closeAll()">Fermer</button>
+    </div>
+  </form>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+

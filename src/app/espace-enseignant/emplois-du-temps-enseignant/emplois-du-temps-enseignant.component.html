@@ -1,0 +1,8 @@
+<app-gabarit-enseignant *ngIf="!asChildren; else noGabarit">
+  <app-emplois-du-temps [dataSource]="dataSource.tabEmploiDuTemps" [seances]="dataSource.Seance" visitor="enseignant"></app-emplois-du-temps>
+</app-gabarit-enseignant>
+
+<ng-template #noGabarit>
+  <app-emplois-du-temps [dataSource]="dataSource.tabEmploiDuTemps" [seances]="dataSource.Seance" visitor="enseignant"></app-emplois-du-temps>
+</ng-template>
+

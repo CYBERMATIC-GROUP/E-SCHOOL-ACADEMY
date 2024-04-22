@@ -1,0 +1,24 @@
+<app-gabarie-eleve>
+  <div class="container-fluid bg-light py-2 pb-4">
+    <div class="example-action-buttons p-2">
+      <div class="row" *ngIf="!isLoading; else loader">
+        <div class="col-md-6">
+          <canvas #chartCanvasEleves class="stat-bloc"></canvas>
+        </div>
+        <div class="col-md-6">
+          <canvas #chartCanvasAbsenceEleves class="stat-bloc"></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col my-0 py-0" *ngIf="(absences$ | async) as absences; else loader">
+      <app-absence-table [absences]="absences"></app-absence-table>
+    </div>
+  </div>
+
+</app-gabarie-eleve>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+

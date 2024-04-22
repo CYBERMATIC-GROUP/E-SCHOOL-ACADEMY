@@ -1,0 +1,78 @@
+<app-gabarit>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-6 mb-2">
+        <app-classe-list
+          (classeEmitted)="onChoseClasse($event)"
+        ></app-classe-list>
+      </div>
+      <div class="col-12 col-md-6 mb-2">
+        <app-matiere-enseigne
+          [matiereList$]="matiereList$"
+          (matiereEmitted)="onChoseMatiere($event)"
+        ></app-matiere-enseigne>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 mb-2">
+        <mat-card>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-12 col-md-4 mb-3 mb-md-0">
+                <select
+                  name=""
+                  (change)="onChangeTrimestre($event)"
+                  id=""
+                  class="form-select"
+                >
+                  <option value="0" disabled selected>
+                    Sélectionnez un trimestre
+                  </option>
+                  <option value="1">Premier trimestre</option>
+                  <option value="2">Deuxième trimestre</option>
+                  <option value="3">Troisième trimestre</option>
+                </select>
+              </div>
+              <div class="col-6 col-md-4 text-center">
+                Classe sélectionnée:
+                <span class="text-danger">{{
+                  classeChosed ? classeChosed.CodeClasse : "❓"
+                }}</span>
+              </div>
+              <div class="col-6 col-md-4 text-center">
+                Matière sélectionnée:
+                <span class="text-danger">{{
+                  matiereChosed ? matiereChosed.Fr_NomMatiere : "❓"
+                }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <section *ngIf="(objNoteForTable$ | async) as dataSource" class="example-container mat-elevation-z8" tabindex="0">
+        <table mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nom(s) et prénom(s) </th>
+            <td mat-cell *matCellDef="let element"> {{ element.eleve.Fr_Nom }} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container *ngFor="let item of displayNote" [matColumnDef]="item" sticky>
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element">  </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </section>
+
+    </div>
+  </div>
+</app-gabarit>

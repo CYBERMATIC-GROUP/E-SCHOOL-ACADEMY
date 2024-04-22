@@ -1,0 +1,13 @@
+
+.p-info{
+    display: none;
+}
+@media screen and (max-width:900px) {
+    .container{
+        height: 400px;
+    }
+    .p-info{
+        display: block;
+    }
+    
+}

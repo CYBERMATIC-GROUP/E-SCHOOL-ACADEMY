@@ -1,0 +1,183 @@
+<app-gabarit pageTitle="Saisie des absences des agents">
+  <div class="container-fuild p-3 bg-light">
+    <div class="row p-3">
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center">
+          <i
+            style="position: absolute"
+            class="fa-solid fa-map-marked-alt p-3 text-success"
+          ></i>
+          <input
+            type="text"
+            (keyup)="applyFilter($event)"
+            placeholder="Recherchez une absence ici..."
+            class="form-control text-start px-5 text-uppercase"
+          />
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-lg-1"><p class="p-2">Date</p></div>
+          <div class="col-lg-10">
+            <input
+            [(ngModel)]="currentDate"
+            (change)="selectDate($event)"
+            type="date"
+            class="form-control"
+          />
+          
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <button
+          (click)="create()"
+          style="background-color: #7c57ce;"
+          class="form-control text-white"
+        >
+          Ajouter une absence <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div>
+      <div class="mat-elevation-z8" style="max-height: 400px; overflow-y: auto">
+        <table mat-table [dataSource]="dataSource" *ngIf="!isloading;else loader">
+
+          <ng-container matColumnDef="NomPrenom">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Nom et prénom
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+              (click)="onClickLine(element)"
+              [ngClass]="{
+                'bg-color': agentSelected == element,
+                cursor: agentSelected
+              }"
+            >
+              {{ element.NomPrenom }}
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="Date">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Date
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+              (click)="onClickLine(element)"
+              [ngClass]="{
+                'bg-color': agentSelected == element,
+                cursor: agentSelected
+              }"
+            >
+              {{ this.convertToValideDateDMY(element.Date)}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Matin">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Absent le matin
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+              (click)="onClickLine(element)"
+              [ngClass]="{
+                'bg-color': agentSelected == element,
+                cursor: agentSelected
+              }"
+            >
+            <input
+            class="form-check-input"
+            type="checkbox"
+            id="flexCheckChecked"
+            [checked]="element.Matin"
+            [disabled]="true"
+          />
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ApresMidi">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Absent l'après midi
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+              (click)="onClickLine(element)"
+              [ngClass]="{
+                'bg-color': agentSelected == element,
+                cursor: agentSelected
+              }"
+            >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="flexCheckChecked"
+              [checked]="element.ApresMidi"
+              [disabled]="true"
+            />
+            </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="Actions">
+            <th
+              mat-header-cell
+              class="text-end"
+              *matHeaderCellDef
+            >
+              Actions
+            </th>
+    
+            <td
+              mat-cell
+              class="text-end"
+              *matCellDef="let element"
+              (click)="onClickLine(element)"
+              [ngClass]="{
+                'bg-color': agentSelected == element,
+                cursor: agentSelected
+              }"
+            >
+              <button
+                type="button"
+                (click)="view(element)"
+                class="btn text-lowercase py-0 px-1"
+              >
+                <i class="fa fa-eye text-black" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                (click)="edit(element)"
+                class="btn text-lowercase py-0 px-1"
+              >
+                <i class="fa fa-pencil text-primary" aria-hidden="true"></i>
+              </button>
+              <button
+              type="button"
+              (click)="delete(element)"
+              class="btn text-lowercase px-1 py-0"
+            >
+              <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+            </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-gabarit>
+<ng-template #loader>
+<app-loader></app-loader>
+</ng-template>

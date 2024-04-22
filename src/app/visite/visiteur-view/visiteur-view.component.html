@@ -1,0 +1,86 @@
+<app-gabarit pageTitle="Liste des visiteurs">
+    <div class="col">
+        <div class="row bg-light rounded mt-2 py-4">
+            <div
+                class="col-12 col-md-6 col-lg-4"
+            >
+                <button
+                class="form-control bg-table-color text-white"
+                (click)="addVisiteur()"
+                >
+                Ajouter un visiteur
+                <i class="fa-solid fa-walking"></i>
+                <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mat-elevation-z8" id="content-table">
+        <table mat-table [dataSource]="visiteurs" *ngIf="(visiteurs$ | async) as visiteurs; else loader">
+          <!-- Position Column -->
+    
+          <ng-container matColumnDef="NomPrenom">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Nom Prenoms
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.NomPrenom }}
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light"> Total des visiteurs </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Mobile">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                Mobile
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.Mobile }}
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="bg-table-color text-light"> {{ visiteurs.length }} </td>
+          </ng-container>
+
+    
+          <ng-container matColumnDef="Actions">
+            <th
+             bg-table-color  mat-header-cell
+              class="text-end bg-table-color px-5"
+              *matHeaderCellDef
+            >
+              Actions
+            </th>
+  
+            <td
+              mat-cell
+              class="text-end"
+              *matCellDef="let element"
+            >
+              <i class="fa fa-eye text-black pointer" (click)="view(element)" aria-hidden="true"></i>
+              <span class="mx-1"></span>
+              <i class="fa fa-pencil text-black pointer" aria-hidden="true" (click)="edit(element)"></i>
+              <span class="mx-1"></span>
+              <i class="fa fa-trash text-danger pointer" (click)="delete(element)" aria-hidden="true"></i>
+  
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="bg-table-color"></td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+        </table>
+      </div>
+</app-gabarit>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

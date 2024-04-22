@@ -1,0 +1,214 @@
+<app-gabarit pageTitle="Imprimer les cartes des enseignants">
+  <div class="container-fuild bg-light">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="bg-light">
+          <div class="col-12">
+            <label for="" class="text-center fw-bold"
+              >Recherche un enseignant ici</label
+            >
+            <div class="d-flex align-items-center">
+              <input
+                type="text"
+                (keyup)="applyFilterEnseignant($event)"
+                placeholder="Recherchez par ici..."
+                class="form-control text-start text-uppercase"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="mat-elevation-z8">
+            <div style="max-height: 300px; overflow-y: auto">
+              <table
+                mat-table
+                [dataSource]="dataSourceEnseignant"
+                *ngIf="!isLoading; else loader"
+              >
+                <!-- Position Column -->
+
+                <ng-container matColumnDef="CodeEnseignant">
+                  <th mat-header-cell *matHeaderCellDef>Code</th>
+                  <td class="pointer" mat-cell *matCellDef="let element">
+                    {{ element.CodeEnseignant }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Fr_Nom">
+                  <th mat-header-cell *matHeaderCellDef>Nom</th>
+                  <td class="pointer" mat-cell *matCellDef="let element">
+                    {{ element.Fr_Nom }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Fr_Prenom">
+                  <th mat-header-cell *matHeaderCellDef>Prénom</th>
+                  <td class="pointer" mat-cell *matCellDef="let element">
+                    {{ element.Fr_Prenom }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Civilite">
+                  <th
+                    class="bg-color-primary"
+                    mat-header-cell
+                    *matHeaderCellDef
+                  >
+                    Sexe
+                  </th>
+                  <td class="pointer" mat-cell *matCellDef="let element">
+                    {{ element.Civilite === 1 ? "M" : "F" }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cocher">
+                  <th
+                    class="bg-color-primary"
+                    mat-header-cell
+                    *matHeaderCellDef
+                  >
+                    Cocher
+                  </th>
+                  <td class="pointer" mat-cell *matCellDef="let element">
+                    <div class="form-check" style="margin-left: 8px">
+                      <input
+                        class="form-check-input p-2"
+                        (click)="checkLineEnseignant(element)"
+                        type="checkbox"
+                        [checked]="element.selected"
+                        value=""
+                        id="flexCheckDefault"
+                      />
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                <tr
+                  style="cursor: pointer"
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns1"
+                ></tr>
+              </table>
+            </div>
+          </div>
+
+          <ng-template #loader>
+            <app-loader></app-loader>
+          </ng-template>
+        </div>
+
+        <div class="row mt-2 mb-2">
+          <div class="col-lg-6">
+            <button
+              class="form-control text-white bg-table-color"
+              (click)="ajouterEnseignant()"
+            >
+              Ajouter tous les enseignants <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <div class="col-lg-6">
+            <button
+              class="form-control text-white bg-table-color"
+              (click)="AfficherEnseignants()"
+            >
+              Ajouter les enseignant sélectionnés
+              <i class="fa-solid fa-user-tie"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fuild mb-2">
+    <div class="mat-elevation-z8">
+      <div style="max-height: 500px; overflow-y: auto">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          *ngIf="!isLoadingeleves; else loader"
+        >
+          <ng-container matColumnDef="Fr_Nom">
+            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Fr_Nom }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Fr_Prenom">
+            <th mat-header-cell *matHeaderCellDef>Prénom</th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Fr_Prenom }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Civilite">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Sexe
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              {{ element.Civilite === 1 ? "M" : "F" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Action">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Action
+            </th>
+            <td class="pointer" mat-cell *matCellDef="let element">
+              <p>
+                <i
+                  class="fa-sharp text-danger fa-solid fa-trash"
+                  (click)="deleteRow(element)"
+                  style="margin-left: 10px"
+                ></i>
+              </p>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+          <tr
+            style="cursor: pointer"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns3"
+            class="tr1"
+            [ngClass]="{ selected: selectedRowsTable2.indexOf(row) >= 0 }"
+            style="cursor: pointer"
+          ></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fuild bg-light p-3">
+    <div class="row">
+      <div class="col-lg-3">
+        <button
+          (click)="imprimer(); clickedOnce = true"
+          class="form-control bg-table-color text-white"
+        >
+          Impression carte des enseignants <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+
+      <div class="col-lg-3">    
+        <button class="form-control bg-table-color text-white" disabled>
+          Impression fiche des enseignants <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+
+      <div class="col-lg-3">
+        <button class="form-control bg-table-color text-white" disabled>
+          Imprimer <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+
+      <div class="col-lg-3">
+        <button class="form-control bg-table-color text-white" disabled>
+          Imprimer <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</app-gabarit>

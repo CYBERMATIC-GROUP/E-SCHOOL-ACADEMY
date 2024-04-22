@@ -1,0 +1,14 @@
+<div class="box w-100 d-flex flex-column">
+    <div class="container">
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+      <span class="circle"></span>
+    </div>
+    <div class="pt-4">
+      <h3 class="text-center p-4 text-info" [ngClass]="{'text-warning': isMtn, 'text-danger': !isMtn}">{{ message }}</h3>
+    </div>
+  </div>
+  <div class="p-2 text-center">
+    <button (click)="onBack()" class="btn btn-secondary p-2">Annuler</button>
+  </div>

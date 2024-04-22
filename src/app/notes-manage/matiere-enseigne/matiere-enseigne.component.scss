@@ -1,0 +1,58 @@
+
+$primary-color:#7b4bce;
+$secondary-color: #8cbec6;
+
+table {
+  width: 100%;
+}
+.mat-elevation-z8 tr, .mat-elevation-z8 mat-header-cell {
+  height: 2em;
+}
+.mat-elevation-z8 th, .mat-elevation-z8 mat-header-cell {
+  background-color: $primary-color;
+  color: white;
+} 
+
+h1 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+}
+  //lignes
+  tr:nth-child(even) {
+    background-color: rgb(219, 209, 209);
+}
+
+mat-paginator{
+  background-color: $primary-color;
+}
+
+.md-dialog {
+  opacity: 0;
+}
+
+.tr > :hover{
+  background-color:rgb(146, 133, 123);
+  cursor: pointer;
+  color: white;
+}
+
+mat-paginator{
+  color: white !important;
+}
+.mat-mdc-select-value, .mat-mdc-select-arrow, #mat-select-value-1, .mat-mdc-select-min-line {
+  color: white !important;
+}
+
+.custom-paginator .mat-paginator-page-size,
+.custom-paginator .mat-paginator-range-label {
+  color: red; /* Remplacez "red" par la couleur de votre choix */
+}
+
+.content-table{
+  max-height: 30em;
+  overflow-y: scroll;
+}
+.selected{
+    color: white;
+    background: #8cbec6;
+  }

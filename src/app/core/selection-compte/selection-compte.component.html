@@ -1,0 +1,72 @@
+<div class="container bg-light p-2">
+    <div class="row">
+        <app-close-modal></app-close-modal>
+    </div>
+    <div class="row">
+        <h2>Sélection de compte</h2>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <label for="">Sélection de classe</label>
+        <select name="" id="" [(ngModel)]="selectedClass" (change)="onClassSelected($event)" class="form-control form-select">
+          <option [value]="item.id" *ngFor="let item of classes">{{ item.name }}</option>
+          <option [value]="10">Toutes les classes</option>
+        </select>
+      </div>
+    </div>
+    
+
+    <div class="container mt-2">
+        <div class="" *ngIf="(comptes$ | async) as comptes; else loader">
+            <input
+                type="text"
+                class="w-100 form-control search"
+                placeholder="Recherchez par ici"
+                (input)="applyFilter($event)"
+            />
+            <section class="example-container mat-elevation-z8" tabindex="0">
+              <table mat-table [dataSource]="dataSource">
+                <!-- Position Column -->
+                <ng-container matColumnDef="CodeCompte">
+                  <th mat-header-cell *matHeaderCellDef>Code</th>
+        
+                  <td mat-cell *matCellDef="let element">
+                    <input
+                      class="form-check-input"
+                      name="clas"
+                      (change)="onChooseCompte(element)"
+                      type="radio"
+                    />
+                    {{ element.CodeCompte }}
+                  </td>
+                </ng-container>
+        
+                <!-- Name Column -->
+                <ng-container matColumnDef="LibelleCompte">
+                  <th mat-header-cell *matHeaderCellDef>Libellé</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.LibelleCompte }}
+                  </td>
+                </ng-container>
+        
+                <tr
+                  mat-header-row
+                  *matHeaderRowDef="displayedColumns; sticky: true"
+                ></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              </table>
+            </section>
+          </div>
+    </div>
+
+    <div class="col py-2 mt-3">
+        <button [disabled]="!compteSelected" class="form-control bg-table-color text-white" (click)="onValid()">Valider <i class="fa-solid fa-bars"></i></button>
+    </div>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>
+
+
+  

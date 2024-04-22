@@ -1,0 +1,189 @@
+<div class="container mt-3 mt-md-0 h-100 d-md-flex align-items-center">
+  <section class="signup px-auto w-100">
+    <div class="container m-auto w-100 bg-light">
+      <div class="signup-content">
+        <div class="signup-form">
+          <div class="bg-light" *ngIf="isLoading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+          <h3 class="form-title">Connexion</h3>
+          <form
+            [formGroup]="loginForm"
+            class="register-form px-2"
+            id="register-form"
+          >
+            <div class="mb-2">
+              <div class="row p-3">
+                <div class="col-lg-6 p-0">
+                  <mat-chip-listbox aria-label="Fish selection">
+                    <mat-chip-option
+                      class=""
+                      [selected]="
+                        lastTypeUser == typeUserObj.CST_TYPE_USER_ELEVE ||
+                        !lastTypeUser
+                      "
+                      (click)="
+                        onSelectTypeUser(typeUserObj.CST_TYPE_USER_ELEVE)
+                      "
+                      >ELEVE</mat-chip-option
+                    >
+                    <mat-chip-option
+                      class=""
+                      [selected]="
+                        lastTypeUser == typeUserObj.CST_TYPE_USER_PARENT
+                      "
+                      (click)="
+                        onSelectTypeUser(typeUserObj.CST_TYPE_USER_PARENT)
+                      "
+                      >PARENT</mat-chip-option
+                    >
+                  </mat-chip-listbox>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5  col-xs-5 p-0">
+                  <button
+                    *ngIf="isboolcreatecompte"
+                    (click)="openModalCreateCompte()"
+                    style="background-color: #3f51b5; border-radius: 30px"
+                    class="form-control text-white"
+                  >
+                    Creer un compte
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="name"
+                ><i class="fa-solid fa-barcode material-icons-name"></i
+              ></label>
+              <input
+                type="text"
+                class="text-uppercase"
+                id="code_ecole"
+                (blur)="onBlurCode()"
+                (input)="inputCode()"
+                formControlName="CODE_ECOLE"
+                placeholder="Code école"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email"
+                ><i class="fa-solid fa-calendar" *ngIf="!yearsIsLoading"></i
+              ></label>
+              <label for="email"
+                ><i class="fas fa-spinner fa-spin" *ngIf="yearsIsLoading"></i
+              ></label>
+              <select
+                class="form-select border-0 border-bottom border-secondary rounded-0"
+                aria-label="Default select example"
+                formControlName="Annee1Annee2"
+                style="padding-left: 25px !important"
+              >
+                <option disabled>selection année</option>
+                <option
+                  class="mx-4"
+                  value=""
+                  *ngFor="let a of annees"
+                  [value]="a.Annee1Annee2"
+                >
+                  {{ a.Annee1Annee2 }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pass"><i class="fa-solid fa-user"></i></label>
+              <input
+                type="text"
+                name="email"
+                formControlName="Login"
+                [readonly]="!canIWrite"
+                placeholder="Identifiant ou login"
+              />
+            </div>
+
+            <div class="form-group">
+              <label
+                for="re-pass pointer"
+                (click)="
+                  showPassword ? (showPassword = false) : (showPassword = true)
+                "
+              >
+                <i
+                  class="fa-solid fa-eye pointer"
+                  *ngIf="showPassword; else mask"
+                ></i>
+                <ng-template #mask>
+                  <i class="fa-solid fa-eye-slash pointer"></i>
+                </ng-template>
+              </label>
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                name="re_pass"
+                id="re_pass"
+                formControlName="MotDePasse"
+                [readOnly]="!canIWrite"
+                placeholder="Mot de passe"
+              />
+            </div>
+            <div class="form-group mt-0 py-0">
+              <button
+                type="submit"
+                name="signup"
+                id="signup"
+                class="form-submit w-100 py-2 mt-0"
+                (click)="onLogin()"
+                mat-raised-button
+                color="primary"
+              >
+                Connexion
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="signup-image">
+          <figure class="text-center mb-0">
+            <img
+              [src]="
+                school && school.Logo
+                  ? school.Logo
+                  : '../../assets/images/Logo_eschool.png'
+              "
+              alt="sing up image"
+            />
+          </figure>
+          <div class="text-center mt-0">
+            <a class="text-primary mt-0">{{ version }}</a>
+          </div>
+          <div class="text-center mt-3" *ngIf="school && school.NomEtab">
+            <span class="text-uppercase text-secondary text-bold">
+              {{ school.NomEtab }}
+            </span>
+          </div>
+          <div class="pt-3">
+            <p class="pb-2 text-center">Contact cybermatic</p>
+            <p class="mt-0 text-center">
+              <i class="fa-solid fa-envelope text-primary"></i>
+              <a href="mailto:contact@cybermatic-group.com "
+                >contact@cybermatic-group.com</a
+              >
+            </p>
+            <p class="text-center">
+              <i class="fa-solid fa-phone-volume text-primary"></i>
+              <a href="tel:+242064287837"> +242 06 428 78 37</a>
+            </p>
+            <p class="text-center">
+              <a routerLink="/" class="text-center">
+                <i class="fa-solid fa-reply"></i> Retour accueil</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

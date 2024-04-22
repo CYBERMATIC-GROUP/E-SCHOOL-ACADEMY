@@ -1,0 +1,72 @@
+<div (click)="setFocus()" class="container-fluid h-100">
+  <nav class="navbar bg-dark py-0">
+    <div class="p-0">
+            <span class="navbar-brand text-white text-truncate">
+              <img
+                [src]="logoEcole "
+                *ngIf="logoEcole; else defaultLogo"
+                width="35"
+                alt="logo"
+              />
+              <ng-template #defaultLogo>
+                <i class="fa fa-graduation-cap fa-lg mr-2"></i>
+              </ng-template>
+
+              <span class="text-truncate d-none d-sm-inline">{{ school.NomEtab }}</span>
+            </span>
+
+            <div
+              class="collapse justify-content-end navbar-collapse"
+              id="navbarSupportedContent"
+            >
+            </div>
+    </div>
+  </nav>
+
+  <div class="bloc container">
+    <div class="d-none d-md-block col-md-4 flex-md-column h-100">
+      <h1 class="text-light mt-5">20 dernières présences </h1>
+      <div class="list-pointage bg-light p-2">
+        <app-list-agent [presences$]="presences$"></app-list-agent>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <h1 class="text-center text-light mt-5">Pointage automatique du personnel</h1>
+      <div class="bloc w-100">
+
+        <form class="loader-bloc" (ngSubmit)="onSubmit()">
+          <div class="loader-style" *ngIf="isLoading"><app-loader></app-loader></div>
+          <div class="form-group">
+            <div class="text-center text-danger">
+              <p class="text-center"
+                [ngStyle]="{'line-height': '1em', 'font-size': '2em'}"
+              >Nous sommes le {{ currentDate | date: 'fullDate' }} <br/> {{ currentHour | date: 'mediumTime' }}</p>
+            </div>
+            <input type="text"
+              name="code"
+              [(ngModel)]="code"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              appCheckCapsLock
+            >
+            <small id="emailHelp" class="form-text text-muted"></small>
+          </div>
+
+          <div class="container">
+            <app-alert
+              *ngIf="msgAlert"
+              [content]="msgAlert"
+              buttonOKName=""
+              buttonCancelName=""
+              [backgroundColor]="backgroundColor"
+              [textColor]="textColor"
+              title="Statut"
+            ></app-alert>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

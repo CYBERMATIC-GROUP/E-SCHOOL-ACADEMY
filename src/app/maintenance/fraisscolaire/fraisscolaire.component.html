@@ -1,0 +1,130 @@
+<app-gabarit pageTitle="Maintenance par classe">
+  <div class="container-fuild bg-white mb-5">
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="" class="text-center mx-1">Recherche</label>
+        <div class="d-flex align-items-center">
+          <i
+            style="position: absolute"
+            class="fa-solid fa-map-marked-alt p-3 text-success"
+          ></i>
+          <input
+            type="text"
+            (keyup)="applyFilter($event)"
+            placeholder="Recherchez par ici..."
+            class="form-control shadow text-start px-5 text-uppercase"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6 pt-1">
+        <button
+          *ngIf="!isLoadingvalidate;else loader"
+          style="background-color: #7b4bce"
+          class="form-control text-white mt-4 button"
+          (click)="valider()"
+        >
+          Valider la maintenance  <i class="fa-solid fa-check"></i>
+        </button>
+      </div>
+    </div>
+    <div class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        *ngIf="!isLoading; else loader"
+      >
+        <!-- Position Column -->
+
+        <ng-container matColumnDef="CodeClasse">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Code Classe
+          </th>
+          <td
+            class="pointer"
+            style="cursor: pointer"
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ element.CodeClasse }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NomClasse">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Classe
+          </th>
+          <td
+            class="pointer"
+            style="cursor: pointer"
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ element.NomClasse }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IDNIVEAU">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Niveau
+          </th>
+          <td
+            class="pointer"
+            style="cursor: pointer"
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ getNiveau(element.IDNIVEAU) }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IDBRANCHE">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Branche
+          </th>
+          <td
+            class="pointer"
+            style="cursor: pointer"
+            mat-cell
+            *matCellDef="let element"
+          >
+            {{ getbranche(element.IDBRANCHE) }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cocher">
+          <th class="bg-color-primary text-center" mat-header-cell *matHeaderCellDef>
+            Cocher ici
+          </th>
+          <td
+            class="pointer text-center"
+            style="cursor: pointer"
+            mat-cell
+            *matCellDef="let element"
+          >
+          <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="flexCheckDefault"
+          #checkbox
+          (click)="read(checkbox.checked,element)"
+        />
+        
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator
+        [pageSizeOptions]="[20, 40, 60]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+</app-gabarit>

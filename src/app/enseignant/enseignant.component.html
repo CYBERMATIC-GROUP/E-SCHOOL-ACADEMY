@@ -1,0 +1,441 @@
+<app-gabarit pageTitle="Liste des enseignants">
+  <div class="container-fluid mb-5">
+    <div class="mb-2 mt-4 bg-light p-1 d-none d-lg-block rounded">
+      <div class="row">
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label">Sexe </label>
+          <select
+            name="Civilite"
+            [(ngModel)]="Civilite"
+            class="form-select"
+            (change)="onSelectionCivilite($event)"
+            aria-label="Default select example"
+          >
+            <option disabled>choisir votre civilité</option>
+            <option value="0">Tous</option>
+            <option value="1">M</option>
+            <option value="2">F</option>
+          </select>
+        </div>
+
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label"
+            >Nationalité
+          </label>
+          <select
+            class="form-select"
+            name="IDNationalite"
+            (change)="onSelectionNationalite($event)"
+            [(ngModel)]="IDNationalite"
+            aria-label="Default select example"
+            *ngIf="nationaliteeList; else loader"
+          >
+            <option disabled>selectionner une nationalité</option>
+            <option
+              *ngFor="let nationalite of nationaliteeList"
+              [value]="nationalite.IDNATIONALITE"
+            >
+              {{ nationalite.Libelle }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label"
+            >Qualité
+          </label>
+
+          <select
+            class="form-select"
+            name="Qualite"
+            [(ngModel)]="Qualite"
+            (change)="onSelectionqualite($event)"
+            aria-label="Default select example"
+          >
+            <option disabled>selectionner une qualité</option>
+            <option *ngFor="let q of qualiteList" [value]="q.IDQUALITEENS">
+              {{ q.Libelle }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label"
+            >Lieu de service
+          </label>
+
+          <select
+            class="form-select"
+            name="IDNationalite"
+            [(ngModel)]="IDNationalite"
+            aria-label="Default select example"
+          >
+            <option disabled>selectionner un service</option>
+            <option *ngFor="let s of siteList" [value]="s.IDSITE">
+              {{ s.Libelle }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label"
+            >Niveau</label
+          >
+
+          <input
+            class="form-control form-select"
+            name="IDNIVEAU"
+            [(ngModel)]="IDNIVEAU"
+            (change)="onSelectionNiveau($event)"
+            list="datalistOptions1"
+            id="exampleDataList"
+            placeholder="rechercher par niveau..."
+          />
+          <datalist id="datalistOptions1">
+            <option disabled>selectionner un niveau</option>
+            <option
+              *ngFor="let niveau of niveaueList"
+              [value]="niveau.NomNiveau"
+            >
+              {{ niveau.NomNiveau }}
+            </option>
+          </datalist>
+        </div>
+
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label"
+            >Branche</label
+          >
+
+          <select
+            class="form-select"
+            name="IDBRANCHE"
+            [(ngModel)]="IDBRANCHE"
+            (change)="onSelectionBranche($event)"
+            aria-label="Default select example"
+          >
+            <option disabled>selectionner une branche</option>
+            <option *ngFor="let b of brancheList" [value]="b.IDBRANCHE">
+              {{ b.NomBranche }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label"
+            >Classe</label
+          >
+
+          <input
+            class="form-control form-select"
+            name="IDCLASSES"
+            [(ngModel)]="IDCLASSES"
+            (change)="onSelectionBranche($event)"
+            list="datalistOptions"
+            id="exampleDataList"
+            placeholder="rechercher par classe..."
+          />
+          <datalist id="datalistOptions">
+            <option disabled>selectionner une classe</option>
+            <option *ngFor="let c of classeList" [value]="c.NomClasse">
+              {{ c.NomClasse }}
+            </option>
+          </datalist>
+        </div>
+
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label"
+            >Matière
+          </label>
+
+          <select
+            class="form-select"
+            name="IDMATIERE"
+            [(ngModel)]="IDMATIERE"
+            aria-label="Default select example"
+          >
+            <option disabled>selectionner une matiere</option>
+            <option *ngFor="let m of matiereList" [value]="m.IDMATIERE">
+              {{ m.Fr_NomMatiere }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 mt-3">
+          <label for="validationCustom01 label" class="form-label"
+            >Echelon</label
+          >
+
+          <select
+            class="form-select"
+            name="IDEchelon"
+            [(ngModel)]="IDEchelon"
+            aria-label="Default select example"
+          ></select>
+        </div>
+
+        <div class="col-lg-3 mt-3">
+          <label for="validationCustom01 label" class="form-label"
+            >Specialité</label
+          >
+
+          <select
+            class="form-select"
+            name="IDSpecialite"
+            [(ngModel)]="IDSpecialite"
+            aria-label="Default select example"
+          >
+            <option disabled>selectionner une spécialité</option>
+            <option
+              *ngFor="let specialite of specialiteList"
+              [value]="specialite.IDSPECIALITE"
+            >
+              {{ specialite.Fr_Libelle }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label mt-3"
+            >Categorie</label
+          >
+
+          <select
+            class="form-select"
+            name="IDCategorie"
+            [(ngModel)]="IDCategorie"
+            aria-label="Default select example"
+          >
+            <option disabled>selectionner une categorie</option>
+            <option
+              *ngFor="let categorie of categorieList"
+              [value]="categorie.IDCATEGORIE"
+            >
+              {{ categorie.Fr_Libelle }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-lg-3">
+          <label for="validationCustom01 label" class="form-label mt-3"
+            >Grade</label
+          >
+
+          <select
+            class="form-select"
+            name="IDGRADE"
+            [(ngModel)]="IDGRADE"
+            aria-label="Default select example"
+          >
+            <option disabled>selectionner un Grade</option>
+            <option *ngFor="let grade of gradeList" [value]="grade.IDGRADE">
+              {{ grade.Fr_Libelle }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="bg-light m-3 rounded">
+      <div class="row bg-light">
+        <div class="col-lg-2">
+          <label for="" class="text-center mx-1">Recherche</label>
+          <div class="d-flex align-items-center mb-2">
+            <i
+              style="position: absolute"
+              class="fa-solid fa-map-marked-alt p-3 text-success"
+            ></i>
+            <input
+              type="text"
+              (keyup)="applyFilter($event)"
+              placeholder="Recherchez par ici..."
+              class="form-control shadow text-start px-5 text-uppercase"
+            />
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <button
+            class="form-control bg-table-color text-white button"
+            (click)="enseignant(true)"
+            style="cursor: pointer; margin-top: 28px; float: right"
+          >
+            Rafraîchir la liste <i class="fa-solid fa-rotate-right"></i>
+          </button>
+        </div>
+        <div class="col-lg-2">
+          <button
+            class="form-control bg-table-color text-white button"
+            (click)="imprimer()"
+            style="cursor: pointer; margin-top: 28px; float: right"
+          >
+            Imprimer <i class="fa-solid fa-print"></i>
+          </button>
+        </div>
+        <div class="col-lg-2">
+          <button
+          style="cursor: pointer; margin-top: 28px; float: right"
+          [disabled]="true"
+            class="btn form-control bg-table-color text-white">
+            Export <i class="fa-solid fs-5 fa-file-excel"></i>
+          </button>
+      </div>
+        <div class="col-lg-4">
+          <button
+            class="form-control bg-table-color text-white button"
+            routerLink="/enseignant/ajout"
+            style="cursor: pointer; margin-top: 28px; float: right"
+          >
+            Ajouter un enseignant <i class="fa-solid fa-user-pen"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mat-elevation-z8" style="max-height: 400px; overflow-y: auto">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        *ngIf="!isLoading; else loader"
+      >
+        <!-- Position Column -->
+        <ng-container matColumnDef="CodeEnseignant">
+          <th
+            class="bg-color-primary bg-table-color"
+            mat-header-cell
+            *matHeaderCellDef
+          >
+            Code enseignant
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.CodeEnseignant }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Fr_Nom">
+          <th
+            class="bg-color-primary bg-table-color"
+            mat-header-cell
+            *matHeaderCellDef
+          >
+            Nom
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.Fr_Nom }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Fr_Prenom">
+          <th
+            class="bg-color-primary bg-table-color"
+            mat-header-cell
+            *matHeaderCellDef
+          >
+          prénom
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.Fr_Prenom }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Civilite">
+          <th
+            class="bg-color-primary bg-table-color"
+            mat-header-cell
+            *matHeaderCellDef
+          >
+            Sexe
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.Civilite === 1 ? "M" : "F" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DateNaissance">
+          <th
+            class="bg-color-primary bg-table-color"
+            mat-header-cell
+            *matHeaderCellDef
+          >
+            Date de naissance
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ convertToValideDate(element.DateNaissance) }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Fr_LieuNaissance">
+          <th
+            class="bg-color-primary bg-table-color"
+            mat-header-cell
+            *matHeaderCellDef
+          >
+            Lieu de naissance
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.Fr_LieuNaissance }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IDNationalite">
+          <th
+            class="bg-color-primary bg-table-color"
+            mat-header-cell
+            *matHeaderCellDef
+          >
+            Nationalité
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+              <div *ngIf="nationaliteeList">{{ getNationaliteLibelle(element.IDNationalite) }}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Actions">
+          <th
+            mat-header-cell
+            class="text-end bg-table-color"
+            style="padding-right: 35px"
+            *matHeaderCellDef
+          >
+            Actions
+          </th>
+
+          <td mat-cell class="text-end" *matCellDef="let element">
+            <button
+              type="button"
+              (click)="view(element.IDENSEIGNANT)"
+              class="btn text-lowercase py-0 px-1"
+            >
+              <i class="fa fa-eye text-black" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              (click)="edit(element.IDENSEIGNANT)"
+              class="btn text-lowercase py-0 px-1"
+            >
+              <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              (click)="delete(element)"
+              class="btn text-lowercase px-1 py-0"
+            >
+              <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </div>
+
+  <hr>
+
+  <div class="pt-5"> </div>
+</app-gabarit>

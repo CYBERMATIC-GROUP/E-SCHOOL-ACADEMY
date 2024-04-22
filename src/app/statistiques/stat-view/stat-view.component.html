@@ -1,0 +1,33 @@
+<app-gabarit pageTitle="Statistiques">
+    <div class="container-fluid">
+        <div class="row mb-4" id="graphics">
+        <div class="col-md-6">
+            <div class=" border shadow bg-light rounded px-3" *ngIf="eleveParNiveaux">
+            <app-students-by-class [statsObj]="eleveParNiveaux" keyCount="nNbreEleve" keyLabel="CocdeNiveau" title="Effectif des élèves par niveau" headTitle="Effectif des élèves par niveau"></app-students-by-class>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class=" border shadow bg-light rounded px-3" *ngIf="eleveParBranche">
+            <app-students-by-class [statsObj]="eleveParBranche" keyCount="nNbreEleve" keyLabel="CocdeBranche" title="Effectif des élèves par branche" headTitle="Effectif des élèves par branche"></app-students-by-class>
+            </div>
+        </div>
+        </div>
+
+        <div class="row border shadow info-box rounded pt-3 my-3 bg-light" id="graphics-2" style="margin-inline: 0.05em;">
+
+        <div class="pb-3  height-t" *ngIf="eleveParClasse; else loaderStat">
+            <app-students-by-class [statsObj]="eleveParClasse" keyCount="nNbreEleve" keyLabel="CocdeClasse" title="Effectif des élèves par classe" headTitle="Effectif des élèves par classe"></app-students-by-class>
+        </div>
+        </div>
+
+        <div class="row border shadow info-box rounded pt-3 my-3 mb-5 bg-light" id="graphics-2" style="margin-inline: 0.05em;">
+            <canvas #chartCanvasEleves class="stat-bloc" style="height: 20em"></canvas>
+        </div>
+    </div>
+</app-gabarit>
+
+<ng-template #loaderStat>
+    <div class="col">
+      <p class="text-dark text-center w-100"> <app-loader></app-loader> Chargement des données statistiques...</p>
+    </div>
+  </ng-template>

@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body  border-0 ">
+        <app-close-modal></app-close-modal>
+        <h3 class="card-title text-left" style="width: 26em">
+          <h2 class>
+            {{ action === "view" ? "Fiche de l'année " : "" }}
+            {{ action === "edit" ? "Modifier l'année" : "" }}
+            {{ action === "view" || action === "edit" ? Annee1Annee2 : "" }}
+            {{ !action ? "Ajouter une année" : "" }}
+          </h2>
+        </h3>
+        <form
+          #cycleForm="ngForm"
+          *ngIf="!isLoading;else loading"
+          (ngSubmit)="onSubmitForm(cycleForm)"
+          class="g-3 needs-validation"
+        >
+          <div class="row">
+            <div class="mt-3 col-6">
+              <label for="validationCustom01" class="form-label label">Année 1</label>
+              <input
+                [readonly]="action == 'view'"
+                type="number"
+                class="form-control hauteur hauteur"
+                name="nAnnee1"
+                [(ngModel)]="nAnnee1"
+                required
+              />
+            </div>
+
+            <div class="mt-3 col-6">
+              <label for="validationCustom01" class="form-label label">Année 2</label>
+              <input
+                [readonly]="action == 'view'"
+                type="number"
+                class="form-control hauteur hauteur"
+                name="nAnnee2"
+                [(ngModel)]="nAnnee2"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="mt-3 col-6">
+              <label for="validationCustom01" class="form-label label">Année</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="Annee1Annee2"
+                [(ngModel)]="Annee1Annee2"
+                required
+                placeholder="EX:2022-2023"
+              />
+            </div>
+
+            <div class="mt-3 col-6">
+              <label for="validationCustom01" class="form-label label">Ecole</label>
+              <input
+                [readonly]="action == 'view'"
+                type="text"
+                class="form-control hauteur hauteur"
+                name="NomEcole"
+                [(ngModel)]="NomEcole"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="mt-3 m-auto" *ngIf="action != 'view'">
+            <button
+              type="submit"
+              class="btn form-control btn-primary"
+              [mat-dialog-close]="true"
+              [disabled]="!isFormValid()"
+            >
+              {{ action === "edit" ? "Modifier l'année " : "Valider" }}
+            </button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+<app-loader></app-loader>
+</ng-template>

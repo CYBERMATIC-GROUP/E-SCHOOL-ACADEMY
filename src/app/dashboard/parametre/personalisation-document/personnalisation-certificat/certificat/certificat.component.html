@@ -1,0 +1,58 @@
+<app-gabarit pageTitle="Personalisation des Certificats">
+    <div class="container m-lg-auto bg-light p-3">
+      <div class="row">
+        <div class="col-lg-1">
+          <p class="p-2">Modèle</p>
+        </div>
+        <div class="col-lg-11 ">
+          <input
+          type="text"
+          class="form-control form-select"
+          [matAutocomplete]="compte"
+        />
+          <mat-autocomplete (optionSelected)="certificatSelected($event)" #compte>
+            <mat-option [value]="stringtype1">Certificat de Scolarité</mat-option>
+            <mat-option [value]="stringtype2">Certificat de Fréquentation</mat-option>
+            <mat-option [value]="stringtype3">Certificat d'Inscription</mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-1">
+          <p class="p-2">Titre</p>
+        </div>
+        <div class="col-lg-11">
+          <button disabled class="form-control fs-5">{{ this.titre }}</button>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <button
+            class="form-control text-left text-white"
+            style="background-color: #7c57ce"
+            (click)="goTopersonalisationgarcons()"
+          >
+            Personnaliser le text du certificat pour les garçons
+          </button>
+        </div>
+        <div class="mt-2">
+          <button
+            class="form-control text-left text-white"
+            style="background-color: #7c57ce"
+            (click)="goTopersonalisationfille()"
+          >
+            Personnaliser le text du certificat pour les filles
+          </button>
+        </div>
+        <div class="mt-2">
+          <button
+            class="form-control text-left text-white"
+            style="background-color: #7c57ce"
+            (click)="goTopersonalisationfilleGarcons()"
+          >
+            Personnaliser le text du certificat garçons et filles
+          </button>
+        </div>
+      </div>
+    </div>
+  </app-gabarit>

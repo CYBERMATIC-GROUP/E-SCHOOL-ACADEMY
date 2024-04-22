@@ -1,0 +1,59 @@
+<app-gabarie-eleve pageTitle="Relevées de notes">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-2">
+        <mat-card>
+          <mat-card-content>
+            <div class="row">
+              <div class="col-12 col-md-6 mb-md-0">
+                <select
+                  name=""
+                  (change)="onChangeTrimestre($event)"
+                  id=""
+                  class="form-select"
+                >
+                  <option value="0" disabled selected>
+                    Sélectionnez un trimestre
+                  </option>
+                  <option value="1">Premier trimestre</option>
+                  <option value="2">Deuxième trimestre</option>
+                  <option value="3">Troisième trimestre</option>
+                </select>
+              </div>
+
+              <div class="col-12 col-md-6 mb-2">
+                <app-input-search
+                  [dataList$]="matiereList$"
+                  labelInput="Recherchez et sélectionner une matière"
+                  keyText="Fr_NomMatiere"
+                  keyID="IDMATIERE"
+                ></app-input-search>
+              </div>
+
+              <div class="col-12 col-md-6 mb-md-0">
+                <select
+                  name=""
+                  (change)="onChangeTrimestre($event)"
+                  id=""
+                  class="form-select"
+                  *ngIf="(matiereList$ | async) as matieres; else loader"
+                >
+                  <option value="0" disabled selected>
+                    Sélectionnez une matière
+                  </option>
+                  <option *ngFor="let item of matieres" [value]="item.IDMATIERE"> </option>
+                </select>
+              </div>
+
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</app-gabarie-eleve>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
+

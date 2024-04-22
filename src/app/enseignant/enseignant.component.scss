@@ -1,0 +1,41 @@
+
+$primary-color:#7b4bce;
+$secondary-color: #8cbec6;
+
+table {
+  width: 100%;
+}
+.mat-elevation-z8 tr, .mat-elevation-z8 mat-header-cell {
+  height: 2em;
+}
+.mat-elevation-z8 th,.demo-paginator,.mat-elevation-z8 mat-header-cell {
+  background-color: $primary-color;
+  color: white;
+} 
+
+h1 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+}
+  //lignes
+  tr:nth-child(even) {
+    background-color: rgb(219, 209, 209);
+}
+
+
+
+.md-dialog {
+  opacity: 0;
+}
+
+.tr > :hover{
+  background-color:rgb(146, 133, 123);
+  cursor: pointer;
+  color: white;
+}
+
+.content-table{
+  max-height: 30em;
+  overflow-y: scroll;
+}
+

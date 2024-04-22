@@ -1,0 +1,91 @@
+<div class="container-fuild">
+  <div class="row p-2">
+    <div class="col-lg-6">
+      <h1 class="card-title text-left">Liste des matières</h1>
+    </div>
+    <div class="col-lg-6 d-none d-lg-block">
+      <app-close-modal></app-close-modal>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <label for="" class="text-center mx-1">Recherche</label>
+        <div class="d-flex align-items-center mb-2">
+          <i
+            style="position: absolute"
+            class="fa-solid fa-map-marked-alt p-3 text-success"
+          ></i>
+          <input
+            type="text"
+            (keyup)="applyFilter($event)"
+            placeholder="Recherchez par ici..."
+            class="form-control shadow text-start px-5 text-uppercase"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <button
+          class="form-control text-white"
+          style="
+            cursor: pointer;
+            margin-top: 28px;
+            float: right;
+            background-color: #00b2e0;
+          "
+          (click)="creatematiere()"
+        >
+          Selectionner une matière <i class="fa-solid fa-check"></i>
+        </button>
+      </div>
+    </div>
+
+    <div style="max-height: 250px; overflow-y: auto">
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" *ngIf="!isLoading; else loader">
+          <!-- Position Column -->
+
+          <ng-container matColumnDef="Fr_CodeMatiere">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Code matière
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+              (click)="onClickLine(element)"
+              [ngClass]="{
+                'bg-color': matiereSelected == element,
+                cursor: matiereSelected
+              }"
+            >
+              {{ element.Fr_CodeMatiere }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Fr_NomMatiere">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              matière
+            </th>
+            <td
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+              (click)="onClickLine(element)"
+              [ngClass]="{
+                'bg-color': matiereSelected == element,
+                cursor: matiereSelected
+              }"
+            >
+              {{ element.Fr_NomMatiere }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+    <ng-template #loader>
+    <app-loader></app-loader>
+    </ng-template>
+  </div>

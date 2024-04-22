@@ -1,0 +1,91 @@
+<div class="container-fuild p-3" >
+     
+    <div class="row bg-light" >
+      <div>
+        <app-close-modal></app-close-modal>
+      </div>
+      <div class="col-lg-12" *ngIf="!issendparameters;else loader">
+        <div class="col-12">
+          <label for="" class="text-center">Selectionner une matière </label>
+          <div class="d-flex align-items-center">
+            <input
+              type="text"
+              (keyup)="applyFilterclasse($event)"
+              placeholder="Recherchez une matière  ici..."
+              class="form-control text-start text-uppercase"
+            />
+          </div>
+        </div>
+        <div
+          class="mat-elevation-z8"
+          style="max-height: 200px; overflow-y: auto"
+        >
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            *ngIf="!isLoadmatiere; else loader"
+          >
+            <!-- Position Column -->
+            <ng-container matColumnDef="Fr_CodeMatiere">
+              <th
+                class="bg-color-primary bg-table-color"
+                mat-header-cell
+                *matHeaderCellDef
+              >
+                Code matière
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.Fr_CodeMatiere }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Fr_NomMatiere">
+              <th
+                class="bg-color-primary bg-table-color"
+                mat-header-cell
+                *matHeaderCellDef
+              >
+              Nom matière
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                {{ element.Fr_NomMatiere }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cocher">
+              <th
+                class="bg-color-primary bg-table-color"
+                mat-header-cell
+                *matHeaderCellDef
+              >
+                cocher
+              </th>
+              <td class="pointer" mat-cell *matCellDef="let element">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    style="padding: 10px"
+                    (click)="checkLineMatiere(element)"
+                    type="radio"
+                    name="flexRadioDefaulte"
+                    id="flexRadioDefault3"
+                  />
+                </div>
+              </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+        <div>
+          <button (click)="valider()" class="form-control text-white" style="background-color: #7c57ce"
+          >Valider</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>

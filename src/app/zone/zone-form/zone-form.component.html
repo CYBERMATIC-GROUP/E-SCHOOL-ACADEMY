@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card border-0">
+      <app-close-modal></app-close-modal>
+      <div class="card-body">
+        <h3 class="card-title text-center">
+          <h2 class="">
+            {{ action === "view" ? "Fiche de la zone " : "" }}
+            {{ action === "edit" ? "Modifier la zone" : "" }}
+            {{ action === "view" || action === "edit" ? NomZone : "" }}
+            {{ !action ? "Ajouter une zone" : "" }}
+          </h2>
+        </h3>
+        <form
+          #natonaliteForm="ngForm"
+          (ngSubmit)="onSubmitForm(natonaliteForm)"
+          class="g-3 needs-validation"
+        >
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label">Code Zone</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur hauteur"
+              name="CodeZone"
+              [(ngModel)]="CodeZone"
+            />
+          </div>
+
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label">Nom Zone</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control hauteur hauteur"
+              name="NomZone"
+              [(ngModel)]="NomZone"
+            />
+          </div>
+
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label"
+              >DEPARTEMENT</label
+            >
+            <select
+              class="text-capitalize select-box form-select form-control hauteur"
+              [(ngModel)]="IDDEPARTEMENT"
+              name="IDDEPARTEMENT"
+              (change)="onSelectionChange($event)"
+            >
+              <option value="" disabled>Selectionner un departement</option>
+              <option
+                *ngFor="let option of DeppartementList"
+                [value]="option.IDDEPARTEMENT"
+              >
+                {{ option.NomDepartement }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label"
+              >ARRONDISSEMENT</label
+            >
+
+            <select
+              class="text-capitalize form-select select-box form-control hauteur"
+              [(ngModel)]="IDARRONDISSEMENT"
+              name="IDARRONDISSEMENT"
+            >
+              <option value="" disabled>--- selectionner ici --</option>
+              <option
+                *ngFor="let option of ArrondissementList"
+                [value]="option.IDARRONDISSEMENT"
+              >
+                {{ option.NomArron }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mt-3 m-auto" *ngIf="action != 'view'">
+            <button
+              type="submit"
+              class="btn form-control btn-primary"
+              [mat-dialog-close]="true"
+            >
+              {{ action === "edit" ? "Modifier " : "Valider" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>

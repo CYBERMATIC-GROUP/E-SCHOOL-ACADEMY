@@ -1,0 +1,60 @@
+<form [formGroup]="formElt" class="col-lg-4 mt-3" *ngIf="(dataList$ | async) as dataList; else loader">
+    <label
+      for="validationCustom01"
+      class="form-label label"
+      >{{ labelInput }}</label
+    >
+
+    <input
+      type="text"
+      class="form-control form-select"
+      [value]="formElt.get('label')?.value"
+      [matAutocomplete]="suggestSearch"
+      (click)="formDom.value = ''"
+      #formDom
+      [ngClass]="{
+        'is-valid': formElt.controls['id'].valid,
+        'is-invalid': !formElt.controls['id'].valid
+      }" 
+    />
+    <mat-autocomplete #suggestSearch>
+      <mat-option
+        *ngFor="
+          let item of globalService.filterElement(
+            dataList,
+            formDom.value,
+            keyText
+          )
+        "
+        (click)="
+        formElt
+          .get('label')
+          ?.setValue(item[keyText]);
+        formElt
+          .get('id')
+          ?.setValue(item[keyID])
+      "
+        >{{ item[keyText] }}</mat-option
+      >
+      <mat-option *ngIf="openDialofForAdd">    
+        <span class="input-group-text  bg-success text-white " (click)="openDialofForAdd()" id="basic-addon1">Ajouter un {{labelInput}}<i class="fa-solid fa-plus"></i></span>
+      </mat-option>
+
+    </mat-autocomplete>
+    <div
+      [ngClass]="{
+        'valid-feedback': formElt.controls['id'].valid,
+        'invalid-feedback': !formElt.controls['id'].valid
+      }"
+    >
+      {{
+        !formElt.controls["id"].valid
+          ? "Sélectionnez le " + labelInput + '.'
+          : "ok."
+      }}
+  </div>
+</form>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

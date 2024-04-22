@@ -1,0 +1,105 @@
+
+
+<app-gabarit pageTitle="Gestion des Professions">
+  <div class="container-fuild mb-5">
+    <div class="row bg-light m-0">
+      <div class="col-lg-6">
+        <label for="" class="text-center mx-1">Recherche</label>
+        <div class="d-flex align-items-center mb-2">
+          <i
+            style="position: absolute"
+            class="fa-solid fa-map-marked-alt p-3 text-success"
+          ></i>
+          <input
+            type="text"
+            (keyup)="applyFilter($event)"
+            placeholder="Recherchez par ici..."
+            class="form-control shadow text-start px-5 text-uppercase"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <button
+          class="form-control bg-table-color text-white"
+          style="
+            cursor: pointer;
+            margin-top: 28px;
+            float: right;
+          "
+          (click)="create()"
+        >
+          Ajouter une profession <i style="padding-left: 10px;" class="fa-solid fa-graduation-cap"></i>
+        </button>
+      </div>
+    </div>
+    <div class="mat-elevation-z8" style="max-height: 400px; overflow-y: auto">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        *ngIf="!isLoading; else loader"
+      >
+        <!-- Position Column -->
+
+        <ng-container matColumnDef="Fr_Libelle">
+          <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+            Libelle
+          </th>
+          <td class="pointer" mat-cell *matCellDef="let element">
+            {{ element.Fr_Libelle }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Actions">
+          <th
+            mat-header-cell
+            class="text-end"
+            style="padding-right: 65px"
+            *matHeaderCellDef
+          >
+            Actions
+          </th>
+
+          <td
+            mat-cell
+            class="text-end"
+            *matCellDef="let element"
+          >
+            <button
+              type="button"
+              (click)="view(element)"
+              class="btn text-lowercase py-0 px-1"
+            >
+              <i class="fa fa-eye text-black" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              (click)="edit(element)"
+              class="btn text-lowercase py-0 px-1"
+            >
+              <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              (click)="delete(element)"
+              class="btn text-lowercase px-1 py-0"
+            >
+              <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator
+        [pageSizeOptions]="[20, 40, 60]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
+      </mat-paginator>
+    </div>
+
+    <ng-template #loader>
+  <app-loader></app-loader>
+    </ng-template>
+  </div>
+</app-gabarit>

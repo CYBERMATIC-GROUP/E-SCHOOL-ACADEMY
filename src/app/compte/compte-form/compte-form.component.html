@@ -1,0 +1,274 @@
+<app-gabarit>
+  <div class="container-fluid">
+    <div class="row mt-4">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title text-left">
+              <h2>
+                {{ action === "view" ? "Fiche du compte" : "" }}
+                {{ action === "edit" ? "Modification du compte" : "" }}
+                {{
+                  action === "view" || action === "edit" ? LibelleCompte : ""
+                }}
+                {{ !action ? "Ajouter un  compte" : "" }}
+              </h2>
+            </h3>
+            <form
+              #ecoleForm="ngForm"
+              (ngSubmit)="onSubmitForm(ecoleForm)"
+              class="row g-3 needs-validation"
+            >
+              <div class="col-lg-6">
+                <label for="validationCustom01" class="form-label label"
+                  >Code du compte (<span class="text-danger">*</span>)</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  maxlength="6"
+                  type="text"
+                  class="form-control hauteur hauteur"
+                  name="CodeCompte"
+                  [(ngModel)]="CodeCompte"
+                  required=""
+                />
+              </div>
+              <div class="col-lg-6">
+                <label for="validationCustom02" class="form-label label"
+                  >Libelle du Compte (<span class="text-danger">*</span>)</label
+                >
+                <input
+                  [readonly]="action == 'view'"
+                  type="text"
+                  class="form-control hauteur"
+                  name="LibelleCompte"
+                  [(ngModel)]="LibelleCompte"
+                  required=""
+                />
+              </div>
+
+              <div class="col-lg-6" *ngIf="!isLoading; else loader">
+                <label for="validationCustom01" class="form-label label"
+                  >Compte De Cumul</label
+                >
+
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control form-select"
+                    [matAutocomplete]="compte"
+                    name="CompteDeCumul"
+                    [(ngModel)]="CompteDeCumul"
+                  />
+                  <span class="input-group-text bg-white" id="basic-addon1"
+                    ><i
+                      class="fa text-danger pointer fa-times"
+                      (click)="clearCompteDeCumul()"
+                    ></i
+                  ></span>
+                </div>
+                <mat-autocomplete #compte>
+                  <mat-option
+                    *ngFor="let compte of listcompte"
+                    [value]="compte.LibelleCompte"
+                  >
+                    {{ compte.LibelleCompte }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+
+              <div class="col-lg-6" *ngIf="!isLoading; else loader">
+                <label for="validationCustom01" class="form-label label"
+                  >Compte De Contre Partie</label
+                >
+
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control form-select"
+                    [matAutocomplete]="compte1"
+                    name="CompteDeContrePartie"
+                    [(ngModel)]="CompteDeContrePartie"
+                  />
+                  <span class="input-group-text bg-white" id="basic-addon1"
+                    ><i
+                      class="fa text-danger pointer fa-times"
+                      (click)="clearCompteDeContrePartie()"
+                    ></i
+                  ></span>
+                </div>
+                <mat-autocomplete #compte1>
+                  <mat-option
+                    *ngFor="let compte of listcompte"
+                    [value]="compte.LibelleCompte"
+                  >
+                    {{ compte.LibelleCompte }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+
+              <div class="col-lg-6" *ngIf="!isLoading; else loader">
+                <label for="validationCustom01" class="form-label label"
+                  >Liasse débit</label
+                >
+
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control form-select"
+                    [matAutocomplete]="liasse"
+                    name="LiasseDebit"
+                    [(ngModel)]="LiasseDebit"
+                  />
+                  <span class="input-group-text bg-white" id="basic-addon1"
+                    ><i
+                      class="fa text-danger pointer fa-times"
+                      (click)="clearLiasseDebit()"
+                    ></i
+                  ></span>
+                </div>
+                <mat-autocomplete #liasse>
+                  <mat-option
+                    *ngFor="let liasse of liasseList"
+                    [value]="liasse.CodeLiasse"
+                  >
+                    {{ liasse.CodeLiasse }} <span>:</span>
+                    {{ liasse.LibelleLiasse }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+
+              <div class="col-lg-6" *ngIf="!isLoading; else loader">
+                <label for="validationCustom01" class="form-label label"
+                  >Liasse crédit</label
+                >
+
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control form-select"
+                    [matAutocomplete]="liasse"
+                    name="LiasseCredit"
+                    [(ngModel)]="LiasseCredit"
+                  />
+                  <span class="input-group-text bg-white" id="basic-addon1"
+                    ><i
+                      class="fa text-danger pointer fa-times"
+                      (click)="clearLiasseCredit()"
+                    ></i
+                  ></span>
+                </div>
+                <mat-autocomplete #liasse>
+                  <mat-option
+                    *ngFor="let liasse of liasseList"
+                    [value]="liasse.CodeLiasse"
+                  >
+                    {{ liasse.CodeLiasse }} <span>:</span>
+                    {{ liasse.LibelleLiasse }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+
+              <div class="col-lg-6">
+                <label for="validationCustom01" class="form-label label"
+                  >Sens DC</label
+                >
+
+                <select
+                  class="form-control form-select"
+                  name="SensDC"
+                  [(ngModel)]="SensDC"
+                >
+                  <option disabled>Selectionner le sens DC</option>
+                  <option [value]="1">Débit</option>
+                  <option [value]="2">Crédit</option>
+                  <option [value]="3">Débit et Crédit</option>
+                </select>
+              </div>
+
+              <div class="col-lg-6">
+                <label for="validationCustom02" class="form-label label"
+                  >Numéro Classe</label
+                >
+
+                <select
+                  class="form-select"
+                  name="nClasse"
+                  [(ngModel)]="nClasse"
+                  aria-label="Default select example"
+                >
+                  <option disabled>Choisissez numéro de la classe</option>
+                  <option [value]="1">1</option>
+                  <option [value]="2">2</option>
+                  <option [value]="3">3</option>
+                  <option [value]="4">4</option>
+                  <option [value]="5">5</option>
+                  <option [value]="6">6</option>
+                  <option [value]="7">7</option>
+                  <option [value]="8">8</option>
+                  <option [value]="9">9</option>
+                  <option [value]="10">10</option>
+                </select>
+              </div>
+              <div class="col-lg-6 mt-3">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    name="CompteDeBanque"
+                    [(ngModel)]="CompteDeBanque"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Compte De Banque
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-6 mt-3">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    name="EstUnChapitre"
+                    [(ngModel)]="EstUnChapitre"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Est un Chapitre
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <p
+                  style="padding-right: 7px; text-decoration: underline"
+                  class="text-right fs-6"
+                >
+                  NB: Les champs en (<span class="text-danger">*</span>) sont
+                  obligatoires
+                </p>
+              </div>
+              <div class="col-lg-12 mt-2" *ngIf="action !== 'view'">
+                <button
+                  type="submit"
+                  [disabled]="!isFormValid()"
+                  style="background-color: #7c57ce"
+                  *ngIf="!isLoadingsubmit; else loader"
+                  class="btn form-control text-white"
+                >
+                  {{ action === "edit" ? "Modifier" : "Créer votre compte" }}
+                  <i class="fa-sharp fa-solid fa-rotate-right"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+</app-gabarit>
