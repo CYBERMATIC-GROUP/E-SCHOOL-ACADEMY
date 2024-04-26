@@ -468,37 +468,59 @@ export class GlobalService {
     }
   }
 
-  filterElement(listeToGilter: any[], value: string, keyTofilter: string) {
-    if (listeToGilter && listeToGilter.length > 0) {
-      const isKeyExist = listeToGilter[0][keyTofilter];
-      if (isKeyExist) {
-        let result!: any[];
-        if (value.length > 0) {
-          const regexQuertier = new RegExp('.*' + value + '.*', 'i');
-          result = listeToGilter.filter((elt) =>
-            regexQuertier.test(elt[keyTofilter])
-          );
-        } else {
-          result = listeToGilter;
-        }
+  // filterElement(listeToGilter: any[], value: string, keyTofilter: string) {
+  //   if (listeToGilter && listeToGilter.length > 0) {
+  //     const isKeyExist = listeToGilter[0][keyTofilter];
+  //     if (isKeyExist) {
+  //       let result!: any[];
+  //       if (value.length > 0) {
+  //         const regexQuertier = new RegExp('.*' + value + '.*', 'i');
+  //         result = listeToGilter.filter((elt) =>
+  //           regexQuertier.test(elt[keyTofilter])
+  //         );
+  //       } else {
+  //         result = listeToGilter;
+  //       }
 
+  //       return result;
+  //     } else {
+  //       /*this.alert(
+  //         "Attention la cle de recherche passe n'existe pas pour la liste '" +
+  //           keyTofilter +
+  //           "'",
+  //         'Erreur',
+  //         'danger',
+  //         '',
+  //         'OK'
+  //       );*/
+  //       return [];
+  //     }
+  //   }
+
+  //   return [];
+  // }
+
+  filterElement(listeToFilter: any[], value: string, keyToFilter: string) {
+    if (listeToFilter && listeToFilter.length > 0) {
+      const isKeyExist = listeToFilter[0][keyToFilter];
+      if (isKeyExist) {
+        let result: any[];
+        if (value.length > 0) {
+          const escapedValue = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regexQuery = new RegExp('.*' + escapedValue + '.*', 'i');
+          result = listeToFilter.filter((elt) => regexQuery.test(elt[keyToFilter]));
+        } else {
+          result = listeToFilter;
+        }
         return result;
       } else {
-        /*this.alert(
-          "Attention la cle de recherche passe n'existe pas pour la liste '" +
-            keyTofilter +
-            "'",
-          'Erreur',
-          'danger',
-          '',
-          'OK'
-        );*/
+        // Gérer le cas où la clé de recherche n'existe pas dans la liste
         return [];
       }
     }
-
     return [];
   }
+  
 
   getCurrentDateForInput(){
     const currentDate: string = new Date().toISOString().split('T')[0];

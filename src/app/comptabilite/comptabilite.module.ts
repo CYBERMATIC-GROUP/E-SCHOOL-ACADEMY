@@ -22,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ModalForAllComponent } from './transfert-intercaisse/modal-for-all/modal-for-all.component';
 import { RetraitCaisseEspeceComponent } from './retrait-caisse-espece/retrait-caisse-espece.component';
 import { HistoriqueFraisEleveComponent } from './historique-frais-eleve/historique-frais-eleve.component';
+import { RetraitEspaceCaisseComponent } from './retrait-espace-caisse/retrait-espace-caisse.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HistoriqueFraisEleveComponent } from './historique-frais-eleve/historiq
     MenuTransfertComponent,
     ModalForAllComponent,
     RetraitCaisseEspeceComponent,
-    HistoriqueFraisEleveComponent
+    HistoriqueFraisEleveComponent,
+    RetraitEspaceCaisseComponent
   ],
   imports: [
     CommonModule,

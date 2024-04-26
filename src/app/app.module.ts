@@ -190,6 +190,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CreateCompteComponent } from './login-form/create-compte/create-compte.component';
 import { ValidationCompteComponent } from './login-form/validation-compte/validation-compte.component';
+import { OperationsDiversesComponent } from './operations-diverses/operations-diverses.component';
+import { OptionsOperationsComponent } from './operations-diverses/options-operations/options-operations.component';
+import { SaisieOperationsDiversComponent } from './operations-diverses/saisie-operations-divers/saisie-operations-divers.component';
 
 @NgModule({
   declarations: [
@@ -354,6 +357,9 @@ import { ValidationCompteComponent } from './login-form/validation-compte/valida
     LoginFormComponent,
     CreateCompteComponent,
     ValidationCompteComponent,
+    OperationsDiversesComponent,
+    OptionsOperationsComponent,
+    SaisieOperationsDiversComponent,
   ],
   imports: [
     BrowserModule,

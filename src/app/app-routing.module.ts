@@ -121,6 +121,11 @@ import { ValidationCompteComponent } from './login-form/validation-compte/valida
 import { HomeParentComponent } from './espace-parent/home-parent/home-parent.component';
 import { ParentGuard } from './core/guard/parent.guard';
 import { SearchEleveParentComponent } from './espace-parent/search-eleve-parent/search-eleve-parent.component';
+import { OperationsDiversesComponent } from './operations-diverses/operations-diverses.component';
+import { OptionsOperationsComponent } from './operations-diverses/options-operations/options-operations.component';
+import { SaisieOperationsDiversComponent } from './operations-diverses/saisie-operations-divers/saisie-operations-divers.component';
+import { RetraitEspaceCaisseComponent } from './comptabilite/retrait-espace-caisse/retrait-espace-caisse.component';
+
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -137,6 +142,16 @@ const routes: Routes = [
 
 
   {path:'search-eleve-parent' ,  component: SearchEleveParentComponent},
+
+  {path:'journal/operations/divers' ,  component: OperationsDiversesComponent},
+  {path:'operations/options' ,  component: OptionsOperationsComponent},
+  {path:'saisie/operations/divers' ,  component: SaisieOperationsDiversComponent},
+  {path:'saisie/operations/divers/:action/:IDMOUVEMENT' ,  component: SaisieOperationsDiversComponent},
+  {path:'retrait-espece-caisse/:IDMOUVEMENT' ,  component: RetraitEspaceCaisseComponent},
+  {path:'retrait-espece-caisse' ,  component: RetraitEspaceCaisseComponent},
+
+
+
 
   {path: "personalisation-document", component: PersonalisationDocumentComponent, canActivate: [AuthGuard]},
   {path: "personalisation-certificat/:typecertificat/:typepersonne", component: PersonnalisationCertificatComponent, canActivate: [AuthGuard]},

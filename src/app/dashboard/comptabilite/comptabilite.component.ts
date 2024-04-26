@@ -64,6 +64,14 @@ export class ComptabiliteComponent implements OnInit {
         right: this.agent.bDroit_ReglerDesCharges
       },
       {
+        desination: "Retraist Espèce caisse",
+        logo: "../../assets/logo/Retrait_caiss_ especes.png",
+        description: "",
+        backColor: "#e29578",
+        link: '/retrait-espece-caisse',
+        right: this.agent.bDroit_ReglerDesCharges
+      },
+      {
         desination: "Transfert intercaisse et bancaire ",
         logo: "../../assets/logo/Consultations_des_comptes.png",
         description: "",
@@ -120,11 +128,12 @@ export class ComptabiliteComponent implements OnInit {
         right: this.agent.bDroit_ConsultationCaisses
       },
       {
-        desination: "Opérations diverses",
-        logo: "../../assets/logo/Operations_diverses.png",
+        desination: "Opérations Diverses",
+        logo: "../../assets/logo/Consultations_de_caisse.png",
         description: "",
-        backColor: "#8d99ae",
-        notReady: true
+        backColor: "e29578",
+        link: "/operations/options",
+        right: this.agent.bDroit_ConsultationCaisses
       },
       {
         desination: "Consultation des comptes",
