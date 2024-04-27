@@ -279,8 +279,8 @@ export class FraisScolaireComponent {
       console.log(this.tableFraisAPayer);
       this.fraispayerService.setPaiementFrais(this.echeancesFraisGetted, this.eleveID, this.modePaiement).pipe(
         tap(res => {
+          console.log(res);
           this.globalService.toastShow('Paiement encaissé avec success', 'Paiement frais scolaire', 'success');
-
           this.globalService.reloadComponent('/frais/' + this.eleveID)
           const recu = res.body.Etat;
           this.printRecu(recu)

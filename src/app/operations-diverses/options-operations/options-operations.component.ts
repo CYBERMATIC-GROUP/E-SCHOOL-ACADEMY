@@ -41,14 +41,6 @@ export class OptionsOperationsComponent {
         backColor: "#219ebc",
         link: "/journal/operations/divers",
       },
-      {
-        desination: "Modifications",
-        logo: "../../assets/logo/Cloturej_ournée.png",
-        description: "",
-        backColor: "caf0f8",
-        link: "/cloturejourneecomptable",
-        right: true
-      },
     ]
   }
 }

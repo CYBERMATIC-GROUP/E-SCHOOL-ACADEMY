@@ -64,8 +64,6 @@ export class DateComptableComponent {
         this.Date = this.globalService.getCurrentDateForInput()
       }
     }
-    //this.Date = this.globalService.getCurrentDateForInput();
-    console.log(this.globalService.getCurrentDateForInput());
     const userObj = localStorage.getItem(constantes.auth.agent);
     if(userObj){
       this.agent = JSON.parse(userObj);
@@ -108,7 +106,8 @@ export class DateComptableComponent {
         const objHead = localStorage.getItem(constantes.auth.header)
         if (objHead){
           const headr: header = JSON.parse(objHead)
-          headr.DATE_COMPTABLE = this.convertToValideDates(this.Date)
+          headr.DATE_COMPTABLE = this.Date
+          console.log(headr.DATE_COMPTABLE);
           localStorage.setItem(constantes.auth.header, JSON.stringify(headr))
           this.globalService.reloadComponent('/configuration/date-comptable')
           this.globalService.toastShow("Date comptable modifiée avec succès!", "Modification éffective")

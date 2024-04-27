@@ -98,8 +98,8 @@
             <tr
               class="row100"
               *ngFor="let eleve of notes.Eleves; let i = index"
-              (mouseenter)="onMouseEnter($event, eleve)"
             >
+            <!-- Afficher la liste des eleves que renvoie le tableau -->
               <td class="bg-custom sticky" data-column="column1">
                 <input
                   type="text"
@@ -109,6 +109,8 @@
                   class="py-1 w-100 column100 column1 text-start pointer"
                 />
               </td>
+
+             <!-- Afficher la liste des eleves que renvoie le tableau -->
               <td
                 class="bg-custom d-none d-md-table-cell"
                 *ngFor="let noteConfig of notes.tabConfigNote"
@@ -190,17 +192,6 @@
           Imprimer le relevé global de notes avec les notes<i class="fa-solid fa-print"></i>
         </button>
       </div>
-
-      <!--div-- class="col-md-4 pb-5 text-center px-2">
-        <button
-          style="background-color: #7b4bce"
-          routerLink="/releve-global-des-notes"
-          *ngIf="!printIsLoad; else loader"
-          class="form-control text-white h-100 py-2"
-        >
-          Relevé de notes<i class="fa-solid fa-print"></i>
-        </button>
-      </!--div-->
     </div>
   </div>
 

@@ -261,7 +261,6 @@
                         *ngIf="(matieres$ | async) as matieres; else loader"
                         formControlName="GoupeMatiere"
                       >
-                        <option selected [value]="0">Toutes les matières</option>
                         <option *ngFor="let m of matieres" [value]="m.IDMATIERE">
                           {{ m.Matiere }}
                         </option>

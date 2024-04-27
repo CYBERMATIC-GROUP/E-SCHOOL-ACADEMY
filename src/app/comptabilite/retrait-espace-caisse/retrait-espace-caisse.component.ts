@@ -36,6 +36,10 @@ export class RetraitEspaceCaisseComponent {
   comptes$!: Observable<compteModel[]>;
   comptesFsseur$!: Observable<compteModel[]>;
   isLoading!: boolean;
+  soldeCompteSelcted!: String 
+  Couleur!: string
+  compare: number = 0
+  titresoldecompteselected!: string
 
   constructor(
     private formBuilder: FormBuilder,
@@ -148,6 +152,8 @@ export class RetraitEspaceCaisseComponent {
           .pipe(
             tap((data) => {
               console.log(data);
+              this.retraitForm.reset();
+              this.soldeCompteSelcted = this.formatPrix("0")
               this.globalService.toastShow(
                 'Votre opération a été crée avec succès',
                 'succès'
@@ -162,6 +168,44 @@ export class RetraitEspaceCaisseComponent {
     });
   }
 
+  selectCompte(selectedCompte: any) {
+    console.log(selectedCompte); 
+    this.titresoldecompteselected = "Solde de compte : " +  selectedCompte.LibelleCompte
+    if (selectedCompte.SoldeCompte <= 0) {
+      this.compare = selectedCompte.SoldeCompte
+      this.Couleur = selectedCompte.Couleur
+      console.log(this.Couleur);
+      this.soldeCompteSelcted = this.formatPrix("0")
+    }else{
+      this.Couleur = selectedCompte.Couleur
+      console.log(this.Couleur);
+      this.soldeCompteSelcted = this.formatPrix(selectedCompte.SoldeCompte)
+      console.log(this.soldeCompteSelcted);
+    }
+  }
+
+
+  formatPrix(prix: String, separateur: string = ' ', device: string = 'XAF') {
+    let reverse: string[] = prix.toString().split('').reverse();
+    let prixFormated: string = '';
+
+    for (let i: number = 1; i <= reverse.length; i++) {
+      prixFormated += reverse[i - 1];
+
+      if (i % 3 === 0) {
+        prixFormated += separateur;
+      }
+    }
+
+    let formated = prixFormated.split('').reverse().join('');
+    let decimal = ',00 ' + device;
+
+    if (formated[0] == separateur) {
+      formated = formated.substring(1);
+    }
+    return formated + decimal;
+  }
+  
   ngAfterViewInit(): void {
     const data = [
       { mois: 'Octobre', count: 10 },

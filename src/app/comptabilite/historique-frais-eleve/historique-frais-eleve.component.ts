@@ -35,6 +35,8 @@ export class HistoriqueFraisEleveComponent implements OnInit {
   ngOnInit(): void {
       this.historiques$ = this.historiqueFraisService.getHistoriqueFraisEleve(this.IDELEVE);
       this.historiques$.subscribe(data => {
+        console.log(data);
+        
         const totalCredit =  this.globalService.totalCol(data, "TotalCredits");
         this.totalCredit = totalCredit ? totalCredit : 0;
         const totalDebit = this.globalService.totalCol(data, "TotalDebits");

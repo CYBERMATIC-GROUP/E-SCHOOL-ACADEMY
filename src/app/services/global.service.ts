@@ -530,7 +530,9 @@ export class GlobalService {
       const headr: header = JSON.parse(headerObj)
       if (headr.DATE_COMPTABLE){
         let dateStr = headr.DATE_COMPTABLE
-        //const formattedDate = `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6)}`;
+        console.log(dateStr);
+        
+        const formattedDate = `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6)}`;
         return dateStr
       }
     }

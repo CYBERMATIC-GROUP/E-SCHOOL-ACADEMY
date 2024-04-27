@@ -4,6 +4,8 @@
             <div class="col-12 col-lg-4 col-md-6" *ngFor="let menu of menus">
 
               <div class="info-box" *ngIf="!menu.notReady; else notyet" [ngStyle]="{cursor: !menu.right ? 'not-allowed' : 'cursor'}" [routerLink]="menu.right ? '/' + menu.link : '#'">
+                <div *ngIf="menu.image" class="new-feature d-none d-md-block">Nouveauté <img [src]="menu.image" alt="ico"></div>
+
                 <div [ngClass]="{'disable-action': !menu.right}"></div>
                 <span class="info-box-icon" [style]="{ 'background-color': menu.backColor }">
                   <img [src]="menu.logo" alt="">

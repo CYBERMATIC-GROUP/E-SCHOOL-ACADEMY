@@ -22,6 +22,7 @@ export class ComptabiliteComponent implements OnInit {
     link?: string,
     right?: boolean,
     notReady?: boolean
+    image?: string
   }[];
 
   constructor(
@@ -64,11 +65,12 @@ export class ComptabiliteComponent implements OnInit {
         right: this.agent.bDroit_ReglerDesCharges
       },
       {
-        desination: "Retraist Espèce caisse",
+        desination: "Retrait caisse espèce ",
         logo: "../../assets/logo/Retrait_caiss_ especes.png",
         description: "",
         backColor: "#e29578",
         link: '/retrait-espece-caisse',
+        image: '../assets/icons8-star.gif',
         right: this.agent.bDroit_ReglerDesCharges
       },
       {
@@ -133,6 +135,7 @@ export class ComptabiliteComponent implements OnInit {
         description: "",
         backColor: "e29578",
         link: "/operations/options",
+        image: '../assets/icons8-star.gif',
         right: this.agent.bDroit_ConsultationCaisses
       },
       {
