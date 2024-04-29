@@ -13,12 +13,12 @@ export class ClassementService {
   ) { }
 
   getClassement(param: paramClassement, bAvecDetail: number): Observable<classementEleve> {
-    console.log(param,bAvecDetail);
-    
+    console.log(param);
     return this.globalService.setHttpRequest(`RESULTATS_SCOLAIRES_Classement/${bAvecDetail}`, "POST", param).pipe(
       map(res => res.body)
     )
   }
+
 
   imprimeMatrise(object:any) {
     return this.globalService.setHttpRequest('SAISIE_NOTES_Imprime_Matrix', "POST", object).pipe(

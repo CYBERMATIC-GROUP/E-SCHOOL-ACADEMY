@@ -115,3 +115,9 @@
   .text-secondary{
     color: #7b4bce;
   }
+
+  @media screen and (max-width: 900px) {
+    .new-feature{
+      margin-top: -10px;
+    }
+  }

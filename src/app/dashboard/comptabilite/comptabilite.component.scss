@@ -97,3 +97,8 @@ box-sizing: border-box;
 .stat-bloc{
   width: 10px;
 }
+@media screen and (max-width: 900px) {
+  .new-feature{
+    margin-top: 25px;
+  }
+}

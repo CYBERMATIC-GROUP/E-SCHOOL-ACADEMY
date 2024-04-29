@@ -17,20 +17,20 @@
           </div>
         </div>
 
-        <div class="col-md-6" [ngClass]="{'col-12': isDialog, 'col-md-6': !isDialog}">
+        <div class="col-md-6 p-0" [ngClass]="{'col-12': isDialog, 'col-md-6': !isDialog}">
           <div class="row mt-2">
-            <div class="col-6">
-              <div><p class="text-end">Solde ouverture</p></div>
-              <div><p class="text-end">Versements</p></div>
-              <div><p class="text-end">Retraits</p></div>
-              <div><p class="text-end">Solde compte</p></div>
+            <div class="col-5 p-0">
+              <div><p class="text-end">Solde ouverture :</p></div>
+              <div><p class="text-end">Versements :</p></div>
+              <div><p class="text-end">Retraits :</p></div>
+              <div><p class="text-end">Solde compte :</p></div>
             </div>
-            <div class="col-5">
-              <div class="w-100 border bg-white px-2" style="height: auto">
-                <div><p class="">{{ SoldeOuverture }}</p></div>
-                <div><p class="">{{ TotalVersements }}</p></div>
-                <div><p class="">{{ TotalRetraits }}</p></div>
-                <div><p class="">{{ SoldeFermeture }}</p></div>
+            <div class="col-7 p-0">
+              <div class="w-100  px-2" style="height: auto">
+                <div><p class="fw-bold">{{ SoldeOuverture }}</p></div>
+                <div><p class="fw-bold">{{ TotalVersements }}</p></div>
+                <div><p class="fw-bold">{{ TotalRetraits }}</p></div>
+                <div><p class="fw-bold">{{ SoldeFermeture }}</p></div>
               </div>
             </div>
           </div>  

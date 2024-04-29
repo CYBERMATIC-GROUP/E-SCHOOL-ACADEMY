@@ -58,7 +58,16 @@ export class ClassementReleveNoteEleveComponent {
   istcheckedCompteMatiere: boolean = true;
   detaillematiere: number = 1;
   tenircomptematiere: number = 1
+  bAvecDetailMatieres: number = 1
   GoupeMatiere: number = 0
+  selectedMatiereId: number = 0;
+
+  objetSend!: paramClassement
+
+  IDNIVEAU!: number
+  IDBRANCHE!: number
+  IDCLASSE!: number
+  typemoyenne: number = 1
 
   constructor(
     private eleveService: EleveService,
@@ -86,41 +95,53 @@ export class ClassementReleveNoteEleveComponent {
     const niveau = this.paramFilterForm.get('IDNIVEAU')?.value ?? 0
     const branch = this.paramFilterForm.get('IDBRANCHE')?.value ?? 0
     const classe = this.paramFilterForm.get('IDCLASSES')?.value ?? 0
+    console.log(classe);
 
     this.matieres$ = this.matiereService.getListMatiereByNieveuBrancheClasse(niveau, branch, classe).pipe(
       tap(res => {
         console.log(res);
-        
         this.paramFilterForm.get('GoupeMatiere')?.setValue(res[0].IDMATIERE);
+        this.selectedMatiereId = 0
+        this.ObjectSend()
       })
     )
   }
 
   initForm(){
     this.paramFilterForm = this.formBuilder.group({
-      IDNIVEAU: [null],
-      IDBRANCHE: [null],
-      IDCLASSES: [null],
+      IDNIVEAU: 0,
+      IDBRANCHE: 0,
+      IDCLASSES: 0,
       NumeroTrimestre: [1],
-      NumeroSequence: [null],
-      TypeMoyenne: [null],
-      GoupeMatiere: [],
-      TenirCompteCoeffMatieres: [null],
-      ClassementOuReleveNotes: [null],
+      NumeroSequence: [0],
+      TypeMoyenne: 1,
+      GoupeMatiere: 0,
+      TenirCompteCoeffMatieres: 1,
+      bAvecDetailMatieres: 1,
+      ClassementOuReleveNotes: 0,
       eleveConcerned: [5]
     });
+
+    console.log(this.paramFilterForm.value);
+    
     this.paramFilterForm.get('IDBRANCHE')?.disable()
     this.paramFilterForm.get('IDNIVEAU')?.disable()
 
     this.numeroSequences$ = this.eleveService.GetParametresPeriode(this.paramFilterForm.get('NumeroTrimestre')?.value).pipe(
       tap(res => {
+        console.log(res);
         this.paramFilterForm.get('NumeroSequence')?.setValue(res[0].NumPeriode);
       })
-    )
-
+    )    
     this.paramFilterForm.get('NumeroTrimestre')?.valueChanges.subscribe((value) => {
       this.numeroSequences$ = this.eleveService.GetParametresPeriode(value);
+      console.log(value);
+      this.typemoyenne = value
+      this.ObjectSend()
     })
+
+    
+    
 
     this.paramFilterForm.get('eleveConcerned')?.valueChanges.subscribe((value) => {
       switch (value) {
@@ -155,15 +176,51 @@ export class ClassementReleveNoteEleveComponent {
     this.onChangeSommeElement()
   }
 
+
+  ObjectSend(){
+    const param: paramClassement = {
+      IDNIVEAU: this.paramFilterForm.get('IDNIVEAU')?.value,
+      IDBRANCHE: this.paramFilterForm.get('IDBRANCHE')?.value,
+      IDCLASSES:  this.IDCLASSE,
+      NumeroTrimestre: this.paramFilterForm.get('NumeroTrimestre')?.value,
+      NumeroSequence: this.paramFilterForm.get('NumeroSequence')?.value,
+      TypeMoyenne: this.typemoyenne,
+      GoupeMatiere:this.selectedMatiereId,
+      TenirCompteCoeffMatieres: this.tenircomptematiere,
+      ClassementOuReleveNotes: this.paramFilterForm.get('ClassementOuReleveNotes')?.value,
+      bAvecDetailMatieres: this.bAvecDetailMatieres
+
+    };
+    this.objetSend = param
+    console.log(this.objetSend);
+  }
+
+
+getSelectedMatiereId(): void {
+    this.selectedMatiereId = this.paramFilterForm.get('GoupeMatiere')?.value;
+    console.log( this.selectedMatiereId);
+    this.ObjectSend()
+}
+
   onChangeSommeElement(){
     this.paramFilterForm.get('IDNIVEAU')?.valueChanges.subscribe((value) => {
-      //this.loadMatieres()
+      this.loadMatieres()
+      this.IDNIVEAU = value
+      this.IDCLASSE = 0
+      this.ObjectSend()
     })
     this.paramFilterForm.get('IDBRANCHE')?.valueChanges.subscribe((value) => {
-      //this.loadMatieres()
+      this.loadMatieres()
+      this.IDBRANCHE = value
+      this.IDCLASSE = 0
+      this.ObjectSend()
     })
     this.paramFilterForm.get('IDCLASSES')?.valueChanges.subscribe((value) => {
       this.loadMatieres()
+      this.paramFilterForm.get('IDBRANCHE')?.setValue(0);
+      this.paramFilterForm.get('IDNIVEAU')?.setValue(0);
+      this.IDCLASSE = value
+     this.ObjectSend()
     })
 
   }
@@ -177,30 +234,28 @@ export class ClassementReleveNoteEleveComponent {
   }
 
   loadClassement(){
-    const param: paramClassement = this.paramFilterForm.value;
-    console.log(param);
-    
-    this.iSLaodData = true
-    this.classement$ = this.classementService.getClassement(param,this.detaillematiere).pipe(
-      finalize(() => {
-        this.iSLaodData = false;
-      })
-    )
+    this.iSLaodData = true;
+        this.classement$ = this.classementService.getClassement(this.objetSend,this.bAvecDetailMatieres).pipe(
+          finalize(() => {
+            this.iSLaodData = false;
+          })
+        )
   }
 
   toggleDetailleMatiere(event: any) {
-    this.detaillematiere = event.target.checked ? 1 : 0;
-    console.log(this.detaillematiere);
-    
+    this.bAvecDetailMatieres = event.target.checked ? 1 : 0;
+    console.log(this.bAvecDetailMatieres);
+    this.ObjectSend()
   }
+
   togglecompteMtiere(event: any){
     this.tenircomptematiere = event.target.checked ? 1 : 0;
     console.log(this.tenircomptematiere);
-    
+    this.ObjectSend()
   }
 
   printClassement(){
-    const param: paramClassement = this.paramFilterForm.value;
+    const param: paramClassement = this.objetSend
     this.printIsLoading = true;
     this.eleveService.getNOTES_Imprime_ClassementsansDetail(param).pipe(
       tap(res => {
@@ -213,7 +268,7 @@ export class ClassementReleveNoteEleveComponent {
   }
 
   printMatrise(){
-    const param: paramClassement = this.paramFilterForm.value;
+    const param: paramClassement = this.objetSend
     this.printIsLoadingM = true;
     this.classementService.imprimeMatrise(param).pipe(
       tap(res => {

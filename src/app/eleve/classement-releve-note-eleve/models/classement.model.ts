@@ -49,6 +49,7 @@ export interface paramClassement {
     NumeroSequence?: number
     TypeMoyenne?: number
     GoupeMatiere?: number
-    TenirCompteCoeffMatieres?: boolean
-    ClassementOuReleveNotes?: boolean
+    TenirCompteCoeffMatieres?: number
+    ClassementOuReleveNotes?: number;
+    bAvecDetailMatieres: number
   }

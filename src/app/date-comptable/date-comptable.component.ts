@@ -44,6 +44,7 @@ export class DateComptableComponent {
   IDcaisse: any;
   isCloture!: boolean;
   isDisable: boolean = true;
+  currentDate!: string
 
   constructor(
     private router: Router,
@@ -60,8 +61,11 @@ export class DateComptableComponent {
         const dateStr = headr.DATE_COMPTABLE;
         const formattedDate = `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6)}`;
         this.Date = dateStr
+        console.log(this.Date);
       }else{
         this.Date = this.globalService.getCurrentDateForInput()
+        console.log(this.Date);
+        
       }
     }
     const userObj = localStorage.getItem(constantes.auth.agent);
@@ -69,11 +73,19 @@ export class DateComptableComponent {
       this.agent = JSON.parse(userObj);
     }
 
-
+    this.Init_DateDebut()
     if(this.Date)
       this.intiFormatForCurentAgentLogged(this.Date)
     else
       console.error("No date comptable found to get info-comptable");
+  }
+
+
+  Init_DateDebut() {
+    const currentDate = new Date();
+    this.currentDate = currentDate.toISOString().substring(0, 10);
+    console.log(this.currentDate);
+    
   }
 
   onDateSelectedDebut(event: any) {
@@ -98,11 +110,20 @@ export class DateComptableComponent {
     return formattedDate;
   }
 
+
+  convertToValideDatesF(Date: string) {
+    const year = Date.split('-')[0];
+    const month = Date.split('-')[1];
+    const day = Date.split('-')[2];
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+  }
+
   onValideDate(){
     const ref = this.globalService.alert("Toutes les prochaines opérations comptables seront ajoutées à la date sélectionnée. </br> Voulez-vous continuer ❓", "Attention❗ modification de la date comptable:", "info", "ANNULER", "OUI")
-
     ref.afterClosed().subscribe(result => {
       if(result){
+
         const objHead = localStorage.getItem(constantes.auth.header)
         if (objHead){
           const headr: header = JSON.parse(objHead)
