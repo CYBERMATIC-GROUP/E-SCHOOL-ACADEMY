@@ -391,6 +391,13 @@ export class EleveService {
     return this.globalService.setHttpRequest(`PHOTO_Eleve/${IDELEVE}`, "GET")
   }
 
+  getPhotoEleveParent(IDELEVE: number){
+    return this.globalService.setHttpRequest(`PHOTO_Eleve/${IDELEVE}`, "GET")
+  }
+
+  updatephotoEleveParent(IDELEVE: number, photo: any){
+    return this.globalService.setHttpRequest(`PHOTO_Modifie_Photo_Eleve/${IDELEVE}`,"PUT",photo)
+  }
 
   //Partie parent
   RechercheSimplifiee(eleve: SearchEleveSimplifie) {

@@ -29,15 +29,19 @@ import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { FraisScolaireComponent } from './frais-scolaire/frais-scolaire.component';
 import { InfoEcheanceComponent } from './frais-scolaire/info-echeance/info-echeance.component';
+import { DashboardParentComponent } from './dashboard-parent/dashboard-parent.component';
+
 const routes : Routes = [
-    {path:'' ,  component: HomeParentComponent},
+    {path:'' ,  component: DashboardParentComponent},
     {path:'frais-scolaire' ,  component: FraisScolaireComponent},
     {path:'absenece-eleve' ,  component: AbsenceEleveComponent},
     {path:'devoirs' ,  component: DevoirsComponent},
     {path:'consultation-notes-eleve' ,  component: ConsultationNotesEleveByParentComponent},
     {path:'empoloi-du-temps' ,  component: EmploiDuTempsComponent},
     {path:'eleve-add-list' ,  component: ListEleveAddByParentComponent},
-    {path:'search-eleve-parent' ,  component: SearchEleveParentComponent}
+    {path:'search-eleve-parent' ,  component: SearchEleveParentComponent},
+    {path:'eleve-parent/:IDELEVE' ,  component: HomeParentComponent}
+
 
 ]
 
@@ -57,6 +61,7 @@ const routes : Routes = [
         DevoirViewComponent,
         FraisScolaireComponent,
         InfoEcheanceComponent,
+        DashboardParentComponent,
     ],
     imports: [
         CommonModule,

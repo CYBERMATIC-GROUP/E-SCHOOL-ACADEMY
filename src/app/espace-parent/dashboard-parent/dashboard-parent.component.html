@@ -1,0 +1,83 @@
+<app-gabarit-parent pageTitle="ESPACE PARENT">
+  <div class="">
+    <div class="col-lg-11 shadow bg-light rounded  rounded-5 p-4 border m-lg-auto">
+      <div class="row">
+        <div style="border-bottom: 1px solid rgb(209, 204, 204);">
+            <p class="fw-bold fs-3" style="color: #fa8d00;">ÉTABLISSEMENT</p>
+            <div class="row">
+            <div class="col-lg-4">
+              <p class="fs-6">
+                <span  class="fw-bold">Nom : </span>
+                <span>{{ parent.Etable.NomEtab }}</span>
+              </p>
+              <p class="fs-6">
+                <span class="fw-bold">Adresse : </span>
+                <span>{{ parent.Etable.Adresse1 }}</span>
+              </p>
+            </div>
+            <div class="col-lg-2">
+              <p class="fs-6">
+                <span class="fw-bold">Code établissement : </span> <span>{{ parent.Etable.CodeEtab }}</span>
+              </p>
+              <p class="fs-6">
+                <span class="fw-bold">Ville : </span> <span>{{ parent.Etable.Ville }}</span>
+              </p>
+            </div>
+            <div class="col-lg-4">
+              <p class="fs-6">
+                <span class="fw-bold">Email : </span> <span>{{ parent.Etable.Courriel }}</span>
+              </p>
+              <p class="fs-6">
+                <span class="fw-bold">Téléphone : </span> <span>{{ parent.Etable.Telephone }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-11 bg-light rounded  rounded-5 p-3 shadow m-lg-auto" >
+      <div class="row" *ngIf="!isLoading; else loader">
+        <div  *ngFor="let element of Famille" class="col-lg-6 col-md-6 pointer block-content" (click)="onBlockClick(element)">
+          <div class="row  border p-2 rounded rounded-5" style="border: 1px solid #fa8d00 ;">
+            <div class="col-lg-4 ">
+              <div class="w-100 image-container" *ngIf="!isloadphoto; else loader">
+                <img class="w-100 img-fluid" [src]="element.Photo" alt="Photo de l'élève">
+              </div>
+            </div>
+            <div class="col-lg-7 text-start">
+              <div class="text-start fw-bold pt-3">
+                <p>
+                  <span>Matricule: </span> <span>{{ element.Metricule }}</span>
+                </p>
+                <p>
+                  <span>Nom: </span> <span>{{ element.Nom }}</span>
+                </p>
+                <p>
+                  <span>Prénom: </span> <span>{{ element.Prenom }}</span>
+                </p>
+                <p>
+                  <span>Date de naissance: </span>
+                  <span>{{ convertToValideDates(element.DateNaissance) }}</span>
+                </p>
+                <p>
+                  <span>Lieu de naissance: </span>
+                  <span>{{ element.LieuNaissance }}</span>
+                </p>
+                <p>
+                  <span>classe: </span> <span>{{ element.Classe }}</span>
+                </p>
+                <div>
+                    <p class="p-2 rounded text-white rounded-5 " [ngStyle]="{'background-color':element.CouleurLigne}">{{element.bAbonnementValide == true ? 'Abonnement en cours' : 'Abonnement expiré'}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-gabarit-parent>
+<ng-template #loader>
+  <app-loader></app-loader>
+  <p class="text-center">Chargement</p>
+</ng-template>

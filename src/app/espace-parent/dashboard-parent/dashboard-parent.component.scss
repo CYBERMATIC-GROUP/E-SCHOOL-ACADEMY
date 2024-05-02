@@ -18,25 +18,6 @@ aside{
     padding: 0px !important
 }
 
-/* Styles pour le conteneur de l'image */
-.image-container {
-  width: 100%; /* Définit la largeur du conteneur à 100% */
-  height: 0; /* Définit la hauteur du conteneur à 0 (sera ajustée dynamiquement) */
-  padding-top: 100%; /* Ratio hauteur/largeur pour conserver les proportions */
-  position: relative; /* Position relative pour que l'image puisse être positionnée à l'intérieur */
-  overflow: hidden; /* Cache le débordement de l'image */
-}
-
-/* Styles pour l'image */
-.img-fluid {
-  width: auto; /* La largeur est calculée automatiquement pour conserver les proportions */
-  height: 100%; /* Définit la hauteur de l'image à 100% du conteneur */
-  position: absolute; /* Position absolue pour s'adapter à la taille du conteneur */
-  top: 0; /* Aligne l'image en haut du conteneur */
-  left: 0; /* Aligne l'image à gauche du conteneur */
-}
-
-
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 body {
   font-family: "Space Mono", monospace;
@@ -86,6 +67,11 @@ color: white;
   }
 }
 
+.block-content:hover {
+  border-radius: 25px;
+  background-color: rgba(0, 0, 0, 0.1); /* Couleur de fond légèrement transparente au survol */
+}
+
 .info-box-content{
   @media screen and (max-width: 500px) {
     h2{
@@ -98,4 +84,27 @@ color: white;
 }
 blockquote{
   font-size: 1em;
+}
+
+/* Ajoutez la classe placeholder-glow-active pour désactiver l'effet glow lorsque l'image est chargée */
+.placeholder-glow-active {
+  animation: none; /* Désactivez l'animation */
+}
+
+/* Styles pour le conteneur de l'image */
+.image-container {
+  width: 100%; /* Définit la largeur du conteneur à 100% */
+  height: 0; /* Définit la hauteur du conteneur à 0 (sera ajustée dynamiquement) */
+  padding-top: 100%; /* Ratio hauteur/largeur pour conserver les proportions */
+  position: relative; /* Position relative pour que l'image puisse être positionnée à l'intérieur */
+  overflow: hidden; /* Cache le débordement de l'image */
+}
+
+/* Styles pour l'image */
+.img-fluid {
+  width: auto; /* La largeur est calculée automatiquement pour conserver les proportions */
+  height: 100%; /* Définit la hauteur de l'image à 100% du conteneur */
+  position: absolute; /* Position absolue pour s'adapter à la taille du conteneur */
+  top: 0; /* Aligne l'image en haut du conteneur */
+  left: 0; /* Aligne l'image à gauche du conteneur */
 }

@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { environment } from 'src/environnements/environnement.prod';
 import { Eleve, ListeEleveSimplifie } from 'src/app/models/eleve.model';
 import { FraisScolaire } from 'src/app/models/fraispayer.model';
-import { Observable, map, pipe, startWith, tap } from 'rxjs';
+import { Observable, finalize, map, pipe, startWith, tap } from 'rxjs';
 import { constantes } from 'src/environnements/constantes';
 import { GlobalService } from 'src/app/services/global.service';
 import { Actualite } from 'src/app/espace-eleve/models/actualite.model';
@@ -11,7 +11,7 @@ import { Abse, statAbsence } from 'src/app/eleve/models/absence.models';
 import { AbsenceService } from 'src/app/eleve/services/absence.service';
 import { DevoirEnseignant } from 'src/app/models/devoirs.model';
 import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { EleveService } from 'src/app/services/eleve.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,15 +20,13 @@ import { Tuteur } from '../model/response.model';
 import { PartageDesDonneesService } from '../Services/partage-des-donnees.service';
 import { ImageCropComponent } from 'src/app/core/image-crop/image-crop.component';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertComponent } from 'src/app/core/alert/alert.component';
 
 @Component({
-  selector: 'app-home-parent',
-  templateUrl: './home-parent.component.html',
-  styleUrls: ['./home-parent.component.scss']
+  selector: 'app-dashboard-parent',
+  templateUrl: './dashboard-parent.component.html',
+  styleUrls: ['./dashboard-parent.component.scss']
 })
-export class HomeParentComponent {
-
+export class DashboardParentComponent {
   emploiDuTempsIsLoad!: boolean
   routes = environment.routes.Eleve.espaceEleve;
   fraisIsLoad!: boolean;
@@ -46,29 +44,27 @@ export class HomeParentComponent {
   Famille!: ListeEleveSimplifie[]
   ElevesAbonnes!: ListeEleveSimplifie[]
   dataSource1: any;
-  image: any;
-  clickedElement: any;
+  image!: string
+  isloadphoto!: boolean
+  imageParDefaut = "assets/images/man-161282_640.png"
   photoEleve!: string
- ELEVEID!: number
   constructor(
     private eleveService: EleveService,
     private globalService: GlobalService,
-    private router : ActivatedRoute,
-    private dialog : MatDialog,
+    private router: Router,
+    private dialog: MatDialog,
     private actualiteService: ActualiteService,
     private absenceService: AbsenceService,
     private partageDesDonneesServices: PartageDesDonneesService
   ) {}
 
   ngOnInit(): void {
-
-  const IDELEVE = this.router.snapshot.params['IDELEVE']
-  this.ELEVEID = IDELEVE
-  const clickedElementJSON = localStorage.getItem('clickedElement');
-    if (clickedElementJSON) {
-      this.clickedElement = JSON.parse(clickedElementJSON);
+    const parentObj = localStorage.getItem(constantes.auth.parent)
+    if (parentObj) {
+      this.parent = JSON.parse(parentObj)
+      this.ListEleveAddByParents(this.parent.Tuteur.IDCOMPTE_UTILISATEUER)
     }
-    this.getimagesByeleve(IDELEVE)
+    console.log(this.parent);
   }
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -76,53 +72,78 @@ export class HomeParentComponent {
   @Output() eleveSelected = new EventEmitter<any>();
 
 
-
-  getimagesByeleve(IDeleve : number){
+  ListEleveAddByParents(parentID: number) {
     this.isLoading = true
-    this.eleveService.getPhotoEleveParent(IDeleve).subscribe(data => {
+    this.eleveService.getListEleveAddByParent(parentID).subscribe(data => {
       console.log(data);
-      this.image = data.Photo
-      if (this.image === '') {
-        this.image = "assets/images/man-161282_640.png"
-      }
       this.isLoading = false
+      this.Famille =  data.Famille
+      this.ElevesAbonnes = data.ElevesAbonnes      
+      if (this.Famille.length > 0) {
+        this.getImageUrlsForFamily(this.Famille);
+      }
+    })
+
+  }
+
+  convertToValideDates(Date: string) {
+    const year = Date.split('-')[0];
+    const month = Date.split('-')[1];
+    const day = Date.split('-')[2];
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+  }
+
+
+  setEleveSelected(elt: any) {
+    localStorage.setItem('eleveSelected', JSON.stringify(elt));
+    console.log(elt);
+    
+  }
+  
+  convertAmountToPercentage(total: number, rest_amount: number){
+     const resPercentage = (rest_amount * 100) / total;
+     return resPercentage;
+  }
+
+  getImageUrlsForFamily(eleves: ListeEleveSimplifie[]): void {
+    this.isloadphoto = true
+    eleves.forEach(eleve => {
+      console.log(eleve.IDELEVE);
+      this.eleveService.getPhotoEleveParent(eleve.IDELEVE).pipe(
+        tap(data => {
+          console.log(data);
+          eleve.Photo = data.Photo; 
+          if (eleve.Photo === '' ) {
+            eleve.Photo = this.imageParDefaut
+          }
+          this.isloadphoto = false
+        }),
+        finalize(() => {
+        })
+      ).subscribe()
+    });
+  }
+
+
+  getimagesByeleve(){
+    this.eleveService.getPhotoEleveParent(11).subscribe(data => {
+      console.log(data);
+      
     })
   }
   
-  openCropImage(){
-    const alert = this.dialog.open(AlertComponent)
-    alert.componentInstance.backgroundColor = "info"
-    alert.componentInstance.content = "Voulez-vous modifier cette image ?"
-    alert.afterClosed().subscribe(result  => {
-      if (result) {
-        const ref = this.dialog.open(ImageCropComponent, {
-          maxWidth: "650px"
-        })
-        ref.afterClosed().subscribe(result => {
-           if(ref.componentInstance.finalImage){
-            this.photoEleve = ref.componentInstance.finalImage;
-            this.image = this.photoEleve
-            if (this.image != '') {
-              this.isLoading = true
-              const objetPhoto = {
-                Photo: this.image
-              }
-              console.log(objetPhoto);
-              this.eleveService.updatephotoEleveParent(this.ELEVEID,objetPhoto).subscribe(data => {
-                console.log(data);
-                this.isLoading = false
-              } )
-            }else{
-              this.isLoading = false
-            }            
-           }
-        })
-      }
-    })
 
+onBlockClick(element: any) {
+  const elementEleveJSON = JSON.stringify(element);
+  localStorage.setItem('clickedElement', elementEleveJSON);
+  console.log(elementEleveJSON);
+  if (elementEleveJSON) {
+      this.router.navigateByUrl('espace-parent/eleve-parent/' + element.IDELEVE);
 
   }
 
 }
 
 
+}

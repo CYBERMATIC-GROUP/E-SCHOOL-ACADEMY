@@ -50,7 +50,7 @@ export class DevoirsComponent {
    }
 
   ngOnInit(): void {
-    const eleveSelectedString = localStorage.getItem('eleveSelected');
+    const eleveSelectedString = localStorage.getItem('clickedElement');
     if (eleveSelectedString !== null) {
       console.log(eleveSelectedString);
       this.eleve = JSON.parse(eleveSelectedString);

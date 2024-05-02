@@ -28,14 +28,14 @@ export class OptionsOperationsComponent {
 
     this.menus = [
       {
-        desination: "Saisie des opérations Divers",
+        desination: "Saisie des opérations diverses",
         logo: "../../assets/logo/Paiement_droits_scolaires.png",
         description: "",
         backColor: "#219ebc",
         link: "/saisie/operations/divers",
       },
       {
-        desination: "Journal d'opérations Divers",
+        desination: "Journal d'opérations diverses",
         logo: "../../assets/logo/Paiement_droits_scolaires.png",
         description: "../",
         backColor: "#219ebc",

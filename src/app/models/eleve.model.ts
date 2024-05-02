@@ -303,13 +303,16 @@ export  class EnvoieSMS {
 
   export class ListeEleveSimplifie{
     IDCLASSE!:number
+    Nom!: string
+    Prenom!:string
     IDELEVE!: number
     Metricule!: string
     NomPrenom!: string
     DateNaissance!: string
     LieuNaissance!: string
+    CouleurLigne!: string
     Classe!: string
     Photo!: string
-    ElevesAbonnes?: any
+    bAbonnementValide?: any
   }
   

@@ -38,7 +38,7 @@ export class AbsenceEleveComponent {
   ) {}
 
   ngAfterViewInit(): void {
-    const eleveSelectedString = localStorage.getItem('eleveSelected');
+    const eleveSelectedString = localStorage.getItem('clickedElement');
     if (eleveSelectedString !== null) {
       console.log(eleveSelectedString);
       this.eleve = JSON.parse(eleveSelectedString);
@@ -134,8 +134,7 @@ export class AbsenceEleveComponent {
       const day = ('0' + today.getDate()).slice(-2);
       const DateFin = `${year}${month}${day}`;
 
-      this.absences$ = this.eleveService
-        .getAbsenceForEleve(this.eleve.IDELEVE, this.dateDebut(), DateFin)
+      this.absences$ = this.eleveService.getAbsenceForEleve(this.eleve.IDELEVE, this.dateDebut(), DateFin)
         .pipe(
           tap((res) => {
             console.log(res);

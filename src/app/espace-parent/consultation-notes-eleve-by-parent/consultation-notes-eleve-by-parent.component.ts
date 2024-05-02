@@ -35,14 +35,14 @@ export class ConsultationNotesEleveByParentComponent {
   ) {}
 
   ngOnInit(): void {
-    const eleveSelectedString = localStorage.getItem('eleveSelected');
+    const eleveSelectedString = localStorage.getItem('clickedElement');
     if (eleveSelectedString !== null) {
       console.log(eleveSelectedString);
       this.eleve = JSON.parse(eleveSelectedString);
-      this.matiereList$ = this.matiereService
-        .gerMatiereForEleve(this.eleve.IDELEVE)
+      this.matiereList$ = this.matiereService.gerMatiereForEleve(this.eleve.IDELEVE)
         .pipe(
           tap((res) => {
+            console.log(res);
             this.matiereSelected = res[0];
             this.loadReleveNote();
           })
@@ -64,15 +64,16 @@ export class ConsultationNotesEleveByParentComponent {
   }
 
   loadReleveNote() {
-    if (this.matiereSelected && this.trimestre) {
+    console.log(this.eleve.IDELEVE, this.trimestre);
+    
+    if (this.matiereSelected && this.trimestre, this.trimestre) {
       this.noteEleve$ = this.noteService
         .getRelveNoteForOneStudent(
-          this.eleve.IDELEVE,
-          this.matiereSelected.IDMATIERE,
+          this.eleve.IDELEVE,0,
           this.trimestre
         )
         .pipe(
-          tap((res) => {
+          tap((res) => {            
             console.log(res);
           })
         );

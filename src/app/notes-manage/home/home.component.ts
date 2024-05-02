@@ -98,41 +98,34 @@ export class HomeComponent implements OnInit {
         link: '/absence-agent'
       },
       {
-        desination: "Absence enseignant",
-        logo: "resultat_scolaire.png",
-        description: "Saisie des absences enseignants",
-        backColor: "#00d0ef",
-        notReady: true
-      },
-      {
         desination: "Résultats Scolaires",
         logo: "releves_notes.png",
         description: "Classement/tableau d'honneur ...",
         backColor: "#7b4bce ",
         right: true,
         link: '/classement-releve-notes-eleve'
-      },
-      {
-        desination: "Tableau de discipline",
-        logo: "Planning.png.png",
-        description: "Tableau de discipline par mérite",
-        backColor: "#186F65",
-        notReady: true
-      },
-      {
-        desination: "Tableau d'honneur global",
-        logo: "Planning.png.png",
-        description: ".../",
-        backColor: "#186F65",
-        notReady: true
-      },
-      {
-        desination: "Taux de réussite",
-        logo: "Planning.png.png",
-        description: "Taux de réussite par discipline",
-        backColor: "#186F65",
-        notReady: true
-      },
+      }
+      // {
+      //   desination: "Tableau de discipline",
+      //   logo: "Planning.png.png",
+      //   description: "Tableau de discipline par mérite",
+      //   backColor: "#186F65",
+      //   notReady: true
+      // },
+      // {
+      //   desination: "Tableau d'honneur global",
+      //   logo: "Planning.png.png",
+      //   description: ".../",
+      //   backColor: "#186F65",
+      //   notReady: true
+      // },
+      // {
+      //   desination: "Taux de réussite",
+      //   logo: "Planning.png.png",
+      //   description: "Taux de réussite par discipline",
+      //   backColor: "#186F65",
+      //   notReady: true
+      // },
 
     ]
   }

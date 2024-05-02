@@ -182,7 +182,7 @@
               type="button"
               (click)="edit(element.IDMOUVEMENT)"
               [disabled]="element.Valide"
-              class="btn border bg-table-color text-white text-lowercase py-0 px-1"
+              class="btn border bg-table-color text-white py-0 px-1"
             >
               <span>Modifié</span>
               <i class="fa fa-pencil px-1 text-white" aria-hidden="true"></i>
@@ -191,9 +191,9 @@
               type="button"
               [disabled]="element.Valide"
               (click)="delete(element)"
-              class="btn border bg-danger text-white text-lowercase px-1 py-0"
+              class="btn border bg-danger text-white  px-1 py-0"
             >
-              <span>supprimé</span>
+              <span>Supprimé</span>
               <i class="fa fa-trash px-1 text-white" aria-hidden="true"></i>
             </button>
             <button
@@ -204,7 +204,7 @@
                 'bg-red': !element.Valide,
                 'bg-green': element.Valide
               }"
-              class="btn border text-white text-lowercase py-0 px-1"
+              class="btn border text-white py-0 px-1"
             >
               <span>Validé</span>
               <i
