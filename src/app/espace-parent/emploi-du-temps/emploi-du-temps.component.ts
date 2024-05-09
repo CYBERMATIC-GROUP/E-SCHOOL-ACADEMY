@@ -30,6 +30,7 @@ export class EmploiDuTempsComponent {
     { name: 'Dimanche', id: 7 },
   ];
   eleve: any;
+  isloadingEmploiDuTemps!: boolean
 
   constructor(
     private route: ActivatedRoute,
@@ -39,12 +40,12 @@ export class EmploiDuTempsComponent {
   ngOnInit(): void {
     const eleveSelectedString = localStorage.getItem('clickedElement');
     if (eleveSelectedString !== null) {
+      this.isloadingEmploiDuTemps = true
       console.log(eleveSelectedString);
       this.eleve = JSON.parse(eleveSelectedString);
-      this.emploidutempsService
-      .getEmploisDutemps(this.eleve.IDCLASSE, 0, 0, 0, 0, 0)
-      .subscribe((data) => {
+      this.emploidutempsService.getEmploisDutemps(this.eleve.IDCLASSE, 0, 0, 0, 0, 0).subscribe((data) => {
         console.log(data);
+        this.isloadingEmploiDuTemps = false
         this.seances = data.Seance
         this.dataSource = data.tabEmploiDuTemps
       });

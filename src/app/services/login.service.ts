@@ -48,7 +48,7 @@ export class LoginService {
       Login: connexion.sLogin,
       MotDePasse: connexion.sMotDePasse
     }
-    const uri = 'ELEVE_Connexion/' + connexion.sLogin + '/'+connexion.sMotDePasse;
+    const uri = 'ELEVE_Connexion/' + "0000" + '/'+ "0000";
     //return this.globalService.setHttpRequest(uri, "POST", {});
     return this.http.post(environment.apiUrl + uri, payload, { headers: headerInit, observe: 'response' });
   }

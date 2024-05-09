@@ -51,22 +51,22 @@
               <li class="nav-item pl-1">
                 <a
                   class="nav-link"
-                  [routerLink]="agent ? '/dashboard' : '/' + routesEleve.base"
+                  [routerLink]="agent ? '/dashboard' : '/' + 'espace-parent'"
                   routerLinkActive="active"
                   [routerLinkActiveOptions]="{ exact: true }"
                   ><i class="fa fa-th-list fa-fw mr-1"></i>Tableau-de-bord</a
                 >
               </li>
-              <li class="nav-item pl-1">
+              <!-- <li class="nav-item pl-1">
                 <a class="nav-link" routerLink="/"
                   ><i class="fa fa-phone fa-fw fa-rotate-180 mr-1"></i
                   >Assistance-Cybermatic</a
                 >
-              </li>
+              </li> -->
               <li class="nav-item pl-1">
                 <a
                   class="nav-link"
-                  [routerLink]="eleve ? '/fiche-eleve' : '/profile'"
+                  [routerLink]="eleve ? '/fiche-eleve' : '/espace-parent/profile-parent'"
                   ><i class="fa fa-user-plus fa-fw mr-1"></i>Profile</a
                 >
               </li>

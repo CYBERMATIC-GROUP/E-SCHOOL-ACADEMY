@@ -11,13 +11,14 @@ import {
   TabConfigNote,
   TbLesNote,
 } from 'src/app/espace-eleve/models/note-eleve.model';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-consultation-notes-eleve-by-parent',
   templateUrl: './consultation-notes-eleve-by-parent.component.html',
   styleUrls: ['./consultation-notes-eleve-by-parent.component.scss'],
 })
-export class ConsultationNotesEleveByParentComponent {
+export class ConsultationNotesEleveByParentComponent implements OnInit {
   matiereList$!: Observable<Matiere[]>;
   eleve!: any;
   dataSource!: any;
@@ -27,30 +28,47 @@ export class ConsultationNotesEleveByParentComponent {
   etatNote = etatNote;
   displayedColumns = [];
   parent: any;
+  isloadnoteByEleve!: boolean
+  matiereRequestCount: number = 0; // Ajout du compteur
+
+  displayedColumns2 = [
+    "Fr_CodeMatiere",
+    "Fr_NomMatiere",
+    "enseignant"
+  ]
 
   constructor(
     private matiereService: MatiereService,
     private noteService: NotesService,
-    private partagedesDonneesServices: PartageDesDonneesService
+    private globalService : GlobalService,
   ) {}
 
   ngOnInit(): void {
-    const eleveSelectedString = localStorage.getItem('clickedElement');
-    if (eleveSelectedString !== null) {
-      console.log(eleveSelectedString);
-      this.eleve = JSON.parse(eleveSelectedString);
-      this.matiereList$ = this.matiereService.gerMatiereForEleve(this.eleve.IDELEVE)
-        .pipe(
-          tap((res) => {
-            console.log(res);
-            this.matiereSelected = res[0];
-            this.loadReleveNote();
-          })
-        );
-    } else {
-      console.log("Aucune valeur n'a été trouvée dans le stockage local pour la clé 'eleveSelected'.");
+    const elevestorage = localStorage.getItem('clickedElement');
+    if (elevestorage !== null) {
+      this.eleve = JSON.parse(elevestorage);
+      console.log(this.eleve.IDELEVE, this.eleve.Nom);
+      this.loadMatiereList();
     }
   }
+
+  loadMatiereList(): void {
+    this.matiereRequestCount++; // Incrémentation du compteur à chaque fois que la requête est effectuée
+    console.log(this.matiereRequestCount++);
+    this.matiereList$ = this.matiereService.gerMatiereForEleve(this.eleve.IDELEVE).pipe(
+      tap((res) => {
+        console.log(res);
+        if (res.length > 0) {
+          this.matiereSelected = res[0];
+          this.loadReleveNote();
+        } else {
+          this.globalService.toastShow('Aucune matière trouvée.','Informations');
+          console.log("Aucune matière n'a été trouvée.");
+        }
+      })
+    );
+  }
+
 
   onChangeTrimestre(event: any) {
     this.trimestre = event.target.value;
@@ -64,16 +82,15 @@ export class ConsultationNotesEleveByParentComponent {
   }
 
   loadReleveNote() {
-    console.log(this.eleve.IDELEVE, this.trimestre);
-    
-    if (this.matiereSelected && this.trimestre, this.trimestre) {
+    if (this.matiereSelected && this.trimestre) {
       this.noteEleve$ = this.noteService
         .getRelveNoteForOneStudent(
-          this.eleve.IDELEVE,0,
+          this.eleve.IDELEVE,
+          this.matiereSelected.IDMATIERE,
           this.trimestre
         )
         .pipe(
-          tap((res) => {            
+          tap((res) => {
             console.log(res);
           })
         );

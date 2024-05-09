@@ -17,6 +17,8 @@ import { HttpResponse } from '@angular/common/http';
 import { AlertComponent } from 'src/app/core/alert/alert.component';
 import { finalize, tap } from 'rxjs';
 import { WaitingPayementComponent } from '../waiting-payement/waiting-payement.component';
+import { AlertParentComponent } from '../alert-parent/alert-parent.component';
+
 @Component({
   selector: 'app-search-eleve-parent',
   templateUrl: './search-eleve-parent.component.html',
@@ -27,7 +29,6 @@ export class SearchEleveParentComponent {
   displayedColumns = [
     'Metricule',
     'NomPrenom',
-    'LieuNaissance',
     'Classe',
     'Actions',
   ];
@@ -35,6 +36,7 @@ export class SearchEleveParentComponent {
   header!: header;
   Nom!: string;
   Prenom!: string;
+  eleveSelected!: ListeEleveSimplifie;
   modelSearcheleveSimplifie!: SearchEleveSimplifie;
 
   constructor(
@@ -96,7 +98,7 @@ export class SearchEleveParentComponent {
 
   AddEleve(element: ListeEleveSimplifie) {
     console.log(element);
-    const ref = this.dialog.open(AlertComponent);
+    const ref = this.dialog.open(AlertParentComponent);
     ref.componentInstance.type = 'info';
     ref.componentInstance.content =
       "Voulez-vous Ajouter l'élève " + element.NomPrenom + '?';
@@ -123,16 +125,34 @@ export class SearchEleveParentComponent {
     });
   }
 
-  WaintingpayementByMOMO(element:ListeEleveSimplifie){
-    const ref = this.dialog.open(AlertComponent);
+  addEleve(element: ListeEleveSimplifie) {
+    console.log(element);
+    const ref = this.dialog.open(AlertParentComponent);
     ref.componentInstance.type = 'info';
-    ref.componentInstance.content = "Vous allez proceder a un payement de 100 FRCFA pour ajouter l'eleve " + element.NomPrenom + '?';
+    ref.componentInstance.content =
+      "Voulez-vous ajouter l'élève " + element.NomPrenom + '?';
     ref.afterClosed().subscribe((result) => {
       if (result) {
-        const dialog = this.dialog.open(WaitingPayementComponent)
-        dialog.componentInstance.IDEleve = element.IDELEVE
-      } 
+        this.isLoading = true;
+        this.eleveService
+          .AddEleveByParent(element.IDELEVE)
+          .subscribe((data) => {
+            console.log(data);
+            this.isLoading = false;
+            this.globalService.toastShow('Élève ajouté avec succès', 'Succès');
+            const alert = this.dialog.open(AlertParentComponent);
+            alert.componentInstance.type = 'info';
+            alert.componentInstance.content = "Voulez-vous ajouter un autre élève ?";
+            alert.afterClosed().subscribe(result => {
+              if (!result)
+                this.router.navigateByUrl('espace-parent');
+            } )
+          });
+      }
     });
- 
+  }
+
+  onClickLine(eleve: ListeEleveSimplifie) {
+    this.eleveSelected = eleve;
   }
 }

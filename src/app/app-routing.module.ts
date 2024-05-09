@@ -125,6 +125,7 @@ import { OperationsDiversesComponent } from './operations-diverses/operations-di
 import { OptionsOperationsComponent } from './operations-diverses/options-operations/options-operations.component';
 import { SaisieOperationsDiversComponent } from './operations-diverses/saisie-operations-divers/saisie-operations-divers.component';
 import { RetraitEspaceCaisseComponent } from './comptabilite/retrait-espace-caisse/retrait-espace-caisse.component';
+import { CreateCompteComponent } from './login-form/create-compte/create-compte.component';
 
 
 const routes: Routes = [
@@ -139,6 +140,7 @@ const routes: Routes = [
   {path: "envois-sms", component: EnvoisSmsComponent},
   {path: "liasse", component: LiasseComponent},
   {path: "absence-agent", loadChildren: () => import("./agent/absence-agent/absence-agent.module").then(m => m.AbsenceAgentModule)},
+  {path:'creation-compte-parent' ,  component: CreateCompteComponent},
 
 
   {path:'search-eleve-parent' ,  component: SearchEleveParentComponent},

@@ -15,6 +15,7 @@ import { AbsenceService } from 'src/app/eleve/services/absence.service';
 import { Eleve } from 'src/app/models/eleve.model';
 import { constantes } from 'src/environnements/constantes';
 import { EleveService } from 'src/app/espace-eleve/services/eleve.service';
+import { GlobalService } from 'src/app/services/global.service';
 @Component({
   selector: 'app-absence-eleve',
   templateUrl: './absence-eleve.component.html',
@@ -29,11 +30,12 @@ export class AbsenceEleveComponent {
   statAbsence!: statAbsence;
   eleve!: any;
   isLoading!: boolean;
-
+DateDeFin!: string
   constructor(
     private route: ActivatedRoute,
     private absenceService: AbsenceService,
     private datePipe: DatePipe,
+    private globalService : GlobalService,
     private eleveService: EleveService
   ) {}
 
@@ -123,7 +125,7 @@ export class AbsenceEleveComponent {
   }
 
   ngOnInit(): void {
-    const eleveSelectedString = localStorage.getItem('eleveSelected');
+    const eleveSelectedString = localStorage.getItem('clickedElement');
     if (eleveSelectedString !== null) {
       this.eleve = JSON.parse(eleveSelectedString);
       console.log(this.eleve);
@@ -134,18 +136,26 @@ export class AbsenceEleveComponent {
       const day = ('0' + today.getDate()).slice(-2);
       const DateFin = `${year}${month}${day}`;
 
-      this.absences$ = this.eleveService.getAbsenceForEleve(this.eleve.IDELEVE, this.dateDebut(), DateFin)
-        .pipe(
-          tap((res) => {
-            console.log(res);
-          })
-        );
-
+      this.DateDeFin = DateFin
+      this.abscence()
       const objEleve = localStorage.getItem(constantes.auth.eleve);
       if (objEleve) {
         this.eleve = JSON.parse(objEleve);
       }
     }
+  }
+
+  abscence(){
+    this.absences$ = this.eleveService.getAbsenceForEleve(this.eleve.IDELEVE, this.dateDebut(), this.DateDeFin)
+    .pipe(
+      tap((res) => {
+        console.log(res);
+        if (res.length == 0) {
+          this.globalService.toastShow('Aucune absence trouvée', 'Information')
+          
+        }
+      })
+    );
   }
 
   dateDebut() {

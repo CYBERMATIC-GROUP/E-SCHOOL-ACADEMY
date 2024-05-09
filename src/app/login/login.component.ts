@@ -225,6 +225,8 @@ export class LoginComponent implements OnInit{
 
   onSelectTypeUser(type: number){
     this.typeUserSelected = type
+    console.log(this.typeUserSelected );
+    
   }
 
   makeLoadSomeListInBack(){

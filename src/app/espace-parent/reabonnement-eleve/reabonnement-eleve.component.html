@@ -1,0 +1,98 @@
+<div class="row" style="background-color: orange !important;">
+  <div class="col-12">
+    <div class="card border-0">
+      <app-close-modal></app-close-modal>
+      <div class="card-body">
+        <h3 class="card-title" style="width: 26em">
+          <h1 class="fw-bold">Réabonnement de l'élève :  <span class="text-danger">{{objetreceveByparent.Nom}}</span></h1>
+        </h3>
+        <form
+          #natonaliteForm="ngForm"
+          class="g-3 needs-validation"
+        >
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label label"
+              >Référence</label
+            >
+            <select
+            *ngIf="!isLoadingservice; else loading"
+            class="form-select"
+            name="Reference"
+            [(ngModel)]="selectedService"
+            (change)="checkService(selectedService)"
+          >
+            <option
+              *ngFor="let service of Service"
+              [ngValue]="service"
+            >
+              {{ service.NomService }} / {{ service.Details }}
+            </option>
+          </select>
+          
+          </div>
+
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label label"
+              >Détail</label
+            >
+            <p class="form-control text-dark bg-light">{{this.Details}}</p>
+          </div>
+
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label label"
+              >Montant</label
+            >
+            <input
+            (change)="changeMontant($event)"
+              type="text"
+              class="form-control"
+              name="Montant"
+              [(ngModel)]="Montant"
+            />
+          </div>
+
+          <div class="mt-3">
+            <label for="validationCustom01" class="form-label label"
+              >Mobile du payeur</label
+            >
+            <input
+            (change)="changeMobile($event)"
+              type="text"
+              class="form-control"
+              name="MobilePayeur"
+              [(ngModel)]="MobilePayeur"
+            />
+          </div>
+
+          <div class="mt-3 m-auto" >
+            <button
+            (click)="Valider()"
+            [disabled]="!isFormValid()"
+              type="submit"
+              style="background-color: RGB(123 75 206);"
+              class="btn text-white form-control btn-primary"
+              *ngIf="!isLoadingverfy; else loading"
+            >
+              {{textvalidate}} <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+          </div>
+          <div class="mt-3 m-auto" *ngIf="!isbtnreprise">
+            <button
+            (click)="RepriseOperation()"
+              style="background-color: RGB(123 75 206);"
+              [disabled]="isbtnreprise"
+              class="btn text-white form-control btn-primary"
+              *ngIf="!isLoadingverfyreprise; else loading"
+            >
+            Vérifier le statut du paiement <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <app-loader></app-loader>
+  <p class="text-center text-danger">{{info}}</p>
+</ng-template>

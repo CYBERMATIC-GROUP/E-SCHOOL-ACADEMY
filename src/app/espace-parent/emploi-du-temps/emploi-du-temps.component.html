@@ -1,3 +1,8 @@
 <app-gabarit-parent>
-    <app-emplois-du-temps [seances]="seances" [dataSource]="dataSource" visitor="eleve"></app-emplois-du-temps>
+    <app-emplois-du-temps *ngIf="!isloadingEmploiDuTemps; else loader" [seances]="seances" [dataSource]="dataSource" visitor="eleve"></app-emplois-du-temps>
 </app-gabarit-parent>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+    <p class="text-center text-white fw-bold">Chargement de l'emploi du temps </p>
+  </ng-template>

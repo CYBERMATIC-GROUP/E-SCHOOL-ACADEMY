@@ -12,6 +12,7 @@ import { header } from '../models/header.model';
 import { environment } from 'src/environnements/environnement.prod';
 import { Demande_de_payement } from '../espace-parent/model/model.payement';
 import { VerifyStatusPayement } from '../espace-parent/model/model.verifysatatus.paiement';
+import { ReabonnementModel } from '../espace-parent/model/reabonnement.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -426,19 +427,23 @@ export class EleveService {
     console.log(nIDEleve);
     const BASE_PATH = `UTILISATEUR_Supprime_Eleve/${nIDEleve}`;
     const headers = this.globalService.getHeadersParent();
+    console.log(environment.apiUrl + BASE_PATH);
     return this.http.delete(environment.apiUrl + BASE_PATH , { headers: headers });
   }
 
-  DemandePayement(demande: Demande_de_payement): Observable<any> {
-    console.log(demande);
+  DemandePayement(demande: ReabonnementModel): Observable<any> {
     const headers = this.globalService.getHeadersParent();
     return this.http.post(environment.apiUrl + 'UTILISATEUR_Demande_Paiement', demande, { headers: headers });
   }
-
   DemandeStatutPayement(demandestatut: VerifyStatusPayement): Observable<any>  {
-    console.log(demandestatut);
     const headers = this.globalService.getHeadersParent();
     return this.http.post(environment.apiUrl + 'MOBILE_MONEY_Get_Statut_Opération', demandestatut, { headers: headers });
   }
 
+
+  getListService(): Observable<any> {
+    const BASE_PATH = 'UTILISATEUR_Liste_Services';
+    const headers = this.globalService.getHeadersParent();
+    return this.http.get(environment.apiUrl + BASE_PATH , { headers: headers });
+  }
 }

@@ -1,49 +1,138 @@
 <app-gabarit-parent pageTitle="ESPACE PARENT">
-  <div class="col-lg-10 bg-light pt-3 m-lg-auto">
-    <div class="row m-3 p-3 rounded rounded-5 shadow">
-      <div class="col-lg-3">
-        <div class="image-container  w-100" *ngIf="!isLoading; else loader">
-          <img class="img-fluid w-100" [src]="image" alt="" />
+  <div class="col-lg-11 bg-light pt-3 m-lg-auto">
+    <!-- vue sur mobile -->
+    <div class="blockmobile">
+      <div
+        class="row border p-2 rounded rounded-5"
+        style="border: 1px solid #fa8d00"
+      >
+        <div class="col-4 p-0" style="padding-top: 10px">
+          <div
+            style="height: 150px"
+            class="w-100"
+            *ngIf="!isloadmobile; else loader"
+          >
+            <img
+              class="w-100 img-fluid"
+              [src]="image"
+              alt="Photo de l'élève"
+              style="object-fit: contain; width: 100em; height: 100%"
+            />
+          </div>
+        </div>
+
+        <div class="col-8 text-start">
+          <div class="text-start blockinfo fw-bold pt-3">
+            <p class="d-none d-lg-block">
+              <span>Matricule: </span>
+              <span>{{ clickedElement.Metricule }}</span>
+            </p>
+            <p>
+              <span>Nom: </span> <span>{{ clickedElement.Nom }}</span>
+            </p>
+            <p>
+              <span>Prénom: </span> <span>{{ clickedElement.Prenom }}</span>
+            </p>
+            <p class="d-none d-lg-block">
+              <span>Date de naiss: </span>
+              <span>{{
+                convertToValideDates(clickedElement.DateNaissance)
+              }}</span>
+            </p>
+            <p class="d-none d-lg-block">
+              <span>Lieu de naiss: </span>
+              <span>{{ clickedElement.LieuNaissance }}</span>
+            </p>
+            <p>
+              <span>Classe: </span> <span>{{ clickedElement.Classe }}</span>
+            </p>
+            <div class="col-lg-6 col-md-6 col-sm-6 p-0">
+              <p
+                class="p-2 rounded form-control text-white rounded-5"
+                [ngStyle]="{ 'background-color': clickedElement.CouleurLigne }"
+              >
+                {{
+                  clickedElement.bAbonnementValide == true
+                    ? "Abonnement en cours"
+                    : "Abonnement expiré"
+                }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="col-lg-12 p-0">
+              <div class="row">
+                <div (click)="openCropImage()" class="w-25 m-lg-auto">
+                  <img
+                    class="w-100 pointer"
+                    src="assets/images/photo-camera-2027073_640.png"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <div class="col-lg-6 text-start">
-        <div class="text-start fw-bold pt-3">
-          <p>
-            <span>Matricule : </span> <span>{{ clickedElement.Metricule }}</span>
-          </p>
-          <p>
-            <span>Nom : </span> <span>{{ clickedElement.NomPrenom }}</span>
-          </p>
-          <p>
-            <span>Prénom : </span> <span>{{ clickedElement.NomPrenom }}</span>
-          </p>
-          <p>
-            <span>Date de naissance : </span>
-            <span>{{ clickedElement.DateNaissance }}</span>
-          </p>
-          <p>
-            <span>Lieu de naissance : </span>
-            <span>{{ clickedElement.LieuNaissance }}</span>
-          </p>
-          <p>
-            <span>classe : </span> <span>{{ clickedElement.Classe }}</span>
-          </p>
-          <div class="col-6 p-0">
-            <p class="p-2 rounded text-white rounded-5 " [ngStyle]="{'background-color':clickedElement.CouleurLigne}">{{clickedElement.bAbonnementValide == true ? 'Abonnement en cours' : 'Abonnement expiré'}}</p>
+    </div>
+
+    <!-- vue sur pc -->
+    <div class="blockpc">
+      <div class="row m-3 p-3 rounded rounded-5 shadow">
+        <div class="col-lg-2">
+          <div class="image-container w-100" *ngIf="!isLoading; else loader">
+            <img class="img-fluid w-100" [src]="image" alt="" />
+          </div>
         </div>
+        <div class="col-lg-6 text-start">
+          <div class="text-start blockinfo fw-bold pt-3">
+            <p>
+              <span>Matricule : </span>
+              <span>{{ clickedElement.Metricule }}</span>
+            </p>
+            <p>
+              <span>Nom : </span> <span>{{ clickedElement.Nom }}</span>
+            </p>
+            <p>
+              <span>Prénom : </span> <span>{{ clickedElement.Prenom }}</span>
+            </p>
+            <p>
+              <span>Date de naissance : </span>
+              <span>{{
+                convertToValideDates(clickedElement.DateNaissance)
+              }}</span>
+            </p>
+            <p>
+              <span>Lieu de naissance : </span>
+              <span>{{ clickedElement.LieuNaissance }}</span>
+            </p>
+            <p>
+              <span>classe : </span> <span>{{ clickedElement.Classe }}</span>
+            </p>
+            <div class="col-lg-6 col-md-6 p-0">
+              <p
+                class="p-2 rounded form-control text-white rounded-5"
+                [ngStyle]="{ 'background-color': clickedElement.CouleurLigne }"
+              >
+                {{
+                  clickedElement.bAbonnementValide == true
+                    ? "Abonnement en cours"
+                    : "Abonnement expiré"
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 d-flex align-items-center justify-content-center">
+          <div (click)="openCropImage()" class="w-25 m-lg-auto">
+            <img
+              class="w-100 pointer"
+              src="assets/images/photo-camera-2027073_640.png"
+              alt=""
+            />
+          </div>
         </div>
       </div>
-      <div class="col-lg-3 d-flex align-items-center justify-content-center">
-        <div (click)="openCropImage()" class="w-25 m-lg-auto">
-          <img
-            class="w-100  pointer"
-            src="assets/images/photo-camera-2027073_640.png"
-            alt=""
-          />
-        </div>
-      </div>
-      
     </div>
 
     <div class="row">
@@ -137,7 +226,7 @@
             </div>
             <div
               class="card-sup pt-2 d-none d-sm-block w-100"
-              *ngIf="statAbsence$ | async as data"
+              *ngIf="statAbsence$ | async as data; else loader"
             >
               <div class="d-flex justify-content-end w-100">
                 <div class="text-end">
@@ -244,7 +333,7 @@
             <div
               id="actualites"
               class=""
-              *ngIf="actualites$ | async as actualites"
+              *ngIf="actualites$ | async as actualites; else loader"
             >
               <mat-card
                 class="example-card mb-3 border"

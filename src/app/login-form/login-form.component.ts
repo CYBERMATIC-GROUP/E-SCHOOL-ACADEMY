@@ -65,6 +65,11 @@ export class LoginFormComponent {
   ){}
 
   ngOnInit(){
+    const MobileTutteur = localStorage.getItem('Mobilephone');
+    if (MobileTutteur !== null) {
+        this.Mobile = JSON.parse(MobileTutteur);
+        console.log(this.Mobile);
+    }
     
     this.verifAnRedirectConnectedUser();
     const objHeader = localStorage.getItem('header');
@@ -134,13 +139,7 @@ export class LoginFormComponent {
   }
 
   openModalCreateCompte(){
-    const dialog = this.dialog.open(CreateCompteComponent,{disableClose: true})
-    dialog.id = 'LoginFormComponent'
-    dialog.afterClosed().subscribe(res => {
-      if (res) {
-        this.Mobile = dialog.componentInstance.Mobile
-      }
-    })
+    this.router.navigateByUrl('creation-compte-parent');
   }
 
 

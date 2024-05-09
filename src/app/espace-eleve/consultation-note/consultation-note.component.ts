@@ -35,6 +35,7 @@ export class ConsultationNoteComponent implements OnInit {
       this.eleve = JSON.parse(eleveObj)
       this.matiereList$ = this.matiereService.gerMatiereForEleve(this.eleve.IDCLASSES).pipe(
         tap(res => {
+          console.log(res);
           this.matiereSelected = res[0]
           this.loadReleveNote()
         })

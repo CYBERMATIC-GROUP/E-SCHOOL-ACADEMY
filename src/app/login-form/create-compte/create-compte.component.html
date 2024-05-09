@@ -1,130 +1,144 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-          <div class="card border-0">
-            <app-close-modal></app-close-modal>
-            <div class="card-body" style="width: 35em;">
-              <h3 class="card-title text-left" >
-                <h2 class="">
-                  {{ action === "view" ? "Fiche du compte " : "" }}
-                  {{ action === "edit" ? "Modifier le compte" : "" }}
-                  {{ action === "view" || action === "edit" ? Nom : "" }}
-                  <span>{{ !action ? "Creer votre compte parent en un click !" : "" }} </span> <span></span>
-                </h2>
-              </h3>
-              <form
-                #natonaliteForm="ngForm"
-                (ngSubmit)="onSubmitForm(natonaliteForm)"
-                class="g-3 needs-validation"
+<div class="pt-5 container ">
+  <div class="bg-light p-3  m-lg-auto">
+    <div class="card-body">
+      <h3 class="card-title text-left">
+        <h1 class="fw-bold p-3">
+          {{ action === "view" ? "Fiche du compte " : "" }}
+          {{ action === "edit" ? "Modifier le compte" : "" }}
+          {{ action === "view" || action === "edit" ? Nom : "" }}
+          <span>{{ !action ? "Création de compte !" : "" }} </span> <span></span>
+        </h1>
+      </h3>
+      <form
+        #natonaliteForm="ngForm"
+        (ngSubmit)="onSubmitForm(natonaliteForm)"
+        class="g-3 needs-validation"
+      >
+        <div class="row">
+          <div class="col-lg-6">
+            <label for="validationCustom01  " class="form-label label"
+              >CODE ECOLE</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control text-uppercase"
+              (blur)="onBlurCode($event)"
+              placeholder="Code Ecole"
+            />
+          </div>
+  
+          <div class="col-lg-6">
+            <label for="validationCustom01" class="form-label label"
+              >ANNEE SCOLAIRE</label
+            >
+            <select
+              (change)="selectedAnne($event)"
+              class="form-control"
+              *ngIf="!isloadingAnnee; else loading"
+            >
+              <option selected class="text-light">Selectionner une année</option>
+              <option
+                *ngFor="let annee of AnneeList"
+                [value]="annee.Annee1Annee2"
               >
-               <div class="row">
-                <div class=" col-lg-6">
-                  <label for="validationCustom01  " class="form-label label">CODE ECOLE</label>
-                  <input
-                    [readonly]="action == 'view'"
-                    type="text"
-                    class="form-control text-uppercase"
-                    (blur)="onBlurCode($event)"
-                    placeholder="Exemple: CTP"
-                  />
-                </div>
-
-                <div class=" col-lg-6">
-                  <label for="validationCustom01" class="form-label label">ANNEE SCOLAIRE</label>
-                    <select (change)="selectedAnne($event)" class="form-control" *ngIf="!isloadingAnnee; else loading">
-                      <option selected class="text-light">Selectionner une annee</option>
-                      <option *ngFor="let annee of AnneeList" [value]="annee.Annee1Annee2">
-                        {{annee.Annee1Annee2}}
-                      </option>
-                    </select>
-                </div>
-
-                <div class=" col-lg-6 mt-3">
-                    <label for="validationCustom01" class="form-label label">Nom</label>
-                    <input
-                      [readonly]="action == 'view'"
-                      type="text"
-                      class="form-control text-uppercase "
-                      name="Nom"
-                      [(ngModel)]="Nom"
-                    />
-                  </div>
-    
-                  <div class="col-lg-6 mt-3">
-                    <label for="validationCustom01" class="form-label label">Prénom</label>
-                    <input
-                      [readonly]="action == 'view'"
-                      type="text"
-                      class="form-control text-capitalize"
-                      name="Prenom"
-                      [(ngModel)]="Prenom"
-                    />
-                  </div>
-    
-                <div class="mt-3 col-lg-6">
-                    <label for="validationCustom01" class="form-label label">email</label>
-                    <input
-                      [readonly]="action == 'view'"
-                      type="email"
-                      class="form-control"
-                      name="email"
-                      [(ngModel)]="email"
-                    />
-                  </div>
-        
-                  <div class="mt-3 col-lg-6">
-                    <label for="validationCustom01" class="form-label label">Mobile </label>
-                    <input
-                      [readonly]="action == 'view'"
-                      type="text"
-                      class="form-control"
-                      placeholder="Exemple: 067445795"
-                      name="Mobile"
-                      [(ngModel)]="Mobile"
-                    />
-                  </div>
-    
-                  <div class="mt-3 col-lg-6">
-                    <label for="validationCustom01" class="form-label label">Mobile 2</label>
-                    <input
-                      [readonly]="action == 'view'"
-                      type="text"
-                      class="form-control"
-                      name="Mobile2"
-                      placeholder="Exemple: 067445795"
-                      [(ngModel)]="Mobile2"
-                    />
-                  </div>
-    
-                  <div class="mt-3 col-lg-6">
-                    <label for="validationCustom01" class="form-label label">Mot de passe</label>
-                    <input
-                      [readonly]="action == 'view'"
-                      type="text"
-                      class="form-control"
-                      name="Password"
-                      [(ngModel)]="Password"
-                    />
-                  </div>
-               </div>
-    
-                <div class="mt-3 m-auto" *ngIf="action != 'view'">
-                  <button
-                  style="background-color: #3f51b5;"
-                    type="submit"
-                    class="btn text-white form-control"
-                    *ngIf="!isLoading; else loading"
-                  >
-                    {{ action === "edit" ? "Modifier le compte " : "Valider" }}
-                  </button>
-                </div>
-              </form>
-            </div>
+                {{ annee.Annee1Annee2 }}
+              </option>
+            </select>
+          </div>
+  
+          <div class="col-lg-6 mt-3">
+            <label for="validationCustom01" class="form-label label">Nom</label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control text-uppercase"
+              name="Nom"
+              [(ngModel)]="Nom"
+            />
+          </div>
+  
+          <div class="col-lg-6 mt-3">
+            <label for="validationCustom01" class="form-label label"
+              >Prénom</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control text-capitalize"
+              name="Prenom"
+              [(ngModel)]="Prenom"
+            />
+          </div>
+  
+          <div class="mt-3 col-lg-6">
+            <label for="validationCustom01" class="form-label label">email</label>
+            <input
+              [readonly]="action == 'view'"
+              type="email"
+              class="form-control"
+              name="email"
+              [(ngModel)]="email"
+            />
+          </div>
+  
+          <div class="mt-3 col-lg-6">
+            <label for="validationCustom01" class="form-label label"
+              >Mobile
+            </label>
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control"
+              placeholder="mobile principale"
+              name="Mobile"
+              [(ngModel)]="Mobile"
+            />
+          </div>
+  
+          <div class="mt-3 col-lg-6">
+            <label for="validationCustom01" class="form-label label"
+              >Mobile 2</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control"
+              name="Mobile2"
+              placeholder="mobile secondaire"
+              [(ngModel)]="Mobile2"
+            />
+          </div>
+  
+          <div class="mt-3 col-lg-6">
+            <label for="validationCustom01" class="form-label label"
+              >Mot de passe</label
+            >
+            <input
+              [readonly]="action == 'view'"
+              type="text"
+              class="form-control"
+              name="Password"
+              [(ngModel)]="Password"
+            />
           </div>
         </div>
-      </div>
+  
+        <div class="mt-3 m-auto" *ngIf="action != 'view'">
+          <button
+            style="background-color: #3f51b5"
+            type="submit"
+            class="btn text-white form-control"
+            *ngIf="!isLoading; else loading"
+          >
+            {{ action === "edit" ? "Modifier le compte " : "Valider" }}
+          </button>
+        </div>
+      </form>
     </div>
-      <ng-template #loading>
-        <app-loader></app-loader>
-      </ng-template>
-      
+  </div>
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>
+  
+</div>

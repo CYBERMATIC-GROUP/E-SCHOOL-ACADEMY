@@ -205,8 +205,19 @@ ConfigMatiere(matiere: ConfigurationMatiere,nIDMAT_NIV_BRA:number): Observable<C
     return this.globalService.setHttpRequest(url, "DELETE", {})
   }
 
+
   gerMatiereForEleve(IDELEVE: number): Observable<Matiere[]> {
+    console.log(IDELEVE);
     const url = `ELEVE_Get_Matiere/${IDELEVE}`;
+    console.log(url);
+    return this.globalService.setHttpRequest(url, "GET")
+  }
+
+
+  gerMatieresForEleveNotes(IDELEVE: number): Observable<Matiere[]> {
+    console.log(IDELEVE);
+    const url = `ELEVE_Get_Matiere/${IDELEVE}`;
+    console.log(url);
     return this.globalService.setHttpRequest(url, "GET")
   }
   

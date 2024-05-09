@@ -27,6 +27,10 @@ export class MatiereEnseigneComponent implements OnInit {
   ngOnInit(): void {
     if(!this.matiereList$)
       this.matiereList$ = of([])
+    console.log(this.matiereList$.subscribe(data =>{
+      console.log(data)
+    } ));
+    
 
   }
 

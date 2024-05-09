@@ -20,6 +20,8 @@ import { Tuteur } from '../model/response.model';
 import { PartageDesDonneesService } from '../Services/partage-des-donnees.service';
 import { ImageCropComponent } from 'src/app/core/image-crop/image-crop.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent } from 'src/app/core/alert/alert.component';
+import { ReabonnementEleveComponent } from '../reabonnement-eleve/reabonnement-eleve.component';
 
 @Component({
   selector: 'app-dashboard-parent',
@@ -145,5 +147,44 @@ onBlockClick(element: any) {
 
 }
 
+deleteEleve(element: ListeEleveSimplifie) {
+  console.log(element);
+  const ref = this.dialog.open(AlertComponent);
+  ref.componentInstance.type = 'danger';
+  ref.componentInstance.content =
+    'Voulez vous supprimer cet eleve ' + element.NomPrenom + '?';
+  ref.afterClosed().subscribe((result) => {
+    if (result) {
+      this.isLoading = true
+      this.eleveService.delteEleveByParent(element.IDELEVE).pipe(
+          tap((data) => {
+            console.log(data);
+            this.globalService.toastShow(
+              'Cet eleve a été supprimé avec succès !',
+              'Supression'
+            );
+          }),
+          finalize(() => {
+            this.isLoading = false
+          })
+        )
+        .subscribe();
+    }
+  });
+}
 
+reabonnement(objet: ListeEleveSimplifie){
+  console.log(objet);
+  const dialog = this.dialog.open(ReabonnementEleveComponent)
+  dialog.componentInstance.objetreceveByparent = objet
+  dialog.componentInstance.MobilePayeur = this.parent.Tuteur.Mobile
+  dialog.componentInstance.IDTuteur = this.parent.Tuteur.IDCOMPTE_UTILISATEUER
+  dialog.id = 'ReabonnementEleveComponent'
+  dialog.afterClosed().subscribe(result => {
+    if(result){
+      this.globalService.toastShow('Payement effectué', 'Succès');
+    }
+  })
+
+}
 }

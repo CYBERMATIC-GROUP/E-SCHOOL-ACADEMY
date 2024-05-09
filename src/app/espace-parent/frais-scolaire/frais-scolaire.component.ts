@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { EleveService } from 'src/app/services/eleve.service';
+import { EleveService } from 'src/app/services/eleve.service'; 
 import { constantes } from 'src/environnements/constantes';
 import { Eleve } from 'src/app/models/eleve.model';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { FraisScolaire } from 'src/app/models/fraispayer.model';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs';
 import { MatAccordion } from '@angular/material/expansion';
 import { GlobalService } from 'src/app/services/global.service';
-
+import { FraisScolaire } from 'src/app/models/fraispayer.model';
+import { FraisPayerService } from 'src/app/services/frais-payer.service';
 @Component({
   selector: 'app-frais-scolaire',
   templateUrl: './frais-scolaire.component.html',
@@ -22,7 +22,7 @@ import { GlobalService } from 'src/app/services/global.service';
   ],
 })
 export class FraisScolaireComponent implements OnInit, OnDestroy {
-  eleve!: Eleve
+  eleve!: any
 
   dataSource!: FraisScolaire[];
   columnsToDisplay = ['sLibelleProduit'];
@@ -34,34 +34,40 @@ export class FraisScolaireComponent implements OnInit, OnDestroy {
   constructor(
     private eleveService: EleveService,
     private route: ActivatedRoute,
+    private fraisScolaireService : FraisPayerService,
     public globalService: GlobalService
   ){}
 
   ngOnInit(): void {
-
     const eleveSelectedString = localStorage.getItem('clickedElement');
-    if (eleveSelectedString !== null) {
-      console.log(eleveSelectedString);
+    if(eleveSelectedString){
       this.eleve = JSON.parse(eleveSelectedString);
+      console.log(this.eleve);
+      
       this.initDataFraisScolaire(this.eleve.IDELEVE)
-    } else {
-      console.log("Aucune valeur n'a été trouvée dans le stockage local pour la clé 'eleveSelected'.");
     }
   }
 
   ngOnDestroy(): void {
       console.log('end');
-
   }
 
   initDataFraisScolaire(idEleve: number) {
-    this.route.data.pipe(
-      tap(res => {
-        console.log(res['fraisScolaire']);
-        this.dataSource = res['fraisScolaire']['FraisScolaires']
-
+    console.log(idEleve);
+      this.fraisScolaireService.getFraisScolaire(idEleve).subscribe(res  => {
+        console.log(res);
+        this.dataSource = res.FraisScolaires
+        console.log(this.dataSource);
       })
-    ).subscribe()
+  }
+
+
+  convertToValideDates(Date: string) {
+    const year = Date.split('-')[0];
+    const month = Date.split('-')[1];
+    const day = Date.split('-')[2];
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
   }
 
 }
@@ -164,4 +170,4 @@ const ELEMENT_DATA: PeriodicElement[] = [
         Neon is a colorless, odorless, inert monatomic gas under standard conditions, with about
         two-thirds the density of air.`,
   },
-]
+];

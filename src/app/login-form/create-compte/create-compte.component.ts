@@ -137,9 +137,8 @@ export class CreateCompteComponent {
                dialog.id = 'CreateCompteComponent';
                dialog.afterClosed().subscribe((res) => {
                  if (res) {
-                   this.dialog
-                     .getDialogById('CreateCompteComponent')
-                     ?.close(true);
+                  this.router.navigateByUrl('login-form');
+                  localStorage.setItem('Mobilephone', this.Mobile);
                  }
                });
           }),

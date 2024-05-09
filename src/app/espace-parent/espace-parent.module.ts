@@ -30,9 +30,16 @@ import { FormsModule } from '@angular/forms';
 import { FraisScolaireComponent } from './frais-scolaire/frais-scolaire.component';
 import { InfoEcheanceComponent } from './frais-scolaire/info-echeance/info-echeance.component';
 import { DashboardParentComponent } from './dashboard-parent/dashboard-parent.component';
+import { StateComponent } from './state/state.component';
+import { ReabonnementEleveComponent } from './reabonnement-eleve/reabonnement-eleve.component';
+import { CreateCompteComponent } from '../login-form/create-compte/create-compte.component';
+import { ProfileParentComponent } from './profile-parent/profile-parent.component';
+import { AlertParentComponent } from './alert-parent/alert-parent.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes : Routes = [
     {path:'' ,  component: DashboardParentComponent},
+    {path:'profile-parent' ,  component: ProfileParentComponent},
     {path:'frais-scolaire' ,  component: FraisScolaireComponent},
     {path:'absenece-eleve' ,  component: AbsenceEleveComponent},
     {path:'devoirs' ,  component: DevoirsComponent},
@@ -62,6 +69,10 @@ const routes : Routes = [
         FraisScolaireComponent,
         InfoEcheanceComponent,
         DashboardParentComponent,
+        StateComponent,
+        ReabonnementEleveComponent,
+        ProfileParentComponent,
+        AlertParentComponent,
     ],
     imports: [
         CommonModule,
@@ -69,6 +80,7 @@ const routes : Routes = [
         MatPaginatorModule,
         MatExpansionModule,
         MatTableModule,
+        MatDialogModule,
         MatCardModule,
         MatButtonModule,
         MatButtonModule,

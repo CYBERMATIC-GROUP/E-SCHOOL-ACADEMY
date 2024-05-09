@@ -41,6 +41,7 @@ export class ValidationCompteComponent {
             console.log(data);
             this.dialog.closeAll()
             this.globalService.toastShow('Compte créé et validé avec succès','validation du compte')
+            this.globalService.reloadComponent('/connexion-form')
           }),
           finalize(() => {
             this.isLoading = false;

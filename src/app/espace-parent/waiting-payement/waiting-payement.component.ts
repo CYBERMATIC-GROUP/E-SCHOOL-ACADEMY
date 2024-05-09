@@ -56,7 +56,7 @@ export class WaitingPayementComponent {
 
   waitingpayementparent() {
     this.isloadiang = true;
-    const modelSend: Demande_de_payement = {
+    const modelSend: any = {
       Code_Etab: this.header.CODE_ECOLE,
       Montant: 10,
       NumeroOperation: '',
