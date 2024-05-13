@@ -126,11 +126,13 @@ import { OptionsOperationsComponent } from './operations-diverses/options-operat
 import { SaisieOperationsDiversComponent } from './operations-diverses/saisie-operations-divers/saisie-operations-divers.component';
 import { RetraitEspaceCaisseComponent } from './comptabilite/retrait-espace-caisse/retrait-espace-caisse.component';
 import { CreateCompteComponent } from './login-form/create-compte/create-compte.component';
-
+import { SaisieNotesComponent } from './notes-manage/saisie-notes/saisie-notes.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "connexion", component: LoginComponent},
+  {path: "saisie-note/:trimestre", component: SaisieNotesComponent},
+
   {path: "validation-compte", component: ValidationCompteComponent},
   {path: "connexion-form", component: LoginFormComponent},
   {path: "connexion/:code", component: LoginComponent},

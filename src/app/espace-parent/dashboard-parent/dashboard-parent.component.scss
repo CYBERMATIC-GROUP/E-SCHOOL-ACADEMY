@@ -96,6 +96,38 @@ blockquote{
  height: 183 px ;
 
 }
-.blockinfo > p {
+.blockinfo > .lineH {
   line-height: .5;
+}
+
+.blockinfo > .NP {
+  line-height: .5;
+}
+.reabonnement{
+  padding: 10px;
+}
+.btndelete{
+  padding: 10px;
+}
+@media screen and (max-width: 900px) {
+  .reabonnement{
+    height: 30px !important;
+    margin-top: -8px !important;
+    padding: 5px;
+
+  }
+  .btndelete{
+    height: 30px !important;
+    margin-top: -8px !important;
+    padding: 5px;
+  }
+  
+  .blockinfo > .NP {
+    line-height: 1;
+    margin-top: -5px;
+  }
+  .blockinfo > .lineH {
+    line-height: .5;
+    margin-top: -5px;
+  }
 }

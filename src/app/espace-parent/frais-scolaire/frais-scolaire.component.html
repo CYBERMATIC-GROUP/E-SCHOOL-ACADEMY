@@ -1,29 +1,51 @@
 <app-gabarit-parent>
   <div class="container-fuild m-3">
-    <div class="example-action-buttons">
+
+    <div class="row">
       <h2 class="text-dark p-2 bg-light rounded rounded-5">
         Etat de paiement des frais scolaires de l'élève :
         <span class="text-danger">{{ eleve.NomPrenom }}</span>
       </h2>
     </div>
+
     <div
       class="row rounded rounded-5 p-3 bg-light"
       *ngIf="dataSource; else loader"
     >
       <div
-        class="col-lg-3 col-md-6 mt-2 hoverblockpayement p-2 rounded rounded-5 border"
+        class="col-lg-3 col-md-6 pointer mt-2 hoverblockpayement p-2 rounded rounded-5 border"
         *ngFor="let frais of dataSource"
+        (click)="paiementfraisEleveByparent()"
       >
         <div class="row">
           <div class="col-lg-4 col-md-4">
-            <div>
-              <img
+            <div class="row">
+              <div class="col-6">
+              <div class="imagepaiement">
+                <img
                 src="assets/logo/Etats_de_paiement_droits_scoalires.png"
                 alt=""
               />
+              </div>
+              </div>
+              <div class="col-6">
+                <div class="d-block d-lg-none">
+                  <img
+                    class="resimage"
+                    src="assets/images/MTN Airtel money.jpg"
+                    alt=""
+                  />
+                </div>
+              </div>
             </div>
             <div>
-              <img class="imagemtn" src="assets/images/MTN Airtel money.jpg" alt="">
+              <div class="d-none d-lg-block">
+                <img
+                  class="imagemtn"
+                  src="assets/images/MTN Airtel money.jpg"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
           <div class="col-lg-8 col-md-8">
@@ -53,56 +75,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <mat-accordion *ngIf="dataSource; else loader">
-    <mat-expansion-panel
-      *ngFor="let item of dataSource"
-      (opened)="panelOpenState = true"
-      (closed)="panelOpenState = false"
-    >
-      <mat-expansion-panel-header class="py-2">
-        <mat-panel-title>
-          {{ item.sLibelleProduit }}
-        </mat-panel-title>
-        <mat-panel-description class="d-none d-md-block">
-          {{ item.DateEcheance | date : "short" }}
-          <mat-icon>date_range</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div>
-        <table class="table table-primary table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Date échéance</th>
-              <th scope="col">{{ item.DateEcheance | date }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row" class="py-1">Montant</th>
-              <td class="py-1">
-                {{ globalService.formatPrix(item.MontantTotal, " ") }}
-              </td>
-            </tr>
-
-            <tr>
-              <th scope="row" class="py-1">Payé</th>
-              <td class="py-1">
-                {{ globalService.formatPrix(item.Deja_Paye, " ") }}
-              </td>
-            </tr>
-
-            <tr>
-              <th scope="row" class="py-1">Reste à payer</th>
-              <td class="py-1">
-                {{ globalService.formatPrix(item.Reste_A_Payer, " ") }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion> -->
 </app-gabarit-parent>
 
 <ng-template #loader>

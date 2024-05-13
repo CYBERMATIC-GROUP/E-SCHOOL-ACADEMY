@@ -105,10 +105,14 @@ th{
 }
 
 .col-lg-8 h3 {
-  line-height: .6;
+  line-height: 1;
 }
 .imagemtn{
   float: right;
+  width: 60px;
+  max-width: 60px;
+}
+.resimage{
   width: 60px;
   max-width: 60px;
 }
@@ -120,5 +124,17 @@ th{
     margin-right: 30px !important;
     max-width: 60px;
     margin-bottom:  20px !important;
+  }
+  .imagepaiement{
+    margin-top: -5px !important;
+  }
+  .resimage{
+    width: 60px;
+    max-width: 60px;
+    margin-top: 10px !important;
+  }
+  .col-lg-8 h3 {
+    line-height: 1;
+    margin-top: 5px !important;
   }
 }

@@ -9,6 +9,9 @@ import { MatAccordion } from '@angular/material/expansion';
 import { GlobalService } from 'src/app/services/global.service';
 import { FraisScolaire } from 'src/app/models/fraispayer.model';
 import { FraisPayerService } from 'src/app/services/frais-payer.service';
+import { PaiementFraisScolaireComponent } from './paiement-frais-scolaire/paiement-frais-scolaire.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-frais-scolaire',
   templateUrl: './frais-scolaire.component.html',
@@ -34,6 +37,7 @@ export class FraisScolaireComponent implements OnInit, OnDestroy {
   constructor(
     private eleveService: EleveService,
     private route: ActivatedRoute,
+    private dialog : MatDialog,
     private fraisScolaireService : FraisPayerService,
     public globalService: GlobalService
   ){}
@@ -68,6 +72,10 @@ export class FraisScolaireComponent implements OnInit, OnDestroy {
     const day = Date.split('-')[2];
     const formattedDate = `${day}/${month}/${year}`;
     return formattedDate;
+  }
+
+  paiementfraisEleveByparent(){
+    // const dialog = this.dialog.open(PaiementFraisScolaireComponent)
   }
 
 }

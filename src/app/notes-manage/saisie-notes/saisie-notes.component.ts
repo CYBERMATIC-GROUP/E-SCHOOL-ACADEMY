@@ -18,6 +18,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MobileNoteSaisieComponent } from './mobile-note-saisie/mobile-note-saisie.component';
 import { ReleveGlobalService } from 'src/app/releve-global-notes/releve-global.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-saisie-notes',
@@ -33,9 +34,11 @@ export class SaisieNotesComponent implements OnInit {
   statiqueElevesList!: EleveNote[];
   numeroTrimestre!: number;
   etatNote = etatNote;
+  matiereChoseddefaut!: any
   searchName!: boolean;
   searchText!: string;
   notesIsloading!: boolean;
+  isloadnotebarclasse!: boolean
   showAbsencesBtn!: boolean;
   currentNoteSelected!: NoteModelCreateOrUpdate;
   inputSelectd!: HTMLInputElement;
@@ -50,16 +53,21 @@ export class SaisieNotesComponent implements OnInit {
     'star',
   ];
   printIsLoad!: boolean;
+  isdiablelinecolorefirtsmatiere: boolean = true
 
   constructor(
     private matiereService: MatiereService,
     private noteService: NotesService,
     public globalService: GlobalService,
+    private router: ActivatedRoute,
     private dialog: MatDialog,
     private releveService: ReleveGlobalService
   ) {}
 
   ngOnInit(): void {
+    const numeroTrimestre = +this.router.snapshot.params['trimestre'];
+    this.numeroTrimestre = numeroTrimestre;
+    console.log(this.numeroTrimestre);
     this.matiereList$ = this.matiereService.getEnseignantClasseMatiere(0, 0);
     let emptyNote: Note = {
       tabConfigNote: [],
@@ -72,20 +80,45 @@ export class SaisieNotesComponent implements OnInit {
   onChoseClasse(classe: Classe) {
     this.classeChosed = classe;
     this.matiereChosed = null;
-    this.matiereList$ = this.matiereService.getEnseignantClasseMatiere(
-      Number(classe.IDCLASSES),
-      0
-    );
+    this.matiereList$ = this.matiereService.getEnseignantClasseMatiere(Number(classe.IDCLASSES),0);
+    this.matiereList$.subscribe(data => {
+      console.log(data);
+      const matiere = data[0]
+      this.matiereChosed = matiere
+      console.log(matiere);
+      if (matiere) {
+         this.isloadnotebarclasse = true
+         this.isdiablelinecolorefirtsmatiere = true
+         this.noteService.saisieNotesGetReleveNote(
+           Number(this.classeChosed.IDCLASSES),
+           matiere.IDMATIERE,
+           this.numeroTrimestre,
+           0
+         )
+         .pipe(
+           tap((res) => {
+             this.notes = res;
+             this.isloadnotebarclasse = false
+             this.statiqueElevesList = this.notes.Eleves;
+             this.notesIsloading = false;
+           })
+         )
+         .subscribe();
+      }else {
+        console.log('aucune matiere')
+      }
+   
+      
+    } )
   }
 
   onChoseMatiere(matiere: Matiere) {
     this.matiereChosed = matiere;
-    console.log(this.numeroTrimestre);
-
+    this.isdiablelinecolorefirtsmatiere = false
+    console.log(this.matiereChosed);
     if (this.classeChosed && this.numeroTrimestre) {
       this.notesIsloading = true;
-      this.noteService
-        .saisieNotesGetReleveNote(
+      this.noteService.saisieNotesGetReleveNote(
           Number(this.classeChosed.IDCLASSES),
           matiere.IDMATIERE,
           this.numeroTrimestre,
@@ -145,7 +178,12 @@ export class SaisieNotesComponent implements OnInit {
     event: any,
     send: boolean = true
   ) {
-    const newNote = event.target.value;
+    let newNote = event.target.value;
+    console.log(newNote);
+    
+    if (newNote == '') {
+      note.EtatNote = 2
+    }
     if (this.numeroTrimestre) {
       const noteObj: NoteModelCreateOrUpdate = {
         IDLES_NOTES: note.IDLES_NOTES,
@@ -176,6 +214,7 @@ export class SaisieNotesComponent implements OnInit {
               Note: newNote,
               EtatNote: note.EtatNote,
             };
+            this.currentNoteSelected = newNote
             // mettre à jour le tableau des notes de la note specifique
             this.notes.tbLesNotes[indexFound] = newNoteObj;
             console.log(this.notes.tbLesNotes[indexFound]);
@@ -206,7 +245,10 @@ export class SaisieNotesComponent implements OnInit {
         Note: newNote,
       };
       console.log(noteObj);
+      this.currentNoteSelected = noteObj
+      console.log(this.currentNoteSelected);
       
+
       if (newNote && newNote > -1) {
         this.noteService.addOrUpdateNote(noteObj).subscribe((data) => {
           console.log('Note ajouté avec success');
@@ -287,33 +329,35 @@ export class SaisieNotesComponent implements OnInit {
     this.inputSelectd.classList.remove('bg-danger');
     this.inputSelectd.classList.add('bg-success');
     this.inputSelectd.value = '';
-    this.currentNoteSelected.EtatNote =
-      etatNote.CST_ETAT_NOTE_ABSENCE_JUSTIFIEE;
-    this.currentNoteSelected.Note = NaN;
-    console.log(this.currentNoteSelected);
-
-    this.noteService
-      .addOrUpdateNote(this.currentNoteSelected)
-      .subscribe((data) => {
+    // this.currentNoteSelected.EtatNote = etatNote.CST_ETAT_NOTE_ABSENCE_JUSTIFIEE;
+    // console.log(this.currentNoteSelected);
+    // this.currentNoteSelected.Note = NaN;
+    // console.log(this.currentNoteSelected);
+    this.currentNoteSelected.EtatNote = etatNote.CST_ETAT_NOTE_ABSENCE_JUSTIFIEE
+    console.log( this.currentNoteSelected);
+    this.noteService.addOrUpdateNote(this.currentNoteSelected).subscribe((data) => {
         console.log('Note modifié avec success');
         console.log(data);
       });
   }
+
+
   onAbsenceNonJustifiee() {
     this.inputSelectd.classList.remove('bg-success');
     this.inputSelectd.classList.remove('bg-danger');
     this.inputSelectd.classList.add('bg-danger');
     this.inputSelectd.value = '';
-    this.currentNoteSelected.Note = NaN;
-    this.currentNoteSelected.EtatNote =
-      etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE;
-    this.noteService
-      .addOrUpdateNote(this.currentNoteSelected)
-      .subscribe((data) => {
+    console.log(etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE);
+    // this.currentNoteSelected.Note = NaN;
+    // this.currentNoteSelected.EtatNote =  etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE;
+    this.currentNoteSelected.EtatNote = etatNote.CST_ETAT_NOTE_ABSENCE_NON_JUSTIFIEE
+    this.noteService.addOrUpdateNote(this.currentNoteSelected).subscribe((data) => {
         console.log('Note modifié avec success');
         console.log(data);
       });
   }
+
+
   delte() {
     this.removeColor();
     this.inputSelectd.value = '';

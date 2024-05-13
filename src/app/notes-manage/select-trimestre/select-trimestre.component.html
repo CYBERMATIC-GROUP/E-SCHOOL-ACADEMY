@@ -1,0 +1,31 @@
+<div class="container-fuid p-3">
+  <div>
+    <h1 class="fw-bold text-danger">Veuillez sélectionner un trimestre</h1>
+  </div>
+  <div class="form">
+    <div>
+      <select
+        (change)="selectTrimestre($event)"
+        class="form-select pointer form-control"
+      >
+        <option selected>Cliquer ici ...</option>
+        <option class="pointer" [value]="1">Prémier Trimestre</option>
+        <option class="pointer" [value]="2">Deuxième Trimestre</option>
+        <option class="pointer" [value]="3">Troisième Trimestre</option>
+      </select>
+    </div>
+    <div class="mt-3">
+      <button
+        [disabled]="!isFormValid()"
+        (click)="Valider()"
+        style="background-color: #7b4bce"
+        class="form-control text-white"
+      >
+        Valider <i class="fa-solid fa-arrows-rotate"></i>
+      </button>
+    </div>
+    <div class="mt-3">
+      <app-close-modal></app-close-modal>
+    </div>
+  </div>
+</div>

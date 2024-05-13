@@ -9,6 +9,7 @@
       <div class="col-12 col-md-6 mb-2">
         <app-matiere-enseigne
           [matiereList$]="matiereList$"
+          [isFirstRowActive]="isdiablelinecolorefirtsmatiere"
           (matiereEmitted)="onChoseMatiere($event)"
         ></app-matiere-enseigne>
       </div>
@@ -18,32 +19,24 @@
       <div class="col-12 mb-2">
         <mat-card>
           <mat-card-content>
-            <div class="row">
-              <div class="col-12 col-md-4 mb-3 mb-md-0">
-                <select
-                  name=""
-                  (change)="onChangeTrimestre($event)"
-                  id=""
-                  class="form-select"
-                >
-                  <option value="0" disabled selected>
-                    Sélectionnez un trimestre
-                  </option>
-                  <option value="1">Premier trimestre</option>
-                  <option value="2">Deuxième trimestre</option>
-                  <option value="3">Troisième trimestre</option>
-                </select>
+            <div class="">
+              <div class="col-4 col-md-4 mb-3 mb-md-0">
+                <div class="col-12 p-2 rounded rounded-5 mt-2 border">
+                  Trimestre :
+                  <span class="text-danger">{{ numeroTrimestre }}</span>
+                </div>
               </div>
-              <div class="col-6 col-md-4 text-center">
+              <div class="col-4 p-2  rounded rounded-5 mt-2 border col-md-4">
                 Classe sélectionnée:
                 <span class="text-danger">{{
                   classeChosed ? classeChosed.CodeClasse : "❓"
                 }}</span>
               </div>
-              <div class="col-6 col-md-4 text-center">
+              <div class="col-4  rounded rounded-5 mt-2 border p-2 col-md-4">
                 Matière sélectionnée:
                 <span class="text-danger">{{
                   matiereChosed ? matiereChosed.Fr_NomMatiere : "❓"
+                  
                 }}</span>
               </div>
             </div>
@@ -74,7 +67,7 @@
           </section>
         </div>
       </div>
-      <div class="table100 ver2 m-b-110 table-container mb-5">
+      <div class="table100 ver2 m-b-110 table-container mb-5" *ngIf="!isloadnotebarclasse; else loader">
         <table data-vertable="ver2" *ngIf="!notesIsloading; else loader">
           <thead class="mt-2">
             <tr class="row100 head">

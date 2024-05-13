@@ -110,11 +110,26 @@ blockquote{
 .blockpc{
   display: block;
 }
+
+.reabonnement{
+  padding: 10px;
+}
+
 @media screen and (max-width: 990px) {
   .blockmobile{
     display: block;
   }
   .blockpc{
     display: none;
+  }
+  .blockinfo > p {
+    line-height: 1;
+    margin-top: -5PX;
+  }
+  .reabonnement{
+    height: 30px !important;
+    margin-top: -8px !important;
+    padding: 5px;
+
   }
 }

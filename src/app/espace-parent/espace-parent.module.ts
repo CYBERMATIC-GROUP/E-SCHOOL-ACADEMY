@@ -36,6 +36,7 @@ import { CreateCompteComponent } from '../login-form/create-compte/create-compte
 import { ProfileParentComponent } from './profile-parent/profile-parent.component';
 import { AlertParentComponent } from './alert-parent/alert-parent.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PaiementFraisScolaireComponent } from './frais-scolaire/paiement-frais-scolaire/paiement-frais-scolaire.component';
 
 const routes : Routes = [
     {path:'' ,  component: DashboardParentComponent},
@@ -73,6 +74,7 @@ const routes : Routes = [
         ReabonnementEleveComponent,
         ProfileParentComponent,
         AlertParentComponent,
+        PaiementFraisScolaireComponent,
     ],
     imports: [
         CommonModule,

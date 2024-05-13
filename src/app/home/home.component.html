@@ -164,14 +164,14 @@
                         </a>
                         <ul
                           class="dropdown-menu"
-                          style="margin-left: -23px !important"
+                          style="margin-left: -70px !important"
                         >
                           <li>
                             <a
                               class="dropdown-item"
-                              routerLink="/connexion-form"
+                              routerLink="/connexion"
                               href="#"
-                              >Espace Eleve</a
+                              >Espace Administration</a
                             >
                           </li>
                           <li>
@@ -179,7 +179,7 @@
                               class="dropdown-item"
                               routerLink="/connexion-form"
                               href="#"
-                              >Espace Parent</a
+                              >Espace Parent/Élève</a
                             >
                           </li>
                         </ul>
@@ -204,38 +204,40 @@
                     La solution 9 en 1 qui facilite la gestion administrative,
                     académique et financière de votre établissement.
                   </p>
-                  <div class="d-lg-flex">
-                    <div>
-                      <div class="">
-                        <a
-                          routerLink="/connexion"
-                          class="button mt-1 m-2 is-success is-rounded"
-                          ><span
-                            ><i class="fas fa-university"></i> Se connecter
-                          </span></a
-                        >
+                  <div style="padding-left: 12px !important; padding-right: 25px !important;">
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="">
+                          <button
+                            routerLink="/connexion"
+                            class="button  form-control mt-1 m-2 is-success is-rounded"
+                            >
+                            <span ><img class="w-50" src="assets/images/icons8-administration-68.png" alt=""></span>
+                            <span> Se connecter à l'espace administration</span>
+                            </button
+                          >
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="">
+                          <a
+                            (click)="openContact()"
+                            class="button form-control m-2 is-success is-rounded pointer"
+                            ><span
+                              ><i class="fa-solid fa-phone-volume"></i> Contact
+                            </span></a
+                          >
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <div class="">
-                        <a
-                          routerLink="/ecole/ajout"
-                          class="button m-2 is-success is-rounded"
-                          ><span
-                            ><i class="fa-solid fa-school"></i> Créer mon
-                            établissement
-                          </span></a
-                        >
-                      </div>
-                    </div>
-                    <div>
-                      <div class="">
-                        <a
-                          (click)="openContact()"
-                          class="button m-2 is-success is-rounded pointer"
-                          ><span
-                            ><i class="fa-solid fa-phone-volume"></i> Contact
-                          </span></a
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <button
+                        routerLink="/connexion-form"
+                        class="button form-control m-2 is-success is-rounded"
+                          >
+                          <span><img class="w-50" src="assets/images/icons8-parent-64.png" alt=""></span>
+                          <span> Se connecter à l'espace parent/élève </span></button
                         >
                       </div>
                     </div>

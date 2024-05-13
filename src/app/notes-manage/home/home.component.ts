@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Agent } from 'src/app/models/agent.model';
 import { GlobalService } from 'src/app/services/global.service';
 import { environment } from 'src/environnements/environnement.prod';
-
+import { SelectTrimestreComponent } from '../select-trimestre/select-trimestre.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  NumTrimestre!: number
   menus!: {
     desination: string,
     logo: string,
@@ -21,7 +24,9 @@ export class HomeComponent implements OnInit {
   agent!: Agent;
 
   constructor(
-    private globalService: GlobalService
+    private globalService: GlobalService,
+    private dialog : MatDialog,
+    private router: Router,
   ){}
 
   ngOnInit(): void {
@@ -46,7 +51,7 @@ export class HomeComponent implements OnInit {
         logo: "carte_scolaire_et_dossier.png",
         description: "gestion des notes, abscences../",
         backColor: "#8d99ae",
-        link: '/' + routeNotesBase.base + '/' + routeNotesBase.saisie,
+        // link: '/' + routeNotesBase.base + '/' + routeNotesBase.saisie,
         right: this.agent.bDroit_SaisieNotes
       },
       {
@@ -128,5 +133,20 @@ export class HomeComponent implements OnInit {
       // },
 
     ]
+  }
+
+  openModal() {
+    const dialog = this.dialog.open(SelectTrimestreComponent)
+    dialog.id = 'SelectTrimestreComponent'
+    dialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.NumTrimestre = dialog.componentInstance.Trimestre
+        console.log(this.NumTrimestre);
+        if (this.NumTrimestre) {
+          this.router.navigateByUrl('saisie-note/' + this.NumTrimestre);
+        }
+      }
+    } )
+
   }
 }

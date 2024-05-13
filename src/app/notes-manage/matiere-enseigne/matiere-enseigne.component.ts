@@ -13,6 +13,7 @@ export class MatiereEnseigneComponent implements OnInit {
   @Input() matiereList$!: Observable<Matiere[]>
   @Output() matiereEmitted = new EventEmitter<Matiere>();
   @Input() maxHeight: string = "15em";
+  @Input() isFirstRowActive!: boolean;
   @Input() forceCombo: boolean = false;
   displayedColumns = [
     "Fr_CodeMatiere",
@@ -25,23 +26,30 @@ export class MatiereEnseigneComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    if(!this.matiereList$)
-      this.matiereList$ = of([])
-    console.log(this.matiereList$.subscribe(data =>{
-      console.log(data)
-    } ));
-    
 
+    console.log(this.isFirstRowActive);
+    
+    if (!this.matiereList$) {
+      this.matiereList$ = of([]);
+    }
+    this.matiereList$.subscribe(data => {
+      console.log(data);
+    });
   }
+  
 
   emitMatiere(matiere: Matiere){
     this.matiereSelected = matiere;
     this.matiereEmitted.emit(matiere);
-  }
+    console.log(this.isFirstRowActive);
+    // this.isFirstRowActive = true
 
+  }
+  
   emitMatiereFromSelect(event: any, matieres: Matiere[]){
     const matiereFound = matieres.find(elt => elt.IDMATIERE == event.target.value)
     if(matiereFound)
       this.emitMatiere(matiereFound)
   }
+  
 }

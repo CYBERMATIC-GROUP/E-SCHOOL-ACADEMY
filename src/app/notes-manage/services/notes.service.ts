@@ -20,6 +20,8 @@ export class NotesService {
   }
 
   addOrUpdateNote(note: NoteModelCreateOrUpdate){
+    console.log(note);
+    
     return this.globalService.setHttpRequest('SAISIE_NOTES_Ajoute_Note_Eleve', "POST", note)
   }
 

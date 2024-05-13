@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs';
@@ -18,8 +18,9 @@ import { EmploiDuTempsService } from 'src/app/core/services/emploi-du-temps.serv
 export class EmploiDuTempsComponent {
   @ViewChild(MatAccordion) accordion!: MatAccordion;
   panelOpenState = false;
+  @Input() visitor!: 'enseignant' | 'eleve' | 'agent' | 'parent';
   dataSource: EmploiDuTemps[] = [];
-  seances: SeanceWithoutEnseigneBool[] = [];
+  seances: any[] = [];
   indiceJours = [
     { name: 'Lundi', id: 1 },
     { name: 'Mardi', id: 2 },
@@ -31,6 +32,7 @@ export class EmploiDuTempsComponent {
   ];
   eleve: any;
   isloadingEmploiDuTemps!: boolean
+indice: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +45,8 @@ export class EmploiDuTempsComponent {
       this.isloadingEmploiDuTemps = true
       console.log(eleveSelectedString);
       this.eleve = JSON.parse(eleveSelectedString);
+      console.log(this.eleve);
+      
       this.emploidutempsService.getEmploisDutemps(this.eleve.IDCLASSE, 0, 0, 0, 0, 0).subscribe((data) => {
         console.log(data);
         this.isloadingEmploiDuTemps = false
@@ -56,8 +60,12 @@ export class EmploiDuTempsComponent {
     }
  
   }
+  getSeanceByIndice(numSeance: number): Seance | undefined{
+    return this.seances.find(elt => elt.NumeroSeance == numSeance)
+  }
 
   filterByIndiceJour(ind: number): EmploiDuTemps[] {
     return this.dataSource.filter((elt) => elt.IndJour == ind);
   }
+
 }

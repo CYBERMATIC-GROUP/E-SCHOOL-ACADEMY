@@ -13,6 +13,7 @@ import { environment } from 'src/environnements/environnement.prod';
 import { Demande_de_payement } from '../espace-parent/model/model.payement';
 import { VerifyStatusPayement } from '../espace-parent/model/model.verifysatatus.paiement';
 import { ReabonnementModel } from '../espace-parent/model/reabonnement.model';
+import { FraisScolairePaiementParent } from '../espace-parent/model/paiementFraisScolaire.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -435,6 +436,7 @@ export class EleveService {
     const headers = this.globalService.getHeadersParent();
     return this.http.post(environment.apiUrl + 'UTILISATEUR_Demande_Paiement', demande, { headers: headers });
   }
+
   DemandeStatutPayement(demandestatut: VerifyStatusPayement): Observable<any>  {
     const headers = this.globalService.getHeadersParent();
     return this.http.post(environment.apiUrl + 'MOBILE_MONEY_Get_Statut_Opération', demandestatut, { headers: headers });
@@ -446,4 +448,12 @@ export class EleveService {
     const headers = this.globalService.getHeadersParent();
     return this.http.get(environment.apiUrl + BASE_PATH , { headers: headers });
   }
+
+
+  // Frais Scolaire paiement
+  DemandePayementFRaisScolaire(demande: FraisScolairePaiementParent): Observable<any> {
+    const headers = this.globalService.getHeadersParent();
+    return this.http.post(environment.apiUrl + 'MOBILE_MONEY_Paiement_Frais_Scolaire', demande, { headers: headers });
+  }
+
 }

@@ -24,87 +24,88 @@
   </div>
   <div
     class="col-lg-11 bg-light rounded rounded-5 shadow m-lg-auto"
-    style="margin-top: 20px !important"
+    style="margin-top: 10px !important"
   >
-    <div class="row" *ngIf="!isLoading; else loader">
-      <div
-        *ngFor="let element of Famille"
-        class="col-lg-6 col-md-6 pointer block-content"
-      >
+      <div class="row" *ngIf="!isLoading; else loader">
         <div
-          class="row border p-2 rounded rounded-5"
-          style="border: 1px solid #fa8d00"
+          *ngFor="let element of Famille"
+          class="col-lg-6 col-md-6 pointer block-content"
         >
-          <div class="col-4 p-0" style="padding-top: 10px">
-            <div
-            style="height: 150px"
-            class="w-100"
-            *ngIf="!isloadphoto; else loader"
-              (click)="onBlockClick(element)"
-            >
-              <img
-                class="w-100 img-fluid"
-                [src]="element.Photo"
-                alt="Photo de l'élève"
-                style="
-                object-fit: contain;
-                width: 100em;
-                height: 100%;
-              "
-              />
+          <div
+            class="row border p-2 rounded rounded-5"
+            style="border: 1px solid #fa8d00"
+          >
+            <div class="col-4 p-0" style="padding-top: 10px">
+              <div
+              style="height: 150px"
+              class="w-100"
+              *ngIf="!isloadphoto; else loader"
+                (click)="onBlockClick(element)"
+              >
+                <img
+                  class="w-100 img-fluid"
+                  [src]="element.Photo"
+                  alt="Photo de l'élève"
+                  style="
+                  object-fit: contain;
+                  width: 100em;
+                  height: 100%;
+                "
+                />
+              </div>
             </div>
-          </div>
 
-          <div class="col-8 text-start">
-            <div
-              (click)="onBlockClick(element)"
-              class="text-start blockinfo fw-bold pt-3"
-            >
-              <p class="d-none d-lg-block">
-                <span>Matricule: </span>
-                <span>{{ element.Metricule }}</span>
-              </p>
-              <p>
-                <span>Nom: </span> <span>{{ element.Nom }}</span>
-              </p>
-              <p>
-                <span>Prénom: </span> <span>{{ element.Prenom }}</span>
-              </p>
-              <p class="d-none d-lg-block">
-                <span>Date de naiss: </span>
-                <span>{{ convertToValideDates(element.DateNaissance) }}</span>
-              </p>
-              <p class="d-none d-lg-block">
-                <span>Lieu de naiss: </span>
-                <span>{{ element.LieuNaissance }}</span>
-              </p>
-              <p>
-                <span>Classe: </span> <span>{{ element.Classe }}</span>
-              </p>
-            </div>
-            <div>
-              <div class="col-lg-12 p-0">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <p
-                      class="p-2 text-center rounded text-white rounded-5"
-                      (click)="reabonnement(element)"
-                      [ngStyle]="{ 'background-color': element.CouleurLigne }"
-                    >
-                      {{
-                        element.bAbonnementValide == true
-                          ? "Abonnement en cours"
-                          : "Abonnement expiré"
-                      }}
-                    </p>
-                  </div>
-                  <div class="col-lg-6">
-                    <button
-                      (click)="deleteEleve(element)"
-                      class="form-control rounded rounded-5 bg-danger text-white"
-                    >
-                      Supprimer <i class="fa-solid fa-trash"></i>
-                    </button>
+            <div class="col-8 text-start">
+              <div
+                (click)="onBlockClick(element)"
+                class="text-start blockinfo fw-bold pt-3"
+              >
+                <p class="d-none lineH d-lg-block">
+                  <span>Matricule: </span>
+                  <span>{{ element.Metricule }}</span>
+                </p>
+                <p class="NP">
+                  <span>Nom: </span> <span>{{ element.Nom }}</span>
+                </p>
+                <p class="NP">
+                  <span>Prénom: </span> <span>{{ element.Prenom }}</span>
+                </p>
+                <p class="d-none lineH d-lg-block">
+                  <span>Date de naiss: </span>
+                  <span>{{ convertToValideDates(element.DateNaissance) }}</span>
+                </p>
+                <p class="d-none lineH d-lg-block">
+                  <span>Lieu de naiss: </span>
+                  <span>{{ element.LieuNaissance }}</span>
+                </p>
+                <p class="lineH">
+                  <span>Classe: </span> <span>{{ element.Classe }}</span>
+                </p>
+              </div>
+              <div>
+                <div class="col-lg-12 p-0">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <p
+                        class="text-center reabonnement rounded text-white rounded-5"
+                        (click)="reabonnement(element)"
+                        [ngStyle]="{ 'background-color': element.CouleurLigne }"
+                      >
+                        {{
+                          element.bAbonnementValide == true
+                            ? "Abonnement en cours"
+                            : "Abonnement expiré"
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-lg-6">
+                      <p
+                        (click)="deleteEleve(element)"
+                        class="text-center  btndelete rounded rounded-5 bg-danger text-white"
+                      >
+                        Supprimer <i class="fa-solid fa-trash"></i>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -112,7 +113,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
   <div class="mt-3 mb-3">
     <div class="bg-light mt-4 row p-3 col-lg-11 m-lg-auto rounded rounded-5">

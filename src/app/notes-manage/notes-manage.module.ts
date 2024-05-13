@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { NoteSaisieExtComponent } from './note-saisie-ext/note-saisie-ext.component';
 import { MobileNoteSaisieComponent } from './saisie-notes/mobile-note-saisie/mobile-note-saisie.component';
+import { SelectTrimestreComponent } from './select-trimestre/select-trimestre.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MobileNoteSaisieComponent } from './saisie-notes/mobile-note-saisie/mob
     SaisieNotesComponent,
     HomeComponent,
     NoteSaisieExtComponent,
-    MobileNoteSaisieComponent
+    MobileNoteSaisieComponent,
+    SelectTrimestreComponent
   ],
   imports: [
     CommonModule,
