@@ -25,6 +25,7 @@ export class HistoriqueFraisEleveComponent implements OnInit {
   mouvementSelected!: historiqueFraisEleve;
   isPrinting!: boolean;
   printText: "Imprimer le mouvement sélectionné" | "Impression en cours..." = "Imprimer le mouvement sélectionné";
+  printTextHistorique = "Imprimer l'historique";
 
   constructor(
     private historiqueFraisService: HistoriquePaiementFraisScolaireService,
@@ -58,6 +59,18 @@ export class HistoriqueFraisEleveComponent implements OnInit {
       this.isPrinting = false;
       this.globalService.printFile(data.Etat, "Reçu_paiement_"+this.nomEleve)
       this.printText = "Imprimer le mouvement sélectionné";
+    })
+  }
+
+
+  onPrintHistorique(){
+    this.isPrinting = true;
+    this.printTextHistorique = "Impression en cours..."
+    this.historiqueFraisService.printRecuHistorique(this.IDELEVE, 0).subscribe(data => {
+      console.log(data)
+      this.isPrinting = false;
+      this.globalService.printFile(data.Etat, "Reçu_paiement_"+this.nomEleve)
+      this.printTextHistorique = "Imprimer l'historique"
     })
   }
 

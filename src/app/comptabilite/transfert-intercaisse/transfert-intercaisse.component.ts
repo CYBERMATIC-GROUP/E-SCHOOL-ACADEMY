@@ -38,6 +38,7 @@ export class TransfertIntercaisseComponent implements OnInit {
   totalAmount!: number;
   bTableTransfertEntrant!: boolean;
   sendArgentIsloading!: boolean;
+  Date!: string
   cancelIsLoading!: boolean;
 
   constructor(
@@ -60,6 +61,20 @@ export class TransfertIntercaisseComponent implements OnInit {
       }
 
       this.getTransfertEntrant()
+      this.Init_DateTransfert()
+  }
+
+  Init_DateTransfert() {
+    const currentDate = new Date();
+    this.Date = this.convertToValideDates(currentDate.toISOString().substring(0, 10))
+    console.log(this.Date);
+    
+  }  convertToValideDates(Date: string) {
+    const year = Date.split('-')[0];
+    const month = Date.split('-')[1];
+    const day = Date.split('-')[2];
+    const formattedDate = `${year}${month}${day}`;
+    return formattedDate;
   }
 
   initForm(IDAGENT: number, IDCaisseSource: number,  ){
@@ -97,7 +112,6 @@ export class TransfertIntercaisseComponent implements OnInit {
     this.caisseService.getPaadingTransfert(nIDCaisseSource, nIDCaisseDestination, bValide).subscribe(res => {
       const data = res.body
       console.log(data);
-      
       this.transactions = data;
       this.totalAmount = this.transactions.map(t => t.Montant).reduce((acc, value) => acc + value, 0);
       this.tableTransfertIsLoading = false;
@@ -108,11 +122,29 @@ export class TransfertIntercaisseComponent implements OnInit {
     })
   }
 
+  isFormValid(): boolean {
+    const formData = this.formTransfert.getRawValue();
+  
+    // Vérifier si les champs correspondent aux valeurs spécifiques fournies
+    const montantValid = formData.Montant !== null && formData.Montant !== '';
+    const libelleValid = formData.Libelle !== null && formData.Libelle !== '';
+    const libelleCaisseValid = formData.LibelleCaisse !== null && formData.LibelleCaisse !== '';
+  
+    // Retourner true si l'une des valeurs est invalide
+    return !montantValid || !libelleValid || !libelleCaisseValid;
+  }
+  
+  
+
   onSetTransfert(){
     this.sendArgentIsloading = true;
-    const transfert: transfertArgent = this.formTransfert.value;
+    this.formTransfert.patchValue({ Date: this.Date });
+    const transfert: transfertArgent = this.formTransfert.value; 
+    console.log(transfert);
     this.comptaService.setTransfertArgent(transfert).pipe(
       tap(data => {
+        console.log(data);
+        // this.impressionEtat(data)
         const msg = `Vous avez transferer une somme de ${transfert.Montant} XAF vers le compte de ${this.formTransfert.get('LibelleCaisse')?.value}`
         this.globalService.toastShow("Transfert effectif !", msg);
   
@@ -151,7 +183,6 @@ export class TransfertIntercaisseComponent implements OnInit {
   
   askValidTransfert(IDTRANSFERTCAISSE: number){
     const ref = this.globalService.alert("Voulez-vous valider ce transfert", "Confirmation", "info", "Annuler", "Oui");
-
     ref.afterClosed().subscribe(result => {
       if(result){
         this.validTransfert(IDTRANSFERTCAISSE);
@@ -180,9 +211,10 @@ export class TransfertIntercaisseComponent implements OnInit {
     this.cancelIsLoading = true;
     this.comptaService.validTransfert(IDTRANSFERTCAISSE).pipe(
       tap(res => {
+        console.log(res);
+        this.impressionEtat(res)
         const routeCompta = environment.routes.Comptabilite
         const routeIntercaisse = routeCompta.Base + '/' + routeCompta.links.transfertIntercaisseEtBancaire.base + '/' + routeCompta.links.transfertIntercaisseEtBancaire.intercaisse;
-
         this.globalService.toastShow("Transfert validé avec succès !", "Validation");
         this.globalService.reloadComponent(routeIntercaisse)
         this.getTransfertEntrant();
@@ -192,6 +224,25 @@ export class TransfertIntercaisseComponent implements OnInit {
         this.cancelIsLoading = false;
       })
     ).subscribe();
+  }
+
+
+  impressionEtat(resData: any) {
+    const data = resData;
+    console.log(data);
+    var anchor = document.createElement('a');
+    anchor.href = data.body.Etat;
+    anchor.download = 'Liste Des eleves ';
+    document.body.appendChild(anchor);
+    //  anchor.click();
+    let pdfWindow = window.open('', '_blank', 'Liste eleves');
+    pdfWindow
+      ? pdfWindow!.document.write(
+          "<body style='margin:0;padding:0'><iframe width='100%' height='100%' style='padding:0;margin:0' src='" +
+            encodeURI(data.body.Etat) +
+            "'></iframe></body>"
+        )
+      : null;
   }
 
 }

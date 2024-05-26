@@ -42,6 +42,7 @@ import { SelectAgentComponent } from './select-agent/select-agent.component';
 import { SelectDateComponent } from './select-date/select-date.component';
 import { NewFeatureComponent } from './new-feature/new-feature.component';
 import { DocumentPdfComponent } from './document-pdf/document-pdf.component';
+import { ClassListEnseigantComponent } from './class-list-enseigant/class-list-enseigant.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { DocumentPdfComponent } from './document-pdf/document-pdf.component';
     SelectAgentComponent,
     SelectDateComponent,
     NewFeatureComponent,
-    DocumentPdfComponent
+    DocumentPdfComponent,
+    ClassListEnseigantComponent
   ],
   imports: [
     CommonModule,
@@ -92,6 +94,7 @@ import { DocumentPdfComponent } from './document-pdf/document-pdf.component';
     GabaritComponent,
     LoaderComponent,
     CloseModalComponent,
+    ClassListEnseigantComponent,
     InfoComptaAgentComponent,
     StudentsByClassComponent,
     InputSearchComponent,

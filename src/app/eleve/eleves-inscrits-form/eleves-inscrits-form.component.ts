@@ -42,6 +42,7 @@ import { sms_parent } from 'src/environnements/constantes';
 import { ChangeClasseComponent } from '../change-classe/change-classe.component';
 import { ImageCropComponent } from 'src/app/core/image-crop/image-crop.component';
 import { environment } from 'src/environnements/environnement.prod';
+import { FraisPayerService } from 'src/app/services/frais-payer.service';
 
 @Component({
   selector: 'app-eleves-inscrits-form',
@@ -71,6 +72,7 @@ export class ElevesInscritsFormComponent implements OnInit {
   professionList$!: Observable<Profession[]>
   photoEleve!: string;
   titlePage!: string;
+  NomElevePaiement!: string
   isLoadingDataStudent!: boolean;
   updateIsLoading!: boolean;
   photo$!: Observable<{Photo: string}>;
@@ -78,6 +80,9 @@ export class ElevesInscritsFormComponent implements OnInit {
   typeImpression = environment.TypeImpressionEleve
   carteScolaireIsPrint!: boolean;
   dossierIsPrint!: boolean;
+  eleve: any;
+  infoEleve: any
+  dataSourceFraisSColaire: any
 
 
   constructor(
@@ -92,13 +97,17 @@ export class ElevesInscritsFormComponent implements OnInit {
     private etatSanitaireService: EtatsanitaireService,
     private statutService: StatuseleveService,
     private langueService: LangueService,
+    public GlobalService: GlobalService,
     private siteService: SiteService,
     private fonctionService: FonctionService,
     private professionService: ProfessionService,
-    private cycleService: CycleService
+    private cycleService: CycleService,
+    private fraisScolaireService : FraisPayerService,
+
   ){}
 
   ngOnInit(): void {
+
       this.action = this.route.snapshot.params['action'];
       this.IDEleve = this.route.snapshot.params['IDEleve'];
       this.etablissementList$ = this.etablissementService.get();
@@ -113,6 +122,8 @@ export class ElevesInscritsFormComponent implements OnInit {
         this.professionList$ = of(data);
       })
       this.initELeveInscrit();
+      this.initDataFraisScolaire(this.IDEleve)
+
 
       //title page
       if(this.action == "reinscrire")
@@ -127,8 +138,26 @@ export class ElevesInscritsFormComponent implements OnInit {
           console.log(res);
         })
       )
+
+    
   }
 
+  initDataFraisScolaire(idEleve: number) {
+    console.log(idEleve);
+      this.fraisScolaireService.getHistoriquePaiementByEleve(idEleve).subscribe(res  => {
+        console.log(res);
+        this.infoEleve = res
+        this.dataSourceFraisSColaire = res.tabDétailProduits
+      })
+  }
+
+  convertToValideDates(Date: string) {
+    const year = Date.split('-')[0];
+    const month = Date.split('-')[1];
+    const day = Date.split('-')[2];
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+  }
 
 
   initELeveInscrit(){

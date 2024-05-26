@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
     description: string,
     backColor: string,
     link?: string,
+    image?: string
     right?: boolean,
     notReady?: boolean
   }[];
@@ -107,6 +108,7 @@ export class HomeComponent implements OnInit {
         logo: "releves_notes.png",
         description: "Classement/tableau d'honneur ...",
         backColor: "#7b4bce ",
+        image: "../assets/icons8-star.gif",
         right: true,
         link: '/classement-releve-notes-eleve'
       }

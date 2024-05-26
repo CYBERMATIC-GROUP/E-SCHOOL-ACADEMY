@@ -1,32 +1,41 @@
 <app-gabarit-parent>
   <div class="container-fuild m-3">
-
-    <div class="row">
-      <h2 class="text-dark p-2 bg-light rounded rounded-5">
-        Etat de paiement des frais scolaires de l'élève :
-        <span class="text-danger">{{ eleve.NomPrenom }}</span>
-      </h2>
+    <div class="row p-3 bg-light rounded rounded-5">
+      <div class="col-lg-6">
+        <h2 class="text-dark rounded rounded-5">
+          Etat de paiement des frais scolaires de l'élève :
+          <span class="text-danger">{{ eleve.NomPrenom }}</span>
+        </h2>
+      </div>
+      <div class="col-lg-6">
+        <button
+          routerLink="/espace-parent/historique-paiement"
+          class="form-control rounded rounded-5 text-white bg-table-color"
+        >
+          Voir l'historique de paiement <i class="fa-solid fa-eye"></i>
+        </button>
+      </div>
     </div>
 
     <div
-      class="row rounded rounded-5 p-3 bg-light"
+      class="row rounded mt-3 rounded-5 p-3 bg-light"
       *ngIf="dataSource; else loader"
     >
       <div
         class="col-lg-3 col-md-6 pointer mt-2 hoverblockpayement p-2 rounded rounded-5 border"
         *ngFor="let frais of dataSource"
-        (click)="paiementfraisEleveByparent()"
+        (click)="paiementfraisEleveByparent(frais)"
       >
         <div class="row">
           <div class="col-lg-4 col-md-4">
             <div class="row">
               <div class="col-6">
-              <div class="imagepaiement">
-                <img
-                src="assets/logo/Etats_de_paiement_droits_scoalires.png"
-                alt=""
-              />
-              </div>
+                <div class="imagepaiement">
+                  <img
+                    src="assets/logo/Etats_de_paiement_droits_scoalires.png"
+                    alt=""
+                  />
+                </div>
               </div>
               <div class="col-6">
                 <div class="d-block d-lg-none">

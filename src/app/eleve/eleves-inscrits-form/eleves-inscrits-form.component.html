@@ -1,9 +1,12 @@
 <app-gabarit [pageTitle]="titlePage">
-  <div class="container-fluid bg-light" *ngIf="!isLoadingDataStudent; else loader">
+  <div
+    class="container-fluid bg-light"
+    *ngIf="!isLoadingDataStudent; else loader"
+  >
     <mat-stepper class="" headerPosition="bottom" class="" #stepper>
       <mat-step [stepControl]="eleveInscritForm" class="">
         <ng-template matStepLabel>Informations générales</ng-template>
-        <form [formGroup]="eleveInscritForm" class=" w-100">
+        <form [formGroup]="eleveInscritForm" class="w-100">
           <div class="tab-content">
             <div
               class="tab-pane fade show active"
@@ -12,13 +15,18 @@
               aria-labelledby="nestedTab1"
             >
               <div class="content mt-3">
-                <span class="text-on-border fw-bold text-secondary-cust">Identités Elève</span>
+                <span class="text-on-border fw-bold text-secondary-cust"
+                  >Identités Elève</span
+                >
                 <div class="row">
                   <div
                     class="col-lg-4 text-center"
                     style="border-right: 1px solid rgb(237, 231, 231)"
                   >
-                    <div class="w-75 m-auto mt-4" *ngIf="(photo$ | async) as photoobj; else loader">
+                    <div
+                      class="w-75 m-auto mt-4"
+                      *ngIf="photo$ | async as photoobj; else loader"
+                    >
                       <img
                         class="m-auto"
                         [src]="photoEleve ? photoEleve : photoobj.Photo"
@@ -33,38 +41,80 @@
                     <div class="col-lg-8 m-auto">
                       <label for="validationCustom01" class="form-label mb-2"
                         >Photo de l'eleve</label
-                      ><br>
-                      <button type="button" (click)="openCropImage()" class="btn btn-primary">Choisir une photo</button>
-
+                      ><br />
+                      <button
+                        type="button"
+                        (click)="openCropImage()"
+                        class="btn btn-primary"
+                      >
+                        Choisir une photo
+                      </button>
                     </div>
                     <div class="mt-4">
-                      MATRICULE: <strong class="text-secondary-cust">{{eleveInscritForm.get('CodeEleve')?.value}}</strong>
+                      MATRICULE:
+                      <strong class="text-secondary-cust">{{
+                        eleveInscritForm.get("CodeEleve")?.value
+                      }}</strong>
                     </div>
 
                     <section>
-                      <div class="example-label mt-4">Actions supplémentaires</div>
+                      <div class="example-label mt-4">
+                        Actions supplémentaires
+                      </div>
                       <div class="d-flex justify-content-center flex-wrap">
+                        <button
+                          class="m-1"
+                          [disabled]="dossierIsPrint"
+                          (click)="printDoc(typeImpression.DOSSIER_ELEVE)"
+                          mat-stroked-button
+                        >
+                          <app-loader
+                            colorText="text-secondary"
+                            *ngIf="dossierIsPrint; else dossiertext"
+                          ></app-loader>
+                          <ng-template #dossiertext
+                            >Imprimez le dossier</ng-template
+                          >
+                        </button>
 
-                        <button class="m-1" [disabled]="dossierIsPrint"  (click)="printDoc(typeImpression.DOSSIER_ELEVE)" mat-stroked-button> <app-loader colorText="text-secondary" *ngIf="dossierIsPrint; else dossiertext"></app-loader> <ng-template #dossiertext>Imprimez le dossier</ng-template>
-                         </button>
+                        <button
+                          class="m-1"
+                          [disabled]="carteScolaireIsPrint"
+                          (click)="printDoc(typeImpression.CARTE_SCOLAIRE)"
+                          mat-stroked-button
+                          color="primary"
+                        >
+                          <app-loader
+                            colorText="text-secondary"
+                            *ngIf="carteScolaireIsPrint; else cartetext"
+                          ></app-loader>
+                          <ng-template #cartetext
+                            >Imprimez la carte scolaire</ng-template
+                          >
+                        </button>
 
-                        <button class="m-1" [disabled]="carteScolaireIsPrint" (click)="printDoc(typeImpression.CARTE_SCOLAIRE)" mat-stroked-button color="primary"> <app-loader colorText="text-secondary" *ngIf="carteScolaireIsPrint; else cartetext"></app-loader> <ng-template #cartetext>Imprimez la carte scolaire</ng-template></button>
-
-                        <button class="m-1" mat-stroked-button color="accent" [routerLink]="'/frais/' + IDEleve">Frais scolaires</button>
-
+                        <button
+                          class="m-1"
+                          mat-stroked-button
+                          color="accent"
+                          [routerLink]="'/frais/' + IDEleve"
+                        >
+                          Frais scolaires
+                        </button>
                       </div>
                     </section>
                   </div>
                   <div class="col-lg-8">
-
                     <div class="row">
-
                       <div class="col-12">
                         <label
                           for="validationCustom01"
                           class="form-label mt-3"
                           *ngIf="action != 'edit'"
-                          >Selectionner la nouvelle classe ici (<span class="text-danger">*</span>)
+                          >Selectionner la nouvelle classe ici (<span
+                            class="text-danger"
+                            >*</span
+                          >)
                         </label>
                         <!--input
                           [readonly]="action == 'view'"
@@ -74,25 +124,46 @@
                           class="form-control text-uppercase pointer form-select"
                         /-->
                         <div>
-                          <button [disabled]="action == 'view'" class="continue-application w-100" (click)="onChangeClass()">
+                          <button
+                            [disabled]="action == 'view'"
+                            class="continue-application w-100"
+                            (click)="onChangeClass()"
+                          >
                             <div>
-                                <div class="pencil"></div>
-                                <div class="folder">
-                                    <div class="top">
-                                        <svg viewBox="0 0 24 27">
-                                            <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
-                                        </svg>
-                                    </div>
-                                    <div class="paper"></div>
+                              <div class="pencil"></div>
+                              <div class="folder">
+                                <div class="top">
+                                  <svg viewBox="0 0 24 27">
+                                    <path
+                                      d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"
+                                    ></path>
+                                  </svg>
                                 </div>
+                                <div class="paper"></div>
+                              </div>
                             </div>
-                            <span *ngIf="eleveInscritForm.value.IDCLASSES; else notifClass">
-                              {{ eleveInscritForm.value.IDCLASSES ? 'Classe actuelle : ' + eleveInscritForm.get('textClasseValue')?.value : 'sélectionner une classe' }}
+                            <span
+                              *ngIf="
+                                eleveInscritForm.value.IDCLASSES;
+                                else notifClass
+                              "
+                            >
+                              {{
+                                eleveInscritForm.value.IDCLASSES
+                                  ? "Classe actuelle : " +
+                                    eleveInscritForm.get("textClasseValue")
+                                      ?.value
+                                  : "sélectionner une classe"
+                              }}
                             </span>
                             <ng-template #notifClass>
                               <span class="animated-text">
                                 Cliquer ici pour sélectionner la classe ici
-                                <img style="width: 1em" alt="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADGUlEQVR4nO2azW9MURiHDy0WWhY2Eq1QEaIRX2knjW78FZb+ki59h1IWXUoorRIJgqSVCBGR2Gkt7GgQFFVESXnk7fyunEzvnV4z904P+iQ3k3PmfLy/Oe97vu44t8A/CNAKdAMjwGc9I8prdaEDLAVOAdMkY9/1WFkXsIghGfsVOAG0A8v1FICTwJTKDAUphuJIGM+BrWXKbQPGVLbHBRgT0xqJGRFAEzAITOq5DGz0xEypzhYXChSD2Oj2RLyLiQ/LW6MyFifGcRcKwKiMalPaRsK4Zobrua68AZWxmDEeu1Cg6DpGQ0l65tdXXrPyJpRuVHrShQLwXkY1Kj1DTLnf+cBKJb+4UAAeyajCHwjpUHLUhQJwzJ9OUwo5reRRFwrABuAH8E1Ta1khwHbgu+q0uJAADsvIFymEvNTnIRcaQD1wwzO2nBA0Hde5EAHqgAMphOwPVoRPmmD/K+B/EQL0a99lzwCw3oUI6YLd560WyDOa0Sx9Yd6n5hRC4jaTcbwC1oUsJG4zmSTwpnbT46XnmnkXUoHAxHNNkEKS8ilzrsmVMoY9AO7E5D9MyGeuc00lxm2Wf74G3gBXku6oot4r6ihFO1TaPrDJOzz5WPB1ZtbR7HbuAXcza18LmHFLFws2vFc9Mbsz6Si9PTNUUjG6h2oq2e1e9MR0VN1RDYQ8U93mkvx6bTGMj5GYkIWcU11zp/oYMf2emELIQlq0siJ3ihNjeyNjIlghhs7ZkZhLwBI3+1B1NuokWCEGsNObhgdiRsbE9On7ny4nyOKHAnalEGPXQwerNTiJzEa8xM0GS8XkDVm6LrDDu3GvqRiyjsESMbNms7wgj8mk1mKAFdGalUfjbcAHdXA+zzsrivFpPMmrA19MX15igC710ZtH+1En7d7K3pe1m1F0KzsLGXuybDuus4In5jawKqN2F3mv9IazaDPtDmDMe129D1hc5UgMqr3xmt53Aat1wot4aq8RzCWAtcCyOeo3aEbs8txpvPQQVxPkDnslolqGQ7h5tP1XJ3AEuK+DWvRXjiQ+6bV3b+6BvYDLn1/4zplE4CPVdgAAAABJRU5ErkJggg==">
+                                <img
+                                  style="width: 1em"
+                                  alt="icon"
+                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADGUlEQVR4nO2azW9MURiHDy0WWhY2Eq1QEaIRX2knjW78FZb+ki59h1IWXUoorRIJgqSVCBGR2Gkt7GgQFFVESXnk7fyunEzvnV4z904P+iQ3k3PmfLy/Oe97vu44t8A/CNAKdAMjwGc9I8prdaEDLAVOAdMkY9/1WFkXsIghGfsVOAG0A8v1FICTwJTKDAUphuJIGM+BrWXKbQPGVLbHBRgT0xqJGRFAEzAITOq5DGz0xEypzhYXChSD2Oj2RLyLiQ/LW6MyFifGcRcKwKiMalPaRsK4Zobrua68AZWxmDEeu1Cg6DpGQ0l65tdXXrPyJpRuVHrShQLwXkY1Kj1DTLnf+cBKJb+4UAAeyajCHwjpUHLUhQJwzJ9OUwo5reRRFwrABuAH8E1Ta1khwHbgu+q0uJAADsvIFymEvNTnIRcaQD1wwzO2nBA0Hde5EAHqgAMphOwPVoRPmmD/K+B/EQL0a99lzwCw3oUI6YLd560WyDOa0Sx9Yd6n5hRC4jaTcbwC1oUsJG4zmSTwpnbT46XnmnkXUoHAxHNNkEKS8ilzrsmVMoY9AO7E5D9MyGeuc00lxm2Wf74G3gBXku6oot4r6ihFO1TaPrDJOzz5WPB1ZtbR7HbuAXcza18LmHFLFws2vFc9Mbsz6Si9PTNUUjG6h2oq2e1e9MR0VN1RDYQ8U93mkvx6bTGMj5GYkIWcU11zp/oYMf2emELIQlq0siJ3ihNjeyNjIlghhs7ZkZhLwBI3+1B1NuokWCEGsNObhgdiRsbE9On7ny4nyOKHAnalEGPXQwerNTiJzEa8xM0GS8XkDVm6LrDDu3GvqRiyjsESMbNms7wgj8mk1mKAFdGalUfjbcAHdXA+zzsrivFpPMmrA19MX15igC710ZtH+1En7d7K3pe1m1F0KzsLGXuybDuus4In5jawKqN2F3mv9IazaDPtDmDMe129D1hc5UgMqr3xmt53Aat1wot4aq8RzCWAtcCyOeo3aEbs8txpvPQQVxPkDnslolqGQ7h5tP1XJ3AEuK+DWvRXjiQ+6bV3b+6BvYDLn1/4zplE4CPVdgAAAABJRU5ErkJggg=="
+                                />
                               </span>
                             </ng-template>
                           </button>
@@ -100,16 +171,16 @@
                       </div>
 
                       <div class="col-lg-4">
-                        <label
-                          for="validationCustom01"
-                          class="form-label mt-3"
+                        <label for="validationCustom01" class="form-label mt-3"
                           >Nom (<span class="text-danger">*</span>)
                         </label>
                         <input
                           [readonly]="action == 'view'"
                           [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['Fr_Nom'].valid,
-                            'is-invalid': !eleveInscritForm.controls['Fr_Nom'].valid
+                            'is-valid':
+                              eleveInscritForm.controls['Fr_Nom'].valid,
+                            'is-invalid':
+                              !eleveInscritForm.controls['Fr_Nom'].valid
                           }"
                           type="text"
                           class="form-control text-uppercase"
@@ -117,18 +188,19 @@
                           formControlName="Fr_Nom"
                         />
                         <div
-                        [ngClass]="{
-                          'valid-feedback': eleveInscritForm.controls['Fr_Nom'].valid,
-                          'invalid-feedback': !eleveInscritForm.controls['Fr_Nom'].valid
-                        }"
-                      >
-                        {{
-                          !eleveInscritForm.controls["Fr_Nom"].valid
-                            ? "Renseignez le Nom."
-                            : "ok."
-                        }}
-                      </div>
-
+                          [ngClass]="{
+                            'valid-feedback':
+                              eleveInscritForm.controls['Fr_Nom'].valid,
+                            'invalid-feedback':
+                              !eleveInscritForm.controls['Fr_Nom'].valid
+                          }"
+                        >
+                          {{
+                            !eleveInscritForm.controls["Fr_Nom"].valid
+                              ? "Renseignez le Nom."
+                              : "ok."
+                          }}
+                        </div>
                       </div>
 
                       <div class="col-lg-4 mt-3">
@@ -142,15 +214,19 @@
                           class="form-control text-capitalize"
                           formControlName="Fr_Prenom"
                           [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['Fr_Prenom'].valid,
-                            'is-invalid': !eleveInscritForm.controls['Fr_Prenom'].valid
+                            'is-valid':
+                              eleveInscritForm.controls['Fr_Prenom'].valid,
+                            'is-invalid':
+                              !eleveInscritForm.controls['Fr_Prenom'].valid
                           }"
                         />
 
                         <div
                           [ngClass]="{
-                            'valid-feedback': eleveInscritForm.controls['Fr_Prenom'].valid,
-                            'invalid-feedback': !eleveInscritForm.controls['Fr_Prenom'].valid
+                            'valid-feedback':
+                              eleveInscritForm.controls['Fr_Prenom'].valid,
+                            'invalid-feedback':
+                              !eleveInscritForm.controls['Fr_Prenom'].valid
                           }"
                         >
                           {{
@@ -170,8 +246,10 @@
                           class="form-control form-select"
                           aria-label="Default select example"
                           [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['Civilite'].valid,
-                            'is-invalid': !eleveInscritForm.controls['Civilite'].valid
+                            'is-valid':
+                              eleveInscritForm.controls['Civilite'].valid,
+                            'is-invalid':
+                              !eleveInscritForm.controls['Civilite'].valid
                           }"
                         >
                           <option disabled>choisir votre civilité</option>
@@ -179,23 +257,24 @@
                           <option value="2">F</option>
                         </select>
                         <div
-                        [ngClass]="{
-                          'valid-feedback': eleveInscritForm.controls['Civilite'].valid,
-                          'invalid-feedback': !eleveInscritForm.controls['Civilite'].valid
-                        }"
-                      >
-                        {{
-                          !eleveInscritForm.controls["Civilite"].valid
-                            ? "Sélectionnez le sexe."
-                            : "ok."
-                        }}
-                      </div>
+                          [ngClass]="{
+                            'valid-feedback':
+                              eleveInscritForm.controls['Civilite'].valid,
+                            'invalid-feedback':
+                              !eleveInscritForm.controls['Civilite'].valid
+                          }"
+                        >
+                          {{
+                            !eleveInscritForm.controls["Civilite"].valid
+                              ? "Sélectionnez le sexe."
+                              : "ok."
+                          }}
+                        </div>
                       </div>
 
                       <div class="col-lg-4 mt-3">
                         <label for="validationCustom01" class="form-label"
-                          >Date de Naissance (<span class="text-danger"
-                            >*</span
+                          >Date de Naissance (<span class="text-danger">*</span
                           >)</label
                         >
                         <input
@@ -203,15 +282,19 @@
                           class="form-control"
                           formControlName="DateNaissance"
                           [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['DateNaissance'].valid,
-                            'is-invalid': !eleveInscritForm.controls['DateNaissance'].valid
+                            'is-valid':
+                              eleveInscritForm.controls['DateNaissance'].valid,
+                            'is-invalid':
+                              !eleveInscritForm.controls['DateNaissance'].valid
                           }"
                         />
                         <div
-                        [ngClass]="{
-                          'valid-feedback': eleveInscritForm.controls['DateNaissance'].valid,
-                          'invalid-feedback': !eleveInscritForm.controls['DateNaissance'].valid
-                        }"
+                          [ngClass]="{
+                            'valid-feedback':
+                              eleveInscritForm.controls['DateNaissance'].valid,
+                            'invalid-feedback':
+                              !eleveInscritForm.controls['DateNaissance'].valid
+                          }"
                         >
                           {{
                             !eleveInscritForm.controls["DateNaissance"].valid
@@ -223,101 +306,133 @@
 
                       <div class="col-lg-4 mt-3">
                         <label for="validationCustom01" class="form-label"
-                          >Departement de naissance (<span class="text-danger">*</span>)</label
+                          >Departement de naissance (<span class="text-danger"
+                            >*</span
+                          >)</label
                         >
-                        <div *ngIf="(departementsList$ | async ) as departementsList  ">
-                          <input
-                          type="text"
-                          class="form-control form-select"
-                          (click)="eleveInscritForm.get('Fr_Departement')?.setValue('')"
-                          #departementsInput
-                          [matAutocomplete]="departements"
-                          formControlName="Fr_Departement"
-                          [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['Fr_Departement'].valid,
-                            'is-invalid': !eleveInscritForm.controls['Fr_Departement'].valid
-                          }"
-                        />
                         <div
-                        [ngClass]="{
-                          'valid-feedback': eleveInscritForm.controls['Fr_Departement'].valid,
-                          'invalid-feedback': !eleveInscritForm.controls['Fr_Departement'].valid
-                        }"
+                          *ngIf="departementsList$ | async as departementsList"
                         >
-                          {{
-                            !eleveInscritForm.controls["Fr_Departement"].valid
-                              ? "Renseignez le département de naissance."
-                              : "ok."
-                          }}
-                        </div>
-                        <mat-autocomplete #departements >
-                          <mat-option
-                            *ngFor="
-                              let departement of filterElement(
-                                departementsList,
-                                departementsInput.value,
-                                'NomDepartement'
-                              )
-                            "
+                          <input
+                            type="text"
+                            class="form-control form-select"
                             (click)="
                               eleveInscritForm
                                 .get('Fr_Departement')
-                                ?.setValue(departement.NomDepartement);
+                                ?.setValue('')
                             "
-                            >{{ departement.NomDepartement }}</mat-option
+                            #departementsInput
+                            [matAutocomplete]="departements"
+                            formControlName="Fr_Departement"
+                            [ngClass]="{
+                              'is-valid':
+                                eleveInscritForm.controls['Fr_Departement']
+                                  .valid,
+                              'is-invalid':
+                                !eleveInscritForm.controls['Fr_Departement']
+                                  .valid
+                            }"
+                          />
+                          <div
+                            [ngClass]="{
+                              'valid-feedback':
+                                eleveInscritForm.controls['Fr_Departement']
+                                  .valid,
+                              'invalid-feedback':
+                                !eleveInscritForm.controls['Fr_Departement']
+                                  .valid
+                            }"
                           >
-                        </mat-autocomplete>
+                            {{
+                              !eleveInscritForm.controls["Fr_Departement"].valid
+                                ? "Renseignez le département de naissance."
+                                : "ok."
+                            }}
+                          </div>
+                          <mat-autocomplete #departements>
+                            <mat-option
+                              *ngFor="
+                                let departement of filterElement(
+                                  departementsList,
+                                  departementsInput.value,
+                                  'NomDepartement'
+                                )
+                              "
+                              (click)="
+                                eleveInscritForm
+                                  .get('Fr_Departement')
+                                  ?.setValue(departement.NomDepartement)
+                              "
+                              >{{ departement.NomDepartement }}</mat-option
+                            >
+                          </mat-autocomplete>
                         </div>
                       </div>
 
                       <div class="col-lg-4 mt-3">
                         <label for="validationCustom01" class="form-label"
-                          >Lieu de naissance (<span class="text-danger">*</span>)
+                          >Lieu de naissance (<span class="text-danger">*</span
+                          >)
                         </label>
 
-                        <div *ngIf="(departementsList$ | async ) as departementsList  ">
-                          <input
-                          type="text"
-                          class="form-control form-select"
-                          (click)="eleveInscritForm.get('Fr_LieuNaissance')?.setValue('')"
-                          #departementsInput
-                          [matAutocomplete]="naissancePlace"
-                          formControlName="Fr_LieuNaissance"
-                          [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['Fr_LieuNaissance'].valid,
-                            'is-invalid': !eleveInscritForm.controls['Fr_LieuNaissance'].valid
-                          }"
-                        />
-
                         <div
-                        [ngClass]="{
-                          'valid-feedback': eleveInscritForm.controls['Fr_LieuNaissance'].valid,
-                          'invalid-feedback': !eleveInscritForm.controls['Fr_LieuNaissance'].valid
-                        }"
+                          *ngIf="departementsList$ | async as departementsList"
                         >
-                          {{
-                            !eleveInscritForm.controls["Fr_LieuNaissance"].valid
-                              ? "Renseignez le lieu de naissance."
-                              : "ok."
-                          }}
-                        </div>
-                        <mat-autocomplete #naissancePlace >
-                          <mat-option
-                            *ngFor="
-                              let departement of filterElement(
-                                departementsList,
-                                departementsInput.value,
-                                'NomDepartement'
-                              )
-                            "
+                          <input
+                            type="text"
+                            class="form-control form-select"
                             (click)="
                               eleveInscritForm
                                 .get('Fr_LieuNaissance')
-                                ?.setValue(departement.NomDepartement);
+                                ?.setValue('')
                             "
-                            >{{ departement.NomDepartement }}</mat-option
+                            #departementsInput
+                            [matAutocomplete]="naissancePlace"
+                            formControlName="Fr_LieuNaissance"
+                            [ngClass]="{
+                              'is-valid':
+                                eleveInscritForm.controls['Fr_LieuNaissance']
+                                  .valid,
+                              'is-invalid':
+                                !eleveInscritForm.controls['Fr_LieuNaissance']
+                                  .valid
+                            }"
+                          />
+
+                          <div
+                            [ngClass]="{
+                              'valid-feedback':
+                                eleveInscritForm.controls['Fr_LieuNaissance']
+                                  .valid,
+                              'invalid-feedback':
+                                !eleveInscritForm.controls['Fr_LieuNaissance']
+                                  .valid
+                            }"
                           >
-                        </mat-autocomplete>
+                            {{
+                              !eleveInscritForm.controls["Fr_LieuNaissance"]
+                                .valid
+                                ? "Renseignez le lieu de naissance."
+                                : "ok."
+                            }}
+                          </div>
+                          <mat-autocomplete #naissancePlace>
+                            <mat-option
+                              *ngFor="
+                                let departement of filterElement(
+                                  departementsList,
+                                  departementsInput.value,
+                                  'NomDepartement'
+                                )
+                              "
+                              (click)="
+                                eleveInscritForm
+                                  .get('Fr_LieuNaissance')
+                                  ?.setValue(departement.NomDepartement)
+                              "
+                              >{{ departement.NomDepartement }}</mat-option
+                            >
+                          </mat-autocomplete>
                         </div>
                       </div>
                       <div class="col-lg-4 mt-3">
@@ -326,58 +441,77 @@
                         </label>
 
                         <div class="d-flex align-items-center">
-
-                          <div class="input-group mb-3" *ngIf="(nationaliteList$ | async) as nationaliteList else loader">
-                            <input
-                            type="text"
-                            class="form-control form-select"
-                            [value]="eleveInscritForm.get('Nationalite')?.value"
-                            #nationnaliteInput
-                            [matAutocomplete]="nationnalites"
-                            [ngClass]="{
-                              'is-valid': eleveInscritForm.controls['Nationalite'].valid,
-                              'is-invalid': !eleveInscritForm.controls['Nationalite'].valid
-                            }"
-                          />
                           <div
-                          [ngClass]="{
-                            'valid-feedback': eleveInscritForm.controls['Nationalite'].valid,
-                            'invalid-feedback': !eleveInscritForm.controls['Nationalite'].valid
-                          }"
+                            class="input-group mb-3"
+                            *ngIf="
+                              nationaliteList$ | async as nationaliteList;
+                              else loader
+                            "
                           >
-                            {{
-                              !eleveInscritForm.controls["Nationalite"].valid
-                                ? "Sélectionnez la nationalité."
-                                : "ok."
-                            }}
-                          </div>
-                          <mat-autocomplete #nationnalites>
-                            <mat-option
-                              *ngFor="
-                                let nationalite of filterElement(
-                                  nationaliteList,
-                                  nationnaliteInput.value,
-                                  'Libelle'
-                                )
+                            <input
+                              type="text"
+                              class="form-control form-select"
+                              [value]="
+                                eleveInscritForm.get('Nationalite')?.value
                               "
-                              (click)="
-                                eleveInscritForm
-                                  .get('IDNationalite')
-                                  ?.setValue(nationalite.IDNATIONALITE);
-                                eleveInscritForm
-                                  .get('Nationalite')
-                                  ?.setValue(nationalite.Libelle)
-                              "
-                              >{{ nationalite.Libelle }}</mat-option
+                              #nationnaliteInput
+                              [matAutocomplete]="nationnalites"
+                              [ngClass]="{
+                                'is-valid':
+                                  eleveInscritForm.controls['Nationalite']
+                                    .valid,
+                                'is-invalid':
+                                  !eleveInscritForm.controls['Nationalite']
+                                    .valid
+                              }"
+                            />
+                            <div
+                              [ngClass]="{
+                                'valid-feedback':
+                                  eleveInscritForm.controls['Nationalite']
+                                    .valid,
+                                'invalid-feedback':
+                                  !eleveInscritForm.controls['Nationalite']
+                                    .valid
+                              }"
                             >
-                            <mat-option>
-                              <span class="input-group-text  bg-success text-white " (click)="openNationaliteDialog()" id="basic-addon1">Ajouter une nationnalité<i class="fa-solid fa-plus"></i></span>
-                            </mat-option>
-                          </mat-autocomplete>
-
+                              {{
+                                !eleveInscritForm.controls["Nationalite"].valid
+                                  ? "Sélectionnez la nationalité."
+                                  : "ok."
+                              }}
+                            </div>
+                            <mat-autocomplete #nationnalites>
+                              <mat-option
+                                *ngFor="
+                                  let nationalite of filterElement(
+                                    nationaliteList,
+                                    nationnaliteInput.value,
+                                    'Libelle'
+                                  )
+                                "
+                                (click)="
+                                  eleveInscritForm
+                                    .get('IDNationalite')
+                                    ?.setValue(nationalite.IDNATIONALITE);
+                                  eleveInscritForm
+                                    .get('Nationalite')
+                                    ?.setValue(nationalite.Libelle)
+                                "
+                                >{{ nationalite.Libelle }}</mat-option
+                              >
+                              <mat-option>
+                                <span
+                                  class="input-group-text bg-success text-white"
+                                  (click)="openNationaliteDialog()"
+                                  id="basic-addon1"
+                                  >Ajouter une nationnalité<i
+                                    class="fa-solid fa-plus"
+                                  ></i
+                                ></span>
+                              </mat-option>
+                            </mat-autocomplete>
                           </div>
-
-
                         </div>
                       </div>
 
@@ -387,57 +521,83 @@
                         </label>
 
                         <div class="d-flex align-items-center">
-
-                          <div class="input-group mb-3" *ngIf="(etatSanitairesList$ | async) as etatSanitairesList">
-                            <input
-                            type="text"
-                            class="form-control form-select"
-                            [value]="eleveInscritForm.get('LibelleEtatSanitaire')?.value"
-                            #etatSanitaireInput
-                            [matAutocomplete]="studentEtat"
-                            [ngClass]="{
-                              'is-valid': eleveInscritForm.controls['LibelleEtatSanitaire'].valid,
-                              'is-invalid': !eleveInscritForm.controls['LibelleEtatSanitaire'].valid
-                            }"
-                          />
                           <div
-                            [ngClass]="{
-                              'valid-feedback': eleveInscritForm.controls['LibelleEtatSanitaire'].valid,
-                              'invalid-feedback': !eleveInscritForm.controls['LibelleEtatSanitaire'].valid
-                            }"
+                            class="input-group mb-3"
+                            *ngIf="
+                              etatSanitairesList$ | async as etatSanitairesList
+                            "
                           >
+                            <input
+                              type="text"
+                              class="form-control form-select"
+                              [value]="
+                                eleveInscritForm.get('LibelleEtatSanitaire')
+                                  ?.value
+                              "
+                              #etatSanitaireInput
+                              [matAutocomplete]="studentEtat"
+                              [ngClass]="{
+                                'is-valid':
+                                  eleveInscritForm.controls[
+                                    'LibelleEtatSanitaire'
+                                  ].valid,
+                                'is-invalid':
+                                  !eleveInscritForm.controls[
+                                    'LibelleEtatSanitaire'
+                                  ].valid
+                              }"
+                            />
+                            <div
+                              [ngClass]="{
+                                'valid-feedback':
+                                  eleveInscritForm.controls[
+                                    'LibelleEtatSanitaire'
+                                  ].valid,
+                                'invalid-feedback':
+                                  !eleveInscritForm.controls[
+                                    'LibelleEtatSanitaire'
+                                  ].valid
+                              }"
+                            >
                               {{
-                                !eleveInscritForm.controls["LibelleEtatSanitaire"].valid
+                                !eleveInscritForm.controls[
+                                  "LibelleEtatSanitaire"
+                                ].valid
                                   ? "Sélectionnez l'état sanitaire."
                                   : "ok."
                               }}
+                            </div>
+                            <mat-autocomplete #studentEtat>
+                              <mat-option
+                                *ngFor="
+                                  let etat of filterElement(
+                                    etatSanitairesList,
+                                    etatSanitaireInput.value,
+                                    'Fr_Libelle'
+                                  )
+                                "
+                                (click)="
+                                  eleveInscritForm
+                                    .get('LibelleEtatSanitaire')
+                                    ?.setValue(etat.Fr_Libelle);
+                                  eleveInscritForm
+                                    .get('EtatSanitaire')
+                                    ?.setValue(etat.IDETAT_SANITAIRE)
+                                "
+                                >{{ etat.Fr_Libelle }}</mat-option
+                              >
+                              <mat-option>
+                                <span
+                                  class="input-group-text bg-success text-white"
+                                  (click)="openEtatSanitaireDialog()"
+                                  id="basic-addon1"
+                                  >Ajouter un état sanitaire<i
+                                    class="fa-solid fa-plus"
+                                  ></i
+                                ></span>
+                              </mat-option>
+                            </mat-autocomplete>
                           </div>
-                          <mat-autocomplete #studentEtat>
-                            <mat-option
-                              *ngFor="
-                                let etat of filterElement(
-                                  etatSanitairesList,
-                                  etatSanitaireInput.value,
-                                  'Fr_Libelle'
-                                )
-                              "
-                              (click)="
-                                eleveInscritForm
-                                  .get('LibelleEtatSanitaire')
-                                  ?.setValue(etat.Fr_Libelle);
-                                eleveInscritForm
-                                  .get('EtatSanitaire')
-                                  ?.setValue(etat.IDETAT_SANITAIRE)
-                              "
-                              >{{ etat.Fr_Libelle }}</mat-option
-                            >
-                            <mat-option>
-                              <span class="input-group-text  bg-success text-white " (click)="openEtatSanitaireDialog()" id="basic-addon1">Ajouter un état sanitaire<i class="fa-solid fa-plus"></i></span>
-                            </mat-option>
-                          </mat-autocomplete>
-                          </div>
-
-
                         </div>
                       </div>
                       <div class="col-lg-4 mt-3">
@@ -446,61 +606,70 @@
                         </label>
 
                         <div class="d-flex align-items-center">
-
-                          <div class="input-group mb-3" *ngIf="(statutElevesList$ | async) as statutElevesList">
-                            <input
-                            type="text"
-                            class="form-control form-select"
-                            #statusInput
-                            [value]="
-                              eleveInscritForm.get('Statut')?.value
-                            "
-                            [matAutocomplete]="statusStudent"
-                            [ngClass]="{
-                              'is-valid': eleveInscritForm.controls['Statut'].valid,
-                              'is-invalid': !eleveInscritForm.controls['Statut'].valid
-                            }"
-                          />
                           <div
-                            [ngClass]="{
-                              'valid-feedback': eleveInscritForm.controls['Statut'].valid,
-                              'invalid-feedback': !eleveInscritForm.controls['Statut'].valid
-                            }"
+                            class="input-group mb-3"
+                            *ngIf="
+                              statutElevesList$ | async as statutElevesList
+                            "
                           >
-                            {{
-                              !eleveInscritForm.controls["Statut"].valid
-                                ? "Sélectionnez le Statut."
-                                : "ok."
-                            }}
-                          </div>
-                          <mat-autocomplete #statusStudent>
-                            <mat-option
-                              *ngFor="
-                                let status of filterElement(
-                                  statutElevesList,
-                                  statusInput.value,
-                                  'Fr_Libelle'
-                                )
-                              "
-                              (click)="
-                                eleveInscritForm
-                                  .get('IDSTATUTELEVE')
-                                  ?.setValue(status.IDSTATUTELEVE);
-                                eleveInscritForm
-                                  .get('Statut')
-                                  ?.setValue(status.Fr_Libelle)
-                              "
-                              >{{ status.Fr_Libelle }}</mat-option
+                            <input
+                              type="text"
+                              class="form-control form-select"
+                              #statusInput
+                              [value]="eleveInscritForm.get('Statut')?.value"
+                              [matAutocomplete]="statusStudent"
+                              [ngClass]="{
+                                'is-valid':
+                                  eleveInscritForm.controls['Statut'].valid,
+                                'is-invalid':
+                                  !eleveInscritForm.controls['Statut'].valid
+                              }"
+                            />
+                            <div
+                              [ngClass]="{
+                                'valid-feedback':
+                                  eleveInscritForm.controls['Statut'].valid,
+                                'invalid-feedback':
+                                  !eleveInscritForm.controls['Statut'].valid
+                              }"
                             >
-                            <mat-option>
-                              <span class="input-group-text  bg-success text-white " (click)="openStatusEleveDialog()" id="basic-addon1">Ajouter un status sanitaire<i class="fa-solid fa-plus"></i></span>
-                            </mat-option>
-
-                          </mat-autocomplete>
-
+                              {{
+                                !eleveInscritForm.controls["Statut"].valid
+                                  ? "Sélectionnez le Statut."
+                                  : "ok."
+                              }}
+                            </div>
+                            <mat-autocomplete #statusStudent>
+                              <mat-option
+                                *ngFor="
+                                  let status of filterElement(
+                                    statutElevesList,
+                                    statusInput.value,
+                                    'Fr_Libelle'
+                                  )
+                                "
+                                (click)="
+                                  eleveInscritForm
+                                    .get('IDSTATUTELEVE')
+                                    ?.setValue(status.IDSTATUTELEVE);
+                                  eleveInscritForm
+                                    .get('Statut')
+                                    ?.setValue(status.Fr_Libelle)
+                                "
+                                >{{ status.Fr_Libelle }}</mat-option
+                              >
+                              <mat-option>
+                                <span
+                                  class="input-group-text bg-success text-white"
+                                  (click)="openStatusEleveDialog()"
+                                  id="basic-addon1"
+                                  >Ajouter un status sanitaire<i
+                                    class="fa-solid fa-plus"
+                                  ></i
+                                ></span>
+                              </mat-option>
+                            </mat-autocomplete>
                           </div>
-
-
                         </div>
                       </div>
 
@@ -514,23 +683,39 @@
                           aria-label="Default select example"
                           formControlName="NouveauDansAnneeCourante"
                           [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['NouveauDansAnneeCourante'].valid,
-                            'is-invalid': !eleveInscritForm.controls['NouveauDansAnneeCourante'].valid
+                            'is-valid':
+                              eleveInscritForm.controls[
+                                'NouveauDansAnneeCourante'
+                              ].valid,
+                            'is-invalid':
+                              !eleveInscritForm.controls[
+                                'NouveauDansAnneeCourante'
+                              ].valid
                           }"
                         >
-                          <option disabled selected>Sélectionnez si nouveau ou ancien</option>
+                          <option disabled selected>
+                            Sélectionnez si nouveau ou ancien
+                          </option>
                           <option [value]="1">Nouveau</option>
                           <option [value]="0">Ancien</option>
                         </select>
 
                         <div
                           [ngClass]="{
-                            'valid-feedback': eleveInscritForm.controls['NouveauDansAnneeCourante'].valid,
-                            'invalid-feedback': !eleveInscritForm.controls['NouveauDansAnneeCourante'].valid
+                            'valid-feedback':
+                              eleveInscritForm.controls[
+                                'NouveauDansAnneeCourante'
+                              ].valid,
+                            'invalid-feedback':
+                              !eleveInscritForm.controls[
+                                'NouveauDansAnneeCourante'
+                              ].valid
                           }"
                         >
                           {{
-                            !eleveInscritForm.controls["NouveauDansAnneeCourante"].valid
+                            !eleveInscritForm.controls[
+                              "NouveauDansAnneeCourante"
+                            ].valid
                               ? "Sélectionez nouveau ou ancien."
                               : "ok."
                           }}
@@ -538,7 +723,9 @@
                       </div>
                       <div class="col-lg-4 mt-3">
                         <label for="validationCustom01" class="form-label"
-                          >Redoublant/Non Redoublant (<span class="text-danger">*</span>)
+                          >Redoublant/Non Redoublant (<span class="text-danger"
+                            >*</span
+                          >)
                         </label>
 
                         <select
@@ -546,18 +733,21 @@
                           aria-label="Default select example"
                           formControlName="Redoublant"
                           [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['Redoublant'].valid,
-                            'is-invalid': !eleveInscritForm.controls['Redoublant'].valid
+                            'is-valid':
+                              eleveInscritForm.controls['Redoublant'].valid,
+                            'is-invalid':
+                              !eleveInscritForm.controls['Redoublant'].valid
                           }"
-
                         >
                           <option [value]="1">Redoublant</option>
                           <option [value]="0">Non Rédoublant</option>
                         </select>
                         <div
                           [ngClass]="{
-                            'valid-feedback': eleveInscritForm.controls['Redoublant'].valid,
-                            'invalid-feedback': !eleveInscritForm.controls['Redoublant'].valid
+                            'valid-feedback':
+                              eleveInscritForm.controls['Redoublant'].valid,
+                            'invalid-feedback':
+                              !eleveInscritForm.controls['Redoublant'].valid
                           }"
                         >
                           {{
@@ -588,27 +778,39 @@
               <div class="row mt-5">
                 <div class="col-lg-6">
                   <div class="content">
-                    <span class="text-on-border fw-bold text-secondary-cust">ngues Vivantes</span>
+                    <span class="text-on-border fw-bold text-secondary-cust"
+                      >ngues Vivantes</span
+                    >
 
-                    <div *ngIf="(langueVivantes$ | async) as langueVivantes; else loader">
+                    <div
+                      *ngIf="
+                        langueVivantes$ | async as langueVivantes;
+                        else loader
+                      "
+                    >
                       <div class="col-lg-12 pt-3">
                         <label for="validationCustom01" class="form-label"
                           >Première langue
                         </label>
 
                         <div class="d-flex align-items-center">
-
                           <div class="input-group">
                             <input
-                            type="text"
-                            class="form-control form-select"
-                            #langue1Input
-                            [value]="eleveInscritForm.get('LangueVivante1')?.value"
-                            [matAutocomplete]="langue1"
-                            [ngClass]="{
-                              'is-valid': eleveInscritForm.controls['LangueVivante1'].valid,
-                              'is-invalid': !eleveInscritForm.controls['LangueVivante1'].valid
-                            }"
+                              type="text"
+                              class="form-control form-select"
+                              #langue1Input
+                              [value]="
+                                eleveInscritForm.get('LangueVivante1')?.value
+                              "
+                              [matAutocomplete]="langue1"
+                              [ngClass]="{
+                                'is-valid':
+                                  eleveInscritForm.controls['LangueVivante1']
+                                    .valid,
+                                'is-invalid':
+                                  !eleveInscritForm.controls['LangueVivante1']
+                                    .valid
+                              }"
                             />
                           </div>
 
@@ -632,12 +834,27 @@
                               >{{ lang.Fr_Libelle }}</mat-option
                             >
                             <mat-option>
-                              <span class="input-group-text  bg-success text-white " (click)="openPremieierelangueDialog()" id="basic-addon1">Ajouter une langue vivante<i class="fa-solid fa-plus"></i></span>
+                              <span
+                                class="input-group-text bg-success text-white"
+                                (click)="openPremieierelangueDialog()"
+                                id="basic-addon1"
+                                >Ajouter une langue vivante<i
+                                  class="fa-solid fa-plus"
+                                ></i
+                              ></span>
                             </mat-option>
                           </mat-autocomplete>
                         </div>
 
-                        <div [ngClass]="{'text-danger': !eleveInscritForm.controls['LangueVivante1'].valid, 'text-success': eleveInscritForm.controls['LangueVivante1'].valid}">
+                        <div
+                          [ngClass]="{
+                            'text-danger':
+                              !eleveInscritForm.controls['LangueVivante1']
+                                .valid,
+                            'text-success':
+                              eleveInscritForm.controls['LangueVivante1'].valid
+                          }"
+                        >
                           {{
                             !eleveInscritForm.controls["LangueVivante1"].valid
                               ? "Renseignez une langue."
@@ -651,19 +868,24 @@
                           >Deuxième langue
                         </label>
                         <div class="d-flex align-items-center">
-
                           <div class="input-group">
                             <input
-                            type="text"
-                            class="form-control form-select"
-                            #langue2Input
-                            [value]="eleveInscritForm.get('LangueVivante2')?.value"
-                            [matAutocomplete]="langue2"
-                            [ngClass]="{
-                              'is-valid': eleveInscritForm.controls['LangueVivante2'].valid,
-                              'is-invalid': !eleveInscritForm.controls['LangueVivante2'].valid
-                            }"
-                          />
+                              type="text"
+                              class="form-control form-select"
+                              #langue2Input
+                              [value]="
+                                eleveInscritForm.get('LangueVivante2')?.value
+                              "
+                              [matAutocomplete]="langue2"
+                              [ngClass]="{
+                                'is-valid':
+                                  eleveInscritForm.controls['LangueVivante2']
+                                    .valid,
+                                'is-invalid':
+                                  !eleveInscritForm.controls['LangueVivante2']
+                                    .valid
+                              }"
+                            />
                           </div>
                         </div>
                         <mat-autocomplete #langue2>
@@ -687,10 +909,23 @@
                           >
 
                           <mat-option>
-                            <span class="input-group-text  bg-success text-white " (click)="openDeuxiemelangueDialog()" id="basic-addon1">Ajouter une langue<i class="fa-solid fa-plus"></i></span>
+                            <span
+                              class="input-group-text bg-success text-white"
+                              (click)="openDeuxiemelangueDialog()"
+                              id="basic-addon1"
+                              >Ajouter une langue<i class="fa-solid fa-plus"></i
+                            ></span>
                           </mat-option>
                         </mat-autocomplete>
-                        <div [ngClass]="{'text-danger': !eleveInscritForm.controls['LangueVivante2'].valid, 'text-success': eleveInscritForm.controls['LangueVivante2'].valid}">
+                        <div
+                          [ngClass]="{
+                            'text-danger':
+                              !eleveInscritForm.controls['LangueVivante2']
+                                .valid,
+                            'text-success':
+                              eleveInscritForm.controls['LangueVivante2'].valid
+                          }"
+                        >
                           {{
                             !eleveInscritForm.controls["LangueVivante2"].valid
                               ? "Renseignez une langue."
@@ -704,46 +939,66 @@
                           >Troisième langue
                         </label>
                         <div class="d-flex align-items-center">
-
-                          <div class="input-group ">
+                          <div class="input-group">
                             <input
-                            type="text"
-                            class="form-control form-select"
-                            #langue3Input
-                            [value]="eleveInscritForm.get('LangueVivante3')?.value"
-                            [matAutocomplete]="langue3"
-                            [ngClass]="{
-                              'is-valid': eleveInscritForm.controls['LangueVivante3'].valid,
-                              'is-invalid': !eleveInscritForm.controls['LangueVivante3'].valid
-                            }"
+                              type="text"
+                              class="form-control form-select"
+                              #langue3Input
+                              [value]="
+                                eleveInscritForm.get('LangueVivante3')?.value
+                              "
+                              [matAutocomplete]="langue3"
+                              [ngClass]="{
+                                'is-valid':
+                                  eleveInscritForm.controls['LangueVivante3']
+                                    .valid,
+                                'is-invalid':
+                                  !eleveInscritForm.controls['LangueVivante3']
+                                    .valid
+                              }"
                             />
 
-                          <mat-autocomplete #langue3>
-                            <mat-option
-                              *ngFor="
-                                let lang of filterElement(
-                                  langueVivantes,
-                                  langue3Input.value,
-                                  'Fr_Libelle'
-                                )
-                              "
-                              (click)="
-                                eleveInscritForm
-                                  .get('IDLangueVivante3')
-                                  ?.setValue(lang.IDLANGUE);
-                                eleveInscritForm
-                                  .get('LangueVivante3')
-                                  ?.setValue(lang.Fr_Libelle)
-                              "
-                              >{{ lang.Fr_Libelle }}</mat-option
-                            >
-                            <mat-option>
-                              <span class="input-group-text  bg-success text-white " (click)="openDeuxiemelangueDialog()" id="basic-addon1">Ajouter une langue sanitaire<i class="fa-solid fa-plus"></i></span>
-                            </mat-option>
-                          </mat-autocomplete>
+                            <mat-autocomplete #langue3>
+                              <mat-option
+                                *ngFor="
+                                  let lang of filterElement(
+                                    langueVivantes,
+                                    langue3Input.value,
+                                    'Fr_Libelle'
+                                  )
+                                "
+                                (click)="
+                                  eleveInscritForm
+                                    .get('IDLangueVivante3')
+                                    ?.setValue(lang.IDLANGUE);
+                                  eleveInscritForm
+                                    .get('LangueVivante3')
+                                    ?.setValue(lang.Fr_Libelle)
+                                "
+                                >{{ lang.Fr_Libelle }}</mat-option
+                              >
+                              <mat-option>
+                                <span
+                                  class="input-group-text bg-success text-white"
+                                  (click)="openDeuxiemelangueDialog()"
+                                  id="basic-addon1"
+                                  >Ajouter une langue sanitaire<i
+                                    class="fa-solid fa-plus"
+                                  ></i
+                                ></span>
+                              </mat-option>
+                            </mat-autocomplete>
                           </div>
                         </div>
-                        <div [ngClass]="{'text-danger': !eleveInscritForm.controls['LangueVivante3'].valid, 'text-success': eleveInscritForm.controls['LangueVivante3'].valid}">
+                        <div
+                          [ngClass]="{
+                            'text-danger':
+                              !eleveInscritForm.controls['LangueVivante3']
+                                .valid,
+                            'text-success':
+                              eleveInscritForm.controls['LangueVivante3'].valid
+                          }"
+                        >
                           {{
                             !eleveInscritForm.controls["LangueVivante3"].valid
                               ? "Renseignez une langue."
@@ -756,54 +1011,71 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="content">
-                    <span class="text-on-border fw-bold text-secondary-cust">Localisation</span>
+                    <span class="text-on-border fw-bold text-secondary-cust"
+                      >Localisation</span
+                    >
 
                     <div class="col-lg-12">
                       <label for="validationCustom01" class="form-label mt-3"
                         >Departement de résidence
                       </label>
-                      <div *ngIf="(departementsList$ | async ) as departementsList  ">
-                        <input
-                        type="text"
-                        class="form-control form-select"
-                        (click)="eleveInscritForm.get('DepartementResidence')?.setValue('')"
-                        #departementsInput
-                        [matAutocomplete]="departements"
-                        formControlName="DepartementResidence"
-                        [ngClass]="{
-                          'is-valid': eleveInscritForm.controls['DepartementResidence'].valid,
-                          'is-invalid': !eleveInscritForm.controls['DepartementResidence'].valid
-                        }"
-                      />
                       <div
-                        [ngClass]="{
-                          'valid-feedback': eleveInscritForm.controls['DepartementResidence'].valid,
-                          'invalid-feedback': !eleveInscritForm.controls['DepartementResidence'].valid
-                        }"
+                        *ngIf="departementsList$ | async as departementsList"
                       >
-                        {{
-                          !eleveInscritForm.controls["DepartementResidence"].valid
-                            ? "Renseignez le département de résidence."
-                            : "ok."
-                        }}
-                      </div>
-                      <mat-autocomplete #departements >
-                        <mat-option
-                          *ngFor="
-                            let departement of filterElement(
-                              departementsList,
-                              departementsInput.value,
-                              'NomDepartement'
-                            )
-                          "
+                        <input
+                          type="text"
+                          class="form-control form-select"
                           (click)="
                             eleveInscritForm
                               .get('DepartementResidence')
-                              ?.setValue(departement.NomDepartement);
+                              ?.setValue('')
                           "
-                          >{{ departement.NomDepartement }}</mat-option
+                          #departementsInput
+                          [matAutocomplete]="departements"
+                          formControlName="DepartementResidence"
+                          [ngClass]="{
+                            'is-valid':
+                              eleveInscritForm.controls['DepartementResidence']
+                                .valid,
+                            'is-invalid':
+                              !eleveInscritForm.controls['DepartementResidence']
+                                .valid
+                          }"
+                        />
+                        <div
+                          [ngClass]="{
+                            'valid-feedback':
+                              eleveInscritForm.controls['DepartementResidence']
+                                .valid,
+                            'invalid-feedback':
+                              !eleveInscritForm.controls['DepartementResidence']
+                                .valid
+                          }"
                         >
-                      </mat-autocomplete>
+                          {{
+                            !eleveInscritForm.controls["DepartementResidence"]
+                              .valid
+                              ? "Renseignez le département de résidence."
+                              : "ok."
+                          }}
+                        </div>
+                        <mat-autocomplete #departements>
+                          <mat-option
+                            *ngFor="
+                              let departement of filterElement(
+                                departementsList,
+                                departementsInput.value,
+                                'NomDepartement'
+                              )
+                            "
+                            (click)="
+                              eleveInscritForm
+                                .get('DepartementResidence')
+                                ?.setValue(departement.NomDepartement)
+                            "
+                            >{{ departement.NomDepartement }}</mat-option
+                          >
+                        </mat-autocomplete>
                       </div>
                     </div>
 
@@ -817,11 +1089,23 @@
                         class="form-control form-select"
                         formControlName="Fr_Arrondissement"
                         [ngClass]="{
-                          'is-valid': eleveInscritForm.controls['Fr_Arrondissement'].valid,
-                          'is-invalid': !eleveInscritForm.controls['Fr_Arrondissement'].valid
+                          'is-valid':
+                            eleveInscritForm.controls['Fr_Arrondissement']
+                              .valid,
+                          'is-invalid':
+                            !eleveInscritForm.controls['Fr_Arrondissement']
+                              .valid
                         }"
                       />
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['Fr_Arrondissement'].valid, 'text-success': eleveInscritForm.controls['Fr_Arrondissement'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls['Fr_Arrondissement']
+                              .valid,
+                          'text-success':
+                            eleveInscritForm.controls['Fr_Arrondissement'].valid
+                        }"
+                      >
                         {{
                           !eleveInscritForm.controls["Fr_Arrondissement"].valid
                             ? "Renseignez l'arrondissement."
@@ -840,12 +1124,20 @@
                         class="form-control form-select"
                         formControlName="Fr_Ville"
                         [ngClass]="{
-                          'is-valid': eleveInscritForm.controls['Fr_Ville'].valid,
-                          'is-invalid': !eleveInscritForm.controls['Fr_Ville'].valid
+                          'is-valid':
+                            eleveInscritForm.controls['Fr_Ville'].valid,
+                          'is-invalid':
+                            !eleveInscritForm.controls['Fr_Ville'].valid
                         }"
-
                       />
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['Fr_Ville'].valid, 'text-success': eleveInscritForm.controls['Fr_Ville'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls['Fr_Ville'].valid,
+                          'text-success':
+                            eleveInscritForm.controls['Fr_Ville'].valid
+                        }"
+                      >
                         {{
                           !eleveInscritForm.controls["Fr_Ville"].valid
                             ? "Renseignez une ville."
@@ -860,7 +1152,9 @@
               <div class="row mt-5">
                 <div class="col-lg-6">
                   <div class="content mt-3">
-                    <span class="text-on-border fw-bold text-secondary-cust">Identifications</span>
+                    <span class="text-on-border fw-bold text-secondary-cust"
+                      >Identifications</span
+                    >
 
                     <div class="col-lg-12">
                       <label for="validationCustom01" class="form-label mt-3"
@@ -872,11 +1166,20 @@
                         class="form-control"
                         formControlName="Courriel"
                         [ngClass]="{
-                          'is-valid': eleveInscritForm.controls['Courriel'].valid,
-                          'is-invalid': !eleveInscritForm.controls['Courriel'].valid
+                          'is-valid':
+                            eleveInscritForm.controls['Courriel'].valid,
+                          'is-invalid':
+                            !eleveInscritForm.controls['Courriel'].valid
                         }"
                       />
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['Courriel'].valid, 'text-success': eleveInscritForm.controls['Courriel'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls['Courriel'].valid,
+                          'text-success':
+                            eleveInscritForm.controls['Courriel'].valid
+                        }"
+                      >
                         {{
                           !eleveInscritForm.controls["Courriel"].valid
                             ? "Renseignez un email."
@@ -895,11 +1198,20 @@
                         class="form-control"
                         formControlName="TelMobile"
                         [ngClass]="{
-                          'is-valid': eleveInscritForm.controls['TelMobile'].valid,
-                          'is-invalid': !eleveInscritForm.controls['TelMobile'].valid
+                          'is-valid':
+                            eleveInscritForm.controls['TelMobile'].valid,
+                          'is-invalid':
+                            !eleveInscritForm.controls['TelMobile'].valid
                         }"
                       />
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['TelMobile'].valid, 'text-success': eleveInscritForm.controls['TelMobile'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls['TelMobile'].valid,
+                          'text-success':
+                            eleveInscritForm.controls['TelMobile'].valid
+                        }"
+                      >
                         {{
                           !eleveInscritForm.controls["TelMobile"].valid
                             ? "Renseignez un mobile."
@@ -919,10 +1231,18 @@
                         formControlName="NumCNI"
                         [ngClass]="{
                           'is-valid': eleveInscritForm.controls['NumCNI'].valid,
-                          'is-invalid': !eleveInscritForm.controls['NumCNI'].valid
+                          'is-invalid':
+                            !eleveInscritForm.controls['NumCNI'].valid
                         }"
                       />
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['NumCNI'].valid, 'text-success': eleveInscritForm.controls['NumCNI'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls['NumCNI'].valid,
+                          'text-success':
+                            eleveInscritForm.controls['NumCNI'].valid
+                        }"
+                      >
                         {{
                           !eleveInscritForm.controls["NumCNI"].valid
                             ? "Renseignez le numéro CNI."
@@ -941,11 +1261,21 @@
                         class="form-control"
                         formControlName="IdentifiantBadge"
                         [ngClass]="{
-                          'is-valid': eleveInscritForm.controls['IdentifiantBadge'].valid,
-                          'is-invalid': !eleveInscritForm.controls['IdentifiantBadge'].valid
+                          'is-valid':
+                            eleveInscritForm.controls['IdentifiantBadge'].valid,
+                          'is-invalid':
+                            !eleveInscritForm.controls['IdentifiantBadge'].valid
                         }"
                       />
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['IdentifiantBadge'].valid, 'text-success': eleveInscritForm.controls['IdentifiantBadge'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls['IdentifiantBadge']
+                              .valid,
+                          'text-success':
+                            eleveInscritForm.controls['IdentifiantBadge'].valid
+                        }"
+                      >
                         {{
                           !eleveInscritForm.controls["IdentifiantBadge"].valid
                             ? "Renseignez un identifiant de badge."
@@ -957,14 +1287,19 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="content mt-3">
-                    <span class="text-on-border fw-bold text-secondary-cust">Autres parametres</span>
+                    <span class="text-on-border fw-bold text-secondary-cust"
+                      >Autres parametres</span
+                    >
 
                     <div class="col-lg-12 mt-3">
                       <label for="validationCustom01" class="form-label"
                         >Cycle
                       </label>
 
-                      <div class="d-flex align-items-center" *ngIf="(cycleList$ | async) as cycleList; else loader">
+                      <div
+                        class="d-flex align-items-center"
+                        *ngIf="cycleList$ | async as cycleList; else loader"
+                      >
                         <input
                           type="text"
                           class="form-control form-select"
@@ -974,8 +1309,10 @@
                           [matAutocomplete]="cycles"
                           formControlName="Cycle"
                           [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['Cycle'].valid,
-                            'is-invalid': !eleveInscritForm.controls['Cycle'].valid
+                            'is-valid':
+                              eleveInscritForm.controls['Cycle'].valid,
+                            'is-invalid':
+                              !eleveInscritForm.controls['Cycle'].valid
                           }"
                         />
                         <mat-autocomplete #cycles>
@@ -988,7 +1325,9 @@
                               )
                             "
                             (click)="
-                              eleveInscritForm.get('IDCYCLES')?.setValue(cycle.IDCYCLES);
+                              eleveInscritForm
+                                .get('IDCYCLES')
+                                ?.setValue(cycle.IDCYCLES);
                               eleveInscritForm
                                 .get('Cycle')
                                 ?.setValue(cycle.Libelle)
@@ -997,7 +1336,14 @@
                           >
                         </mat-autocomplete>
                       </div>
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['Cycle'].valid, 'text-success': eleveInscritForm.controls['Cycle'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls['Cycle'].valid,
+                          'text-success':
+                            eleveInscritForm.controls['Cycle'].valid
+                        }"
+                      >
                         {{
                           !eleveInscritForm.controls["Cycle"].valid
                             ? "Sélectionnez un cycle."
@@ -1011,47 +1357,63 @@
                         >Site d'affectation
                       </label>
                       <div class="d-flex align-items-center">
-
-                        <div class="input-group mb-3" *ngIf="(siteList$ | async) as siteList">
+                        <div
+                          class="input-group mb-3"
+                          *ngIf="siteList$ | async as siteList"
+                        >
                           <input
-                          type="text"
-                          class="form-control form-select"
-                          #siteInput
-                          (click)="eleveInscritForm.get('Site')?.setValue('')"
-                          [value]="eleveInscritForm.get('Site')?.value"
-                          [matAutocomplete]="sites"
-                          [ngClass]="{
-                            'is-valid': eleveInscritForm.controls['Site'].valid,
-                            'is-invalid': !eleveInscritForm.controls['Site'].valid
-                          }"
-                        />
+                            type="text"
+                            class="form-control form-select"
+                            #siteInput
+                            (click)="eleveInscritForm.get('Site')?.setValue('')"
+                            [value]="eleveInscritForm.get('Site')?.value"
+                            [matAutocomplete]="sites"
+                            [ngClass]="{
+                              'is-valid':
+                                eleveInscritForm.controls['Site'].valid,
+                              'is-invalid':
+                                !eleveInscritForm.controls['Site'].valid
+                            }"
+                          />
 
-                        <mat-autocomplete #sites>
-                          <mat-option
-                            *ngFor="
-                              let site of filterElement(
-                                siteList,
-                                siteInput.value,
-                                'Libelle'
-                              )
-                            "
-                            (click)="
-                              eleveInscritForm.get('IDSITE')?.setValue(site.IDSITE);
-                              eleveInscritForm
-                                .get('Site')
-                                ?.setValue(site.Libelle)
-                            "
-                            >{{ site.Libelle }}</mat-option
-                          >
-                          <mat-option>
-                            <span class="input-group-text  bg-success text-white " (click)="openSiteDialog()" id="basic-addon1">Ajouter un site<i class="fa-solid fa-plus"></i></span>
-                          </mat-option>
-                        </mat-autocomplete>
+                          <mat-autocomplete #sites>
+                            <mat-option
+                              *ngFor="
+                                let site of filterElement(
+                                  siteList,
+                                  siteInput.value,
+                                  'Libelle'
+                                )
+                              "
+                              (click)="
+                                eleveInscritForm
+                                  .get('IDSITE')
+                                  ?.setValue(site.IDSITE);
+                                eleveInscritForm
+                                  .get('Site')
+                                  ?.setValue(site.Libelle)
+                              "
+                              >{{ site.Libelle }}</mat-option
+                            >
+                            <mat-option>
+                              <span
+                                class="input-group-text bg-success text-white"
+                                (click)="openSiteDialog()"
+                                id="basic-addon1"
+                                >Ajouter un site<i class="fa-solid fa-plus"></i
+                              ></span>
+                            </mat-option>
+                          </mat-autocomplete>
                         </div>
-
-
                       </div>
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['Site'].valid, 'text-success': eleveInscritForm.controls['Site'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls['Site'].valid,
+                          'text-success':
+                            eleveInscritForm.controls['Site'].valid
+                        }"
+                      >
                         {{
                           !eleveInscritForm.controls["Site"].valid
                             ? "Sélectionnez un site."
@@ -1065,48 +1427,74 @@
                         >Etablissement d'origine
                       </label>
 
-                      <div class="border" *ngIf="(etablissementList$ | async ) as etablissementList ">
+                      <div
+                        class="border"
+                        *ngIf="etablissementList$ | async as etablissementList"
+                      >
                         <input
-                        type="text"
-                        class="form-control form-select"
-                        (click)="eleveInscritForm.get('EtablissementProvenance')?.setValue('')"
-                        #etsOrigine
-                        [value]="eleveInscritForm.get('EtablissementProvenance')?.value"
-                        [matAutocomplete]="etsList"
-                        [ngClass]="{
-                          'is-valid': eleveInscritForm.controls['EtablissementProvenance'].valid,
-                          'is-invalid': !eleveInscritForm.controls['EtablissementProvenance'].valid
-                        }"
-                      />
-                      <mat-autocomplete #etsList >
-                        <mat-option
-                          *ngFor="
-                            let ets of filterElement(
-                              etablissementList,
-                              etsOrigine.value,
-                              'Fr_Nom'
-                            )
-                          "
+                          type="text"
+                          class="form-control form-select"
                           (click)="
                             eleveInscritForm
-                            .get('EtablissementOrigine')
-                            ?.setValue(ets.IDETABLISSEMENTS);
-                          eleveInscritForm
-                            .get('EtablissementProvenance')
-                            ?.setValue(ets.Fr_Nom)
+                              .get('EtablissementProvenance')
+                              ?.setValue('')
                           "
-                          >{{ ets.Fr_Nom }}</mat-option
-                        >
-                      </mat-autocomplete>
+                          #etsOrigine
+                          [value]="
+                            eleveInscritForm.get('EtablissementProvenance')
+                              ?.value
+                          "
+                          [matAutocomplete]="etsList"
+                          [ngClass]="{
+                            'is-valid':
+                              eleveInscritForm.controls[
+                                'EtablissementProvenance'
+                              ].valid,
+                            'is-invalid':
+                              !eleveInscritForm.controls[
+                                'EtablissementProvenance'
+                              ].valid
+                          }"
+                        />
+                        <mat-autocomplete #etsList>
+                          <mat-option
+                            *ngFor="
+                              let ets of filterElement(
+                                etablissementList,
+                                etsOrigine.value,
+                                'Fr_Nom'
+                              )
+                            "
+                            (click)="
+                              eleveInscritForm
+                                .get('EtablissementOrigine')
+                                ?.setValue(ets.IDETABLISSEMENTS);
+                              eleveInscritForm
+                                .get('EtablissementProvenance')
+                                ?.setValue(ets.Fr_Nom)
+                            "
+                            >{{ ets.Fr_Nom }}</mat-option
+                          >
+                        </mat-autocomplete>
                       </div>
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['EtablissementProvenance'].valid, 'text-success': eleveInscritForm.controls['EtablissementProvenance'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls[
+                              'EtablissementProvenance'
+                            ].valid,
+                          'text-success':
+                            eleveInscritForm.controls['EtablissementProvenance']
+                              .valid
+                        }"
+                      >
                         {{
-                          !eleveInscritForm.controls["EtablissementProvenance"].valid
+                          !eleveInscritForm.controls["EtablissementProvenance"]
+                            .valid
                             ? "Renseignez un établissement d'origine."
                             : "ok."
                         }}
                       </div>
-
                     </div>
 
                     <div class="col-lg-12 mt-3">
@@ -1117,14 +1505,22 @@
                         [readonly]="action == 'view'"
                         type="date"
                         class="form-control"
-
                         formControlName="BEPC_Annee"
                         [ngClass]="{
-                          'is-valid': eleveInscritForm.controls['BEPC_Annee'].valid,
-                          'is-invalid': !eleveInscritForm.controls['BEPC_Annee'].valid
+                          'is-valid':
+                            eleveInscritForm.controls['BEPC_Annee'].valid,
+                          'is-invalid':
+                            !eleveInscritForm.controls['BEPC_Annee'].valid
                         }"
                       />
-                      <div [ngClass]="{'text-danger': !eleveInscritForm.controls['BEPC_Annee'].valid, 'text-success': eleveInscritForm.controls['BEPC_Annee'].valid}">
+                      <div
+                        [ngClass]="{
+                          'text-danger':
+                            !eleveInscritForm.controls['BEPC_Annee'].valid,
+                          'text-success':
+                            eleveInscritForm.controls['BEPC_Annee'].valid
+                        }"
+                      >
                         {{
                           !eleveInscritForm.controls["BEPC_Annee"].valid
                             ? "Renseignez une année pour le BEPC."
@@ -1132,8 +1528,6 @@
                         }}
                       </div>
                     </div>
-
-
                   </div>
                 </div>
               </div>
@@ -1141,7 +1535,9 @@
               <div class="row mt-5">
                 <div class="col-lg-6">
                   <div class="content mt-3">
-                    <span class="text-on-border fw-bold text-secondary-cust">Paramètres Divers</span>
+                    <span class="text-on-border fw-bold text-secondary-cust"
+                      >Paramètres Divers</span
+                    >
 
                     <div class="row mt-3">
                       <div class="col-lg-4">
@@ -1152,12 +1548,7 @@
                             formControlName="Boursier"
                             id="flexCheckDefault"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
-                            Boursier
-                          </label>
+                          <label class="form-check-label"> Boursier </label>
                         </div>
                       </div>
 
@@ -1169,10 +1560,7 @@
                             formControlName="ExempteDuSport"
                             id="flexCheckDefault"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
+                          <label class="form-check-label">
                             Exempte Du Sport
                           </label>
                         </div>
@@ -1187,12 +1575,7 @@
                             id="flexCheckDefault"
                             formControlName="bPleinTemps"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
-                            Plein Temps
-                          </label>
+                          <label class="form-check-label"> Plein Temps </label>
                         </div>
                       </div>
 
@@ -1205,12 +1588,7 @@
                             id="flexCheckDefault"
                             formControlName="bMarie"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
-                            Marie
-                          </label>
+                          <label class="form-check-label"> Marie </label>
                         </div>
                       </div>
 
@@ -1222,12 +1600,7 @@
                             formControlName="Travailleur"
                             id="flexCheckDefault"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
-                            Travailleur
-                          </label>
+                          <label class="form-check-label"> Travailleur </label>
                         </div>
                       </div>
 
@@ -1239,10 +1612,7 @@
                             id="flexCheckDefault"
                             formControlName="ParentsDivorces"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
+                          <label class="form-check-label">
                             Parents Divorces
                           </label>
                         </div>
@@ -1256,9 +1626,7 @@
                             formControlName="FraisInscriptionPayes"
                             id="flexCheckDefault"
                           />
-                          <label
-                            class="form-check-label"
-                          >
+                          <label class="form-check-label">
                             Frais Inscription Payes
                           </label>
                         </div>
@@ -1272,9 +1640,7 @@
                             value=""
                             id="flexCheckDefault"
                           />
-                          <label
-                            class="form-check-label"
-                          >
+                          <label class="form-check-label">
                             Frais Inscription Payes
                           </label>
                         </div>
@@ -1283,9 +1649,20 @@
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <div class="content mt-3 " [ngClass]="{'border-danger': eleveInscritForm.get('SMS_ParentParDefaut')?.value < 1, 'border-success': eleveInscritForm.get('SMS_ParentParDefaut')?.value > 0}">
+                  <div
+                    class="content mt-3"
+                    [ngClass]="{
+                      'border-danger':
+                        eleveInscritForm.get('SMS_ParentParDefaut')?.value < 1,
+                      'border-success':
+                        eleveInscritForm.get('SMS_ParentParDefaut')?.value > 0
+                    }"
+                  >
                     <span class="text-on-border fw-bold text-secondary-cust"
-                      >Par défaut . Envoyer les sms Alerte parents (<span class="text-danger">*</span>)
+                      >Par défaut . Envoyer les sms Alerte parents (<span
+                        class="text-danger"
+                        >*</span
+                      >)
                     </span>
 
                     <div class="row mt-3">
@@ -1296,15 +1673,13 @@
                             type="radio"
                             formControlName="SMS_ParentParDefaut"
                             [value]="1"
-                            [checked]="eleveInscritForm.get('SMS_ParentParDefaut')?.value == '1'"
+                            [checked]="
+                              eleveInscritForm.get('SMS_ParentParDefaut')
+                                ?.value == '1'
+                            "
                             id="flexCheckDefault"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
-                            Au père
-                          </label>
+                          <label class="form-check-label"> Au père </label>
                         </div>
                       </div>
 
@@ -1314,16 +1689,14 @@
                             class="form-check-input"
                             type="radio"
                             formControlName="SMS_ParentParDefaut"
-                            [checked]="eleveInscritForm.get('SMS_ParentParDefaut')?.value == '2'"
+                            [checked]="
+                              eleveInscritForm.get('SMS_ParentParDefaut')
+                                ?.value == '2'
+                            "
                             [value]="2"
                             id="flexCheckDefault"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
-                            A la mère
-                          </label>
+                          <label class="form-check-label"> A la mère </label>
                         </div>
                       </div>
 
@@ -1334,15 +1707,13 @@
                             type="radio"
                             formControlName="SMS_ParentParDefaut"
                             [value]="3"
-                            [checked]="eleveInscritForm.get('SMS_ParentParDefaut')?.value == '3'"
+                            [checked]="
+                              eleveInscritForm.get('SMS_ParentParDefaut')
+                                ?.value == '3'
+                            "
                             id="flexCheckDefault"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
-                            Au tuteur
-                          </label>
+                          <label class="form-check-label"> Au tuteur </label>
                         </div>
                       </div>
 
@@ -1352,16 +1723,14 @@
                             class="form-check-input"
                             type="radio"
                             formControlName="SMS_ParentParDefaut"
-                            [checked]="eleveInscritForm.get('SMS_ParentParDefaut')?.value == '4'"
+                            [checked]="
+                              eleveInscritForm.get('SMS_ParentParDefaut')
+                                ?.value == '4'
+                            "
                             [value]="4"
                             id="flexCheckDefault"
                           />
-                          <label
-                            class="form-check-label"
-
-                          >
-                            A l'élève
-                          </label>
+                          <label class="form-check-label"> A l'élève </label>
                         </div>
                       </div>
                     </div>
@@ -1375,17 +1744,21 @@
               role="tabpanel"
               aria-labelledby="nestedTab2"
             >
-            <app-reduction-exoneration [IDELEVE]="IDEleve"></app-reduction-exoneration>
-
+              <app-reduction-exoneration
+                [IDELEVE]="IDEleve"
+              ></app-reduction-exoneration>
             </div>
           </div>
         </form>
-        <div class=" d-flex justify-content-end">
-          <button mat-button matStepperNext> <i class="fa-solid fa-angle-double-right text-secondary-cust"></i> <span class="text-secondary-cust">Suivant</span></button>
+        <div class="d-flex justify-content-end">
+          <button mat-button matStepperNext>
+            <i class="fa-solid fa-angle-double-right text-secondary-cust"></i>
+            <span class="text-secondary-cust">Suivant</span>
+          </button>
         </div>
       </mat-step>
 
-      <mat-step [stepControl]="eleveInscritForm" >
+      <mat-step [stepControl]="eleveInscritForm">
         <ng-template matStepLabel>Informations supplémentaires</ng-template>
         <form [formGroup]="eleveInscritForm">
           <div class="row mt-3">
@@ -1399,14 +1772,18 @@
                 class="form-control text-capitalize"
                 formControlName="Fr_NomPrenomTuteur"
                 [ngClass]="{
-                  'is-valid': eleveInscritForm.controls['Fr_NomPrenomTuteur'].valid,
-                  'is-invalid': !eleveInscritForm.controls['Fr_NomPrenomTuteur'].valid
+                  'is-valid':
+                    eleveInscritForm.controls['Fr_NomPrenomTuteur'].valid,
+                  'is-invalid':
+                    !eleveInscritForm.controls['Fr_NomPrenomTuteur'].valid
                 }"
               />
               <div
                 [ngClass]="{
-                  'valid-feedback': eleveInscritForm.controls['Fr_NomPrenomTuteur'].valid,
-                  'invalid-feedback': !eleveInscritForm.controls['Fr_NomPrenomTuteur'].valid
+                  'valid-feedback':
+                    eleveInscritForm.controls['Fr_NomPrenomTuteur'].valid,
+                  'invalid-feedback':
+                    !eleveInscritForm.controls['Fr_NomPrenomTuteur'].valid
                 }"
               >
                 {{
@@ -1421,37 +1798,38 @@
               <label for="validationCustom01" class="form-label"
                 >Profession Tuteur</label
               >
-              <div *ngIf="(professionList$ | async ) as fonctionList; else loader">
+              <div *ngIf="professionList$ | async as fonctionList; else loader">
                 <input
-                type="text"
-                class="form-control form-select"
-                (click)="eleveInscritForm.get('ProfessionTuteur')?.setValue('')"
-                #fonctionInput1
-                [matAutocomplete]="profession"
-                formControlName="ProfessionTuteur"
-              />
-              <mat-autocomplete #profession >
-                <mat-option
-                  *ngFor="
-                    let item of filterElement(
-                      fonctionList,
-                      fonctionInput1.value,
-                      'Fr_Libelle'
-                    )
-                  "
+                  type="text"
+                  class="form-control form-select"
                   (click)="
-                    eleveInscritForm
-                      .get('ProfessionTuteur')
-                      ?.setValue(item.Fr_Libelle);
-                    eleveInscritForm
-                      .get('IDProfessionTuteur')
-                      ?.setValue(item.IDPROFESSION)
+                    eleveInscritForm.get('ProfessionTuteur')?.setValue('')
                   "
-                  >{{ item.Fr_Libelle }}</mat-option
-                >
-              </mat-autocomplete>
+                  #fonctionInput1
+                  [matAutocomplete]="profession"
+                  formControlName="ProfessionTuteur"
+                />
+                <mat-autocomplete #profession>
+                  <mat-option
+                    *ngFor="
+                      let item of filterElement(
+                        fonctionList,
+                        fonctionInput1.value,
+                        'Fr_Libelle'
+                      )
+                    "
+                    (click)="
+                      eleveInscritForm
+                        .get('ProfessionTuteur')
+                        ?.setValue(item.Fr_Libelle);
+                      eleveInscritForm
+                        .get('IDProfessionTuteur')
+                        ?.setValue(item.IDPROFESSION)
+                    "
+                    >{{ item.Fr_Libelle }}</mat-option
+                  >
+                </mat-autocomplete>
               </div>
-
             </div>
 
             <div class="col-lg-3">
@@ -1476,45 +1854,52 @@
                 class="form-control"
                 formControlName="TelMobileTuteur"
                 [ngClass]="{
-                  'is-valid': eleveInscritForm.controls['TelMobileTuteur'].valid,
-                  'is-invalid': !eleveInscritForm.controls['TelMobileTuteur'].valid
+                  'is-valid':
+                    eleveInscritForm.controls['TelMobileTuteur'].valid,
+                  'is-invalid':
+                    !eleveInscritForm.controls['TelMobileTuteur'].valid
                 }"
               />
               <div
-              [ngClass]="{
-                'text-success': eleveInscritForm.controls['TelMobileTuteur'].valid,
-                'text-danger': !eleveInscritForm.controls['TelMobileTuteur'].valid
-              }"
-            >
-              {{
-                !eleveInscritForm.controls["TelMobileTuteur"].valid
-                  ? "Renseignez le numéro de téléphone du tuteur."
-                  : "ok."
-              }}
+                [ngClass]="{
+                  'text-success':
+                    eleveInscritForm.controls['TelMobileTuteur'].valid,
+                  'text-danger':
+                    !eleveInscritForm.controls['TelMobileTuteur'].valid
+                }"
+              >
+                {{
+                  !eleveInscritForm.controls["TelMobileTuteur"].valid
+                    ? "Renseignez le numéro de téléphone du tuteur."
+                    : "ok."
+                }}
+              </div>
             </div>
-            </div>
-
           </div>
 
           <div class="row mt-3">
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Nom Prenom pere </label
-              >
+                >Nom Prenom pere
+              </label>
               <input
                 [readonly]="action == 'view'"
                 type="text"
                 class="form-control text-capitalize"
                 formControlName="Fr_NomPrenomPere"
                 [ngClass]="{
-                  'is-valid': eleveInscritForm.controls['Fr_NomPrenomPere'].valid,
-                  'is-invalid': !eleveInscritForm.controls['Fr_NomPrenomPere'].valid
+                  'is-valid':
+                    eleveInscritForm.controls['Fr_NomPrenomPere'].valid,
+                  'is-invalid':
+                    !eleveInscritForm.controls['Fr_NomPrenomPere'].valid
                 }"
               />
               <div
                 [ngClass]="{
-                  'valid-feedback': eleveInscritForm.controls['Fr_NomPrenomPere'].valid,
-                  'invalid-feedback': !eleveInscritForm.controls['Fr_NomPrenomPere'].valid
+                  'valid-feedback':
+                    eleveInscritForm.controls['Fr_NomPrenomPere'].valid,
+                  'invalid-feedback':
+                    !eleveInscritForm.controls['Fr_NomPrenomPere'].valid
                 }"
               >
                 {{
@@ -1529,35 +1914,35 @@
               <label for="validationCustom01" class="form-label"
                 >Profession pere</label
               >
-              <div *ngIf="(professionList$ | async ) as fonctionList; else loader ">
+              <div *ngIf="professionList$ | async as fonctionList; else loader">
                 <input
-                type="text"
-                class="form-control form-select"
-                (click)="eleveInscritForm.get('ProfessionPere')?.setValue('')"
-                #fonctionInput2
-                [matAutocomplete]="professionpere"
-                formControlName="ProfessionPere"
+                  type="text"
+                  class="form-control form-select"
+                  (click)="eleveInscritForm.get('ProfessionPere')?.setValue('')"
+                  #fonctionInput2
+                  [matAutocomplete]="professionpere"
+                  formControlName="ProfessionPere"
                 />
-              <mat-autocomplete #professionpere >
-                <mat-option
-                  *ngFor="
-                    let item of filterElement(
-                      fonctionList,
-                      fonctionInput2.value,
-                      'Fr_Libelle'
-                    )
-                  "
-                  (click)="
-                    eleveInscritForm
-                      .get('ProfessionPere')
-                      ?.setValue(item.Fr_Libelle);
-                    eleveInscritForm
-                      .get('IDProfessionPere')
-                      ?.setValue(item.IDPROFESSION)
-                  "
-                  >{{ item.Fr_Libelle }}</mat-option
-                >
-              </mat-autocomplete>
+                <mat-autocomplete #professionpere>
+                  <mat-option
+                    *ngFor="
+                      let item of filterElement(
+                        fonctionList,
+                        fonctionInput2.value,
+                        'Fr_Libelle'
+                      )
+                    "
+                    (click)="
+                      eleveInscritForm
+                        .get('ProfessionPere')
+                        ?.setValue(item.Fr_Libelle);
+                      eleveInscritForm
+                        .get('IDProfessionPere')
+                        ?.setValue(item.IDPROFESSION)
+                    "
+                    >{{ item.Fr_Libelle }}</mat-option
+                  >
+                </mat-autocomplete>
               </div>
             </div>
 
@@ -1580,17 +1965,20 @@
               <input
                 [readonly]="action == 'view'"
                 type="text"
-                class="form-control "
+                class="form-control"
                 formControlName="TelMobilePere"
                 [ngClass]="{
                   'is-valid': eleveInscritForm.controls['TelMobilePere'].valid,
-                  'is-invalid': !eleveInscritForm.controls['TelMobilePere'].valid
+                  'is-invalid':
+                    !eleveInscritForm.controls['TelMobilePere'].valid
                 }"
               />
               <div
                 [ngClass]="{
-                  'valid-feedback': eleveInscritForm.controls['TelMobilePere'].valid,
-                  'invalid-feedback': !eleveInscritForm.controls['TelMobilePere'].valid
+                  'valid-feedback':
+                    eleveInscritForm.controls['TelMobilePere'].valid,
+                  'invalid-feedback':
+                    !eleveInscritForm.controls['TelMobilePere'].valid
                 }"
               >
                 {{
@@ -1613,14 +2001,18 @@
                 class="form-control text-capitalize"
                 formControlName="Fr_NomPrenomMere"
                 [ngClass]="{
-                  'is-valid': eleveInscritForm.controls['Fr_NomPrenomMere'].valid,
-                  'is-invalid': !eleveInscritForm.controls['Fr_NomPrenomMere'].valid
+                  'is-valid':
+                    eleveInscritForm.controls['Fr_NomPrenomMere'].valid,
+                  'is-invalid':
+                    !eleveInscritForm.controls['Fr_NomPrenomMere'].valid
                 }"
               />
               <div
                 [ngClass]="{
-                  'valid-feedback': eleveInscritForm.controls['Fr_NomPrenomMere'].valid,
-                  'invalid-feedback': !eleveInscritForm.controls['Fr_NomPrenomMere'].valid
+                  'valid-feedback':
+                    eleveInscritForm.controls['Fr_NomPrenomMere'].valid,
+                  'invalid-feedback':
+                    !eleveInscritForm.controls['Fr_NomPrenomMere'].valid
                 }"
               >
                 {{
@@ -1633,37 +2025,37 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Profession mère </label
-              >
-              <div *ngIf="(professionList$ | async ) as fonctionList; else loader  ">
+                >Profession mère
+              </label>
+              <div *ngIf="professionList$ | async as fonctionList; else loader">
                 <input
-                type="text"
-                class="form-control form-select"
-                (click)="eleveInscritForm.get('ProfessionMere')?.setValue('')"
-                #fonctionInput3
-                [matAutocomplete]="professionmere"
-                formControlName="ProfessionMere"
-              />
-              <mat-autocomplete #professionmere >
-                <mat-option
-                  *ngFor="
-                    let item of filterElement(
-                      fonctionList,
-                      fonctionInput3.value,
-                      'Fr_Libelle'
-                    )
-                  "
-                  (click)="
-                    eleveInscritForm
-                      .get('ProfessionMere')
-                      ?.setValue(item.Fr_Libelle);
-                    eleveInscritForm
-                      .get('IDProfessionMere')
-                      ?.setValue(item.IDPROFESSION)
-                  "
-                  >{{ item.Fr_Libelle }}</mat-option
-                >
-              </mat-autocomplete>
+                  type="text"
+                  class="form-control form-select"
+                  (click)="eleveInscritForm.get('ProfessionMere')?.setValue('')"
+                  #fonctionInput3
+                  [matAutocomplete]="professionmere"
+                  formControlName="ProfessionMere"
+                />
+                <mat-autocomplete #professionmere>
+                  <mat-option
+                    *ngFor="
+                      let item of filterElement(
+                        fonctionList,
+                        fonctionInput3.value,
+                        'Fr_Libelle'
+                      )
+                    "
+                    (click)="
+                      eleveInscritForm
+                        .get('ProfessionMere')
+                        ?.setValue(item.Fr_Libelle);
+                      eleveInscritForm
+                        .get('IDProfessionMere')
+                        ?.setValue(item.IDPROFESSION)
+                    "
+                    >{{ item.Fr_Libelle }}</mat-option
+                  >
+                </mat-autocomplete>
               </div>
             </div>
 
@@ -1690,13 +2082,16 @@
                 formControlName="TelMobileMere"
                 [ngClass]="{
                   'is-valid': eleveInscritForm.controls['TelMobileMere'].valid,
-                  'is-invalid': !eleveInscritForm.controls['TelMobileMere'].valid
+                  'is-invalid':
+                    !eleveInscritForm.controls['TelMobileMere'].valid
                 }"
               />
               <div
                 [ngClass]="{
-                  'valid-feedback': eleveInscritForm.controls['TelMobileMere'].valid,
-                  'invalid-feedback': !eleveInscritForm.controls['TelMobileMere'].valid
+                  'valid-feedback':
+                    eleveInscritForm.controls['TelMobileMere'].valid,
+                  'invalid-feedback':
+                    !eleveInscritForm.controls['TelMobileMere'].valid
                 }"
               >
                 {{
@@ -1756,13 +2151,16 @@
                   formControlName="Fr_Adresse1"
                   [ngClass]="{
                     'is-valid': eleveInscritForm.controls['Fr_Adresse1'].valid,
-                    'is-invalid': !eleveInscritForm.controls['Fr_Adresse1'].valid
+                    'is-invalid':
+                      !eleveInscritForm.controls['Fr_Adresse1'].valid
                   }"
                 />
                 <div
                   [ngClass]="{
-                    'valid-feedback': eleveInscritForm.controls['Fr_Adresse1'].valid,
-                    'invalid-feedback': !eleveInscritForm.controls['Fr_Adresse1'].valid
+                    'valid-feedback':
+                      eleveInscritForm.controls['Fr_Adresse1'].valid,
+                    'invalid-feedback':
+                      !eleveInscritForm.controls['Fr_Adresse1'].valid
                   }"
                 >
                   {{
@@ -1775,17 +2173,141 @@
             </div>
           </div>
         </form>
-        <div class=" d-flex justify-content-end">
-          <button mat-button matStepperPrevious><span class="text-secondary-cust">Précédant</span> <i class="fa-solid fa-angle-double-left text-secondary-cust"></i>  </button>
-          <button mat-button matStepperNext> <i class="fa-solid fa-angle-double-right text-secondary-cust"></i> <span class="text-secondary-cust">Suivant</span></button>
+        <div class="d-flex justify-content-end">
+          <button mat-button matStepperPrevious>
+            <span class="text-secondary-cust">Précédant</span>
+            <i class="fa-solid fa-angle-double-left text-secondary-cust"></i>
+          </button>
+          <button mat-button matStepperNext>
+            <i class="fa-solid fa-angle-double-right text-secondary-cust"></i>
+            <span class="text-secondary-cust">Suivant</span>
+          </button>
         </div>
       </mat-step>
 
       <mat-step>
         <ng-template matStepLabel>Informations comptables</ng-template>
-        <app-reduction-exoneration [IDELEVE]="IDEleve"></app-reduction-exoneration>
-        <div class=" d-flex justify-content-end">
-          <button mat-button matStepperPrevious> <i class="fa-solid fa-angle-double-left text-secondary-cust"></i> <span class="text-secondary-cust">Précédant</span></button>
+        <app-reduction-exoneration
+          [IDELEVE]="IDEleve"
+        ></app-reduction-exoneration>
+        <div class="d-flex justify-content-end">
+          <button mat-button matStepperPrevious>
+            <i class="fa-solid fa-angle-double-left text-secondary-cust"></i>
+            <span class="text-secondary-cust">Précédant</span>
+          </button>
+        </div>
+        <div>
+          <div class="container-fuild m-3">
+            <div class="bg-light shadow rounded rounded-5">
+              <div *ngIf="infoEleve" class="p-2" style="display: inline-block !important">
+                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                  <span>Etat de paiement de l'élève : </span>
+                  <span class="text-danger">{{ infoEleve.Nom }}</span>
+                </p>
+
+                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                  <span>Matricule : </span>
+                  <span class="text-danger">{{
+                    infoEleve.Matricule
+                  }}</span>
+                </p>
+
+                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                  <span>Total à payer : </span>
+                  <span class="text-danger">{{
+                    GlobalService.formatPrix(infoEleve.Total_A_Payer)
+                  }}</span>
+                </p>
+                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                  <span>Total dèjà Payé : </span>
+                  <span class="text-danger">{{
+                    GlobalService.formatPrix(infoEleve.Total_Deja_Paye)
+                  }}</span>
+                </p>
+                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                  <span>Reste à payer : </span>
+                  <span class="text-danger">{{
+                    GlobalService.formatPrix(infoEleve.Reste_A_Payer)
+                  }}</span>
+                </p>
+                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                  <span>Total impayé : </span>
+                  <span class="text-danger">{{
+                    GlobalService.formatPrix(infoEleve.Total_Impaye)
+                  }}</span>
+                </p>
+              </div>
+            </div>
+            <div
+              class="row mt-2 rounded rounded-5 p-3 bg-light"
+              *ngIf="dataSourceFraisSColaire; else loader"
+            >
+              <div
+                class="col-lg-4 col-md-6 pointer hoverblockpayement p-2 rounded rounded-5 border"
+                *ngFor="let frais of dataSourceFraisSColaire"
+              >
+                <div class="row">
+                  <div class="col-lg-4 col-md-4">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="imagepaiement">
+                          <img
+                            src="assets/logo/Etats_de_paiement_droits_scoalires.png"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="d-block d-lg-none">
+                          <img
+                            class="resimage"
+                            src="assets/images/MTN Airtel money.jpg"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="d-none d-lg-block">
+                        <img
+                          class="imagemtn"
+                          src="assets/images/MTN Airtel money.jpg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-8 col-md-8">
+                    <h3 class="fw-bold text-danger">{{ frais.Libelle }}</h3>
+                    <p>
+                      <span class="fw-bold">Numero de paiment : </span>
+                      <span> {{ frais.IDMOUVEMENT }}</span>
+                    </p>
+                    <p>
+                      <span class="fw-bold">Date de paiement : </span>
+                      <span>
+                        {{ convertToValideDates(frais.DatePaiement) }}</span
+                      >
+                    </p>
+                    <p>
+                      <span class="fw-bold">Montant payé : </span>
+                      <span>{{
+                        GlobalService.formatPrix(frais.Total_Deja_Paye, " ")
+                      }}</span>
+                    </p>
+                    <p>
+                      <span class="fw-bold">Caisse : </span>
+                      <span> {{ frais.Caisse }}</span>
+                    </p>
+                    <p>
+                      <span class="fw-bold">Caissier : </span>
+                      <span> {{ frais.Caissier }}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </mat-step>
     </mat-stepper>
@@ -1804,9 +2326,8 @@
       </div>
     </div>
   </div>
-
 </app-gabarit>
 
-  <ng-template #loader>
-    <app-loader></app-loader>
-  </ng-template>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

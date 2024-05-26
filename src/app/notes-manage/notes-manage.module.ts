@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NoteSaisieExtComponent } from './note-saisie-ext/note-saisie-ext.component';
 import { MobileNoteSaisieComponent } from './saisie-notes/mobile-note-saisie/mobile-note-saisie.component';
 import { SelectTrimestreComponent } from './select-trimestre/select-trimestre.component';
-
+import { SaisieNotesByEnseignantComponent } from './saisie-notes/saisie-notes-by-enseignant/saisie-notes-by-enseignant.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { SelectTrimestreComponent } from './select-trimestre/select-trimestre.co
     HomeComponent,
     NoteSaisieExtComponent,
     MobileNoteSaisieComponent,
-    SelectTrimestreComponent
+    SelectTrimestreComponent,
+    SaisieNotesByEnseignantComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +35,8 @@ import { SelectTrimestreComponent } from './select-trimestre/select-trimestre.co
     ReactiveFormsModule
   ],
   exports: [
-    SaisieNotesComponent
+    SaisieNotesComponent,
+    SaisieNotesByEnseignantComponent
   ]
 })
 export class NotesManageModule { }

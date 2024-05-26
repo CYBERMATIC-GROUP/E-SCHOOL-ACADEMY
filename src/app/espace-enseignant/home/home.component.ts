@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Actualite } from 'src/app/espace-eleve/models/actualite.model';
 import { ActualiteService } from 'src/app/espace-eleve/services/actualite.service';
@@ -7,7 +8,8 @@ import { EnseignantService } from 'src/app/services/enseignant.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { constantes } from 'src/environnements/constantes';
 import { environment } from 'src/environnements/environnement.prod';
-
+import { Router } from '@angular/router';
+import { SelectTrimestreComponent } from 'src/app/notes-manage/select-trimestre/select-trimestre.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,10 +20,13 @@ export class HomeComponent {
   emploisDuTempsIsLoading!: boolean
   enseignant!: Enseigant
   actualites$!: Observable<Actualite[]>
+  NumTrimestre!: number;
 
   constructor(
     private enseignantService: EnseignantService,
     private globalService: GlobalService,
+    private dialog : MatDialog,
+    private router: Router,
     private actualiteService: ActualiteService
   ) {}
 
@@ -58,4 +63,19 @@ export class HomeComponent {
      const resPercentage = (rest_amount * 100) / total;
      return resPercentage;
   }
+
+   openModal() {
+     const dialog = this.dialog.open(SelectTrimestreComponent)
+     dialog.id = 'SelectTrimestreComponent'
+     dialog.afterClosed().subscribe(result => {
+       if (result) {
+         this.NumTrimestre = dialog.componentInstance.Trimestre
+         console.log(this.NumTrimestre);
+         if (this.NumTrimestre) {
+           this.router.navigateByUrl('espace-enseignant/saisie-note_enseignant/' + this.NumTrimestre);
+         }
+       }
+     } )
+
+   }
 }

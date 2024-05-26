@@ -32,6 +32,9 @@ export class FraisPayerService {
     return this.globalService.setHttpRequest(this.uri + '/' + IDELEVE, "GET")
   }
 
+  getHistoriquePaiementByEleve(IDELEVE: number){
+    return this.globalService.setHttpRequest('/COMPTA_Get_Historique_Paiement_Eleve' + '/' + IDELEVE + '/' + 0, "GET")
+  }
   setPaiementFrais(paiement: FraisScolaire[], idEleve: number, modePaiement: number){
     return this.globalService.setHttpRequest('/COMPTA_Paiement_Frais_Scolaire/' + idEleve + '/' + modePaiement, "POST", paiement);
   }

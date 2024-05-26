@@ -127,11 +127,25 @@ import { SaisieOperationsDiversComponent } from './operations-diverses/saisie-op
 import { RetraitEspaceCaisseComponent } from './comptabilite/retrait-espace-caisse/retrait-espace-caisse.component';
 import { CreateCompteComponent } from './login-form/create-compte/create-compte.component';
 import { SaisieNotesComponent } from './notes-manage/saisie-notes/saisie-notes.component';
+import { OperationsDeConsultationsComponent } from './dashboard/comptabilite/operations-de-consultations/operations-de-consultations.component';
+import { OperationsDeSaisieComponent } from './dashboard/comptabilite/operations-de-saisie/operations-de-saisie.component';
+import { OutilsDuPromoteurComponent } from './dashboard/comptabilite/outils-du-promoteur/outils-du-promoteur.component';
+import { StatistiqueByDisciplineComponent } from './eleve/classement-releve-note-eleve/statistique-by-discipline/statistique-by-discipline.component';
+
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "connexion", component: LoginComponent},
   {path: "saisie-note/:trimestre", component: SaisieNotesComponent},
+
+  {path: "operations-de-saisie", component: OperationsDeSaisieComponent},
+  {path: "operations-de-consulations", component: OperationsDeConsultationsComponent},
+  {path: "outils-du-promoteur", component: OutilsDuPromoteurComponent},
+  {path: "statistique-par-discipline", component: StatistiqueByDisciplineComponent},
+
+
+
+
 
   {path: "validation-compte", component: ValidationCompteComponent},
   {path: "connexion-form", component: LoginFormComponent},

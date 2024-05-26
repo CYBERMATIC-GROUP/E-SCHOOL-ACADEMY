@@ -13,6 +13,8 @@ import { constantes } from 'src/environnements/constantes';
 import { VerifyStatusPayement } from '../../model/model.verifysatatus.paiement';
 import { FraisPayerService } from 'src/app/services/frais-payer.service';
 import { FraisScolairePaiementParent } from '../../model/paiementFraisScolaire.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorInterface } from 'src/app/models/error.model';
 
 @Component({
   selector: 'app-paiement-frais-scolaire',
@@ -44,6 +46,7 @@ export class PaiementFraisScolaireComponent {
   isLoadingverfyreprise!: boolean;
   modelrepriseVerification!: any
   togglebtnreprise: boolean = false
+  element!: any
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +58,14 @@ export class PaiementFraisScolaireComponent {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.element);
+    if (this.element) {
+      this.Montant = this.element.Reste_A_Payer
+      console.log(this.Montant);
+    }
+  
+    
+    
     const eleveSelectedString = localStorage.getItem('clickedElement');
     if (eleveSelectedString) {
       this.eleve = JSON.parse(eleveSelectedString);
@@ -103,6 +114,7 @@ export class PaiementFraisScolaireComponent {
   verifyStatuspaiement(modelstatus: VerifyStatusPayement) {
     let requestCount = 0;
     this.isLoadingverfy = true;
+    
     setTimeout(() => {
       this.intervalId = setInterval(() => {
         if (requestCount >= 10) {
@@ -110,25 +122,50 @@ export class PaiementFraisScolaireComponent {
           this.isLoadingverfy = false;
           this.globalService.toastShow("Délai d'attente dépassé", 'Attention');
           this.textvalidate = 'Reprendre le paiement';
-          this.togglebtnreprise = true
-          
+          this.togglebtnreprise = true;
           return;
         }
+        
         setTimeout(() => {
-          this.eleveService.DemandeStatutPayement(modelstatus).subscribe((response) => {
+          this.eleveService.DemandeStatutPayementFraisScolaire(modelstatus).subscribe(
+            (response) => {
               requestCount++;
               console.log(response);
+              const statut = Number(response.Status)
+              const etat = Number(response.Etat)
+              console.log(statut,etat);
               if (response.Status == '200' && response.Etat == '2') {
                 this.isLoadingverfy = false;
                 clearInterval(this.intervalId);
                 this.dialog.getDialogById('PaiementFraisScolaireComponent')?.close(true);
+              }else if(response.Status == '3' && response.Etat == '115' ){
+                clearInterval(this.intervalId);
+                this.isLoadingverfy = false;
+                this.textvalidate = 'Reprendre le paiement';
+                this.globalService.toastShow("Message", "Erreur", 'error');
+                this.togglebtnreprise = true;
               }
               console.log('Nombre de requêtes effectuées : ', requestCount);
-            });
+            },
+            (error: HttpErrorResponse) => {
+              if (error.status === 405) {
+                const err: ErrorInterface = error.error;
+                console.log(err.fault.detail);
+                clearInterval(this.intervalId);
+                this.isLoadingverfy = false;
+                this.globalService.toastShow(err.fault.detail, "Erreur", 'error');
+                this.textvalidate = 'Reprendre le paiement';
+                this.togglebtnreprise = true;
+              }
+              console.error('Erreur de requête : ', error);
+            }
+          );
         }, 3000); // 3 secondes en millisecondes
+  
       }, 3600); // 36 secondes en millisecondes
     }, 6000); // 6 secondes en millisecondes
   }
+  
 
   repriseverifyStatuspaiement(modelstatus: VerifyStatusPayement) {
     let requestCount = 0;
@@ -166,29 +203,27 @@ export class PaiementFraisScolaireComponent {
     this.isLoadingverfy = true;
     const fraisscolaire: FraisScolairePaiementParent = {
       IDEleve: this.eleve.IDELEVE,
-      IDProduit: this.IDProduit,
-      CodeProduit: this.CodeProduit,
+      IDProduit: this.element.IDPRODUIT,
+      CodeProduit: this.element.CodeProduit,
       MobilePayeur: this.MobilePayeur,
       Montant: this.Montant,
-      DetailOperation: this.Details,
+      DetailOperation: "Paiement " + this.element.sLibelleProduit,
     };
     console.log(fraisscolaire);
-    this.eleveService
-      .DemandePayementFRaisScolaire(fraisscolaire)
-      .subscribe((data) => {
-        this.isLoadingverfy = false;
-        const modelstatus = {
-          Code_Etab: data.Code_Etab,
-          Montant: this.Montant,
-          NumeroOperation: data.NumeroOperation,
-          DetailOperation: data.DetailOperation,
-          Statut: data.Statut,
-          Action: 2,
-        };
-        this.infopaiement = modelstatus.DetailOperation;
-        console.log(modelstatus);
-        this.modelrepriseVerification = modelstatus
-        this.verifyStatuspaiement(modelstatus);
-      });
+     this.eleveService.DemandePayementFRaisScolaire(fraisscolaire).subscribe((data) => {
+         this.isLoadingverfy = false;
+         const modelstatus = {
+           Code_Etab: data.Code_Etab,
+           Montant: this.Montant,
+           NumeroOperation: data.NumeroOperation,
+           DetailOperation: data.DetailOperation,
+           Statut: data.Statut,
+           Action: 2,
+         };
+         this.infopaiement = modelstatus.DetailOperation;
+         console.log(modelstatus);
+         this.modelrepriseVerification = modelstatus
+         this.verifyStatuspaiement(modelstatus);
+       });
   }
 }

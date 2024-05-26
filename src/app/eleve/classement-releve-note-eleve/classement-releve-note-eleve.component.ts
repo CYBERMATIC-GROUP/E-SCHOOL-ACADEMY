@@ -74,6 +74,7 @@ export class ClassementReleveNoteEleveComponent {
     private globalService: GlobalService,
     private brancheService: BrancheService,
     private niveauService: NiveauService,
+    private router: Router,
     private classeService: ClasseService,
     private matiereService: MatiereService,
     private classementService: ClassementService,
@@ -279,5 +280,13 @@ getSelectedMatiereId(): void {
         this.printIsLoadingM = false;
       })
     ).subscribe()
+  }
+  
+  openPageStatistiqueBydiscipline(){
+    const jsonString = JSON.stringify(this.objetSend);
+    localStorage.setItem('objetSend', jsonString);
+    if (jsonString) {
+      this.router.navigate(['statistique-par-discipline']);
+    }
   }
 }

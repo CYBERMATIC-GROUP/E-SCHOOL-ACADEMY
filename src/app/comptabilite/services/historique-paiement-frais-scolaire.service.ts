@@ -14,9 +14,14 @@ export class HistoriquePaiementFraisScolaireService {
     const uri = `COMPTA_Historique_Paiement_Frais_Scolaire_Eleve/${IDELEVE}`;
     return this.globalService.setHttpRequest(uri, "GET")
   }
-
   printRecu(IDELEVE: number, IDMOUVEMENT: number){
     const uri = `COMPTA_Imprime_Recu/${IDELEVE}/${IDMOUVEMENT}`;
+    return this.globalService.setHttpRequest(uri, "GET");
+  }
+
+  printRecuHistorique(IDELEVE: number, bOccasionnel: number){
+    const uri = `COMPTA_Imprime_Historique_Paiements_Eleve/${IDELEVE}/${bOccasionnel}`;
+    console.log(uri);
     return this.globalService.setHttpRequest(uri, "GET");
   }
 }

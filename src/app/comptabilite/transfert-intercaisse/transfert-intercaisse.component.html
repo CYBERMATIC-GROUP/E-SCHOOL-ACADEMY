@@ -81,8 +81,8 @@
                       <button
                         style="background-color: rgb(124, 87, 206)"
                         class="form-control text-white"
-                        [disabled]="formTransfert.invalid"
                         *ngIf="!sendArgentIsloading; else loader"
+                        [disabled]="isFormValid()"
                         (click)="onSetTransfert()"
                       >
                         Transferer <i class="fa-solid fa-arrow-right"></i>
@@ -121,7 +121,7 @@
             <p>
               <span class="fs-6" style="font-weight: bold; padding-right: 10px"
                 >4 -</span
-              ><span class="fs-6"
+              ><span clascomptabilites="fs-6"
                 >Transferer physiquement la somme vers la caisse de destinnation</span
               >
             </p>
@@ -211,7 +211,7 @@
     
                   <ng-container matColumnDef="CodeCaisseDestination">
                     <th mat-header-cell *matHeaderCellDef> Caisse </th>
-                    <td mat-cell *matCellDef="let transaction" [title]="transaction.Libelle"> {{transaction.CodeCaisseDestination}} </td>
+                    <td mat-cell *matCellDef="let transaction" [title]="transaction.Libelle"> {{bTableTransfertEntrant ? transaction.CodeCaisseSource : transaction.CodeCaisseDestination}} </td>
                     <td mat-footer-cell *matFooterCellDef class="bg-secondary">  </td>
                   </ng-container>
 

@@ -56,6 +56,23 @@ export class FraisScolaireComponent implements OnInit, OnDestroy {
       console.log('end');
   }
 
+
+  paiementfraisEleveByparent(element : any){
+    if (element.Reste_A_Payer == 0) {
+      this.globalService.toastShow("Frais déjà soldé","Informations")
+    }else{
+      const dialog = this.dialog.open(PaiementFraisScolaireComponent)
+      dialog.componentInstance.element = element
+      dialog.id = 'PaiementFraisScolaireComponent'
+      dialog.afterClosed().subscribe(result => {
+        if(result){
+          this.globalService.toastShow('Payement effectué', 'Succès');
+        }
+      })
+    }
+    console.log(element);
+      }
+
   initDataFraisScolaire(idEleve: number) {
     console.log(idEleve);
       this.fraisScolaireService.getFraisScolaire(idEleve).subscribe(res  => {
@@ -74,9 +91,7 @@ export class FraisScolaireComponent implements OnInit, OnDestroy {
     return formattedDate;
   }
 
-  paiementfraisEleveByparent(){
-    // const dialog = this.dialog.open(PaiementFraisScolaireComponent)
-  }
+
 
 }
 

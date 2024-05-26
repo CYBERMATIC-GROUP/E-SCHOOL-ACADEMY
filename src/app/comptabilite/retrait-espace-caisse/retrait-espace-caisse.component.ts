@@ -36,10 +36,10 @@ export class RetraitEspaceCaisseComponent {
   comptes$!: Observable<compteModel[]>;
   comptesFsseur$!: Observable<compteModel[]>;
   isLoading!: boolean;
-  soldeCompteSelcted!: String 
-  Couleur!: string
-  compare: number = 0
-  titresoldecompteselected!: string
+  soldeCompteSelcted!: String;
+  Couleur!: string;
+  compare: number = 0;
+  titresoldecompteselected!: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -152,8 +152,9 @@ export class RetraitEspaceCaisseComponent {
           .pipe(
             tap((data) => {
               console.log(data);
+              this.impressionEtatRetraitEspeceCaisse(data)
               this.retraitForm.reset();
-              this.soldeCompteSelcted = this.formatPrix("0")
+              this.soldeCompteSelcted = this.formatPrix('0');
               this.globalService.toastShow(
                 'Votre opération a été crée avec succès',
                 'succès'
@@ -168,22 +169,42 @@ export class RetraitEspaceCaisseComponent {
     });
   }
 
+  impressionEtatRetraitEspeceCaisse(resData: any) {
+    const data = resData;
+    console.log(data);
+    
+    console.log(data);
+    var anchor = document.createElement('a');
+    anchor.href = data.body.Etat;
+    anchor.download = 'Liste Des eleves ';
+    document.body.appendChild(anchor);
+    //  anchor.click();
+    let pdfWindow = window.open('', '_blank', 'Liste eleves');
+    pdfWindow
+      ? pdfWindow!.document.write(
+          "<body style='margin:0;padding:0'><iframe width='100%' height='100%' style='padding:0;margin:0' src='" +
+            encodeURI(data.body.Etat) +
+            "'></iframe></body>"
+        )
+      : null;
+  }
+
   selectCompte(selectedCompte: any) {
-    console.log(selectedCompte); 
-    this.titresoldecompteselected = "Solde de compte : " +  selectedCompte.LibelleCompte
+    console.log(selectedCompte);
+    this.titresoldecompteselected =
+      'Solde de compte : ' + selectedCompte.LibelleCompte;
     if (selectedCompte.SoldeCompte <= 0) {
-      this.compare = selectedCompte.SoldeCompte
-      this.Couleur = selectedCompte.Couleur
+      this.compare = selectedCompte.SoldeCompte;
+      this.Couleur = selectedCompte.Couleur;
       console.log(this.Couleur);
-      this.soldeCompteSelcted = this.formatPrix("0")
-    }else{
-      this.Couleur = selectedCompte.Couleur
+      this.soldeCompteSelcted = this.formatPrix('0');
+    } else {
+      this.Couleur = selectedCompte.Couleur;
       console.log(this.Couleur);
-      this.soldeCompteSelcted = this.formatPrix(selectedCompte.SoldeCompte)
+      this.soldeCompteSelcted = this.formatPrix(selectedCompte.SoldeCompte);
       console.log(this.soldeCompteSelcted);
     }
   }
-
 
   formatPrix(prix: String, separateur: string = ' ', device: string = 'XAF') {
     let reverse: string[] = prix.toString().split('').reverse();
@@ -205,7 +226,7 @@ export class RetraitEspaceCaisseComponent {
     }
     return formated + decimal;
   }
-  
+
   ngAfterViewInit(): void {
     const data = [
       { mois: 'Octobre', count: 10 },

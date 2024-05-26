@@ -25,4 +25,22 @@ export class ClassementService {
       map(res => res.body)
     )
   }
+
+  getResultatScolaireStatistiqueDisciplineOrdreMerite(object: paramClassement){
+    return this.globalService.setHttpRequest('RESULTATS_SCOLAIRES_Statistique-Discipline_Ordre_Merite', "POST", object).pipe(
+      tap(res => {
+        console.log(res.body);
+        
+      })
+    )
+  }
+
+  getRESULTATS_SCOLAIRES_Get_Statistiques(object: paramClassement){
+    return this.globalService.setHttpRequest('RESULTATS_SCOLAIRES_Get_Statistiques', "POST", object).pipe(
+      tap(res => {
+        console.log(res.body);
+        
+      })
+    )
+  }
 }

@@ -442,6 +442,10 @@ export class EleveService {
     return this.http.post(environment.apiUrl + 'MOBILE_MONEY_Get_Statut_Opération', demandestatut, { headers: headers });
   }
 
+  DemandeStatutPayementFraisScolaire(demandestatut: VerifyStatusPayement): Observable<any>  {
+    const headers = this.globalService.getHeadersParent();
+    return this.http.post(environment.apiUrl + 'MOBILE_MONEY_Verifie_Statut_Transaction', demandestatut, { headers: headers });
+  }
 
   getListService(): Observable<any> {
     const BASE_PATH = 'UTILISATEUR_Liste_Services';

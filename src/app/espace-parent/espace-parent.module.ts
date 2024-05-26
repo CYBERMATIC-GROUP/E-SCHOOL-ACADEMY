@@ -37,6 +37,7 @@ import { ProfileParentComponent } from './profile-parent/profile-parent.componen
 import { AlertParentComponent } from './alert-parent/alert-parent.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PaiementFraisScolaireComponent } from './frais-scolaire/paiement-frais-scolaire/paiement-frais-scolaire.component';
+import { HistoriquePaiementComponent } from './frais-scolaire/historique-paiement/historique-paiement.component';
 
 const routes : Routes = [
     {path:'' ,  component: DashboardParentComponent},
@@ -47,6 +48,8 @@ const routes : Routes = [
     {path:'consultation-notes-eleve' ,  component: ConsultationNotesEleveByParentComponent},
     {path:'empoloi-du-temps' ,  component: EmploiDuTempsComponent},
     {path:'eleve-add-list' ,  component: ListEleveAddByParentComponent},
+    {path:'historique-paiement' ,  component: HistoriquePaiementComponent},
+
     {path:'search-eleve-parent' ,  component: SearchEleveParentComponent},
     {path:'eleve-parent/:IDELEVE' ,  component: HomeParentComponent}
 
@@ -75,6 +78,7 @@ const routes : Routes = [
         ProfileParentComponent,
         AlertParentComponent,
         PaiementFraisScolaireComponent,
+        HistoriquePaiementComponent,
     ],
     imports: [
         CommonModule,

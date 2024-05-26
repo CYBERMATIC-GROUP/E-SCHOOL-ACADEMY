@@ -91,6 +91,8 @@ export class RetraitCaisseEspeceComponent implements OnInit {
     const retrait: retraitCaisseEspece = this.retraitForm.value;
     this.compteBanquaireService.setRetraitCaisseEspece(retrait).pipe(
       tap(data => {
+        console.log(data);
+        this.impressionEtat(data)
         this.globalService.toastShow("Retrait effectué avec succes !", "Retrait caisse");
         const comptaRoutes = environment.routes.Comptabilite;
         this.globalService.reloadComponent(comptaRoutes.Base + '/' + comptaRoutes.links.retraitCaisseEspece);
@@ -100,6 +102,26 @@ export class RetraitCaisseEspeceComponent implements OnInit {
       })
     ).subscribe();
   }
+
+
+  impressionEtat(resData: any) {
+    const data = resData;
+    console.log(data);
+    var anchor = document.createElement('a');
+    anchor.href = data.body.Etat;
+    anchor.download = 'Liste Des eleves ';
+    document.body.appendChild(anchor);
+    //  anchor.click();
+    let pdfWindow = window.open('', '_blank', 'Liste eleves');
+    pdfWindow
+      ? pdfWindow!.document.write(
+          "<body style='margin:0;padding:0'><iframe width='100%' height='100%' style='padding:0;margin:0' src='" +
+            encodeURI(data.body.Etat) +
+            "'></iframe></body>"
+        )
+      : null;
+  }
+
 
   ngAfterViewInit(): void {
     const data = [

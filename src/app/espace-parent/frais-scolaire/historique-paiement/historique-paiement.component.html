@@ -1,0 +1,127 @@
+<app-gabarit-parent>
+
+    <div>
+        <div class="container-fuild m-3">
+          <div class="bg-light shadow rounded rounded-5">
+            <div *ngIf="infoEleve" class="p-2" style="display: inline-block !important">
+              <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                <span>Etat de paiement de l'élève : </span>
+                <span class="text-danger">{{ infoEleve.Nom }}</span>
+              </p>
+    
+              <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                <span>Matricule : </span>
+                <span class="text-danger">{{
+                  infoEleve.Matricule
+                }}</span>
+              </p>
+    
+              <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                <span>Total à payer : </span>
+                <span class="text-danger">{{
+                  GlobalService.formatPrix(infoEleve.Total_A_Payer)
+                }}</span>
+              </p>
+              <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                <span>Total dèjà Payé : </span>
+                <span class="text-danger">{{
+                  GlobalService.formatPrix(infoEleve.Total_Deja_Paye)
+                }}</span>
+              </p>
+              <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                <span>Reste à payer : </span>
+                <span class="text-danger">{{
+                  GlobalService.formatPrix(infoEleve.Reste_A_Payer)
+                }}</span>
+              </p>
+              <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                <span>Total impayé : </span>
+                <span class="text-danger">{{
+                  GlobalService.formatPrix(infoEleve.Total_Impaye)
+                }}</span>
+              </p>
+            </div>
+          </div>
+          <div
+            class="row mt-2 rounded rounded-5 p-3 bg-light"
+            *ngIf="dataSourceFraisSColaire; else loader"
+          >
+            <div
+              class="col-lg-4 col-md-6 pointer hoverblockpayement p-2 rounded rounded-5 border"
+              *ngFor="let frais of dataSourceFraisSColaire"
+            >
+              <div class="row">
+                <div class="col-lg-4 col-md-4">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="imagepaiement">
+                        <img
+                          src="assets/logo/Etats_de_paiement_droits_scoalires.png"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="d-block d-lg-none">
+                        <img
+                          class="resimage"
+                          src="assets/images/MTN Airtel money.jpg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-none d-lg-block">
+                      <img
+                        class="imagemtn"
+                        src="assets/images/MTN Airtel money.jpg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                  <h3 class="fw-bold text-danger">{{ frais.Libelle }}</h3>
+                  <p>
+                    <span class="fw-bold">Numero de paiment : </span>
+                    <span> {{ frais.IDMOUVEMENT }}</span>
+                  </p>
+                  <p>
+                    <span class="fw-bold">Date de paiement : </span>
+                    <span>
+                      {{ convertToValideDates(frais.DatePaiement) }}</span
+                    >
+                  </p>
+                  <p>
+                    <span class="fw-bold">Montant payé : </span>
+                    <span>{{
+                      GlobalService.formatPrix(frais.Total_Deja_Paye, " ")
+                    }}</span>
+                  </p>
+                  <p>
+                    <span class="fw-bold">Caisse : </span>
+                    <span> {{ frais.Caisse }}</span>
+                  </p>
+                  <p>
+                    <span class="fw-bold">Caissier : </span>
+                    <span> {{ frais.Caissier }}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</app-gabarit-parent>
+
+
+
+
+
+
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+  

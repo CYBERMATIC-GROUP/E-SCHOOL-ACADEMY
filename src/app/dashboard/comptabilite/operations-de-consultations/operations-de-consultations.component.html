@@ -1,0 +1,39 @@
+<app-gabarit pageTitle="Opérations de consultation de caisse" [showBtnStateCaisse]="true">
+    <div class="container-fluid">
+          <div class="row mb-5">
+            <div class="col-12 col-lg-4 col-md-6" *ngFor="let menu of menus">
+
+              <div class="info-box" *ngIf="!menu.notReady; else notyet" [ngStyle]="{cursor: !menu.right ? 'not-allowed' : 'cursor'}" [routerLink]="menu.right ? '/' + menu.link : '#'">
+                <div *ngIf="menu.image" class="new-feature ">Nouveauté <img [src]="menu.image" alt="ico"></div>
+
+                <div [ngClass]="{'disable-action': !menu.right}"></div>
+                <span class="info-box-icon" [style]="{ 'background-color': menu.backColor }">
+                  <img [src]="menu.logo" alt="">
+                </span>
+                <div class="info-box-content d-flex justify-content-start align-items-center">
+                    <div>
+                      <h2 class="mb-0 pt-3">{{ menu.desination }}</h2>
+                      <span>{{ menu.description }}</span>
+                    </div>
+                </div>
+              </div>
+
+
+              <ng-template #notyet>
+                <div class="info-box" [ngStyle]="{cursor: 'not-allowed'}" [routerLink]="menu.right ? '/' + menu.link : '#'">
+                  <div class="not-ready"></div>
+                  <span class="info-box-icon" [style]="{'background-color': menu.backColor }">
+                    <img [src]="menu.logo" alt="">
+                  </span>
+                  <div class="info-box-content d-flex justify-content-start align-items-center">
+                      <div>
+                        <h2 class="mb-0 pt-3">{{ menu.desination }}</h2>
+                        <span>{{ menu.description }}</span>
+                      </div>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+    </div>
+</app-gabarit>

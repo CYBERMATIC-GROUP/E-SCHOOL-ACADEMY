@@ -193,6 +193,9 @@ import { ValidationCompteComponent } from './login-form/validation-compte/valida
 import { OperationsDiversesComponent } from './operations-diverses/operations-diverses.component';
 import { OptionsOperationsComponent } from './operations-diverses/options-operations/options-operations.component';
 import { SaisieOperationsDiversComponent } from './operations-diverses/saisie-operations-divers/saisie-operations-divers.component';
+import { OperationsDeSaisieComponent } from './dashboard/comptabilite/operations-de-saisie/operations-de-saisie.component';
+import { OperationsDeConsultationsComponent } from './dashboard/comptabilite/operations-de-consultations/operations-de-consultations.component';
+import { OutilsDuPromoteurComponent } from './dashboard/comptabilite/outils-du-promoteur/outils-du-promoteur.component';
 
 @NgModule({
   declarations: [
@@ -360,6 +363,9 @@ import { SaisieOperationsDiversComponent } from './operations-diverses/saisie-op
     OperationsDiversesComponent,
     OptionsOperationsComponent,
     SaisieOperationsDiversComponent,
+    OperationsDeSaisieComponent,
+    OperationsDeConsultationsComponent,
+    OutilsDuPromoteurComponent,
   ],
   imports: [
     BrowserModule,

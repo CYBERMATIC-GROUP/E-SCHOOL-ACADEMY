@@ -115,15 +115,26 @@
       </table>
     </div>
   </div>
-  <div class="colp p-3">
-    <button
-      [disabled]="isPrinting || !mouvementSelected"
-      class="form-control text-light bg-table-color w-100"
-      (click)="onPrint()"
-    >
-      {{ printText }}
-      <i class="fa-solid fa-print"></i>
-    </button>
+  <div class="row">
+    <div class="col-lg-6 p-3">
+      <button
+        class="form-control text-light bg-table-color w-100"
+        (click)="onPrintHistorique()"
+      >
+        {{printTextHistorique}}
+        <i class="fa-solid fa-print"></i>
+      </button>
+    </div>
+    <div class="col-lg-6 p-3">
+      <button
+        [disabled]="isPrinting || !mouvementSelected"
+        class="form-control text-light bg-table-color w-100"
+        (click)="onPrint()"
+      >
+        {{ printText }}
+        <i class="fa-solid fa-print"></i>
+      </button>
+    </div>
   </div>
 </div>
 <ng-template #loader>

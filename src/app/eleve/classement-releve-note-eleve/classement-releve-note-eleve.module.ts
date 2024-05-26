@@ -5,12 +5,14 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from 'src/app/core/core.module';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StatistiqueByDisciplineComponent } from './statistique-by-discipline/statistique-by-discipline.component';
 
 
 
 @NgModule({
   declarations: [
-    ClassementReleveNoteEleveComponent
+    ClassementReleveNoteEleveComponent,
+    StatistiqueByDisciplineComponent
   ],
   imports: [
     CommonModule,
