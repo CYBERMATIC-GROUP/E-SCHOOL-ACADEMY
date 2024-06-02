@@ -69,6 +69,8 @@ export class ClassementReleveNoteEleveComponent {
   IDCLASSE!: number
   typemoyenne: number = 1
 
+  disabledPage: boolean = false
+
   constructor(
     private eleveService: EleveService,
     private globalService: GlobalService,
@@ -236,9 +238,11 @@ getSelectedMatiereId(): void {
 
   loadClassement(){
     this.iSLaodData = true;
+    this.disabledPage = true
         this.classement$ = this.classementService.getClassement(this.objetSend,this.bAvecDetailMatieres).pipe(
           finalize(() => {
             this.iSLaodData = false;
+            this.disabledPage = false
           })
         )
   }

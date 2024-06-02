@@ -23,7 +23,6 @@ import { ModalForAllComponent } from './transfert-intercaisse/modal-for-all/moda
 import { RetraitCaisseEspeceComponent } from './retrait-caisse-espece/retrait-caisse-espece.component';
 import { HistoriqueFraisEleveComponent } from './historique-frais-eleve/historique-frais-eleve.component';
 import { RetraitEspaceCaisseComponent } from './retrait-espace-caisse/retrait-espace-caisse.component';
-
 @NgModule({
   declarations: [
     HistoriqueVersementCaisseComponent,
@@ -37,7 +36,7 @@ import { RetraitEspaceCaisseComponent } from './retrait-espace-caisse/retrait-es
     ModalForAllComponent,
     RetraitCaisseEspeceComponent,
     HistoriqueFraisEleveComponent,
-    RetraitEspaceCaisseComponent
+    RetraitEspaceCaisseComponent,
   ],
   imports: [
     CommonModule,

@@ -196,9 +196,10 @@
                           }"
                         >
                           {{
+                            action !== 'view' ?
                             !eleveInscritForm.controls["Fr_Nom"].valid
                               ? "Renseignez le Nom."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                       </div>
@@ -230,9 +231,10 @@
                           }"
                         >
                           {{
+                            action !== 'view' ?
                             !eleveInscritForm.controls["Fr_Prenom"].valid
                               ? "Renseignez le prénom."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                       </div>
@@ -264,10 +266,10 @@
                               !eleveInscritForm.controls['Civilite'].valid
                           }"
                         >
-                          {{
+                          {{ action !== 'view' ?
                             !eleveInscritForm.controls["Civilite"].valid
                               ? "Sélectionnez le sexe."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                       </div>
@@ -297,9 +299,10 @@
                           }"
                         >
                           {{
+                            action !== 'view' ?
                             !eleveInscritForm.controls["DateNaissance"].valid
                               ? "Renseignez la date de naissance."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                       </div>
@@ -344,9 +347,10 @@
                             }"
                           >
                             {{
+                               action !== 'view' ?
                               !eleveInscritForm.controls["Fr_Departement"].valid
                                 ? "Renseignez le département de naissance."
-                                : "ok."
+                                : "ok." : ''
                             }}
                           </div>
                           <mat-autocomplete #departements>
@@ -410,10 +414,11 @@
                             }"
                           >
                             {{
+                              action !== 'view' ?
                               !eleveInscritForm.controls["Fr_LieuNaissance"]
                                 .valid
                                 ? "Renseignez le lieu de naissance."
-                                : "ok."
+                                : "ok." : ''
                             }}
                           </div>
                           <mat-autocomplete #naissancePlace>
@@ -476,9 +481,10 @@
                               }"
                             >
                               {{
+                                action !== 'view' ?
                                 !eleveInscritForm.controls["Nationalite"].valid
                                   ? "Sélectionnez la nationalité."
-                                  : "ok."
+                                  : "ok." : ''
                               }}
                             </div>
                             <mat-autocomplete #nationnalites>
@@ -560,11 +566,12 @@
                               }"
                             >
                               {{
+                                action !== 'view' ?
                                 !eleveInscritForm.controls[
                                   "LibelleEtatSanitaire"
                                 ].valid
                                   ? "Sélectionnez l'état sanitaire."
-                                  : "ok."
+                                  : "ok." : ''
                               }}
                             </div>
                             <mat-autocomplete #studentEtat>
@@ -634,9 +641,10 @@
                               }"
                             >
                               {{
+                                action !== 'view' ?
                                 !eleveInscritForm.controls["Statut"].valid
                                   ? "Sélectionnez le Statut."
-                                  : "ok."
+                                  : "ok." : ''
                               }}
                             </div>
                             <mat-autocomplete #statusStudent>
@@ -713,11 +721,12 @@
                           }"
                         >
                           {{
+                            action !== 'view' ?
                             !eleveInscritForm.controls[
                               "NouveauDansAnneeCourante"
                             ].valid
                               ? "Sélectionez nouveau ou ancien."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                       </div>
@@ -751,9 +760,10 @@
                           }"
                         >
                           {{
+                            action !== 'view' ?
                             !eleveInscritForm.controls["Redoublant"].valid
                               ? "Sélectionnez redoublant ou non redoublant."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                       </div>
@@ -856,9 +866,10 @@
                           }"
                         >
                           {{
+                            action !== 'view' ?
                             !eleveInscritForm.controls["LangueVivante1"].valid
                               ? "Renseignez une langue."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                       </div>
@@ -927,9 +938,10 @@
                           }"
                         >
                           {{
+                            action !== 'view' ?
                             !eleveInscritForm.controls["LangueVivante2"].valid
                               ? "Renseignez une langue."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                       </div>
@@ -1000,9 +1012,10 @@
                           }"
                         >
                           {{
+                            action !== 'view' ?
                             !eleveInscritForm.controls["LangueVivante3"].valid
                               ? "Renseignez une langue."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                       </div>
@@ -1053,10 +1066,11 @@
                           }"
                         >
                           {{
+                            action !== 'view' ?
                             !eleveInscritForm.controls["DepartementResidence"]
                               .valid
                               ? "Renseignez le département de résidence."
-                              : "ok."
+                              : "ok." : ''
                           }}
                         </div>
                         <mat-autocomplete #departements>
@@ -1107,9 +1121,10 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["Fr_Arrondissement"].valid
                             ? "Renseignez l'arrondissement."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1139,9 +1154,10 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["Fr_Ville"].valid
                             ? "Renseignez une ville."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1181,9 +1197,10 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["Courriel"].valid
                             ? "Renseignez un email."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1213,9 +1230,10 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["TelMobile"].valid
                             ? "Renseignez un mobile."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1244,9 +1262,10 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["NumCNI"].valid
                             ? "Renseignez le numéro CNI."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1277,9 +1296,10 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["IdentifiantBadge"].valid
                             ? "Renseignez un identifiant de badge."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1345,9 +1365,10 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["Cycle"].valid
                             ? "Sélectionnez un cycle."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1415,9 +1436,10 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["Site"].valid
                             ? "Sélectionnez un site."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1489,10 +1511,11 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["EtablissementProvenance"]
                             .valid
                             ? "Renseignez un établissement d'origine."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1522,9 +1545,10 @@
                         }"
                       >
                         {{
+                          action !== 'view' ?
                           !eleveInscritForm.controls["BEPC_Annee"].valid
                             ? "Renseignez une année pour le BEPC."
-                            : "ok."
+                            : "ok." : ''
                         }}
                       </div>
                     </div>
@@ -1787,9 +1811,10 @@
                 }"
               >
                 {{
+                  action !== 'view' ?
                   !eleveInscritForm.controls["Fr_NomPrenomTuteur"].valid
                     ? "Renseignez le Nom et prénom du tuteur."
-                    : "ok."
+                    : "ok." : ''
                 }}
               </div>
             </div>
@@ -1869,9 +1894,10 @@
                 }"
               >
                 {{
+                  action !== 'view' ?
                   !eleveInscritForm.controls["TelMobileTuteur"].valid
                     ? "Renseignez le numéro de téléphone du tuteur."
-                    : "ok."
+                    : "ok." : ''
                 }}
               </div>
             </div>
@@ -1903,9 +1929,10 @@
                 }"
               >
                 {{
+                  action !== 'view' ?
                   !eleveInscritForm.controls["Fr_NomPrenomPere"].valid
                     ? "Renseignez le Nom et prénom du père."
-                    : "ok."
+                    : "ok." : ''
                 }}
               </div>
             </div>
@@ -1982,9 +2009,10 @@
                 }"
               >
                 {{
+                  action !== 'view' ?
                   !eleveInscritForm.controls["TelMobilePere"].valid
                     ? "Renseignez le téléphone du père."
-                    : "ok."
+                    : "ok." : ''
                 }}
               </div>
             </div>
@@ -2016,9 +2044,10 @@
                 }"
               >
                 {{
+                  action !== 'view' ?
                   !eleveInscritForm.controls["Fr_NomPrenomMere"].valid
                     ? "Renseignez le Nom et prénom de la mère."
-                    : "ok."
+                    : "ok." : ''
                 }}
               </div>
             </div>
@@ -2095,9 +2124,10 @@
                 }"
               >
                 {{
+                  action !== 'view' ?
                   !eleveInscritForm.controls["TelMobileMere"].valid
                     ? "Renseignez le téléphone de la mère."
-                    : "ok."
+                    : "ok." : ''
                 }}
               </div>
             </div>
@@ -2164,9 +2194,10 @@
                   }"
                 >
                   {{
+                    action !== 'view' ?
                     !eleveInscritForm.controls["Fr_Adresse1"].valid
                       ? "Renseignez l'adresse."
-                      : "ok."
+                      : "ok." : ''
                   }}
                 </div>
               </div>
@@ -2187,9 +2218,11 @@
 
       <mat-step>
         <ng-template matStepLabel>Informations comptables</ng-template>
-        <app-reduction-exoneration
+     
+        
+        <!-- <app-reduction-exoneration
           [IDELEVE]="IDEleve"
-        ></app-reduction-exoneration>
+        ></app-reduction-exoneration> -->
         <div class="d-flex justify-content-end">
           <button mat-button matStepperPrevious>
             <i class="fa-solid fa-angle-double-left text-secondary-cust"></i>
@@ -2198,115 +2231,61 @@
         </div>
         <div>
           <div class="container-fuild m-3">
-            <div class="bg-light shadow rounded rounded-5">
-              <div *ngIf="infoEleve" class="p-2" style="display: inline-block !important">
-                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
-                  <span>Etat de paiement de l'élève : </span>
-                  <span class="text-danger">{{ infoEleve.Nom }}</span>
-                </p>
-
-                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
-                  <span>Matricule : </span>
-                  <span class="text-danger">{{
-                    infoEleve.Matricule
-                  }}</span>
-                </p>
-
-                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
-                  <span>Total à payer : </span>
-                  <span class="text-danger">{{
-                    GlobalService.formatPrix(infoEleve.Total_A_Payer)
-                  }}</span>
-                </p>
-                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
-                  <span>Total dèjà Payé : </span>
-                  <span class="text-danger">{{
-                    GlobalService.formatPrix(infoEleve.Total_Deja_Paye)
-                  }}</span>
-                </p>
-                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
-                  <span>Reste à payer : </span>
-                  <span class="text-danger">{{
-                    GlobalService.formatPrix(infoEleve.Reste_A_Payer)
-                  }}</span>
-                </p>
-                <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
-                  <span>Total impayé : </span>
-                  <span class="text-danger">{{
-                    GlobalService.formatPrix(infoEleve.Total_Impaye)
-                  }}</span>
-                </p>
-              </div>
-            </div>
-            <div
-              class="row mt-2 rounded rounded-5 p-3 bg-light"
-              *ngIf="dataSourceFraisSColaire; else loader"
-            >
-              <div
-                class="col-lg-4 col-md-6 pointer hoverblockpayement p-2 rounded rounded-5 border"
-                *ngFor="let frais of dataSourceFraisSColaire"
-              >
-                <div class="row">
-                  <div class="col-lg-4 col-md-4">
-                    <div class="row">
-                      <div class="col-6">
-                        <div class="imagepaiement">
-                          <img
-                            src="assets/logo/Etats_de_paiement_droits_scoalires.png"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div class="col-6">
-                        <div class="d-block d-lg-none">
-                          <img
-                            class="resimage"
-                            src="assets/images/MTN Airtel money.jpg"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-none d-lg-block">
-                        <img
-                          class="imagemtn"
-                          src="assets/images/MTN Airtel money.jpg"
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-8 col-md-8">
-                    <h3 class="fw-bold text-danger">{{ frais.Libelle }}</h3>
-                    <p>
-                      <span class="fw-bold">Numero de paiment : </span>
-                      <span> {{ frais.IDMOUVEMENT }}</span>
+            <div class=" p-3 shadow rounded rounded-5" style="background-color: rgb(211, 210, 210);">
+              <div *ngIf="infoEleve">
+               <div class="row">
+                <div class="col-lg-12">
+                    <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                      <span>Historique de paiement de l'élève : </span>
+                      <span class="text-danger">{{ infoEleve.Nom }}</span>
+                      <span class="text-danger">{{ infoEleve.Prenom }}</span>
                     </p>
-                    <p>
-                      <span class="fw-bold">Date de paiement : </span>
-                      <span>
-                        {{ convertToValideDates(frais.DatePaiement) }}</span
-                      >
-                    </p>
-                    <p>
-                      <span class="fw-bold">Montant payé : </span>
-                      <span>{{
-                        GlobalService.formatPrix(frais.Total_Deja_Paye, " ")
+    
+                    <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                      <span>Matricule : </span>
+                      <span class="text-danger">{{
+                        infoEleve.Matricule
                       }}</span>
                     </p>
-                    <p>
-                      <span class="fw-bold">Caisse : </span>
-                      <span> {{ frais.Caisse }}</span>
+
+                    <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                      <span>Total à payer : </span>
+                      <span class="text-danger">{{
+                        GlobalService.formatPrix(infoEleve.Total_A_Payer)
+                      }}</span>
                     </p>
-                    <p>
-                      <span class="fw-bold">Caissier : </span>
-                      <span> {{ frais.Caissier }}</span>
+                    
+                    <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                      <span>Total dèjà Payé : </span>
+                      <span class="text-danger">{{
+                        GlobalService.formatPrix(infoEleve.Total_Deja_Paye)
+                      }}</span>
                     </p>
+                    <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                      <span>Reste à payer : </span>
+                      <span class="text-danger">{{
+                        GlobalService.formatPrix(infoEleve.Reste_A_Payer)
+                      }}</span>
+                    </p>
+                    <p class="fw-bold blockinfoEleve mrgblockinfoEleve">
+                      <span>Total impayé : </span>
+                      <span class="text-danger">{{
+                        GlobalService.formatPrix(infoEleve.Total_Impaye)
+                      }}</span>
+                    </p>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4 mt-1">
+                    <button  (click)="ViewHistoriquePaiement()" class=" bg-table-color  text-white form-control">Voir l'historique de paiement <i class="fa-solid fa-eye"></i></button>
+                  </div>
+                  <div class="col-lg-8">
+                    <button class="form-control bg-table-color text-white" (click)="OpenPaiement()">Gestion des frais Scolaire</button>
                   </div>
                 </div>
+               </div>
               </div>
             </div>
+   
           </div>
         </div>
       </mat-step>

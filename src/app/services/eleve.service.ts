@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, catchError, map, of, tap } from 'rxjs';
+import { EMPTY, Observable, catchError, map, of, shareReplay, tap } from 'rxjs';
 import { Eleve, EleveInscription, ImprimeNoteClassement, SMSEnvoie } from '../models/eleve.model';
 import { GlobalService } from '../services/global.service';
 import { constantes } from 'src/environnements/constantes';
@@ -35,6 +35,8 @@ export class EleveService {
   uridocumentbalisesgetpersonnalisationcarte = "PARAMETRES_Get_Document_Balises_Image"
   uriNOTES_Imprime_ClassementsansDetail = "NOTES_Imprime_ClassementsansDetail"
   recherchesimplifiee = "RECHERCHE_Eleve_Simplifie"
+  apiUrl = 'https://cybclient.com/eschool/V1/'
+
 
   constructor(private http: HttpClient, private globalService: GlobalService) {}
 
@@ -160,6 +162,11 @@ export class EleveService {
       {},
       Headers
     );
+  }
+
+  getPrametresEleve(): Observable<any> {
+    const headers = this.globalService.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/ParametreVersListe`, { headers });
   }
 
   update(eleve: Eleve): Observable<Eleve> {

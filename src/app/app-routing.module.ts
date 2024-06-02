@@ -131,12 +131,24 @@ import { OperationsDeConsultationsComponent } from './dashboard/comptabilite/ope
 import { OperationsDeSaisieComponent } from './dashboard/comptabilite/operations-de-saisie/operations-de-saisie.component';
 import { OutilsDuPromoteurComponent } from './dashboard/comptabilite/outils-du-promoteur/outils-du-promoteur.component';
 import { StatistiqueByDisciplineComponent } from './eleve/classement-releve-note-eleve/statistique-by-discipline/statistique-by-discipline.component';
+import { HistoriquepaiementEleveInscritComponent } from './historiquepaiement-eleve-inscrit/historiquepaiement-eleve-inscrit.component';
+import { EleveFicheComponent } from './eleve-fiche/eleve-fiche.component';
+import { ReductionExonerationComponent } from './comptabilite/reduction-exoneration/reduction-exoneration.component';
 
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "connexion", component: LoginComponent},
   {path: "saisie-note/:trimestre", component: SaisieNotesComponent},
+  {path: "saisie-note/:trimestre", component: SaisieNotesComponent},
+
+
+  {path: "historique-paiement-by-eleve-inscrit/:ideleve", component: HistoriquepaiementEleveInscritComponent},
+  {path: "eleve-fiche/:IDEleve", component: EleveFicheComponent},
+
+
+
+
 
   {path: "operations-de-saisie", component: OperationsDeSaisieComponent},
   {path: "operations-de-consulations", component: OperationsDeConsultationsComponent},
@@ -360,6 +372,8 @@ const routes: Routes = [
  {path: 'edit-url', component: EditUrlComponent},
  
   {path: 'impression/bulletin', loadChildren: () => import('./impression-bulletin/impression-bulletin.module').then(m => m.ImpressionBulletinModule)},
+  
+  {path: 'eleve', loadChildren: () => import('./eleve/eleve.module').then(m => m.EleveModule)},
 
   {path: 'configuration/date-comptable', loadChildren: () => import('./date-comptable/date-comptable.module').then(m => m.DateComptableModule), canActivate: [AuthGuard]},
 

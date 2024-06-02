@@ -50,7 +50,7 @@ export class ComptabiliteComponent implements OnInit {
         link: "/operations-de-consulations",
       },
       {
-        desination: "Opérations de saisie de caisse",
+        desination: "Opérations de saisies",
         logo: "../../assets/logo/Paiement_droits_scolaires.png",
         description: "../",
         backColor: "#219ebc",

@@ -1,79 +1,115 @@
 <app-gabarit pageTitle="">
-  <div class="col-lg-12 bg-light m-lg-auto p-3" >
- <div>
-    <h1>Statisques des résultasts par discipline</h1>
-    <div class="bloc-table">
-      <table class="table table-hover" *ngIf="!isloading; else loader">
-        <tr>
-          <th class="text-start"></th>
-          <th>Notes</th>
-          <th class="border text-center" colspan="5">De 10 à 14</th>
-          <th class="border text-center" colspan="5">De 5 à 9</th>
-          <th class="border text-center" colspan="5">De 0 à 4</th>
-          <th colspan="7"></th>
-        </tr>
-        <tr class="table-primary">
-          <th class="border text-start">Disciplines</th>
-          <th class="border">>= 15</th>
-          <th class="border" *ngFor="let key of getRangeKeys()">{{ key }}</th>
-          <th class="border">T. Admis</th>
-          <th class="border">T. Refusés</th>
-          <th class="border">1ère Note</th>
-          <th class="border">Dern. Note</th>
-          <th class="border">% Admis</th>
-          <th class="border">% Filles</th>
-        </tr>
-        <tr *ngFor="let tab of tabStateParDiscipline">
-          <td class="border">{{ tab.Matiere }}</td>
-          <td class="border">{{ getElevesSup15CountForMatiere(tab) }}</td>
-          <td class="border" *ngFor="let key of getRangeKeys()">
-            {{ tab[key] }}
-          </td>
-          <td class="border">{{ tab.T_Admis }}</td>
-          <td class="border">{{ tab.T_Refuses }}</td>
-          <td class="border">{{ tab.PREM_NOTE }}</td>
-          <td class="border">{{ tab.DERN_NOTE }}</td>
-          <td class="border">{{ tab.POURCENT_ADMIS }}</td>
-          <td class="border">{{ tab.POURCENT_ADMIS_F }}</td>
-        </tr>
-      </table>
-    </div>
- </div>
-
+  <div class="col-lg-12 bg-light m-lg-auto p-3" *ngIf="!isloadingsecond; else loader">
     <div>
-        <h1>Tableau de discipline par ordre de mérite</h1>
-        <div class="bloc-table mt-3">
-          <table class="table table-hover" *ngIf="!isloadingsecond; else loader">
-            <tr class="table-primary">
-              <th class="border">Rang</th>
-              <th class="border">Disciplines</th>
-              <th class="border">Effectifs</th>
-              <th class="border">Present</th>
-              <th class="border">Admis</th>
-              <th class="border">% admis</th>
-              <th class="border">% F</th>
-              <th class="border">% G</th>
-              <th class="border">Nb refusés </th>
-              <th class="border">1ère Note </th>
-              <th class="border">Dern. Note </th>
-            </tr>
-            <tr *ngFor="let tabseconde of tabStatesecondeTable">
-              <td class="border text-center">{{tabseconde.Rang}}</td>
-              <td class="border text-start">{{tabseconde.Matiere}}</td>
-              <td class="border">{{ tabseconde.Effectif }}</td>
-              <td class="border">{{ tabseconde.Presents }}</td>
-              <td class="border">{{ tabseconde.T_Admis }}</td>
-              <td class="border">{{ tabseconde.POURCENT_ADMIS }}</td>
-              <td class="border">{{ tabseconde.POURCENT_ADMIS_F }}</td>
-              <td class="border">{{ tabseconde.POURCENT_ADMIS_G }}</td>
-              <td class="border">{{ tabseconde.T_Refuses }}</td>
-              <td class="border">{{ tabseconde.PREM_NOTE }}</td>
-              <td class="border">{{ tabseconde.DERN_NOTE }}</td>
-            </tr>
-          </table>
+      <div class="row">
+        <div class="col-lg-9">
+          <h1>Statistiques des résultats par discipline</h1>
         </div>
+        <div class="col-lg-3">
+          <button
+            (click)="printTableauresultatByDiscipline()"
+            [disabled]="disabledBtnIprimer"
+            class="form-control text-white bg-table-color"
+          >
+            Imprimer <i class="fa-solid fa-print"></i>
+          </button>
+        </div>
+      </div>
+      <div class="bloc-table">
+        <table class="table table-hover" *ngIf="!isloading; else loader">
+          <tr>
+            <th class="text-start"></th>
+            <th>Notes</th>
+            <th class="border text-center" colspan="5">De 10 à 14</th>
+            <th class="border text-center" colspan="5">De 5 à 9</th>
+            <th class="border text-center" colspan="5">De 0 à 4</th>
+            <th colspan="7"></th>
+          </tr>
+          <tr class="table-primary">
+            <th class="border text-start">Disciplines</th>
+            <th class="border">>= 15</th>
+            <th class="border" *ngFor="let key of getRangeKeys()">{{ key }}</th>
+            <th class="border">T. Admis</th>
+            <th class="border">T. Refusés</th>
+            <th class="border">1ère Note</th>
+            <th class="border">Dern. Note</th>
+            <th class="border">% Admis</th>
+            <th class="border">% Filles</th>
+          </tr>
+          <tr *ngFor="let tab of tabStateParDiscipline">
+            <td class="border">{{ tab.Matiere }}</td>
+            <td class="border">{{ getElevesSup15CountForMatiere(tab) }}</td>
+            <td class="border" *ngFor="let key of getRangeKeys()">
+              {{ tab[key] }}
+            </td>
+            <td class="border">{{ tab.T_Admis }}</td>
+            <td class="border">{{ tab.T_Refuses }}</td>
+            <td class="border">{{ tab.PREM_NOTE }}</td>
+            <td class="border">{{ tab.DERN_NOTE }}</td>
+            <td class="border">{{ tab.POURCENT_ADMIS }}</td>
+            <td class="border">{{ tab.POURCENT_ADMIS_F }}</td>
+          </tr>
+        </table>
+      </div>
     </div>
 
+    <div class="mt-5">
+      <div class="row">
+        <div class="col-lg-9">
+          <h1>Tableau de discipline par ordre de mérite</h1>
+        </div>
+        <div class="col-lg-3">
+          <button
+            (click)="printTableauDisciplineByOrdreMerite()"
+            [disabled]="disabledBtnIprimer"
+            class="form-control text-white bg-table-color"
+          >
+            Imprimer <i class="fa-solid fa-print"></i>
+          </button>
+        </div>
+      </div>
+      <div class="bloc-table">
+        <table class="table table-hover">
+          <tr class="table-primary">
+            <th class="border">Rang</th>
+            <th class="border">Disciplines</th>
+            <th class="border">Effectifs</th>
+            <th class="border">Présent</th>
+            <th class="border">Admis</th>
+            <th class="border">% admis</th>
+            <th class="border">% F</th>
+            <th class="border">% G</th>
+            <th class="border">Nb refusés</th>
+            <th class="border">1ère Note</th>
+            <th class="border">Dern. Note</th>
+          </tr>
+          <tr *ngFor="let tabseconde of tabStatesecondeTable">
+            <td class="border text-center">{{ tabseconde.Rang }}</td>
+            <td class="border text-start">{{ tabseconde.Matiere }}</td>
+            <td class="border">{{ tabseconde.Effectif }}</td>
+            <td class="border">{{ tabseconde.Presents }}</td>
+            <td class="border">{{ tabseconde.T_Admis }}</td>
+            <td class="border">{{ tabseconde.POURCENT_ADMIS }}</td>
+            <td class="border">{{ tabseconde.POURCENT_ADMIS_F }}</td>
+            <td class="border">{{ tabseconde.POURCENT_ADMIS_G }}</td>
+            <td class="border">{{ tabseconde.T_Refuses }}</td>
+            <td class="border">{{ tabseconde.PREM_NOTE }}</td>
+            <td class="border">{{ tabseconde.DERN_NOTE }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="col-12 p-0 mt-3">
+        <button
+          (click)="printRapport()"
+          class="text-white bg-table-color form-control"
+          [disabled]="disabledBtnIprimer"
+        >
+          Imprimer le rapport <i class="fa-solid fa-print"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </app-gabarit>
 <ng-template #loader>

@@ -13,11 +13,15 @@ export class StatistiqueByDisciplineComponent {
   tabStatesecondeTable : any
   isloading!: boolean;
   isloadingsecond!: boolean
+  disabledBtnIprimer: boolean = true
+  printTableauResultatByDisciplie!: any
+  printTableauDisciplieByOrdreMerite!: any
+
 
   constructor(private classementService: ClassementService) {}
 
   ngOnInit(): void {
-    this.getResultatsScolaireStatistiqueDisciplineOrdreMerite();
+    // this.getResultatsScolaireStatistiqueDisciplineOrdreMerite();
     this.getRESULTATSSCOLAIRESGetStatistiques();
   }
 
@@ -27,9 +31,7 @@ export class StatistiqueByDisciplineComponent {
       this.isloading = true;
       this.object = JSON.parse(jsonString);
       console.log(this.object);
-      this.classementService
-        .getResultatScolaireStatistiqueDisciplineOrdreMerite(this.object)
-        .subscribe((data) => {
+      this.classementService.getResultatScolaireStatistiqueDisciplineOrdreMerite(this.object).subscribe((data) => {
           this.tabStateParDiscipline = data.body.tabStateParDiscipline;
           console.log(this.tabStateParDiscipline);
           this.isloading = false;
@@ -43,19 +45,29 @@ export class StatistiqueByDisciplineComponent {
       this.isloadingsecond = true;
       this.object = JSON.parse(elementJSON);
       console.log(this.object);
-      this.classementService
-        .getRESULTATS_SCOLAIRES_Get_Statistiques(this.object)
-        .subscribe((data) => {
-          console.log(data);
-          
+      this.classementService.getRESULTATS_SCOLAIRES_Get_Statistiques(this.object).subscribe((data) => {
+        console.log(data);
+        this.disabledBtnIprimer = false
+        this.printTableauDisciplieByOrdreMerite = data.body.Resultat.Etat_TableauDisciplineOrdreMerite
+        this.printTableauResultatByDisciplie = data.body.Resultat.Etat_tabStateParDiscipline        
           this.tabStatesecondeTable = data.body.tabTableauDisciplineOrdreMerite;
-          console.log(this.tabStatesecondeTable);
-                    // this.printEtat_TableauDisciplineOrdreMerite(
-          //   data.body.Resultat.Etat_TableauDisciplineOrdreMerite
-          // );
+          this.tabStateParDiscipline = data.body.tabStateParDiscipline;
+          console.log(this.tabStateParDiscipline);
           this.isloadingsecond = false;
         });
     }
+  }
+
+  printTableauresultatByDiscipline(){
+    this.printEtat_tabStateParDiscipline(this.printTableauResultatByDisciplie)
+  }
+  printTableauDisciplineByOrdreMerite(){
+    this.printEtat_TableauDisciplineOrdreMerite(this.printTableauDisciplieByOrdreMerite)
+  }
+
+  printRapport(){
+    this.printEtat_TableauDisciplineOrdreMerite(this.printTableauDisciplieByOrdreMerite)
+    this.printEtat_tabStateParDiscipline(this.printTableauResultatByDisciplie)
   }
 
   printEtat_tabStateParDiscipline(data: any) {

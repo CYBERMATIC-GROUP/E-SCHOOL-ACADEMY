@@ -196,6 +196,8 @@ import { SaisieOperationsDiversComponent } from './operations-diverses/saisie-op
 import { OperationsDeSaisieComponent } from './dashboard/comptabilite/operations-de-saisie/operations-de-saisie.component';
 import { OperationsDeConsultationsComponent } from './dashboard/comptabilite/operations-de-consultations/operations-de-consultations.component';
 import { OutilsDuPromoteurComponent } from './dashboard/comptabilite/outils-du-promoteur/outils-du-promoteur.component';
+import { HistoriquepaiementEleveInscritComponent } from './historiquepaiement-eleve-inscrit/historiquepaiement-eleve-inscrit.component';
+import { EleveFicheComponent } from './eleve-fiche/eleve-fiche.component';
 
 @NgModule({
   declarations: [
@@ -366,6 +368,8 @@ import { OutilsDuPromoteurComponent } from './dashboard/comptabilite/outils-du-p
     OperationsDeSaisieComponent,
     OperationsDeConsultationsComponent,
     OutilsDuPromoteurComponent,
+    HistoriquepaiementEleveInscritComponent,
+    EleveFicheComponent,
   ],
   imports: [
     BrowserModule,

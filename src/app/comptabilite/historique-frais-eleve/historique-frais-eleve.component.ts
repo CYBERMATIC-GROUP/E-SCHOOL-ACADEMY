@@ -24,7 +24,7 @@ export class HistoriqueFraisEleveComponent implements OnInit {
   totalTVA!: number;
   mouvementSelected!: historiqueFraisEleve;
   isPrinting!: boolean;
-  printText: "Imprimer le mouvement sélectionné" | "Impression en cours..." = "Imprimer le mouvement sélectionné";
+  printText: string = "Ré-Imprimer le reçu de paiement" ;
   printTextHistorique = "Imprimer l'historique";
 
   constructor(
@@ -58,7 +58,7 @@ export class HistoriqueFraisEleveComponent implements OnInit {
       console.log(data)
       this.isPrinting = false;
       this.globalService.printFile(data.Etat, "Reçu_paiement_"+this.nomEleve)
-      this.printText = "Imprimer le mouvement sélectionné";
+      this.printText = "Ré-Imprimer le reçu de paiement";
     })
   }
 

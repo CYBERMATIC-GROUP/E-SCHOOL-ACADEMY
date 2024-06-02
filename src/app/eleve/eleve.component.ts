@@ -832,7 +832,7 @@ export class EleveComponent implements OnInit, AfterViewInit {
   }
 
   view(IDELEVE: string) {
-    this.router.navigateByUrl('eleve/inscription/view/' + IDELEVE);
+    this.router.navigateByUrl('eleve-fiche/' + IDELEVE);
   }
 
   delete(eleve: Eleve) {

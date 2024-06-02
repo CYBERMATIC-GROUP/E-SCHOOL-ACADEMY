@@ -1,0 +1,58 @@
+<app-gabarit pageTitle="Historique de paiement">
+    <div *ngIf="dataSourceFraisSColaire; else loader"    > 
+    <div class="row mt-2 rounded rounded-5 p-3 bg-light">
+          <div
+            class="col-lg-4 col-md-6 pointer hoverblockpayement p-2 rounded rounded-5 border"
+            *ngFor="let frais of dataSourceFraisSColaire"
+          >
+            <div class="row">
+              <div class="col-lg-4 col-md-4">
+                <div class="row">
+                  <div class="col-8 m-lg-auto">
+                    <div class="imagepaiement">
+                      <img
+                        src="assets/logo/Etats_de_paiement_droits_scoalires.png"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8 col-md-8">
+                <h3 class="fw-bold text-danger">{{ frais.Libelle }}</h3>
+                <p>
+                  <span class="fw-bold">Numero de paiment : </span>
+                  <span> {{ frais.IDMOUVEMENT }}</span>
+                </p>
+                <p>
+                  <span class="fw-bold">Date de paiement : </span>
+                  <span> {{ convertToValideDates(frais.DatePaiement) }}</span>
+                </p>
+                <p>
+                  <span class="fw-bold">Montant payé : </span>
+                  <span>{{
+                    GlobalService.formatPrix(frais.Total_Deja_Paye, " ")
+                  }}</span>
+                </p>
+                <p>
+                  <span class="fw-bold">Caisse : </span>
+                  <span> {{ frais.Caisse }}</span>
+                </p>
+                <p>
+                  <span class="fw-bold">Caissier : </span>
+                  <span> {{ frais.Caissier }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</app-gabarit>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+
+
+  

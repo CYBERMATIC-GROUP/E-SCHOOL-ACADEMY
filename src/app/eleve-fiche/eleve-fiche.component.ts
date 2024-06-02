@@ -37,19 +37,21 @@ import { FonctionService } from 'src/app/services/fonction.service';
 import { CycleService } from 'src/app/services/cycle.service';
 import { ProfessionService } from 'src/app/services/profession.service';
 import { Profession } from 'src/app/models/profession.model';
-import { TableClassComponent } from '../eleve-inscription/table-class/table-class.component';
+import { TableClassComponent } from '../eleve/eleve-inscription/table-class/table-class.component';
 import { sms_parent } from 'src/environnements/constantes';
-import { ChangeClasseComponent } from '../change-classe/change-classe.component';
+import { ChangeClasseComponent } from '../eleve/change-classe/change-classe.component';
 import { ImageCropComponent } from 'src/app/core/image-crop/image-crop.component';
 import { environment } from 'src/environnements/environnement.prod';
 import { FraisPayerService } from 'src/app/services/frais-payer.service';
 
 @Component({
-  selector: 'app-eleves-inscrits-form',
-  templateUrl: './eleves-inscrits-form.component.html',
-  styleUrls: ['./eleves-inscrits-form.component.scss'],
+  selector: 'app-eleve-fiche',
+  templateUrl: './eleve-fiche.component.html',
+  styleUrls: ['./eleve-fiche.component.scss']
 })
-export class ElevesInscritsFormComponent implements OnInit {
+export class EleveFicheComponent {
+
+
   eleveInscritForm!: FormGroup;
   parentInfoForm!: FormGroup;
   infoComptableForm!: FormGroup;
@@ -109,7 +111,7 @@ export class ElevesInscritsFormComponent implements OnInit {
     this.IDEleve = this.route.snapshot.params['IDEleve'];
 
     // Prémiere requette
-    this.getLists();
+    // this.getLists();
 
     // Cinquieme requette 
     
