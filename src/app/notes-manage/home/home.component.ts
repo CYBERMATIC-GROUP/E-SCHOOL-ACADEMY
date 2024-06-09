@@ -56,6 +56,14 @@ export class HomeComponent implements OnInit {
         right: this.agent.bDroit_SaisieNotes
       },
       {
+        desination: "Relevé des notes vides",
+        logo: "resultat_scolaire.png",
+        description: "...",
+        backColor: "#7b4bce ",
+        right: true,
+        link: '/impression-releve-note'
+      },
+      {
         desination: "Relevé global de notes",
         logo: "Certificat.png",
         description: ".../",

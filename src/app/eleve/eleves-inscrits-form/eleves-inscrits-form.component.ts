@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, finalize, map, of, tap } from 'rxjs';
+import { Observable, finalize, map, of, shareReplay, tap } from 'rxjs';
 import { Branche } from 'src/app/models/branche.model';
 import { Classe } from 'src/app/models/classe.model';
 import { Cycle } from 'src/app/models/cycle.model';
@@ -108,40 +108,25 @@ export class ElevesInscritsFormComponent implements OnInit {
     this.action = this.route.snapshot.params['action'];
     this.IDEleve = this.route.snapshot.params['IDEleve'];
 
-    // Prémiere requette
     this.getLists();
-
-    // Cinquieme requette 
-    
-    // this.professionService.get().subscribe((data) => {
-    //   this.professionList$ = of(data);
-    //   this.professionList$.subscribe((data) => {
-    //     console.log(data);
-    //   });
-    // });
-
     this.initELeveInscrit();
-    // this.initDataFraisScolaire(this.IDEleve);
 
-    //title page
     if (this.action == 'reinscrire') this.titlePage = "Réinscrire l'élève";
     else if (this.action == 'edit')
       this.titlePage = "Modifier les informations de l'élève";
     else if (this.action == 'view') this.titlePage = "Fiche de l'élève ";
 
-    // Quatrieme requette
-    this.photo$ = this.eleveSerivice.getPhoto(this.IDEleve).pipe(
-      tap((res) => {
-        console.log(res);
-      })
-    );
+     this.photo$ = this.eleveSerivice.getPhoto(this.IDEleve).pipe(
+       tap((res) => {
+         console.log(res);
+       })
+     );
   }
 
   OpenPaiement(){
     this.router.navigateByUrl('reduction-exoneration/' + this.IDEleve)
   }
 
-    // Troisieme requette
     initDataFraisScolaire(idEleve: number) {
       console.log(idEleve);
       this.fraisScolaireService.getHistoriquePaiementByEleve(idEleve).subscribe((res) => {
@@ -151,26 +136,29 @@ export class ElevesInscritsFormComponent implements OnInit {
         });
     }
 
-  //Deuxieme requette
   loadEleve(idEleve: number) {
     this.isLoadingDataStudent = true;
     this.eleveSerivice.getOne(idEleve).subscribe((res) => {
-      console.log(res);
-      console.log(res.HistiriquePaiementFraisScolaire);
+      console.log(res)
+      console.log(res.CodeClasse);
+      ;
       this.infoEleve = res.HistiriquePaiementFraisScolaire
       this.eleveInscritForm.patchValue(res);
-      this.isLoadingDataStudent = false;
+      this.isLoadingDataStudent = false;      
       this.eleveInscritForm.get('textClasseValue')?.setValue(res.CodeClasse);
       this.setSmasValidators(res.SMS_ParentParDefaut);
     });
   }
 
-
   getLists() {
-    const params$ = this.eleveSerivice.getPrametresEleve();
+    const params$ = this.eleveSerivice.getPrametresEleve().pipe(
+      shareReplay(1)  // Partage la même réponse entre tous les abonnés
+    );
+  
     params$.subscribe((data) => {
       console.log(data);
     });
+  
     this.departementsList$ = params$.pipe(map((data) => data.DEPARTEMENT));
     this.nationaliteList$ = params$.pipe(map((data) => data.NATIONALITE));
     this.siteList$ = params$.pipe(map((data) => data.SITE));
@@ -181,6 +169,8 @@ export class ElevesInscritsFormComponent implements OnInit {
     this.etablissementList$ = params$.pipe(map((data) => data.ETABLISSEMENT));
     this.langueVivantes$ = params$.pipe(map((data) => data.LANGUE));
   }
+
+  
 
 
 
@@ -196,6 +186,10 @@ export class ElevesInscritsFormComponent implements OnInit {
     const day = Date.split('-')[2];
     const formattedDate = `${day}/${month}/${year}`;
     return formattedDate;
+  }
+
+  delete() {
+    this.router.navigate(['/radiation-eleve/' + this.IDEleve])
   }
 
   initELeveInscrit() {
@@ -215,7 +209,7 @@ export class ElevesInscritsFormComponent implements OnInit {
         validatorsList,
       ];
     };
-
+  
     this.eleveInscritForm = this.formBuilder.group({
       IDELEVE: settingForm(),
       IDNIVEAU: settingForm(),

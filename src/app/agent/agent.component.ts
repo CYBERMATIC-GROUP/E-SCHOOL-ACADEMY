@@ -127,7 +127,7 @@ export class AgentComponent implements OnInit, AfterViewInit {
 
   view(element: any) {
     const agentId = element.IDAGENT;
-    this.router.navigateByUrl(`agent/view/${agentId}`);
+    this.router.navigateByUrl(`fiche-agent/${agentId}`);
     console.log("ID de l'agent :", agentId);
   }
 

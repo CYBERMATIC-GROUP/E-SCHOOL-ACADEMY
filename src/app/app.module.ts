@@ -198,6 +198,7 @@ import { OperationsDeConsultationsComponent } from './dashboard/comptabilite/ope
 import { OutilsDuPromoteurComponent } from './dashboard/comptabilite/outils-du-promoteur/outils-du-promoteur.component';
 import { HistoriquepaiementEleveInscritComponent } from './historiquepaiement-eleve-inscrit/historiquepaiement-eleve-inscrit.component';
 import { EleveFicheComponent } from './eleve-fiche/eleve-fiche.component';
+import { FicheAgentComponent } from './agent/fiche-agent/fiche-agent.component';
 
 @NgModule({
   declarations: [
@@ -370,6 +371,7 @@ import { EleveFicheComponent } from './eleve-fiche/eleve-fiche.component';
     OutilsDuPromoteurComponent,
     HistoriquepaiementEleveInscritComponent,
     EleveFicheComponent,
+    FicheAgentComponent,
   ],
   imports: [
     BrowserModule,

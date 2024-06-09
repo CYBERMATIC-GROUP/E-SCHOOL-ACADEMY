@@ -139,6 +139,14 @@ export class EleveService {
     );
   }
 
+  getOneFiche(IDELEVE: number) {
+    return this.globalService.setHttpRequest(
+      'ELEVE_Get_Fiche' + '/' + IDELEVE,
+      'GET',
+      {}
+    );
+  }
+
   getOne(IDELEVE: number) {
     return this.globalService.setHttpRequest(
       this.uri + '/' + IDELEVE,
@@ -146,6 +154,7 @@ export class EleveService {
       {}
     );
   }
+
 
   getbalises() {
     return this.globalService.setHttpRequest(
@@ -165,8 +174,7 @@ export class EleveService {
   }
 
   getPrametresEleve(): Observable<any> {
-    const headers = this.globalService.getHeaders();
-    return this.http.get<any>(`${this.apiUrl}/ParametreVersListe`, { headers });
+    return this.globalService.setHttpRequest('/ParametreVersListe','GET',{},Headers);
   }
 
   update(eleve: Eleve): Observable<Eleve> {

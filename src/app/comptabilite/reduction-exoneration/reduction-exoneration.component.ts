@@ -53,6 +53,8 @@ export class ReductionExonerationComponent implements OnInit {
 
   ngOnInit(): void {
   const  IDELEVE = this.route.snapshot.params['ideleve'];
+  console.log(IDELEVE);
+  
   this.IDELEVE = IDELEVE
     if (this.IDELEVE) {
       this.reductionExoByfraisData$ = this.reductionExoService.getFraisGestion(this.IDELEVE)

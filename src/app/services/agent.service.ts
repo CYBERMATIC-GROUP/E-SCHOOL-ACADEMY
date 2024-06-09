@@ -142,4 +142,16 @@ export class AgentService {
       map(res => res)
     )
   }
+
+  getListePrimes(){
+    return this.globalService.setHttpRequest('PRIME', "GET", {});
+  }
+
+  getListeRetenue(){
+    return this.globalService.setHttpRequest('RETENUE', "GET", {});
+  }
+
+  getListeFicheByOneAget(IDagent: number): Observable<Agent> {
+    return this.globalService.setHttpRequest('AGENT_Get_Fiche' + '/' + IDagent, "GET", {});
+  }
 }

@@ -134,7 +134,7 @@ import { StatistiqueByDisciplineComponent } from './eleve/classement-releve-note
 import { HistoriquepaiementEleveInscritComponent } from './historiquepaiement-eleve-inscrit/historiquepaiement-eleve-inscrit.component';
 import { EleveFicheComponent } from './eleve-fiche/eleve-fiche.component';
 import { ReductionExonerationComponent } from './comptabilite/reduction-exoneration/reduction-exoneration.component';
-
+import { FicheAgentComponent } from './agent/fiche-agent/fiche-agent.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -142,9 +142,14 @@ const routes: Routes = [
   {path: "saisie-note/:trimestre", component: SaisieNotesComponent},
   {path: "saisie-note/:trimestre", component: SaisieNotesComponent},
 
+  {path: "fiche-agent/:idAgent", component: FicheAgentComponent},
+
+
 
   {path: "historique-paiement-by-eleve-inscrit/:ideleve", component: HistoriquepaiementEleveInscritComponent},
   {path: "eleve-fiche/:IDEleve", component: EleveFicheComponent},
+  {path: "reduction-exoneration/:ideleve", component: ReductionExonerationComponent},
+
 
 
 

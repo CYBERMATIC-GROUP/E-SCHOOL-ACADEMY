@@ -1,6 +1,7 @@
 export class Agent {
   IDAGENT!: number
   CodeAgent!: string
+  Fr_Quartier!: string
   Fr_Nom!: string
   Fr_Prenom!: string
   bDroit_ConsultationEleves!: boolean
@@ -74,8 +75,8 @@ export class Agent {
   Fr_Ville!: string
   Fr_LieuNaissance!: string
   NumCNI!: string
-  MontantsPrimesDefaut!: string
-  MontantsRetenuesDefaut!: string
+  MontantsPrimesDefaut!: MontantsPrimesDefaut[]
+  MontantsRetenuesDefaut!: MontantsRetenuesDefaut[]
   NumCompteBancaire!: string
   NumSecuriteSociale!: string
   SituationFamiliale!: number
@@ -83,18 +84,19 @@ export class Agent {
   NombrePartsImpots!: number
   EstImposable!: boolean
   IDSITE!: number
-  Nationalite!: string
+  IDNationalite!: number
   Fr_Departement!: string
   Fr_Arrondissement!: string
   IDCENTRE_EXAMEN!: number
   ClassesAutoriseesSaisieNotes!: string
   ModifPasswordNecessaire!: boolean
   CodeEtab!: string
+  Nationalite!: string
   Site!: string
   Fonction!: string
   CodeCaisse!: string
   IDDEPARTEMENT_NAISS!: number
-  Departement_Naiss!: number
+  Departement_Naiss!: string
   IDSpecialite!: number
   Specialite!: number
   IDEchelon!: number
@@ -104,14 +106,27 @@ export class Agent {
   IDQUARTIER!: number
   IDGRADE!: number
   GRADE!: number
-  IDNationalite!: number
-  IDARRONDISSEMENT!: number
+  Photo!: string
+  IDDEPARTEMENT!: string
+  IDARRONDISSEMENT!: string
+}
 
-  nNumero!:number
-  Message!: string
-  TypeDestinateur!:number
-  Numero!:number
-  Mobile!:string
+export class MontantsPrimesDefaut {
+  IDPRIME!: number
+  NumOrdre!: number
+  LibellePrime!: string
+  bImposable!: boolean
+  FormuleCalcul!: string
+  Montant!: number
+}
+
+export class MontantsRetenuesDefaut {
+  IDRETENUE!: number
+  NumOrdre!: number
+  LibelleRetenue_Fr!: string
+  Montant!: number
+  bDeductibleBaseImposable!: boolean
+  bEstCNSS!: boolean
 }
 
 

@@ -107,7 +107,7 @@ export class EleveFicheComponent {
   ) {}
 
   ngOnInit(): void {
-    this.action = this.route.snapshot.params['action'];
+    // this.action = 'edit';
     this.IDEleve = this.route.snapshot.params['IDEleve'];
 
     // Prémiere requette
@@ -126,10 +126,10 @@ export class EleveFicheComponent {
     // this.initDataFraisScolaire(this.IDEleve);
 
     //title page
-    if (this.action == 'reinscrire') this.titlePage = "Réinscrire l'élève";
-    else if (this.action == 'edit')
-      this.titlePage = "Modifier les informations de l'élève";
-    else if (this.action == 'view') this.titlePage = "Fiche de l'élève ";
+    // if (this.action == 'reinscrire') this.titlePage = "Réinscrire l'élève";
+    // else if (this.action == 'edit')
+    //   this.titlePage = "Modifier les informations de l'élève";
+    // else if (this.action == 'view') this.titlePage = "Fiche de l'élève ";
 
     // Quatrieme requette
     this.photo$ = this.eleveSerivice.getPhoto(this.IDEleve).pipe(
@@ -141,6 +141,13 @@ export class EleveFicheComponent {
 
   OpenPaiement(){
     this.router.navigateByUrl('reduction-exoneration/' + this.IDEleve)
+  }
+
+
+  ViewHistoriquePaiement() {
+    this.router.navigateByUrl(
+      'historique-paiement-by-eleve-inscrit' + '/' + this.IDEleve
+    );
   }
 
     // Troisieme requette
@@ -156,7 +163,7 @@ export class EleveFicheComponent {
   //Deuxieme requette
   loadEleve(idEleve: number) {
     this.isLoadingDataStudent = true;
-    this.eleveSerivice.getOne(idEleve).subscribe((res) => {
+    this.eleveSerivice.getOneFiche(idEleve).subscribe((res) => {
       console.log(res);
       console.log(res.HistiriquePaiementFraisScolaire);
       this.infoEleve = res.HistiriquePaiementFraisScolaire
@@ -186,11 +193,6 @@ export class EleveFicheComponent {
 
 
 
-  ViewHistoriquePaiement() {
-    this.router.navigateByUrl(
-      'historique-paiement-by-eleve-inscrit' + '/' + this.IDEleve
-    );
-  }
 
   convertToValideDates(Date: string) {
     const year = Date.split('-')[0];
@@ -204,16 +206,16 @@ export class EleveFicheComponent {
     const settingForm = (validatorsList: any[] | boolean = false) => {
       if (validatorsList == false)
         return [
-          { value: null, disabled: this.action == 'view' ? true : false },
+          { value: null, disabled: true  },
         ];
       else if (validatorsList == true)
         return [
-          { value: null, disabled: this.action == 'view' ? true : false },
+          { value: null, disabled: true  },
           Validators.required,
         ];
 
       return [
-        { value: null, disabled: this.action == 'view' ? true : false },
+        { value: null, disabled: true  },
         validatorsList,
       ];
     };
@@ -243,6 +245,7 @@ export class EleveFicheComponent {
       ClassesDoublees: settingForm(),
       EtatEleve: settingForm(),
       IDCYCLES: settingForm(),
+      CodeClasse: settingForm(),
       IDFRATRIE: settingForm(),
       IDSTATUTELEVE: settingForm(),
       EtatSanitaire: settingForm(true),
@@ -536,25 +539,8 @@ export class EleveFicheComponent {
   }
 
   onSubmitForm() {
-    const eleve: Eleve = this.eleveInscritForm.value;
-    console.log(eleve);
-    this.updateIsLoading = true;
-    this.eleveSerivice
-      .update(eleve)
-      .pipe(
-        tap((res) => {
-          this.globalService.toastShow(
-            'Eleve ' + eleve.Fr_Nom + ' a été mis à jour avec succès !',
-            'Modification'
-          );
-          console.log(res);
-          this.updateIsLoading = false;
-        }),
-        finalize(() => {
-          this.updateIsLoading = false;
-        })
-      )
-      .subscribe();
+    this.router.navigateByUrl('eleve/inscription/edit/' + this.IDEleve);
+
   }
 
   private setSmasValidators(value: number) {

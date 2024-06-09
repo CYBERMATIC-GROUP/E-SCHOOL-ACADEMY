@@ -1,7 +1,7 @@
 <app-gabarit [pageTitle]="titlePage">
   <div
     class="container-fluid bg-light"
-    *ngIf="!isLoadingDataStudent; else loader"
+    *ngIf="!isLoadingDataStudent;"
   >
     <mat-stepper class="" headerPosition="bottom" class="" #stepper>
       <mat-step [stepControl]="eleveInscritForm" class="">
@@ -14,7 +14,7 @@
               role="tabpanel"
               aria-labelledby="nestedTab1"
             >
-              <div class="content mt-3">
+              <div class="content ">
                 <span class="text-on-border fw-bold text-secondary-cust"
                   >Identités Elève</span
                 >
@@ -23,9 +23,9 @@
                     class="col-lg-4 text-center"
                     style="border-right: 1px solid rgb(237, 231, 231)"
                   >
-                    <div
-                      class="w-75 m-auto mt-4"
-                      *ngIf="photo$ | async as photoobj; else loader"
+                    <!-- <div
+                      class="w-75 m-auto "
+                      *ngIf="photo$ | async as photoobj;"
                     >
                       <img
                         class="m-auto"
@@ -36,7 +36,7 @@
                         "
                         alt="image"
                       />
-                    </div>
+                    </div> -->
 
                     <div class="col-lg-8 m-auto">
                       <label for="validationCustom01" class="form-label mb-2"
@@ -50,7 +50,7 @@
                         Choisir une photo
                       </button>
                     </div>
-                    <div class="mt-4">
+                    <div class="">
                       MATRICULE:
                       <strong class="text-secondary-cust">{{
                         eleveInscritForm.get("CodeEleve")?.value
@@ -58,7 +58,7 @@
                     </div>
 
                     <section>
-                      <div class="example-label mt-4">
+                      <div class="example-label ">
                         Actions supplémentaires
                       </div>
                       <div class="d-flex justify-content-center flex-wrap">
@@ -109,7 +109,7 @@
                       <div class="col-12">
                         <label
                           for="validationCustom01"
-                          class="form-label mt-3"
+                          class="form-label "
                           *ngIf="action != 'edit'"
                           >Selectionner la nouvelle classe ici (<span
                             class="text-danger"
@@ -199,13 +199,13 @@
                             action !== 'view' ?
                             !eleveInscritForm.controls["Fr_Nom"].valid
                               ? "Renseignez le Nom."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                       </div>
 
-                      <div class="col-lg-4 mt-3">
-                        <label for="validationCustom01" class="form-label"
+                      <div class="col-lg-4 ">
+                        <label for="validationCustom01" class="form-label mt-3"
                           >Prenom (<span class="text-danger">*</span>)</label
                         >
                         <input
@@ -234,13 +234,13 @@
                             action !== 'view' ?
                             !eleveInscritForm.controls["Fr_Prenom"].valid
                               ? "Renseignez le prénom."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                       </div>
 
-                      <div class="col-lg-4 mt-3">
-                        <label for="validationCustom01" class="form-label"
+                      <div class="col-lg-4 ">
+                        <label for="validationCustom01" class="form-label mt-3"
                           >Sexe (<span class="text-danger">*</span>)</label
                         >
                         <select
@@ -269,12 +269,12 @@
                           {{ action !== 'view' ?
                             !eleveInscritForm.controls["Civilite"].valid
                               ? "Sélectionnez le sexe."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                       </div>
 
-                      <div class="col-lg-4 mt-3">
+                      <div class="col-lg-4 ">
                         <label for="validationCustom01" class="form-label"
                           >Date de Naissance (<span class="text-danger">*</span
                           >)</label
@@ -302,12 +302,12 @@
                             action !== 'view' ?
                             !eleveInscritForm.controls["DateNaissance"].valid
                               ? "Renseignez la date de naissance."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                       </div>
 
-                      <div class="col-lg-4 mt-3">
+                      <div class="col-lg-4 ">
                         <label for="validationCustom01" class="form-label"
                           >Departement de naissance (<span class="text-danger"
                             >*</span
@@ -350,7 +350,7 @@
                                action !== 'view' ?
                               !eleveInscritForm.controls["Fr_Departement"].valid
                                 ? "Renseignez le département de naissance."
-                                : "ok." : ''
+                                : "" : ''
                             }}
                           </div>
                           <mat-autocomplete #departements>
@@ -373,7 +373,7 @@
                         </div>
                       </div>
 
-                      <div class="col-lg-4 mt-3">
+                      <div class="col-lg-4 ">
                         <label for="validationCustom01" class="form-label"
                           >Lieu de naissance (<span class="text-danger">*</span
                           >)
@@ -418,7 +418,7 @@
                               !eleveInscritForm.controls["Fr_LieuNaissance"]
                                 .valid
                                 ? "Renseignez le lieu de naissance."
-                                : "ok." : ''
+                                : "" : ''
                             }}
                           </div>
                           <mat-autocomplete #naissancePlace>
@@ -440,7 +440,7 @@
                           </mat-autocomplete>
                         </div>
                       </div>
-                      <div class="col-lg-4 mt-3">
+                      <div class="col-lg-4 ">
                         <label for="validationCustom01" class="form-label"
                           >Nationalité (<span class="text-danger">*</span>)
                         </label>
@@ -448,10 +448,7 @@
                         <div class="d-flex align-items-center">
                           <div
                             class="input-group mb-3"
-                            *ngIf="
-                              nationaliteList$ | async as nationaliteList;
-                              else loader
-                            "
+                            *ngIf="nationaliteList$ | async as nationaliteList;"
                           >
                             <input
                               type="text"
@@ -484,7 +481,7 @@
                                 action !== 'view' ?
                                 !eleveInscritForm.controls["Nationalite"].valid
                                   ? "Sélectionnez la nationalité."
-                                  : "ok." : ''
+                                  : "" : ''
                               }}
                             </div>
                             <mat-autocomplete #nationnalites>
@@ -521,7 +518,7 @@
                         </div>
                       </div>
 
-                      <div class="col-lg-4 mt-3">
+                      <div class="col-lg-4 ">
                         <label for="validationCustom01" class="form-label"
                           >Etat sanitaire (<span class="text-danger">*</span>)
                         </label>
@@ -571,7 +568,7 @@
                                   "LibelleEtatSanitaire"
                                 ].valid
                                   ? "Sélectionnez l'état sanitaire."
-                                  : "ok." : ''
+                                  : "" : ''
                               }}
                             </div>
                             <mat-autocomplete #studentEtat>
@@ -607,7 +604,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-lg-4 mt-3">
+                      <div class="col-lg-4 ">
                         <label for="validationCustom01" class="form-label"
                           >Status
                         </label>
@@ -644,7 +641,7 @@
                                 action !== 'view' ?
                                 !eleveInscritForm.controls["Statut"].valid
                                   ? "Sélectionnez le Statut."
-                                  : "ok." : ''
+                                  : "" : ''
                               }}
                             </div>
                             <mat-autocomplete #statusStudent>
@@ -681,7 +678,7 @@
                         </div>
                       </div>
 
-                      <div class="col-lg-4 mt-3">
+                      <div class="col-lg-4 ">
                         <label for="validationCustom01" class="form-label"
                           >Nouveau/Ancien (<span class="text-danger">*</span>)
                         </label>
@@ -726,11 +723,11 @@
                               "NouveauDansAnneeCourante"
                             ].valid
                               ? "Sélectionez nouveau ou ancien."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                       </div>
-                      <div class="col-lg-4 mt-3">
+                      <div class="col-lg-4 ">
                         <label for="validationCustom01" class="form-label"
                           >Redoublant/Non Redoublant (<span class="text-danger"
                             >*</span
@@ -763,12 +760,12 @@
                             action !== 'view' ?
                             !eleveInscritForm.controls["Redoublant"].valid
                               ? "Sélectionnez redoublant ou non redoublant."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                       </div>
 
-                      <div class="col-lg-4 mt-3">
+                      <div class="col-lg-4 ">
                         <label for="validationCustom01" class="form-label"
                           >Identifiant Scolaire unique
                         </label>
@@ -785,19 +782,14 @@
                 </div>
               </div>
 
-              <div class="row mt-5">
+              <div class="row">
                 <div class="col-lg-6">
                   <div class="content">
                     <span class="text-on-border fw-bold text-secondary-cust"
                       >ngues Vivantes</span
                     >
 
-                    <div
-                      *ngIf="
-                        langueVivantes$ | async as langueVivantes;
-                        else loader
-                      "
-                    >
+                    <div *ngIf="langueVivantes$ | async as langueVivantes;">
                       <div class="col-lg-12 pt-3">
                         <label for="validationCustom01" class="form-label"
                           >Première langue
@@ -869,7 +861,7 @@
                             action !== 'view' ?
                             !eleveInscritForm.controls["LangueVivante1"].valid
                               ? "Renseignez une langue."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                       </div>
@@ -941,7 +933,7 @@
                             action !== 'view' ?
                             !eleveInscritForm.controls["LangueVivante2"].valid
                               ? "Renseignez une langue."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                       </div>
@@ -1015,7 +1007,7 @@
                             action !== 'view' ?
                             !eleveInscritForm.controls["LangueVivante3"].valid
                               ? "Renseignez une langue."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                       </div>
@@ -1029,7 +1021,7 @@
                     >
 
                     <div class="col-lg-12">
-                      <label for="validationCustom01" class="form-label mt-3"
+                      <label for="validationCustom01" class="form-label "
                         >Departement de résidence
                       </label>
                       <div
@@ -1070,7 +1062,7 @@
                             !eleveInscritForm.controls["DepartementResidence"]
                               .valid
                               ? "Renseignez le département de résidence."
-                              : "ok." : ''
+                              : "" : ''
                           }}
                         </div>
                         <mat-autocomplete #departements>
@@ -1094,7 +1086,7 @@
                     </div>
 
                     <div class="col-lg-12">
-                      <label for="validationCustom01" class="form-label mt-3"
+                      <label for="validationCustom01" class="form-label "
                         >Arrondissement
                       </label>
                       <input
@@ -1124,13 +1116,13 @@
                           action !== 'view' ?
                           !eleveInscritForm.controls["Fr_Arrondissement"].valid
                             ? "Renseignez l'arrondissement."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
 
                     <div class="col-lg-12">
-                      <label for="validationCustom01" class="form-label mt-3"
+                      <label for="validationCustom01" class="form-label "
                         >Ville
                       </label>
                       <input
@@ -1157,7 +1149,7 @@
                           action !== 'view' ?
                           !eleveInscritForm.controls["Fr_Ville"].valid
                             ? "Renseignez une ville."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
@@ -1165,15 +1157,15 @@
                 </div>
               </div>
 
-              <div class="row mt-5">
+              <div class="row">
                 <div class="col-lg-6">
-                  <div class="content mt-3">
+                  <div class="content ">
                     <span class="text-on-border fw-bold text-secondary-cust"
                       >Identifications</span
                     >
 
                     <div class="col-lg-12">
-                      <label for="validationCustom01" class="form-label mt-3"
+                      <label for="validationCustom01" class="form-label "
                         >Email
                       </label>
                       <input
@@ -1200,13 +1192,13 @@
                           action !== 'view' ?
                           !eleveInscritForm.controls["Courriel"].valid
                             ? "Renseignez un email."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
 
                     <div class="col-lg-12">
-                      <label for="validationCustom01" class="form-label mt-3"
+                      <label for="validationCustom01" class="form-label "
                         >Mobile
                       </label>
                       <input
@@ -1233,13 +1225,13 @@
                           action !== 'view' ?
                           !eleveInscritForm.controls["TelMobile"].valid
                             ? "Renseignez un mobile."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
 
                     <div class="col-lg-12">
-                      <label for="validationCustom01" class="form-label mt-3"
+                      <label for="validationCustom01" class="form-label "
                         >Numéro CNI
                       </label>
                       <input
@@ -1265,13 +1257,13 @@
                           action !== 'view' ?
                           !eleveInscritForm.controls["NumCNI"].valid
                             ? "Renseignez le numéro CNI."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
 
                     <div class="col-lg-12">
-                      <label for="validationCustom01" class="form-label mt-3"
+                      <label for="validationCustom01" class="form-label "
                         >ID carte (badge)
                       </label>
                       <input
@@ -1299,27 +1291,24 @@
                           action !== 'view' ?
                           !eleveInscritForm.controls["IdentifiantBadge"].valid
                             ? "Renseignez un identifiant de badge."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <div class="content mt-3">
+                  <div class="content ">
                     <span class="text-on-border fw-bold text-secondary-cust"
                       >Autres parametres</span
                     >
 
-                    <div class="col-lg-12 mt-3">
+                    <div class="col-lg-12 ">
                       <label for="validationCustom01" class="form-label"
                         >Cycle
                       </label>
 
-                      <div
-                        class="d-flex align-items-center"
-                        *ngIf="cycleList$ | async as cycleList; else loader"
-                      >
+                      <div class="d-flex align-items-center" *ngIf="cycleList$ | async as cycleList;">
                         <input
                           type="text"
                           class="form-control form-select"
@@ -1368,12 +1357,12 @@
                           action !== 'view' ?
                           !eleveInscritForm.controls["Cycle"].valid
                             ? "Sélectionnez un cycle."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
 
-                    <div class="col-lg-12 mt-3">
+                    <div class="col-lg-12 ">
                       <label for="validationCustom01" class="form-label"
                         >Site d'affectation
                       </label>
@@ -1439,7 +1428,7 @@
                           action !== 'view' ?
                           !eleveInscritForm.controls["Site"].valid
                             ? "Sélectionnez un site."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
@@ -1515,12 +1504,12 @@
                           !eleveInscritForm.controls["EtablissementProvenance"]
                             .valid
                             ? "Renseignez un établissement d'origine."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
 
-                    <div class="col-lg-12 mt-3">
+                    <div class="col-lg-12 ">
                       <label for="validationCustom01" class="form-label"
                         >Année BEPC
                       </label>
@@ -1548,7 +1537,7 @@
                           action !== 'view' ?
                           !eleveInscritForm.controls["BEPC_Annee"].valid
                             ? "Renseignez une année pour le BEPC."
-                            : "ok." : ''
+                            : "" : ''
                         }}
                       </div>
                     </div>
@@ -1556,14 +1545,14 @@
                 </div>
               </div>
 
-              <div class="row mt-5">
+              <div class="row">
                 <div class="col-lg-6">
-                  <div class="content mt-3">
+                  <div class="content ">
                     <span class="text-on-border fw-bold text-secondary-cust"
                       >Paramètres Divers</span
                     >
 
-                    <div class="row mt-3">
+                    <div class="row ">
                       <div class="col-lg-4">
                         <div class="form-check m-auto">
                           <input
@@ -1674,7 +1663,7 @@
                 </div>
                 <div class="col-lg-6">
                   <div
-                    class="content mt-3"
+                    class="content "
                     [ngClass]="{
                       'border-danger':
                         eleveInscritForm.get('SMS_ParentParDefaut')?.value < 1,
@@ -1689,7 +1678,7 @@
                       >)
                     </span>
 
-                    <div class="row mt-3">
+                    <div class="row ">
                       <div class="col-lg-12">
                         <div class="form-check m-auto">
                           <input
@@ -1785,7 +1774,7 @@
       <mat-step [stepControl]="eleveInscritForm">
         <ng-template matStepLabel>Informations supplémentaires</ng-template>
         <form [formGroup]="eleveInscritForm">
-          <div class="row mt-3">
+          <div class="row ">
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
                 >Nom Prenom Tuteur (<span class="text-danger">*</span>)</label
@@ -1814,7 +1803,7 @@
                   action !== 'view' ?
                   !eleveInscritForm.controls["Fr_NomPrenomTuteur"].valid
                     ? "Renseignez le Nom et prénom du tuteur."
-                    : "ok." : ''
+                    : "" : ''
                 }}
               </div>
             </div>
@@ -1823,7 +1812,7 @@
               <label for="validationCustom01" class="form-label"
                 >Profession Tuteur</label
               >
-              <div *ngIf="professionList$ | async as fonctionList; else loader">
+              <div *ngIf="professionList$ | async as fonctionList;">
                 <input
                   type="text"
                   class="form-control form-select"
@@ -1897,13 +1886,13 @@
                   action !== 'view' ?
                   !eleveInscritForm.controls["TelMobileTuteur"].valid
                     ? "Renseignez le numéro de téléphone du tuteur."
-                    : "ok." : ''
+                    : "" : ''
                 }}
               </div>
             </div>
           </div>
 
-          <div class="row mt-3">
+          <div class="row ">
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
                 >Nom Prenom pere
@@ -1932,7 +1921,7 @@
                   action !== 'view' ?
                   !eleveInscritForm.controls["Fr_NomPrenomPere"].valid
                     ? "Renseignez le Nom et prénom du père."
-                    : "ok." : ''
+                    : "" : ''
                 }}
               </div>
             </div>
@@ -1941,7 +1930,7 @@
               <label for="validationCustom01" class="form-label"
                 >Profession pere</label
               >
-              <div *ngIf="professionList$ | async as fonctionList; else loader">
+              <div *ngIf="professionList$ | async as fonctionList;">
                 <input
                   type="text"
                   class="form-control form-select"
@@ -2012,13 +2001,13 @@
                   action !== 'view' ?
                   !eleveInscritForm.controls["TelMobilePere"].valid
                     ? "Renseignez le téléphone du père."
-                    : "ok." : ''
+                    : "" : ''
                 }}
               </div>
             </div>
           </div>
 
-          <div class="row mt-3">
+          <div class="row ">
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
                 >Nom Prenom mère</label
@@ -2047,7 +2036,7 @@
                   action !== 'view' ?
                   !eleveInscritForm.controls["Fr_NomPrenomMere"].valid
                     ? "Renseignez le Nom et prénom de la mère."
-                    : "ok." : ''
+                    : "" : ''
                 }}
               </div>
             </div>
@@ -2056,7 +2045,7 @@
               <label for="validationCustom01" class="form-label"
                 >Profession mère
               </label>
-              <div *ngIf="professionList$ | async as fonctionList; else loader">
+              <div *ngIf="professionList$ | async as fonctionList;">
                 <input
                   type="text"
                   class="form-control form-select"
@@ -2127,13 +2116,13 @@
                   action !== 'view' ?
                   !eleveInscritForm.controls["TelMobileMere"].valid
                     ? "Renseignez le téléphone de la mère."
-                    : "ok." : ''
+                    : "" : ''
                 }}
               </div>
             </div>
           </div>
 
-          <div class="row mt-3">
+          <div class="row ">
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
                 >Nombre Freres</label
@@ -2197,7 +2186,7 @@
                     action !== 'view' ?
                     !eleveInscritForm.controls["Fr_Adresse1"].valid
                       ? "Renseignez l'adresse."
-                      : "ok." : ''
+                      : "" : ''
                   }}
                 </div>
               </div>
@@ -2291,17 +2280,32 @@
       </mat-step>
     </mat-stepper>
     <div class="pb-5">
-      <div class="mx-4 my-3">
-        <button
-          type="submit"
-          *ngIf="!updateIsLoading; else loader"
-          [disabled]="updateIsLoading || eleveInscritForm.invalid"
-          class="btn-custom btn w-100"
-          (click)="onSubmitForm()"
-        >
-          <i class="fa-solid fa-check text-light"></i>
-          Enregistrer
-        </button>
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="mx-4 my-3">
+            <button
+              type="submit"
+              *ngIf="!updateIsLoading;"
+              [disabled]="updateIsLoading || eleveInscritForm.invalid"
+              class="btn-custom btn w-100"
+              (click)="onSubmitForm()"
+            >
+              <i class="fa-solid fa-check text-light"></i>
+              Enregistrer
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="mx-4 my-3">
+            <button
+              class="bg-danger text-white form-control"
+              (click)="delete()"
+            >
+              Supprimer l'élève    <i class="fa fa-trash text-white pointer" ></i> 
+
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -51,14 +51,18 @@ import { ParamComboAgentService } from '../services/param-combo-agent.service';
 import { ModificationMotDePasseAgent } from 'src/app/models/updatePasswordAgent.model';
 import { GeneratenewpasswordComponent } from '../generatenewpassword/generatenewpassword.component';
 import { MatTableDataSource } from '@angular/material/table';
+
 @Component({
-  selector: 'app-agent-form',
-  templateUrl: './agent-form.component.html',
-  styleUrls: ['./agent-form.component.scss'],
+  selector: 'app-fiche-agent',
+  templateUrl: './fiche-agent.component.html',
+  styleUrls: ['./fiche-agent.component.scss']
 })
-export class AgentFormComponent implements OnInit {
+export class FicheAgentComponent {
   @Input() action!: 'create' | 'edit' | 'view';
   @Input() Agent!: Agent;
+
+  dataSourceprime: any
+  dataSourceRetenue: any
 
   displayedColumnsprime = [
     'LibellePrime',
@@ -70,8 +74,6 @@ export class AgentFormComponent implements OnInit {
     'Montant',
   ];
 
-  dataSourceprime: any
-  dataSourceRetenue: any
   agentForm!: FormGroup;
   agentFormPreview$!: Observable<Agent>;
   anneeList!: Annee[];
@@ -183,59 +185,31 @@ isLoading: any;
     )
 
     //this.arrondissements$ = this.arrondissementService.get(0).pipe(map(res => res.body))
-    if (this.action !== 'edit' && this.action !== 'view') {      
-      this.getlistePrime()
-      this.getlisteRetenue()
-    }
 
     const agentObj = localStorage.getItem(constantes.auth.agent)
     if(agentObj)
       this.agentConnected = JSON.parse(agentObj);
   }
 
-  desctivateSlectForView(){
 
-  }
 
-      getlistePrime(){
-      this.agentService.getListePrimes().subscribe(data => {
-        console.log(data);
-        this.dataSourceprime = new MatTableDataSource(data)
-      
-      })
-    }
-
-    getlisteRetenue(){
-      this.agentService.getListeRetenue().subscribe(data => {
-        console.log(data);
-       this.dataSourceRetenue = new MatTableDataSource(data)
-      })
-    }
-
-   initAgentForViewOrUpdate(idAgent: number) {
+  initAgentForViewOrUpdate(idAgent: number) {
     this.isLaoding = true
-    this.agentService.getOne(idAgent).subscribe((data) => {
+    this.agentService.getListeFicheByOneAget(idAgent).subscribe((data) => {
       console.log(data)
-      console.log(data.MontantsRetenuesDefaut);
-      console.log(data.MontantsPrimesDefaut);
-      
       this.dataSourceRetenue = new MatTableDataSource(data.MontantsRetenuesDefaut)
-      this.dataSourceprime = new MatTableDataSource(data.MontantsPrimesDefaut)
-
+       this.dataSourceprime = new MatTableDataSource(data.MontantsPrimesDefaut)
       this.isLaoding = false
       this.agentForm.patchValue(data);
     });
   }
 
-  updateMontant(element: any, newValue: any) {
-    const newMontant = parseFloat(newValue.target.value);
-    if (!isNaN(newMontant)) {
-      element.Montant = newMontant;
-    }
-    console.log( this.dataSourceprime.data);
-    
+
+
+  desctivateSlectForView(){
+
   }
-  
+
   loadCaisse() {
     this.caiseService.get().subscribe((data) => {
           console.log(data);
@@ -331,7 +305,7 @@ isLoading: any;
 
   initForm() {
     const paramForm = (validators: any[] = []) => {
-      return [{value: '', disabled: this.action == 'view' ? true : false}, validators]
+      return [{value: '', disabled: true}, validators]
     }
     this.agentForm = this.formBuilder.group({
       IDAGENT: paramForm(),
@@ -595,54 +569,8 @@ isLoading: any;
     }
   }
 
-  onSubmit() {
-    //agent.DateNaissance = this.convertToValideDate(agent.DateNaissance); // Conversion de la date de naissance
-    const agent: Agent = this.agentForm.value;
-    agent.MontantsRetenuesDefaut = this.dataSourceRetenue.data
-    agent.MontantsPrimesDefaut = this.dataSourceprime.data
-    console.log(agent);
-    if (this.agentForm.value.IDAGENT) {
-      this.updateAgent(agent);
-    } else {
-      this.createAgent(agent);
-    }
-  }
-
-
-  updateAgent(agent: Agent) {
-    this.isLaoding = true;
-    this.agentService.update(agent).pipe(
-      tap(res => {
-        console.log(res);
-        this.isLaoding = false;
-        this.globalService.toastShow("Agent modifié avec succès.", "Mise à jour:")
-        this.router
-          .navigateByUrl('/agent', { skipLocationChange: true })
-          .then(() => {});
-      }),
-      finalize(() => {
-        this.isLaoding = false
-      })
-    ).subscribe()
-  }
-
-  createAgent(agent: Agent) {
-    agent.MontantsRetenuesDefaut = this.dataSourceRetenue.data
-    agent.MontantsPrimesDefaut = this.dataSourceprime.data
-    this.isLaoding = true;
-    this.agentService.create(agent).pipe(
-      tap(res => {
-        console.log(res);
-        this.isLaoding = false;
-        this.globalService.toastShow("Agent ajouté avec succès", "Ajout agent")
-        this.router
-          .navigateByUrl('/agent', { skipLocationChange: true })
-          .then(() => {});
-      }),
-      finalize(() => {
-        this.isLaoding = false
-      })
-    ).subscribe()
+  edit() {
+    this.router.navigateByUrl(`agent/edit/${this.idAgentSelected}`);
   }
 
   onInputCaisse(event: any){
@@ -677,8 +605,40 @@ isLoading: any;
   }
 
 
-  
+  updateAgent(agent: Agent) {
+    this.isLaoding = true;
+    this.agentService.update(agent).pipe(
+      tap(res => {
+        console.log(res);
+        this.isLaoding = false;
+        this.globalService.toastShow("Agent modifié avec succès.", "Mise à jour:")
+        this.router
+          .navigateByUrl('/agent', { skipLocationChange: true })
+          .then(() => {});
+      }),
+      finalize(() => {
+        this.isLaoding = false
+      })
+    ).subscribe()
+  }
 
+  createAgent(agent: Agent) {
+    this.isLaoding = true;
+    this.agentService.create(agent).pipe(
+      tap(res => {
+        console.log(res);
+        this.isLaoding = false;
+        this.globalService.toastShow("Agent ajouté avec succès", "Ajout agent")
+        this.router
+          .navigateByUrl('/agent', { skipLocationChange: true })
+          .then(() => {});
+      }),
+      finalize(() => {
+        this.isLaoding = false
+      })
+    ).subscribe()
+  }
+  
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
@@ -831,6 +791,5 @@ isLoading: any;
          }
       })
     }
-
 
 }
