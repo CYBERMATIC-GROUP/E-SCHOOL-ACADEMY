@@ -10,6 +10,7 @@ import { HistoriqueCaisse } from '../models/historiqueVersementCaisse.model';
 export class HistoriqueversementcaisseService {
 
   urihistoriqueCaisse = "COMPTA_Get_Historique_Caisse"
+  urirapportjournalier = "COMPTA_Get_Rapport_Operations"
 
   constructor(
     private http:HttpClient,
@@ -51,6 +52,12 @@ export class HistoriqueversementcaisseService {
   getConsultationCaisse(nIDCAISSE: number, sDateDebut: string, sDateFin: string,nModePaiment:number) {
     const url = `COMPTA_Get_Historique_Caisse/${nIDCAISSE}/${sDateDebut}/${sDateFin}/${nModePaiment}`;
     return this.globalService.setHttpRequest(url, "GET", {})
+  }
+
+  //Rapport Journalier
+  getRapportJournalier(sDateDebut: string, sDateFin: string,IDCAISSE: number): Observable<any> {
+    const url = `COMPTA_Get_Rapport_Operations/${sDateDebut}/${sDateFin}/${IDCAISSE}`;
+    return this.globalService.setHttpRequest(url, "POST", {})
   }
 
 }

@@ -141,14 +141,14 @@ export class OutilsDuPromoteurComponent {
       //   right: this.agent.bDroit_ConsultationComptes,
       // },
 
-      // {
-      //   desination: "Etats de paiement des droits scolaires",
-      //   logo: "../../assets/logo/Etats_de_paiement_droits_scoalires.png",
-      //   description: "",
-      //   backColor: "#8d99ae",
-      //   link: "/eleve/etat-paiement",
-      //   right: true
-      // },
+       {
+         desination: "Rapport Journalier",
+         logo: "../../assets/logo/Etats_de_paiement_droits_scoalires.png",
+         description: "",
+         backColor: "#8d99ae",
+         link: "/rapport-journalier",
+         right: true
+       },
        {
          desination: "Annulation d'une opération ",
          logo: "../../assets/logo/Consultations_des_comptes.png",

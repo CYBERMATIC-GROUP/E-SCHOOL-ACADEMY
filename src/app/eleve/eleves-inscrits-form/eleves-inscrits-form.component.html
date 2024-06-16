@@ -1,7 +1,7 @@
 <app-gabarit [pageTitle]="titlePage">
   <div
     class="container-fluid bg-light"
-    *ngIf="!isLoadingDataStudent;"
+    *ngIf="!isLoadingDataStudent; else loader"
   >
     <mat-stepper class="" headerPosition="bottom" class="" #stepper>
       <mat-step [stepControl]="eleveInscritForm" class="">
@@ -23,9 +23,9 @@
                     class="col-lg-4 text-center"
                     style="border-right: 1px solid rgb(237, 231, 231)"
                   >
-                    <!-- <div
+                     <div
                       class="w-75 m-auto "
-                      *ngIf="photo$ | async as photoobj;"
+                      *ngIf="photo$ | async as photoobj; else loader"
                     >
                       <img
                         class="m-auto"
@@ -36,7 +36,7 @@
                         "
                         alt="image"
                       />
-                    </div> -->
+                    </div> 
 
                     <div class="col-lg-8 m-auto">
                       <label for="validationCustom01" class="form-label mb-2"
@@ -786,7 +786,7 @@
                 <div class="col-lg-6">
                   <div class="content">
                     <span class="text-on-border fw-bold text-secondary-cust"
-                      >ngues Vivantes</span
+                      >Langues Vivantes</span
                     >
 
                     <div *ngIf="langueVivantes$ | async as langueVivantes;">
@@ -1777,7 +1777,7 @@
           <div class="row ">
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Nom Prenom Tuteur (<span class="text-danger">*</span>)</label
+                >Nom et prénom du tuteur (<span class="text-danger">*</span>)</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -1810,7 +1810,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Profession Tuteur</label
+                >Profession du Tuteur</label
               >
               <div *ngIf="professionList$ | async as fonctionList;">
                 <input
@@ -1848,7 +1848,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Email Tuteur</label
+                >Email du Tuteur</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -1860,7 +1860,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Téléphone Tuteur</label
+                >Téléphone du Tuteur</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -1895,7 +1895,7 @@
           <div class="row ">
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Nom Prenom pere
+                >Nom et prénom du père
               </label>
               <input
                 [readonly]="action == 'view'"
@@ -1928,7 +1928,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Profession pere</label
+                >Profession du père</label
               >
               <div *ngIf="professionList$ | async as fonctionList;">
                 <input
@@ -1964,7 +1964,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Email pere</label
+                >Email du père</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -1976,7 +1976,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Téléphone père</label
+                >Téléphone du père</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -2010,7 +2010,7 @@
           <div class="row ">
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Nom Prenom mère</label
+                >Nom et Prenom de la mère</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -2043,7 +2043,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Profession mère
+                >Profession de la mère
               </label>
               <div *ngIf="professionList$ | async as fonctionList;">
                 <input
@@ -2079,7 +2079,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Email mère</label
+                >Email de la mère</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -2091,7 +2091,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Téléphone mère</label
+                >Téléphone de la mère</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -2125,7 +2125,7 @@
           <div class="row ">
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Nombre Freres</label
+                >Nombre des frères</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -2137,7 +2137,7 @@
 
             <div class="col-lg-3">
               <label for="validationCustom01" class="form-label"
-                >Nombre Soeurs</label
+                >Nombre des soeurs</label
               >
               <input
                 [readonly]="action == 'view'"
@@ -2285,7 +2285,7 @@
           <div class="mx-4 my-3">
             <button
               type="submit"
-              *ngIf="!updateIsLoading;"
+              *ngIf="!updateIsLoading;else loader"
               [disabled]="updateIsLoading || eleveInscritForm.invalid"
               class="btn-custom btn w-100"
               (click)="onSubmitForm()"

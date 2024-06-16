@@ -70,7 +70,7 @@ export class FicheAgentComponent {
   ];
 
   displayedColumnsretenue = [
-    'LibelleRetenue_Fr',
+    'LibelleRetenue',
     'Montant',
   ];
 
@@ -197,8 +197,8 @@ isLoading: any;
     this.isLaoding = true
     this.agentService.getListeFicheByOneAget(idAgent).subscribe((data) => {
       console.log(data)
-      this.dataSourceRetenue = new MatTableDataSource(data.MontantsRetenuesDefaut)
-       this.dataSourceprime = new MatTableDataSource(data.MontantsPrimesDefaut)
+      this.dataSourceRetenue = new MatTableDataSource(data.tabMontantsRetenuesDefaut)
+       this.dataSourceprime = new MatTableDataSource(data.tabMontantsPrimesDefaut)
       this.isLaoding = false
       this.agentForm.patchValue(data);
     });

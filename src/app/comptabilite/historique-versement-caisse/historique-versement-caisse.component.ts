@@ -56,6 +56,7 @@ export class HistoriqueVersementCaisseComponent {
   agent!: Agent;
   caisseSelected!: Caisse;
   Solde!: string;
+  totalToPay!: string;
 
   constructor(
     private router: Router,
@@ -84,6 +85,19 @@ export class HistoriqueVersementCaisseComponent {
 
     this.dateDebut()
     this.dateFin()
+  }
+
+  calculTotal(keyToCalcult: string, tab: Array<any>){
+    let total = 0;
+    if(tab && tab.length > 0) {
+      for (let index = 0; index < tab.length; index++) {
+        const nbr: number = tab[index][keyToCalcult];
+        total += nbr;
+      }
+      return total;
+    }else{
+      return 0
+    }
   }
 
   dateDebut(){
@@ -161,6 +175,8 @@ export class HistoriqueVersementCaisseComponent {
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.totalToPay = this.globalService.formatPrix(this.calculTotal('MontantDebit', data));
+
         },
         (error) => {
           console.log(error);
@@ -173,7 +189,6 @@ export class HistoriqueVersementCaisseComponent {
       (data) => {
         console.log(data);
         this.CaisseList = data;
-        console.log(this.agent)
         data.forEach(element => {
           if(element.IDCAISSE == this.agent.CaisseAssociee){
             this.caisseSelected = element

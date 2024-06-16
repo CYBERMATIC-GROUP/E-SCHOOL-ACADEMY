@@ -1,6 +1,4 @@
 export class Enseigant {
-
-
   IDENSEIGNANT!: number
   CodeEnseignant!: string
   Civilite!: number
@@ -68,6 +66,8 @@ export class Enseigant {
   Mobile!:string
   nNumero!:number
   Message!:string
+  tabMontantsRetenuesDefaut!: any
+  tabMontantsPrimesDefaut!: any
 }
 
 

@@ -135,6 +135,7 @@ import { HistoriquepaiementEleveInscritComponent } from './historiquepaiement-el
 import { EleveFicheComponent } from './eleve-fiche/eleve-fiche.component';
 import { ReductionExonerationComponent } from './comptabilite/reduction-exoneration/reduction-exoneration.component';
 import { FicheAgentComponent } from './agent/fiche-agent/fiche-agent.component';
+import { RapportJournalierComponent } from './dashboard/comptabilite/outils-du-promoteur/outils-du-promoteur/rapport-journalier/rapport-journalier.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -143,6 +144,7 @@ const routes: Routes = [
   {path: "saisie-note/:trimestre", component: SaisieNotesComponent},
 
   {path: "fiche-agent/:idAgent", component: FicheAgentComponent},
+  {path: "rapport-journalier", component: RapportJournalierComponent},
 
 
 

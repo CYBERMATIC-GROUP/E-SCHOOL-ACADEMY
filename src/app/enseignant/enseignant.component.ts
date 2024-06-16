@@ -187,7 +187,7 @@ export class EnseignantComponent implements OnInit {
 
   ngOnInit(): void {
     const refresEnseignant = this.route.snapshot.params['refresh'] ? true : false
-    this.enseignant(refresEnseignant);
+    this.enseignant();
     //this.nationalite();
     //this.qualite();
     //this.Niveau();
@@ -218,10 +218,10 @@ export class EnseignantComponent implements OnInit {
   }
 
 
-  enseignant(refresh: boolean) {
+  enseignant() {
     this.isLoading = true;
     this.enseigantService
-      .getList(refresh).subscribe(
+      .getList().subscribe(
         (data) => {
           console.log(data);
           this.isLoading = false;

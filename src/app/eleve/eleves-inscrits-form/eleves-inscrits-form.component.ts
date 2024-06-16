@@ -116,11 +116,11 @@ export class ElevesInscritsFormComponent implements OnInit {
       this.titlePage = "Modifier les informations de l'élève";
     else if (this.action == 'view') this.titlePage = "Fiche de l'élève ";
 
-     this.photo$ = this.eleveSerivice.getPhoto(this.IDEleve).pipe(
-       tap((res) => {
-         console.log(res);
-       })
-     );
+    this.photo$ = this.eleveSerivice.getPhoto(this.IDEleve).pipe(
+      tap((res) => {
+        console.log(res);
+      })
+    );
   }
 
   OpenPaiement(){

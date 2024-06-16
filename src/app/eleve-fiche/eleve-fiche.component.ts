@@ -43,6 +43,7 @@ import { ChangeClasseComponent } from '../eleve/change-classe/change-classe.comp
 import { ImageCropComponent } from 'src/app/core/image-crop/image-crop.component';
 import { environment } from 'src/environnements/environnement.prod';
 import { FraisPayerService } from 'src/app/services/frais-payer.service';
+import { shareReplay} from 'rxjs';
 
 @Component({
   selector: 'app-eleve-fiche',
@@ -111,7 +112,7 @@ export class EleveFicheComponent {
     this.IDEleve = this.route.snapshot.params['IDEleve'];
 
     // Prémiere requette
-    // this.getLists();
+    this.getLists();
 
     // Cinquieme requette 
     
@@ -176,10 +177,14 @@ export class EleveFicheComponent {
 
 
   getLists() {
-    const params$ = this.eleveSerivice.getPrametresEleve();
+    const params$ = this.eleveSerivice.getPrametresEleve().pipe(
+      shareReplay(1)  // Partage la même réponse entre tous les abonnés
+    );
+  
     params$.subscribe((data) => {
       console.log(data);
     });
+  
     this.departementsList$ = params$.pipe(map((data) => data.DEPARTEMENT));
     this.nationaliteList$ = params$.pipe(map((data) => data.NATIONALITE));
     this.siteList$ = params$.pipe(map((data) => data.SITE));

@@ -11,7 +11,7 @@ export class Caisse {
     RetraitsAutorises!: boolean
     TransfertsIntercaissesAutorises!: boolean
     TransfertsRetraitsBanquesAutorises!: boolean
-    Solde!: string;
+    Solde!: number;
   }
   
 

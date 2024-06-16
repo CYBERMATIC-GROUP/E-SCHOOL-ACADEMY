@@ -22,7 +22,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ModalForAllComponent } from './transfert-intercaisse/modal-for-all/modal-for-all.component';
 import { RetraitCaisseEspeceComponent } from './retrait-caisse-espece/retrait-caisse-espece.component';
 import { HistoriqueFraisEleveComponent } from './historique-frais-eleve/historique-frais-eleve.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { RetraitEspaceCaisseComponent } from './retrait-espace-caisse/retrait-espace-caisse.component';
+import { RapportJournalierComponent } from '../dashboard/comptabilite/outils-du-promoteur/outils-du-promoteur/rapport-journalier/rapport-journalier.component';
 @NgModule({
   declarations: [
     HistoriqueVersementCaisseComponent,
@@ -37,12 +39,14 @@ import { RetraitEspaceCaisseComponent } from './retrait-espace-caisse/retrait-es
     RetraitCaisseEspeceComponent,
     HistoriqueFraisEleveComponent,
     RetraitEspaceCaisseComponent,
+    RapportJournalierComponent,
   ],
   imports: [
     CommonModule,
     MatPaginatorModule,
     MatTableModule,
     CoreModule,
+    MatExpansionModule,
     FormsModule,
     ComptabiliteRoutingModule,
     MatDialogModule,

@@ -66,7 +66,7 @@ export class AgentFormComponent implements OnInit {
   ];
 
   displayedColumnsretenue = [
-    'LibelleRetenue_Fr',
+    'LibelleRetenue',
     'Montant',
   ];
 
@@ -216,12 +216,8 @@ isLoading: any;
     this.isLaoding = true
     this.agentService.getOne(idAgent).subscribe((data) => {
       console.log(data)
-      console.log(data.MontantsRetenuesDefaut);
-      console.log(data.MontantsPrimesDefaut);
-      
-      this.dataSourceRetenue = new MatTableDataSource(data.MontantsRetenuesDefaut)
-      this.dataSourceprime = new MatTableDataSource(data.MontantsPrimesDefaut)
-
+      this.dataSourceRetenue = new MatTableDataSource(data.tabMontantsRetenuesDefaut)
+      this.dataSourceprime = new MatTableDataSource(data.tabMontantsPrimesDefaut)
       this.isLaoding = false
       this.agentForm.patchValue(data);
     });
@@ -233,6 +229,15 @@ isLoading: any;
       element.Montant = newMontant;
     }
     console.log( this.dataSourceprime.data);
+    
+  }
+
+  updateMontantRetenue(element: any, newValue: any) {
+    const newMontant = parseFloat(newValue.target.value);
+    if (!isNaN(newMontant)) {
+      element.Montant = newMontant;
+    }
+    console.log( this.dataSourceRetenue.data);
     
   }
   
@@ -598,8 +603,8 @@ isLoading: any;
   onSubmit() {
     //agent.DateNaissance = this.convertToValideDate(agent.DateNaissance); // Conversion de la date de naissance
     const agent: Agent = this.agentForm.value;
-    agent.MontantsRetenuesDefaut = this.dataSourceRetenue.data
-    agent.MontantsPrimesDefaut = this.dataSourceprime.data
+    agent.tabMontantsRetenuesDefaut = this.dataSourceRetenue.data
+    agent.tabMontantsPrimesDefaut = this.dataSourceprime.data
     console.log(agent);
     if (this.agentForm.value.IDAGENT) {
       this.updateAgent(agent);
@@ -627,8 +632,8 @@ isLoading: any;
   }
 
   createAgent(agent: Agent) {
-    agent.MontantsRetenuesDefaut = this.dataSourceRetenue.data
-    agent.MontantsPrimesDefaut = this.dataSourceprime.data
+    agent.tabMontantsRetenuesDefaut = this.dataSourceRetenue.data
+    agent.tabMontantsPrimesDefaut = this.dataSourceprime.data
     this.isLaoding = true;
     this.agentService.create(agent).pipe(
       tap(res => {

@@ -43,16 +43,10 @@ export class EnseignantService {
     //}
   }
 
-  getList(refresh: boolean = true): Observable<Enseigant[]> {
-    const obj = localStorage.getItem(constantes.requestCache.enseignantList)
-    if(!refresh && obj){
-      const enseignant: Enseigant[] = JSON.parse(obj)
-      return of(enseignant)
-    }
-
+  getList(): Observable<Enseigant[]> {
     return this.globalService.setHttpRequest(this.uri, 'GET', {}).pipe(
       tap(res => {
-        localStorage.setItem(constantes.requestCache.enseignantList, JSON.stringify(res))
+        console.log(res);
       })
     )
   }

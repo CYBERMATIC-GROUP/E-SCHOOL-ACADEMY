@@ -199,6 +199,8 @@ import { OutilsDuPromoteurComponent } from './dashboard/comptabilite/outils-du-p
 import { HistoriquepaiementEleveInscritComponent } from './historiquepaiement-eleve-inscrit/historiquepaiement-eleve-inscrit.component';
 import { EleveFicheComponent } from './eleve-fiche/eleve-fiche.component';
 import { FicheAgentComponent } from './agent/fiche-agent/fiche-agent.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 
 @NgModule({
   declarations: [
@@ -375,6 +377,7 @@ import { FicheAgentComponent } from './agent/fiche-agent/fiche-agent.component';
   ],
   imports: [
     BrowserModule,
+    MatExpansionModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

@@ -75,8 +75,8 @@ export class Agent {
   Fr_Ville!: string
   Fr_LieuNaissance!: string
   NumCNI!: string
-  MontantsPrimesDefaut!: MontantsPrimesDefaut[]
-  MontantsRetenuesDefaut!: MontantsRetenuesDefaut[]
+  tabMontantsPrimesDefaut!: MontantsPrimesDefaut[]
+  tabMontantsRetenuesDefaut!: MontantsRetenuesDefaut[]
   NumCompteBancaire!: string
   NumSecuriteSociale!: string
   SituationFamiliale!: number

@@ -53,6 +53,7 @@ import { ImageCropComponent } from 'src/app/core/image-crop/image-crop.component
 import { GlobalService } from 'src/app/services/global.service';
 import { AgentService } from 'src/app/services/agent.service';
 import { ParamComboAgentService } from 'src/app/agent/services/param-combo-agent.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-enseigant-form',
@@ -61,6 +62,20 @@ import { ParamComboAgentService } from 'src/app/agent/services/param-combo-agent
 })
 export class EnseigantFormComponent {
   @Input() action!: 'create' | 'edit' | 'view';
+
+  dataSourceprime: any
+  dataSourceRetenue: any
+
+  displayedColumnsprime = [
+    'LibellePrime',
+    'Montant',
+  ];
+
+  displayedColumnsretenue = [
+    'LibelleRetenue',
+    'Montant',
+  ];
+
 
   IDENSEIGNANT!: number;
   CodeEnseignant!: string;
@@ -200,6 +215,7 @@ export class EnseigantFormComponent {
     private CategorieService: CategorieService,
     private diplomesevice: DiplomeService,
     private villeService: VilleService,
+    private agentService: AgentService,
     private caiseService: CaisseService,
     private globalService: GlobalService,
     private paramComboAgentService: ParamComboAgentService
@@ -245,6 +261,44 @@ export class EnseigantFormComponent {
         //this.diplomeList = re
       })
     ).subscribe()
+
+    if (this.action !== 'edit' && this.action !== 'view') {      
+      this.getlistePrime()
+      this.getlisteRetenue()
+    }
+  }
+
+  getlistePrime(){
+    this.agentService.getListePrimes().subscribe(data => {
+      console.log(data);
+      this.dataSourceprime = new MatTableDataSource(data)
+    
+    })
+  }
+
+  getlisteRetenue(){
+    this.agentService.getListeRetenue().subscribe(data => {
+      console.log(data);
+     this.dataSourceRetenue = new MatTableDataSource(data)
+    })
+  }
+
+  updateMontant(element: any, newValue: any) {
+    const newMontant = parseFloat(newValue.target.value);
+    if (!isNaN(newMontant)) {
+      element.Montant = newMontant;
+    }
+    console.log( this.dataSourceprime.data);
+    
+  }
+
+  updateMontantRetenue(element: any, newValue: any) {
+    const newMontant = parseFloat(newValue.target.value);
+    if (!isNaN(newMontant)) {
+      element.Montant = newMontant;
+    }
+    console.log( this.dataSourceRetenue.data);
+    
   }
 
   caisse() {
@@ -453,6 +507,8 @@ export class EnseigantFormComponent {
     this.isLoading = true;
     this.enseignantService.getOne(EnseignantID).subscribe((data) => {
       console.log(data);
+      this.dataSourceRetenue = new MatTableDataSource(data.tabMontantsRetenuesDefaut)
+      this.dataSourceprime = new MatTableDataSource(data.tabMontantsPrimesDefaut)
       this.isLoading = false;
       this.IDENSEIGNANT = data.IDENSEIGNANT;
       this.CodeEnseignant = data.CodeEnseignant;

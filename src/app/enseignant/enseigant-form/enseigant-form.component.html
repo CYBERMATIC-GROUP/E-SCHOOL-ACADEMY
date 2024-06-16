@@ -136,7 +136,7 @@
                                   'invalid-feedback': !Fr_Nom
                                 }"
                               >
-                                {{ !Fr_Nom ? "Renseignez le nom" : "ok." }}
+                                {{ !Fr_Nom ? "Renseignez le nom" : "" }}
                               </div>
                             </div>
 
@@ -166,7 +166,7 @@
                                 }"
                               >
                                 {{
-                                  !Fr_Prenom ? "Renseignez le prénom" : "ok."
+                                  !Fr_Prenom ? "Renseignez le prénom" : ""
                                 }}
                               </div>
                             </div>
@@ -199,7 +199,7 @@
                                 }"
                               >
                                 {{
-                                  !Civilite ? "Renseignez la civilité" : "ok."
+                                  !Civilite ? "Renseignez la civilité" : ""
                                 }}
                               </div>
                             </div>
@@ -233,7 +233,7 @@
                                 {{
                                   !DateNaissance
                                     ? "Renseignez la date de naissance"
-                                    : "ok."
+                                    : ""
                                 }}
                               </div>
                             </div>
@@ -263,7 +263,7 @@
                                 {{
                                   !Departement_Naiss
                                     ? "Renseignez le département de naissance"
-                                    : "ok."
+                                    : ""
                                 }}
                               </div>
                               <mat-autocomplete #departemetNaisance>
@@ -318,7 +318,7 @@
                                 {{
                                   !Nationalite
                                     ? "Sélectionnez la nationalité"
-                                    : "ok."
+                                    : ""
                                 }}
                               </div>
                               <mat-autocomplete #natioanlite>
@@ -404,7 +404,7 @@
                                 {{
                                   !Fr_LieuNaissance
                                     ? "Renseignez le lieu de naissance"
-                                    : "ok."
+                                    : ""
                                 }}
                               </div>
                             </div>
@@ -778,324 +778,438 @@
                       role="tabpanel"
                       aria-labelledby="tab2"
                     >
-                      <div class="row mt-3">
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Remuneration Base</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="RemunerationBase"
-                            [(ngModel)]="RemunerationBase"
-                            required=""
-                          />
-                        </div>
 
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Retenue CNSS</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="Retenue_CNSS"
-                            [(ngModel)]="Retenue_CNSS"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Retenue Assurance</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="Retenue_Assurance"
-                            [(ngModel)]="Retenue_Assurance"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Retenue Cas Social</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="Retenue_CasSocial"
-                            [(ngModel)]="Retenue_CasSocial"
-                            required=""
-                          />
-                        </div>
-                      </div>
-
-                      <div class="row mt-3">
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Retenue Autre</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="Retenue_Autre"
-                            [(ngModel)]="Retenue_Autre"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Indemnite Mensuelle</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="IndemniteMensuelle"
-                            [(ngModel)]="IndemniteMensuelle"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Retenue Enfants A Charge</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="Retenue_EnfantsACharge"
-                            [(ngModel)]="Retenue_EnfantsACharge"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Remuneration Heure Autres Cycles</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="RemunerationHeure_AutresCycles"
-                            [(ngModel)]="RemunerationHeure_AutresCycles"
-                            required=""
-                          />
-                        </div>
-                      </div>
-
-                      <div class="row mt-3">
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Numéro CNI</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="NumCNI"
-                            [(ngModel)]="NumCNI"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Identifiant Badge</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="IdentifiantBadge"
-                            [(ngModel)]="IdentifiantBadge"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Montants Primes par Defaut</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="MontantsPrimesDefaut"
-                            [(ngModel)]="MontantsPrimesDefaut"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Nombre Parts Impots</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="NombrePartsImpots"
-                            [(ngModel)]="NombrePartsImpots"
-                            required=""
-                          />
-                        </div>
-                      </div>
-
-                      <div class="row mt-3">
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >EstImposable</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="EstImposable"
-                            [(ngModel)]="EstImposable"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Mode de Rémuneration</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="ModeRémuneration"
-                            [(ngModel)]="ModeRemuneration"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Montants Retenues par Defaut</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="MontantsRetenuesDefaut"
-                            [(ngModel)]="MontantsRetenuesDefaut"
-                            required=""
-                          />
-                        </div>
-
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Numéro Compte Bancaire</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="NumCompteBancaire"
-                            [(ngModel)]="NumCompteBancaire"
-                            required=""
-                          />
-                        </div>
-                      </div>
-
-                      <div class="row mt-3">
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Numéro Securité Sociale</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="NumSecuriteSociale"
-                            [(ngModel)]="NumSecuriteSociale"
-                            required=""
-                          />
-                        </div>
-                        <div class="col-lg-3">
-                          <label
-                            for="validationCustom01"
-                            class="form-label label"
-                            >Code Caisse</label
-                          >
-
-                          <select
-                            class="form-select form-control m-0"
-                            name="CodeCaisse"
-                            [(ngModel)]="CodeCaisse"
-                            aria-label="Default select example"
-                          >
-                            <option disabled>
-                              selectionner un code caisse
-                            </option>
-                            <option
-                              *ngFor="let caisse of caisseList"
-                              [value]="caisse.IDCAISSE"
+                    <div class="row">
+                      <div class="col-lg-7">
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Remuneration Base</label
                             >
-                              {{ caisse.CodeCaisse }}
-                            </option>
-                          </select>
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="RemunerationBase"
+                              [(ngModel)]="RemunerationBase"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Retenue CNSS</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="Retenue_CNSS"
+                              [(ngModel)]="Retenue_CNSS"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Retenue Assurance</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="Retenue_Assurance"
+                              [(ngModel)]="Retenue_Assurance"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Retenue Cas Social</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="Retenue_CasSocial"
+                              [(ngModel)]="Retenue_CasSocial"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Retenue Autre</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="Retenue_Autre"
+                              [(ngModel)]="Retenue_Autre"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Indemnite Mensuelle</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="IndemniteMensuelle"
+                              [(ngModel)]="IndemniteMensuelle"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Retenue Enfants A Charge</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="Retenue_EnfantsACharge"
+                              [(ngModel)]="Retenue_EnfantsACharge"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Remuneration Heure Autres Cycles</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="RemunerationHeure_AutresCycles"
+                              [(ngModel)]="RemunerationHeure_AutresCycles"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Numéro CNI</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="NumCNI"
+                              [(ngModel)]="NumCNI"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Identifiant Badge</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="IdentifiantBadge"
+                              [(ngModel)]="IdentifiantBadge"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Montants Primes par Defaut</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="MontantsPrimesDefaut"
+                              [(ngModel)]="MontantsPrimesDefaut"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Nombre Parts Impots</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="NombrePartsImpots"
+                              [(ngModel)]="NombrePartsImpots"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >EstImposable</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="EstImposable"
+                              [(ngModel)]="EstImposable"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-3">
+                            <div class="content">
+                              <span class="text-on-border">Mode de rémuneration</span>
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <div class="form-check">
+                                    <input
+                                      class="form-check-input"
+                                      name="etat"
+                                      type="radio"
+                                      value="1"
+                                      checked
+                                    />
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                      Horaire
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="form-check">
+                                    <input
+                                      class="form-check-input"
+                                      name="etat"
+                                      type="radio"
+                                      value="2"
+                                      checked
+                                    />
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                      Mensuel
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+      
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Montants Retenues par Defaut</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="MontantsRetenuesDefaut"
+                              [(ngModel)]="MontantsRetenuesDefaut"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Numéro Compte Bancaire</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="NumCompteBancaire"
+                              [(ngModel)]="NumCompteBancaire"
+                              required=""
+                            />
+                          </div>
+  
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Numéro Securité Sociale</label
+                            >
+                            <input
+                              [readonly]="action == 'view'"
+                              type="number"
+                              class="form-control hauteur hauteur"
+                              name="NumSecuriteSociale"
+                              [(ngModel)]="NumSecuriteSociale"
+                              required=""
+                            />
+                          </div>
+                          <div class="col-lg-4 mt-2">
+                            <label
+                              for="validationCustom01"
+                              class="form-label label"
+                              >Code Caisse</label
+                            >
+  
+                            <select
+                              class="form-select form-control m-0"
+                              name="CodeCaisse"
+                              [(ngModel)]="CodeCaisse"
+                              aria-label="Default select example"
+                            >
+                              <option disabled>
+                                selectionner un code caisse
+                              </option>
+                              <option
+                                *ngFor="let caisse of caisseList"
+                                [value]="caisse.IDCAISSE"
+                              >
+                                {{ caisse.CodeCaisse }}
+                              </option>
+                            </select>
+                          </div>
                         </div>
-                        <!-- <div class="col-lg-3" *ngIf="action == 'view'">
-                          <label for="validationCustom01" class="form-label label"
-                            >ModifPasswordNecessaire</label
-                          >
-                          <input
-                            [readonly]="action == 'view'"
-                            type="number"
-                            class="form-control hauteur hauteur"
-                            name="ModifPasswordNecessaire"
-                            [(ngModel)]="ModifPasswordNecessaire"
-                            required=""
-                          />
-                        </div> -->
                       </div>
+                      <div class="col-lg-5">
+                        <div class="row mt-1">
+                          <div class="col-lg-12">
+                            <div
+                              class="mat-elevation-z8"
+                              style="max-height: 400px; overflow-y: auto"
+                            >
+                            <table mat-table [dataSource]="dataSourceprime" *ngIf="!isLoading">
+                              <!-- Position Column -->
+                              <ng-container matColumnDef="LibellePrime">
+                                <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+                                  Prime
+                                </th>
+                                <td class="pointer" mat-cell *matCellDef="let element">
+                                  {{ element.LibellePrime }}
+                                </td>
+                              </ng-container>
+                            
+                              <ng-container matColumnDef="Montant">
+                                <th class="bg-color-primary montant-column" mat-header-cell *matHeaderCellDef>
+                                  Montant
+                                </th>
+                                <td class="pointer montant-column" mat-cell *matCellDef="let element">
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    [value]="element.Montant"
+                                    (input)="updateMontant(element, $event)"
+                                  />
+                                </td>
+                              </ng-container>
+                            
+                              <tr mat-header-row *matHeaderRowDef="displayedColumnsprime"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumnsprime"></tr>
+                            </table>
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div
+                              class="mat-elevation-z8"
+                              style="max-height: 400px; overflow-y: auto"
+                            >
+                              <table
+                                mat-table
+                                [dataSource]="dataSourceRetenue"
+                                *ngIf="!isLoading"
+                              >
+                                <!-- Position Column -->
+        
+                                <ng-container matColumnDef="LibelleRetenue">
+                                  <th
+                                    class="bg-color-primary"
+                                    mat-header-cell
+                                    *matHeaderCellDef
+                                  >
+                                    Retenue
+                                  </th>
+                                  <td
+                                    class="pointer"
+                                    mat-cell
+                                    *matCellDef="let element"
+                                  >
+                                    {{ element.LibelleRetenue  }}
+                                  </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="Montant">
+                                  <th
+                                    class="bg-color-primary"
+                                    mat-header-cell
+                                    *matHeaderCellDef
+                                  >
+                                    Montant
+                                  </th>
+                                  <td
+                                    class="pointer  montant-column"
+                                    mat-cell
+                                    *matCellDef="let element"
+                                  >
+                                    <!-- {{ element.Montant }} -->
+                                    <input
+                                      class="form-control"
+                                      type="text"
+                                      [value]="element.Montant"
+                                      (input)="updateMontantRetenue(element, $event)"
+                                    />
+                                  </td>
+                                </ng-container>
+        
+                                <tr
+                                  mat-header-row
+                                  *matHeaderRowDef="displayedColumnsretenue"
+                                ></tr>
+                                <tr
+                                  mat-row
+                                  *matRowDef="let row; columns: displayedColumnsretenue"
+                                ></tr>
+                              </table>
+                              <!-- <mat-paginator
+                                      [pageSizeOptions]="[20, 40, 60]"
+                                      showFirstLastButtons
+                                      aria-label="Select page of periodic elements"
+                                    >
+                                    </mat-paginator> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     </div>
                     <div
                       class="tab-pane mt-3 fade"

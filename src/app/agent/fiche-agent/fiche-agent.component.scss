@@ -26,6 +26,9 @@
     /* border-top-right-radius: var(--bs-nav-tabs-border-radius); */
 }
 
+.montant-column {
+  width: 230px; 
+}
 
 .photo-card{
     width: 200px;
@@ -85,3 +88,17 @@ mat-paginator{
   color: white;
   cursor: pointer;
 }
+
+.content {
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: relative;
+  }
+  
+  .text-on-border {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background-color: #fff;
+  padding: 0 5px;
+  }
