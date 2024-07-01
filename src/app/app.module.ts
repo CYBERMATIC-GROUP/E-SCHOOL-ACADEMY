@@ -200,6 +200,9 @@ import { HistoriquepaiementEleveInscritComponent } from './historiquepaiement-el
 import { EleveFicheComponent } from './eleve-fiche/eleve-fiche.component';
 import { FicheAgentComponent } from './agent/fiche-agent/fiche-agent.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { AvanceSalaireComponent } from './dashboard/comptabilite/avance-salaire/avance-salaire.component';
+import { SelectAgentModalComponent } from './dashboard/comptabilite/avance-salaire/select-agent-modal/select-agent-modal.component';
+import { SelectEnseignantModalComponent } from './dashboard/comptabilite/avance-salaire/select-enseignant-modal/select-enseignant-modal.component';
 
 
 @NgModule({
@@ -374,6 +377,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HistoriquepaiementEleveInscritComponent,
     EleveFicheComponent,
     FicheAgentComponent,
+    AvanceSalaireComponent,
+    SelectAgentModalComponent,
+    SelectEnseignantModalComponent,
   ],
   imports: [
     BrowserModule,

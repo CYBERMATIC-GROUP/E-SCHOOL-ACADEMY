@@ -185,6 +185,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ element.LibelleEcriture }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef>  </td>
           </ng-container>
 
           <ng-container matColumnDef="CodeCompte">
@@ -194,6 +195,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ element.CodeCompte }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef>  </td>
           </ng-container>
 
           <ng-container matColumnDef="MontantDebit">
@@ -203,6 +205,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ globalService.formatPrix(element.MontantDebit, " ", "") }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef>  </td>
           </ng-container>
 
           <ng-container matColumnDef="NumeroMouvement">
@@ -212,6 +215,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ element.NumeroMouvement }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef> Total </td>
           </ng-container>
 
           <ng-container matColumnDef="MontantCredit">
@@ -221,6 +225,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ globalService.formatPrix(element.MontantCredit, " ", "") }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef> {{totalToPay}} </td>
           </ng-container>
 
           <ng-container matColumnDef="DateHeure">
@@ -230,10 +235,13 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ element.DateHeure | date : "short" }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef>  </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
         </table>
         <!-- <mat-paginator
           [pageSizeOptions]="[50, 100, 150]"

@@ -25,6 +25,7 @@ import { HistoriqueFraisEleveComponent } from './historique-frais-eleve/historiq
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RetraitEspaceCaisseComponent } from './retrait-espace-caisse/retrait-espace-caisse.component';
 import { RapportJournalierComponent } from '../dashboard/comptabilite/outils-du-promoteur/outils-du-promoteur/rapport-journalier/rapport-journalier.component';
+import { RetraitCaisseEspeceAvanceSalaireComponent } from './retrait-caisse-espece-avance-salaire/retrait-caisse-espece-avance-salaire.component';
 @NgModule({
   declarations: [
     HistoriqueVersementCaisseComponent,
@@ -40,6 +41,7 @@ import { RapportJournalierComponent } from '../dashboard/comptabilite/outils-du-
     HistoriqueFraisEleveComponent,
     RetraitEspaceCaisseComponent,
     RapportJournalierComponent,
+    RetraitCaisseEspeceAvanceSalaireComponent,
   ],
   imports: [
     CommonModule,

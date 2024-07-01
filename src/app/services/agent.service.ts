@@ -7,6 +7,7 @@ import { ErrorInterface } from '../models/error.model';
 import { GlobalService } from './global.service';
 import { constantes } from 'src/environnements/constantes';
 import { ModificationMotDePasseAgent } from '../models/updatePasswordAgent.model';
+import { modelRetraitAvanceSalaire } from '../models/retraitAvanceSalaire.model';
 
 
 @Injectable({
@@ -153,5 +154,20 @@ export class AgentService {
 
   getListeFicheByOneAget(IDagent: number): Observable<Agent> {
     return this.globalService.setHttpRequest('AGENT_Get_Fiche' + '/' + IDagent, "GET", {});
+  }
+
+  getListeAvanceSalaire(nEtatActif: number, nNumMoisAvance: number): Observable<any> {
+    return this.globalService.setHttpRequest('COMPTA_AvanceSurSalaire_Liste' + '/' + nEtatActif  + '/' + nNumMoisAvance, "POST", {});
+  }
+
+  AddAvanceSalaire(model: any){
+    return this.globalService.setHttpRequest('COMPTA_AvanceSurSalaire_Ajoute' , "POST", model);
+  }
+  getListMois(){
+    return this.globalService.setHttpRequest('Get_Mois' , "GET", {});
+  }
+
+  retraitCaisseAvanceSalaire(model: modelRetraitAvanceSalaire){
+    return this.globalService.setHttpRequest('COMPTA_Retrait_Caisse_Avance_Salaire' , "POST", model);
   }
 }

@@ -18,6 +18,7 @@ export class CaisseService {
 
   constructor(private http: HttpClient, private globalService: GlobalService) {}
 
+  
   get(refresh: boolean = false): Observable<Caisse[]> {
     const objStorage = localStorage.getItem(constantes.requestCache.caisse);
 

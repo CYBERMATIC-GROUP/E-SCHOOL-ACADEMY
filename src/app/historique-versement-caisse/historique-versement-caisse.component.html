@@ -46,7 +46,9 @@
             <p class="pt-2">Solde :</p>
           </div>
           <div class="col-lg-10" >
-            <input type="text" readonly [(ngModel)]="Solde" class="form-control" />
+            <p class="p-3 border">
+              <span *ngIf="Solde">{{formatPrix(Solde)}}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -144,6 +146,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ element.LibelleEcriture }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef>  </td>
           </ng-container>
 
           <ng-container matColumnDef="CodeCompte">
@@ -153,6 +156,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ element.CodeCompte }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef>  </td>
           </ng-container>
 
 
@@ -163,6 +167,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{formatNumero( element.MontantDebit) }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef>{{MontantCredit}}  </td>
           </ng-container>
 
           <ng-container matColumnDef="NumeroMouvement">
@@ -172,6 +177,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{formatNumero( element.NumeroMouvement )}}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef>Total  </td>
           </ng-container>
 
           <ng-container matColumnDef="MontantCredit">
@@ -181,6 +187,7 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ formatNumero(element.MontantCredit) }}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef> {{MontantCredit}}  </td>
           </ng-container>
 
           <ng-container matColumnDef="DateHeure">
@@ -190,11 +197,16 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{convertToValideDateH  (element.DateHeure  )}}
             </td>
+            <td mat-footer-cell class="bg-table-color text-light" *matFooterCellDef>  </td>
           </ng-container>
 
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
 
+<!-- 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr> -->
         </table>
         <!-- <mat-paginator
           [pageSizeOptions]="[50, 100, 150]"

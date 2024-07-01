@@ -124,14 +124,29 @@
     <div class="row border p-0" style="padding: 0px"  *ngIf="!isLoading; else loader" >
       <mat-accordion class="example-headers-align" multi>
         <mat-expansion-panel *ngFor="let dateJour of tbTotalJour">
-          <mat-expansion-panel-header
-            style="background-color: #bfd7fb !important"
-          >
-            <mat-panel-title
-              ><td>
-                {{ convertToValideDate(dateJour.Date) }}
-              </td></mat-panel-title
-            >
+          <mat-expansion-panel-header style="background-color: #bfd7fb !important">
+            <mat-panel-title>
+              <td>{{ convertToValideDate(dateJour.Date) }}</td>
+            </mat-panel-title>
+            <mat-panel-description>
+                <table class="table">
+                  <tr class="table-danger" *ngIf="tbTotalGeneral">
+                    <td class="text-center" colspan="4"></td>
+                    <td class="text-end">
+                      <span>Total Montant débit : </span>
+                      <span class="text-danger fw-bold">{{ dateJour.MontantDebit }}</span>
+                    </td>
+                    <td class="text-center text-center">
+                      <span>Total Montant crédit : </span>
+                      <span class="text-danger fw-bold">{{ dateJour.MontantCredit }}</span>
+                    </td>
+                    <td class="text-center">
+                      <span>Total  solde : </span>
+                      <span class="text-danger fw-bold">{{ dateJour.Solde }}</span>
+                    </td>
+                  </tr>
+                </table>
+               </mat-panel-description>
           </mat-expansion-panel-header>
           <div
             class="mat-elevation-z8"

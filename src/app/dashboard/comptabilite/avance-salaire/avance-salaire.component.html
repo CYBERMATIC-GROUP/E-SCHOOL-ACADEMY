@@ -1,0 +1,243 @@
+<app-gabarit>
+  <div class="container-fuild bg-light p-3">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row">
+          <label class="" for="">Accorder une nouvelle avance</label>
+          <div class="col-lg-6">
+            <button
+              (click)="selectAgent()"
+              class="bg-table-color form-control text-white"
+            >
+              Selectionner un agent
+            </button>
+          </div>
+          <div class="col-lg-6">
+            <button
+              (click)="selectEnseignant()"
+              class="bg-table-color form-control text-white"
+            >
+              Selectionner un enseignant
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-4">
+            <label for="">Mois</label>
+            <select
+            #monthSelect
+            (change)="selectMois($event)"
+            class="form-control form-select"
+          >
+            <option value="" selected>Choisir le mois</option>
+            <option *ngFor="let mois of tabMois" [ngValue]="mois">
+              {{ mois.Mois }}
+            </option>
+          </select>          
+          </div>
+
+          <div class="col-lg-4">
+            <label for="">Montant à avancer</label>
+            <input
+            #montantInput
+              (input)="SaisieMontant($event)"
+              class="form-control"
+              type="text"
+            />
+          </div>
+          <div class="col-lg-4 mt-4" >
+            <button
+              (click)="ValiderAvance(monthSelect)"
+              class="bg-table-color form-control text-white"
+            >
+              Valider
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <p class="p-3 fw-bold" *ngIf="libelle"> <span>Agent selectionné : </span> <span class="text-danger">{{libelle}}</span></p>
+      </div>
+    </div>
+    <div class="bg-light mt-3">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="col-lg-12">
+            <p>Historique des avances</p>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                  checked
+                  (click)="viewagentactifs()"
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Voir les avances actifs
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault2"
+                  (click)="viewagentinactifs()"
+                  
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Voir les avances inactifs
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <button (click)="retraitEspece()" class="bg-table-color form-control text-white">
+                Retrait caisse espèce
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mat-elevation-z8" *ngIf="!isloading; else loader">
+        <table mat-table [dataSource]="DataSource">
+
+          <ng-container matColumnDef="CodeCompte">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Compte
+            </th>
+            <td
+              (click)="onClickLine(element)"
+              [ngClass]="{
+                'bg-color': elemenetSelected == element,
+                cursor: elemenetSelected
+              }"
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.CodeCompte }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="NomPrenom">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Intitulé
+            </th>
+            <td
+              (click)="onClickLine(element)"
+              [ngClass]="{
+                'bg-color': elemenetSelected == element,
+                cursor: elemenetSelected
+              }"
+              class="pointer"
+              mat-cell
+              *matCellDef="let element"
+            >
+              {{ element.NomPrenom }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="MontantAvance">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Montant avancé
+            </th>
+            <td      (click)="onClickLine(element)"
+            [ngClass]="{
+              'bg-color': elemenetSelected == element,
+              cursor: elemenetSelected
+            }" class="pointer" mat-cell *matCellDef="let element">
+              {{ globalService.formatPrix(element.MontantAvance) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="MoisAvance">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Mois
+            </th>
+            <td      (click)="onClickLine(element)"
+            [ngClass]="{
+              'bg-color': elemenetSelected == element,
+              cursor: elemenetSelected
+            }" class="pointer" mat-cell *matCellDef="let element">
+              {{ element.MoisAvance }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="MontantDejaRetire">
+            <th class="bg-color-primary" mat-header-cell *matHeaderCellDef>
+              Déjà rétiré
+            </th>
+            <td      (click)="onClickLine(element)"
+            [ngClass]="{
+              'bg-color': elemenetSelected == element,
+              cursor: elemenetSelected
+            }" class="pointer" mat-cell *matCellDef="let element">
+              {{ globalService.formatPrix(element.MontantDejaRetire) }}
+            </td>
+          </ng-container>
+
+ <ng-container matColumnDef="Actions">
+            <th
+              mat-header-cell
+              class="text-end"
+              *matHeaderCellDef
+            >
+              Actions
+            </th>
+  
+            <td
+              mat-cell
+              [ngClass]="{
+                'bg-color': elemenetSelected == element,
+                cursor: elemenetSelected
+              }"
+              class="text-end"
+              *matCellDef="let element"
+            >
+              <!-- <button
+                type="button"
+                (click)="view(element)"
+                class="btn text-lowercase py-0 px-1"
+              >
+                <i class="fa fa-eye text-black" aria-hidden="true"></i>
+              </button>
+              <button
+                type="button"
+                (click)="edit(element)"
+                class="btn text-lowercase py-0 px-1"
+              >
+                <i class="fa fa-pencil text-black" aria-hidden="true"></i>
+              </button> -->
+              <button
+                type="button"
+                (click)="delete(element)"
+                class="btn text-lowercase px-1 py-0"
+              >
+                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+              </button>
+            </td>
+          </ng-container> 
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</app-gabarit>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

@@ -53,6 +53,7 @@ export class HistoriqueRetraitsCaissesComponent {
   modePaiementList$!: Observable<modePaiementInterface[]>;
   isPrinting!: boolean;
   agent!: Agent;
+  totalToPay!: string;
 
   constructor(
     private router: Router,
@@ -155,11 +156,26 @@ export class HistoriqueRetraitsCaissesComponent {
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
+          this.totalToPay = this.globalService.formatPrix(this.calculTotal('MontantCredit', data));
+
         },
         (error) => {
           console.log(error);
         }
       );
+  }
+
+  calculTotal(keyToCalcult: string, tab: Array<any>){
+    let total = 0;
+    if(tab && tab.length > 0) {
+      for (let index = 0; index < tab.length; index++) {
+        const nbr: number = tab[index][keyToCalcult];
+        total += nbr;
+      }
+      return total;
+    }else{
+      return 0
+    }
   }
 
   loadCaisse() {

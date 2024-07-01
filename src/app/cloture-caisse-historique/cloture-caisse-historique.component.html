@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6  text-center">
+      <div class="col-lg-6 text-center">
         <div class="row">
           <div class="col-lg-5">
             <p class="pt-2">Compte Associé:</p>
@@ -40,17 +40,17 @@
       </div>
     </div>
     <div class="row mt-2">
-      <div class="col-lg-6  rounded">
+      <div class="col-lg-6 rounded">
         <div class="row">
           <div class="col-lg-2">
             <p class="p-2">Solde :</p>
           </div>
           <div class="col-lg-10">
-            <p class="p-2 form-control">{{Solde}} </p>
+            <p class="p-2 form-control">{{ Solde ? formatPrix(Solde) : "" }}</p>
           </div>
         </div>
       </div>
-      <div class="col-lg-6 ">
+      <div class="col-lg-6">
         <div class="row">
           <div class="col-lg-3 text-center">
             <p class="pt-2">Période Du :</p>
@@ -80,7 +80,7 @@
       </div>
     </div>
     <div class="row mt-2">
-      <div class="col-lg-4" style="padding-left: 0px;">
+      <div class="col-lg-4" style="padding-left: 0px">
         <div class="d-flex align-items-center">
           <i
             style="position: absolute"
@@ -94,9 +94,9 @@
           />
         </div>
       </div>
-      <div class="col-lg-4" style="padding-right: 0px;">
+      <div class="col-lg-4" style="padding-right: 0px">
         <button
-        *ngIf="!isloadingprinthistorique;else loader"
+          *ngIf="!isloadingprinthistorique; else loader"
           class="form-control text-white"
           style="background-color: #7b4bce"
           (click)="ImprimeClotureCaisse()"
@@ -105,7 +105,7 @@
           <i class="fa-solid fa-print"></i>
         </button>
       </div>
-      <div class="col-lg-4" style="padding-right: 0px;">
+      <div class="col-lg-4" style="padding-right: 0px">
         <button
           class="form-control text-white"
           style="background-color: #7b4bce"
@@ -132,6 +132,13 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ convertToValideDate(element.Date) }}
             </td>
+            <td
+              mat-footer-cell
+              class="bg-table-color text-light"
+              *matFooterCellDef
+            >
+              Total
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="SoldeOuverture">
@@ -141,6 +148,11 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ formatPrix(element.SoldeOuverture) }}
             </td>
+            <td
+              mat-footer-cell
+              class="bg-table-color text-light"
+              *matFooterCellDef
+            ></td>
           </ng-container>
 
           <ng-container matColumnDef="SoldeFermeture">
@@ -150,6 +162,11 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ formatPrix(element.SoldeFermeture) }}
             </td>
+            <td
+              mat-footer-cell
+              class="bg-table-color text-light"
+              *matFooterCellDef
+            ></td>
           </ng-container>
 
           <ng-container matColumnDef="TotalVersements">
@@ -158,6 +175,13 @@
             </th>
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ formatPrix(element.TotalVersements) }}
+            </td>
+            <td
+              mat-footer-cell
+              class="bg-table-color text-light"
+              *matFooterCellDef
+            >
+              {{ TotalVersements }}
             </td>
           </ng-container>
 
@@ -168,12 +192,24 @@
             <td class="pointer" mat-cell *matCellDef="let element">
               {{ formatPrix(element.TotalRetraits) }}
             </td>
+            <td
+              mat-footer-cell
+              class="bg-table-color text-light"
+              *matFooterCellDef
+            >
+              {{ TotalRetraits }}
+            </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns; sticky: true"
+          ></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-footer-row
+            *matFooterRowDef="displayedColumns; sticky: true"
+          ></tr>
         </table>
-
       </div>
       <!-- <mat-paginator
       [pageSizeOptions]="[50, 100, 150]"
@@ -185,12 +221,36 @@
     <div class="row mt-3">
       <div class="col-lg-6"></div>
       <div class="col-lg-6 p-3 shadow">
-        <label for="export" class="fs-6">Exporter la liste vers un fichier <i class="fa-solid text-danger fa-file-pdf" style="padding-left: 10px;"></i> <i  style="padding-left: 10px;" class="fa-solid text-primary fa-file-word"></i> <i  style="padding-left: 10px;color: green;" class="fa-solid fa-file-excel"></i></label>
-        <select *ngIf="!isloadingprinthistorique;else loader" (change)="typeDocumentSelected($event)" class="form-select"  id="export" aria-label="Default select example">
-            <option selected>Choisir le type de fichier </option>
-            <option [value]="0">Un fichier PDF <i class="fa-solid fa-file-pdf"></i></option>
-            <option [value]="1">Un fichier Word </option>
-            <option [value]="2">Un fichier Excel <i class="fa-solid fa-file-excel"></i></option>
+        <label for="export" class="fs-6"
+          >Exporter la liste vers un fichier
+          <i
+            class="fa-solid text-danger fa-file-pdf"
+            style="padding-left: 10px"
+          ></i>
+          <i
+            style="padding-left: 10px"
+            class="fa-solid text-primary fa-file-word"
+          ></i>
+          <i
+            style="padding-left: 10px; color: green"
+            class="fa-solid fa-file-excel"
+          ></i
+        ></label>
+        <select
+          *ngIf="!isloadingprinthistorique; else loader"
+          (change)="typeDocumentSelected($event)"
+          class="form-select"
+          id="export"
+          aria-label="Default select example"
+        >
+          <option selected>Choisir le type de fichier</option>
+          <option [value]="0">
+            Un fichier PDF <i class="fa-solid fa-file-pdf"></i>
+          </option>
+          <option [value]="1">Un fichier Word</option>
+          <option [value]="2">
+            Un fichier Excel <i class="fa-solid fa-file-excel"></i>
+          </option>
         </select>
       </div>
     </div>

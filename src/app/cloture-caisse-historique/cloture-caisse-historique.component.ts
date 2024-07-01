@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AlertComponent } from '../core/alert/alert.component';
 import { Caisse } from '../models/caisse.model';
 import { CaisseService } from '../services/caisse.service';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-cloture-caisse-historique',
@@ -31,15 +32,21 @@ export class ClotureCaisseHistoriqueComponent {
   isLoading!: boolean;
   isloadingprinthistorique!: boolean;
   DateFin!: string;
-  Solde!: string;
+  Solde!: number;
   DateDebut!: string;
   TypeDocument: number = 0;
   type:number = 1
+
+  TotalRetraits!: string;
+  TotalVersements!: string
+  SoldeOuverture!: string
+  SoldeFermeture!: string
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
     public _location: Location,
+    private globalService: GlobalService,
     private caisseService: CaisseService
   ) {}
 
@@ -74,7 +81,7 @@ export class ClotureCaisseHistoriqueComponent {
     );
     if (selectedCaisse) {
       console.log(selectedCaisse);
-      this.Solde = selectedCaisse.Solde + ' FCFA';
+      this.Solde = selectedCaisse.Solde;
       this.CompteAssocie = selectedCaisse.CompteAssocie;
     } else {
       this.CompteAssocie = '';
@@ -106,12 +113,29 @@ export class ClotureCaisseHistoriqueComponent {
           this.isLoading = false;
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+          this.dataSource.paginator = this.paginator
+          this.TotalRetraits = this.globalService.formatPrix(this.calculTotal('TotalRetraits', data));
+          this.SoldeOuverture = this.globalService.formatPrix(this.calculTotal('SoldeOuverture', data));
+          this.TotalVersements = this.globalService.formatPrix(this.calculTotal('TotalVersements', data));
+          this.SoldeFermeture = this.globalService.formatPrix(this.calculTotal('SoldeFermeture', data));
         },
         (error) => {
           console.log(error);
         }
       );
+  }
+
+  calculTotal(keyToCalcult: string, tab: Array<any>){
+    let total = 0;
+    if(tab && tab.length > 0) {
+      for (let index = 0; index < tab.length; index++) {
+        const nbr: number = tab[index][keyToCalcult];
+        total += nbr;
+      }
+      return total;
+    }else{
+      return 0
+    }
   }
 
   loadCaisse() {
@@ -127,7 +151,7 @@ export class ClotureCaisseHistoriqueComponent {
     );
   }
 
-  formatPrix(prix: number, separateur: string = ' ', device: string = 'XAF') {
+  formatPrix(prix: any, separateur: string = ' ', device: string = 'FCFA') {
     let reverse: string[] = prix.toString().split('').reverse();
     let prixFormated: string = '';
 
@@ -141,6 +165,27 @@ export class ClotureCaisseHistoriqueComponent {
 
     let formated = prixFormated.split('').reverse().join('');
     let decimal = ',00 ' + device;
+
+    if (formated[0] == separateur) {
+      formated = formated.substring(1);
+    }
+    return formated + decimal;
+  }
+
+  formatPrixSolde(prix: any, separateur: string = ' ', device: string = '') {
+    let reverse: string[] = prix.toString().split('').reverse();
+    let prixFormated: string = '';
+
+    for (let i: number = 1; i <= reverse.length; i++) {
+      prixFormated += reverse[i - 1];
+
+      if (i % 3 === 0) {
+        prixFormated += separateur;
+      }
+    }
+
+    let formated = prixFormated.split('').reverse().join('');
+    let decimal = ' ' + device;
 
     if (formated[0] == separateur) {
       formated = formated.substring(1);

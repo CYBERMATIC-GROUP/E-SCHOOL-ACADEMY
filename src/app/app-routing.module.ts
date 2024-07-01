@@ -136,10 +136,14 @@ import { EleveFicheComponent } from './eleve-fiche/eleve-fiche.component';
 import { ReductionExonerationComponent } from './comptabilite/reduction-exoneration/reduction-exoneration.component';
 import { FicheAgentComponent } from './agent/fiche-agent/fiche-agent.component';
 import { RapportJournalierComponent } from './dashboard/comptabilite/outils-du-promoteur/outils-du-promoteur/rapport-journalier/rapport-journalier.component';
+import { AvanceSalaireComponent } from './dashboard/comptabilite/avance-salaire/avance-salaire.component';
+import { RetraitCaisseEspeceAvanceSalaireComponent } from './comptabilite/retrait-caisse-espece-avance-salaire/retrait-caisse-espece-avance-salaire.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "connexion", component: LoginComponent},
+  {path: "retrait-caisse-espece-avance-salaire", component: RetraitCaisseEspeceAvanceSalaireComponent},
+
   {path: "saisie-note/:trimestre", component: SaisieNotesComponent},
   {path: "saisie-note/:trimestre", component: SaisieNotesComponent},
 
@@ -186,6 +190,7 @@ const routes: Routes = [
   {path:'saisie/operations/divers/:action/:IDMOUVEMENT' ,  component: SaisieOperationsDiversComponent},
   {path:'retrait-espece-caisse/:IDMOUVEMENT' ,  component: RetraitEspaceCaisseComponent},
   {path:'retrait-espece-caisse' ,  component: RetraitEspaceCaisseComponent},
+  {path:'avance-salaire' ,  component: AvanceSalaireComponent},
 
 
 

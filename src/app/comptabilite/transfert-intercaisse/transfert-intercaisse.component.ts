@@ -55,6 +55,9 @@ export class TransfertIntercaisseComponent implements OnInit {
         this.agent = JSON.parse(agentObj);
         console.log(this.agent)
         this.caisseList$ = this.caisseService.get();
+        this.caisseList$.subscribe(data  => {
+          console.log(data);
+        } )
         this.initForm(this.agent.IDAGENT, this.agent.CaisseAssociee)
       }else{
         this.globalService.alert("Aucun agent trouve", 'Erreur', "danger", "", "") 
@@ -109,6 +112,7 @@ export class TransfertIntercaisseComponent implements OnInit {
     bValide: 1 | 0
   ){
     this.tableTransfertIsLoading = true;
+    console.log(nIDCaisseSource, nIDCaisseDestination, bValide);
     this.caisseService.getPaadingTransfert(nIDCaisseSource, nIDCaisseDestination, bValide).subscribe(res => {
       const data = res.body
       console.log(data);

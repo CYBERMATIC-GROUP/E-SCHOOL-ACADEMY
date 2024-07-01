@@ -30,10 +30,11 @@ export class HistoriqueVersementCaisseComponent {
     'MontantDebit',
     'MontantCredit',
   ];
-
+  MontantDebit!: string
+  MontantCredit!: string
   IDCAISSE!: number;
   CompteAssocie!: string;
-  Solde!:string
+  Solde!:number
 
   CaisseList!: Caisse[];
   isLoading!: boolean;
@@ -84,7 +85,7 @@ export class HistoriqueVersementCaisseComponent {
     console.log(selectedCaisse);
     if (selectedCaisse) {
       this.CompteAssocie = selectedCaisse.CompteAssocie;
-      this.Solde = selectedCaisse.Solde + " FCFA"
+      this.Solde = selectedCaisse.Solde 
     } else {
       this.CompteAssocie = '';
     }
@@ -111,7 +112,7 @@ export class HistoriqueVersementCaisseComponent {
     );
   }
 
-  formatPrix(prix: number, separateur: string = ' ', device: string = '') {
+  formatPrix(prix: number, separateur: string = ' ', device: string = 'FCFA') {
     let reverse: string[] = prix.toString().split('').reverse();
     let prixFormated: string = '';
 
@@ -206,6 +207,9 @@ export class HistoriqueVersementCaisseComponent {
         )
         .subscribe((data) => {
           console.log(data);
+          this.MontantCredit = this.globalService.formatPrix(this.calculTotal('MontantCredit', data));
+          this.MontantDebit = this.globalService.formatPrix(this.calculTotal('MontantDebit', data));
+
           this.dataSource = new MatTableDataSource(data);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
@@ -216,4 +220,18 @@ export class HistoriqueVersementCaisseComponent {
      this.globalService.alert("Veuillez sélectionner une caisse et spécifier les dates de début et de fin","Information","info","","OK")
     }
   }
+
+  calculTotal(keyToCalcult: string, tab: Array<any>){
+    let total = 0;
+    if(tab && tab.length > 0) {
+      for (let index = 0; index < tab.length; index++) {
+        const nbr: number = tab[index][keyToCalcult];
+        total += nbr;
+      }
+      return total;
+    }else{
+      return 0
+    }
+  }
+
 }

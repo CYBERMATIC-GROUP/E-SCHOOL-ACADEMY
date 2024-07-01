@@ -104,14 +104,14 @@ export class OperationsDeSaisieComponent {
         link: "/eleve/etat-paiement",
         right: true
       },
-      // {
-      //   desination: "Historique des versements caisses",
-      //   logo: "../../assets/logo/Consultations_des_comptes.png",
-      //   description: "",
-      //   backColor: "#e29578",
-      //   link: "/" + environment.routes.Comptabilite.Base + '/' + environment.routes.Comptabilite.links.historiqueVersementCaisse,
-      //   right: this.agent.bDroit_HistoriqueVersementsCaisses
-      // },
+       {
+         desination: "Avance salaire",
+         logo: "../../assets/logo/Consultations_des_comptes.png",
+         description: "avance salaire agent...",
+         backColor: "#e29578",
+         link: "/avance-salaire",
+         right: this.agent.bDroit_HistoriqueVersementsCaisses
+       },
       // {
       //   desination: "Historique des retraits de caisses",
       //   logo: "../../assets/logo/Consultations_des_comptes.png",

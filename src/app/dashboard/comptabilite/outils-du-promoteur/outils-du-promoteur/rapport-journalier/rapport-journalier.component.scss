@@ -13,6 +13,21 @@
 }
 
 
+thead tr, thead, th {
+  border: none;
+  padding: 0.05em;
+  text-align: center;
+  background: #ccc;
+  font-size: 0.9em;
+  }
+  
+  tbody tr, td{
+    text-align: center;
+    padding: 0.1em;
+    font-size: 0.9em;
+    }
+
+
 $primary-color:#7b4bce;
 $secondary-color: #8cbec6;
 

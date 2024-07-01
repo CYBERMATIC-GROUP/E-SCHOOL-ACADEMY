@@ -25,8 +25,8 @@ export class RapportJournalierComponent {
   displayedColumns: string[] = [
     'Date',
     'Nature',
-    'MontantDebit',
     'MontantCredit',
+    'MontantDebit',
     'Solde'
   ];
   
