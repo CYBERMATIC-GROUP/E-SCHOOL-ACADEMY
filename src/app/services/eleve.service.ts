@@ -174,7 +174,7 @@ export class EleveService {
   }
 
   getPrametresEleve(): Observable<any> {
-    return this.globalService.setHttpRequest('/ParametreVersListe','GET',{},Headers);
+    return this.globalService.setHttpRequest('ParametreVersListe','GET',{},Headers);
   }
 
   update(eleve: Eleve): Observable<Eleve> {

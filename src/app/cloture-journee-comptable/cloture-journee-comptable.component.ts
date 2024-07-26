@@ -70,8 +70,8 @@ export class ClotureJourneeComptableComponent {
       const headr: header = JSON.parse(headrObj)
       if (headr.DATE_COMPTABLE){
         const dateStr = headr.DATE_COMPTABLE
-        const formattedDate = `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6)}`;
-        this.dateComptable = formattedDate
+        // const formattedDate = `${dateStr.slice(0, 4)}-${dateStr.slice(4, 6)}-${dateStr.slice(6)}`;
+        this.dateComptable = dateStr
       }else{
         this.dateComptable = this.globalService.getCurrentDateForInput()
       }

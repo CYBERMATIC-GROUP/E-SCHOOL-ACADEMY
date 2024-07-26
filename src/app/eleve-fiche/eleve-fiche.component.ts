@@ -185,17 +185,39 @@ export class EleveFicheComponent {
       console.log(data);
     });
   
-    this.departementsList$ = params$.pipe(map((data) => data.DEPARTEMENT));
-    this.nationaliteList$ = params$.pipe(map((data) => data.NATIONALITE));
-    this.siteList$ = params$.pipe(map((data) => data.SITE));
-    this.cycleList$ = params$.pipe(map((data) => data.CYCLES));
-    this.statutElevesList$ = params$.pipe(map((data) => data.STATUTELEVE));
-    this.etatSanitairesList$ = params$.pipe(map((data) => data.ETAT_SANITAIRE));
-    this.professionList$ = params$.pipe(map((data) => data.PROFESSION));
-    this.etablissementList$ = params$.pipe(map((data) => data.ETABLISSEMENT));
-    this.langueVivantes$ = params$.pipe(map((data) => data.LANGUE));
+    // Fonction pour filtrer les objets vides
+    const filterEmptyObjects = (arr: any[], keys: string[]) => {
+      return arr.filter(item => keys.every(key => item[key] !== undefined && item[key] !== null && item[key] !== ''));
+    };
+  
+    this.departementsList$ = params$.pipe(
+      map((data) => filterEmptyObjects(data.DEPARTEMENT, ['IDDEPARTEMENT', 'Fr_Libelle']))
+    );
+    this.nationaliteList$ = params$.pipe(
+      map((data) => filterEmptyObjects(data.NATIONALITE, ['IDNATIONALITE', 'Libelle']))
+    );
+    this.siteList$ = params$.pipe(
+      map((data) => filterEmptyObjects(data.SITE, ['IDSITE', 'Libelle']))
+    );
+    this.cycleList$ = params$.pipe(
+      map((data) => filterEmptyObjects(data.CYCLES, ['IDCYCLES', 'Libelle']))
+    );
+    this.statutElevesList$ = params$.pipe(
+      map((data) => filterEmptyObjects(data.STATUTELEVE, ['IDSTATUTELEVE', 'Fr_Libelle']))
+    );
+    this.etatSanitairesList$ = params$.pipe(
+      map((data) => filterEmptyObjects(data.ETAT_SANITAIRE, ['IDETAT_SANITAIRE', 'Fr_Libelle']))
+    );
+    this.professionList$ = params$.pipe(
+      map((data) => filterEmptyObjects(data.PROFESSION, ['IDPROFESSION', 'Fr_Libelle']))
+    );
+    this.etablissementList$ = params$.pipe(
+      map((data) => filterEmptyObjects(data.ETABLISSEMENT, ['IDETABLISSEMENT', 'Fr_Nom']))
+    );
+    this.langueVivantes$ = params$.pipe(
+      map((data) => filterEmptyObjects(data.LANGUE, ['IDLANGUE', 'Fr_Libelle']))
+    );
   }
-
 
 
 

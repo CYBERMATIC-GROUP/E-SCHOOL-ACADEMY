@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
         right: true
       },
       {
-        desination: "Documents élèves",
+        desination: "Imprimer les documents des élèves",
         logo: "Certificat.png",
         description: "Certificats/Cartes/Fiches...",
         backColor: "#e29578",

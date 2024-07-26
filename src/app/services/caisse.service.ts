@@ -15,6 +15,7 @@ export class CaisseService {
   Cloture_Decloture_Caisse = 'COMPTA_Cloture_Decloture_Caisse';
   imprimeclotureCaisse = 'COMPTA_Imprime_Cloture_Caisse';
   modePayement = 'COMPTA_MODE_PAIEMENT'
+  uriactualisesolde = "AGENT_ActualiseSoldeCaisse"
 
   constructor(private http: HttpClient, private globalService: GlobalService) {}
 
@@ -43,6 +44,10 @@ export class CaisseService {
 
   getModePayement() {
     return this.globalService.setHttpRequest(this.modePayement,'GET',{},Headers);
+  }
+
+  getSolderefresh(){
+    return this.globalService.setHttpRequest(this.uriactualisesolde,'GET',{},Headers);
   }
 
   update(caisse: Caisse): Observable<Caisse> {

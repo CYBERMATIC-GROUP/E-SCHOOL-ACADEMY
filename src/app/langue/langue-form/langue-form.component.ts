@@ -26,7 +26,7 @@ export class LangueFormComponent {
   isLoadingpage!:boolean
   
   isFormValid(): any {
-    return this.Fr_Libelle && this.NumOrdre;
+    // return this.Fr_Libelle && this.NumOrdre;
   }
   
   constructor(
